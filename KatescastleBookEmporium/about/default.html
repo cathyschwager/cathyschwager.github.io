@@ -9,6 +9,49 @@
 <title>About Us</title>
 		<!-- #EndEditable -->
 		<link href="../styles/style2.css" rel="stylesheet" type="text/css" />
+		
+		<style>
+
+		
+			.CenterVertically
+			{
+ 				position: relative;
+  				top: 50%;
+  				-ms-transform: translateY(-50%);
+  				transform: translateY(-50%);
+  			}
+  			.Logo
+  			{
+				display:inline-block;
+				float:left;
+				border-style:solid;
+				border-color:black;
+				border-width:1px;
+				border-radius:50px;
+				overflow:hidden;
+			}
+			.Title
+			{
+				display:inline-block;
+				float:left;
+				padding-left:20px;
+				width:72%;
+				text-align:left;
+				font-size:30px;
+				color:navy;
+				/*background-color:blue;*/		
+			}
+			.Contact
+			{
+				display:inline-block;
+				float:right;
+				text-align:left;
+				font-size:small;
+				/*background-color:red;*/
+			}
+			
+		</style>
+		
 	</head>
 	
 	<body>
@@ -17,10 +60,18 @@
 		<div id="container">
 			<!-- Begin Masthead -->
 			<div id="masthead">
-				<img alt="" height="66" src="../images/logo.gif" width="150" />
-				<p>office (000) 000-0000<br />
-				fax (000) 000-0000<br />
-				toll-free (000) 000-0000</p>
+				<div class="CenterVertically Logo" >
+					<img alt="" height="100" src="../images/Logo.jpg" />
+				</div>
+				<div class="CenterVertically Title">
+					<h1 style="display:inline;">Katescastle Book Emporium</h1><br/>
+					<h6 style="display:inline;"><b>ABN:</b> 81 431 577 147</h6>
+				</div>
+				<div class="CenterVertically Contact">
+					<b>Phone:</b> 0447 817 687<br />
+					<b>Email:</b> katescastle@ozemail.com.au<br />
+					<b>Facebook:</b> Katescastle Book Emporium <br />
+				</div>
 			</div>
 			<!-- End Masthead -->
 			<!-- Begin Page Content -->

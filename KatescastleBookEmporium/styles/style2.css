@@ -11,9 +11,10 @@ body {
 }
 #masthead {
 	width: 100%;
-	overflow: auto;
+	overflow: hidden;
 	text-align: right;
 	background-color: #c5d5e5;
+	height:150px;
 }
 #page_content {
 	position: relative;
