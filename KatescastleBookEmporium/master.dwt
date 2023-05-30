@@ -27,12 +27,13 @@
 				border-radius:50px;
 				overflow:hidden;
 				margin-left:5px;
+				margin-right:5px;
 			}
 			.Title
 			{
 				display:inline-block;
 				float:left;
-				padding-left:5px;
+				padding-left:20px;
 				width:72%;
 				text-align:left;
 				font-size:30px;
@@ -106,7 +107,7 @@
 				<!-- Begin Content -->
 				<div id="content">
 					<!-- #BeginEditable "content" -->
-					<h2>This site is currently under construction.</h2>
+					<h2>Headline 2</h2>
 					<p>insert content here</p>
 					<!-- #EndEditable --></div>
 				<!-- End Content --></div>
