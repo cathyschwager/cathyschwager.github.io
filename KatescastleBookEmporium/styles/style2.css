@@ -21,7 +21,7 @@ body {
 #page_content {
 	position: relative;
 	overflow: hidden;
-	height: 480px;
+	height: 470px;
 }
 #sidebar {
 	display:inline-block;
@@ -30,7 +30,7 @@ body {
 	width: 140px;
 	background-color: #cb8;
 	overflow-y: auto;
-	height: 480px;
+	height: 470px;
 	width: 220px;
 }
 #content {
