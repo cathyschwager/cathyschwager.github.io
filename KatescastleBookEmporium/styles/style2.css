@@ -3,6 +3,8 @@ body {
 	font-family: Arial, sans-serif;
 	font-size: medium;
 	color: #000;
+	overflow: hidden;
+	height: 100000px;
 }
 #container {
 	width: 100%;
@@ -18,17 +20,25 @@ body {
 }
 #page_content {
 	position: relative;
+	overflow: hidden;
+	height: 490px;
 }
 #sidebar {
+	display:inline-block;
 	position: relative;
 	float: left;
 	width: 140px;
 	background-color: #cb8;
+	overflow: auto;
+	height: 490px;
+	width: 220px;
 }
 #content {
 	margin-left: 140px;
 	padding: 10px;
 	background-color: #fff;
+	height: 490px;
+	overflow: scroll;
 }
 #footer {
 	clear: both;

@@ -26,13 +26,8 @@
 				border-width:1px;
 				border-radius:50px;
 				overflow:hidden;
-<<<<<<< HEAD
 				margin-left:10px;
 				margin-right:10px;
-=======
-				margin-left:5px;
-				margin-right:5px;
->>>>>>> 7420b0e0bca81dd0c77e72cbab3eea4a52fde4fc
 			}
 			.Title
 			{
@@ -97,15 +92,27 @@
 			<!-- Begin Page Content -->
 			<div id="page_content">
 				<!-- Begin Sidebar -->
+				
 				<div id="sidebar">
 					<ul>
 						<li><a href="index.htm">Home</a></li>
-						<li><a href="about/default.html">About</a></li>
-						<li><a href="news/default.html">News</a></li>
-						<li><a href="products/default.html">Products</a></li>
-						<li><a href="services/default.html">Services</a></li>
-						<li><a href="calendar/default.html">Calendar</a></li>
-						<li><a href="contact/default.html">Contact</a></li>
+						<p>&nbsp;<b><u>FICTION</u></b></p>
+						<li><a href="Fiction/Action&Adventure/default.html">Action</a></li>
+						<li><a href="Fiction/Crime/default.html">Crime</a></li>
+						<li><a href="Fiction/Drama/default.html">Drama</a></li>
+						<li><a href="Fiction/Fantasy/default.html">Fantasy</a></li>
+						<li><a href="Fiction/Historical/default.html">Historical</a></li>
+						<li><a href="Fiction/Horror/default.html">Horror</a></li>
+						<li><a href="Fiction/Romance/default.html">Political</a></li>
+						<li><a href="Fiction/Romance/default.html">Romance</a></li>
+						<li><a href="Fiction/ScienceFiction/default.html">Science</a></li>
+						<p>&nbsp;<b><u>NON-FICTION</u></b></p>
+						<li><a href="NonFiction/Biographies/default.html">Biographies</a></li>
+						<li><a href="NonFiction/Crafts/default.html">Crafts</a></li>
+						<li><a href="NonFiction/Culture/default.html">Culture</a></li>
+						<li><a href="NonFiction/Handyman/default.html">Handyman</a></li>
+						<li><a href="NonFiction/History/default.html">History</a></li>
+						<li><a href="NonFiction/Science/default.html">Science</a></li>
 					</ul>
 				</div>
 				<!-- End Sidebar -->
@@ -114,25 +121,29 @@
 					<!-- #BeginEditable "content" -->
 					<h2>Headline 2</h2>
 					<p>insert content here</p>
-					<!-- #EndEditable --></div>
-				<!-- End Content --></div>
+					<!-- #EndEditable -->
+				</div>
+				<!-- End Content -->
+			</div>
 			<!-- End Page Content -->
 			<!-- Begin Footer -->
 			<div id="footer">
-				<p><a href="index.htm">Home</a> | <a href="about/default.html">About</a> 
-				| <a href="calendar/default.html">Calendar</a> |
-				<a href="contact/default.html">Contact</a> |
-				<a href="employees/default.html">Employees</a> |
-				<a href="employment/default.html">Employment</a> |
-				<a href="faq/default.html">FAQ</a> |
-				<a href="information_links/default.html">Information Links</a><br />
-				<a href="news/default.html">News</a> |
-				<a href="photo_gallery/default.html">Photo Gallery</a> |
-				<a href="press/default.html">Press</a> | <a href="products/default.html">
-				Products</a> | <a href="promotions/default.html">Promotions</a> |
-				<a href="services/default.html">Services</a> |
-				<a href="site_map/default.html">Site Map</a><br />
-				Copyright &copy; 2005 Company Name. All Rights Reserved.</p>
+				<p><a href="index.htm">Home</a> | 
+				<a href="Fiction/Horror/default.html">About</a> 
+				| <a href="Fiction/ScienceFiction/default.html">Calendar</a> |
+				<a href="Fiction/Fantasy/default.html">Contact</a> |
+				<a href="Fiction/Romance/default.html">Employees</a> |
+				<a href="Fiction/Historical/default.html">Employment</a> |
+				<a href="Fiction/Crime/default.html">FAQ</a> |
+				<a href="Fiction/Action&Adventure/default.html">Information Links</a><br />
+				<a href="Fiction/Drama/default.html">News</a> |
+				<a href="Fiction/Political/default.html">Photo Gallery</a> |
+				<a href="NonFiction/Culture/default.html">Press</a> | 
+				<a href="NonFiction/Science/default.html">
+				Products</a> | <a href="NonFiction/History/default.html">Promotions</a> |
+				<a href="NonFiction/Biographies/default.html">Services</a> |
+				<a href="NonFiction/Crafts/default.html">Site Map</a><br />
+				Copyright &copy; 2023 Cathy Schwagger. All Rights Reserved.</p>
 			</div>
 			<!-- End Footer --></div>
 		<!-- End Container -->
