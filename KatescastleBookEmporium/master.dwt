@@ -26,8 +26,13 @@
 				border-width:1px;
 				border-radius:50px;
 				overflow:hidden;
+<<<<<<< HEAD
+				margin-left:10px;
+				margin-right:10px;
+=======
 				margin-left:5px;
 				margin-right:5px;
+>>>>>>> 7420b0e0bca81dd0c77e72cbab3eea4a52fde4fc
 			}
 			.Title
 			{
