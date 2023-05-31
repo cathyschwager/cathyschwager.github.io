@@ -30,14 +30,15 @@ body {
 	width: 140px;
 	background-color: #cb8;
 	overflow-y: auto;
-	height: 420px;
+	overflow-x: hidden;
+	height: 418px;
 	width: 220px;
 }
 #content {
 	margin-left: 140px;
 	padding: 10px;
 	background-color: #fff;
-	height: 420px;
+	height: 414px;
 	overflow: scroll;
 }
 #footer {
