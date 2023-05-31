@@ -3,8 +3,8 @@ body {
 	font-family: Arial, sans-serif;
 	font-size: medium;
 	color: #000;
-	overflow: hidden;
-	height: 100000px;
+	overflow: auto;
+	height: 100%;
 }
 #container {
 	width: 100%;
