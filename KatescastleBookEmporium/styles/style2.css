@@ -35,6 +35,8 @@ body {
 	width: 220px;
 }
 #content {
+	position: relative;
+	top: -15px;
 	margin-left: 140px;
 	padding: 10px;
 	background-color: #fff;
@@ -62,6 +64,44 @@ body {
 h1,h2,h3,h4,h5,h6 {
 	font-family: Arial Black;
 }
+.PageHeading
+{
+	margin-top: 0px;
+	margin-bottom: 10px;
+	background-color:white;
+}
+
+#TOC a
+{
+	display: inline-block;
+	position: relative;
+	background-color: #cb8;
+	margin-left: 0px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	width: 150px;
+	padding-bottom: 5px;
+	text-align: center;
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+}
+
+#TOC a:hover
+{
+	display: inline-block;
+	position: relative;
+	background-color: #dc9;
+	margin-left: 0px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+	width: 150px;
+	padding-bottom: 5px;
+	text-align: center;
+	font-weight: bold;
+	text-decoration: none;
+	color: black;
+}
 /* Styles for Navigation */
 #sidebar ul {
 	list-style-type: none;
@@ -77,17 +117,22 @@ h1,h2,h3,h4,h5,h6 {
 #sidebar a {
 	font-weight: bold;
 	text-decoration: none;
-	color: #393939;
-	padding: 5%;
-	display: block;
-	border-bottom: 1px solid #f5f5f5;
+	/*color: #393939;*/
+	color: rgb(105,105,105);
+	padding-left: 5%;
+	padding-top: 1%;
+	display: inline-block;
+	/*border-bottom: 1px solid #f5f5f5;*/
+	width:90%;
 }
 #sidebar a:hover {
 	font-weight: bold;
 	text-decoration: none;
-	color: #393939;
-	border-bottom: 1px solid #f5f5f5;
+	/*color: #393939;*/
+	color: rgb(105,105,105);
+	/*border-bottom: 1px solid #f5f5f5;*/
 	background-color: #dc9;
+	width:90%;
 }
 /* Styles for Footer */
 #footer p {

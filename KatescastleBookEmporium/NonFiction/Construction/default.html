@@ -68,9 +68,57 @@
 				display:inline-block;
 				margin:10px;
 			}
-									
+					
 		</style>
 		
+			<script type="text/javascript">
+								
+				function GenerateMenu()
+				{
+					var nNumLinks = 0;
+					var nMaxLinks = 6;
+
+					for (var nI = 0; nI < arrayBookmarks.length; nI++)
+					{
+						if (arrayBookmarks[nI].length > 0)
+						{
+							document.write("<a href=\"#" + arrayBookmarks[nI] + "\">" + arrayBookmarks[nI] + "</a>");
+						}
+						nNumLinks = nI + 1;
+						if ((nNumLinks % nMaxLinks) == 0)
+						{
+							document.write("<br/>");
+						}
+					}
+				}
+				
+				function GeneratePageHeading()
+				{
+					document.write("<br/><h2 id=\"Top\" class=\"PageHeading\">&nbsp;<u>" + document.title + "</u></h2><br/>");
+				}
+				
+				function ScrollTopContent()
+				{
+					document.getElementById("content").scrollTop = -100;
+				}
+				
+				function GenerateTopButton()
+				{
+					document.write("<div id=\"TOC\"><a href=\"#Top\">Go To Top</a></div>");
+				}
+								
+			</script>
+			
+			<!-- #BeginEditable "Subcategories" -->
+
+				<script type="text/javascript">
+
+					var arrayBookmarks = [];
+					
+				</script>
+				
+			<!-- #EndEditable -->
+			
 	</head>
 	
 	<body>
@@ -104,49 +152,47 @@
 						<li><a href="../../Facebook/default.html">Facebook</a></li>
 						<p>&nbsp;<b><u>FICTION</u></b></p>
 						<li>
-						<a style="color:rgb(105,105,105);" href="../../Fiction/Action&Adventure/default.html">Action</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../../Fiction/Crime/default.html">Crime</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../../Fiction/Drama/default.html">Drama</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../../Fiction/Fantasy/default.html">Fantasy</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../../Fiction/Historical/default.html">Historical</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../../Fiction/Horror/default.html">Horror</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../../Fiction/Romance/default.html">Political</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../../Fiction/Romance/default.html">Romance</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../../Fiction/ScienceFiction/default.html">Science</a></li>
+						<a href="../../Fiction/Action&Adventure/default.html">Action</a></li>
+						<li><a href="../../Fiction/Crime/default.html">Crime</a></li>
+						<li><a href="../../Fiction/Drama/default.html">Drama</a></li>
+						<li><a href="../../Fiction/Fantasy/default.html">Fantasy</a></li>
+						<li><a href="../../Fiction/Historical/default.html">Historical</a></li>
+						<li><a href="../../Fiction/Horror/default.html">Horror</a></li>
+						<li><a href="../../Fiction/Romance/default.html">Political</a></li>
+						<li><a href="../../Fiction/Romance/default.html">Romance</a></li>
+						<li><a href="../../Fiction/ScienceFiction/default.html">Science</a></li>
 						<p>&nbsp;<b><u>NON-FICTION</u></b></p>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../Biographies/default.html">Biographies</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="default.html">Construction</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../Crafts/default.html">Crafts</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../Culture/default.html">Culture</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../Food/default.html">Food</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../Handyman/default.html">Handyman</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../History/default.html">History</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../Nature/default.html">Nature</a></li>
-						<li>
-						<a style="color:rgb(105,105,105);" href="../Science/default.html">Science</a></li>
+						<li><a href="../Biographies/default.html">Biographies</a></li>
+						<li><a href="default.html">Construction</a></li>
+						<li><a href="../Crafts/default.html">Crafts</a></li>
+						<li><a href="../Culture/default.html">Culture</a></li>
+						<li><a href="../Engineering/default.html">Engineering</a></li>
+						<li><a href="../Food/default.html">Food</a></li>
+						<li><a href="../Geography/default.html">Geography</a></li>
+						<li><a href="../Handyman/default.html">Handyman</a></li>
+						<li><a href="../History/default.html">History</a></li>
+						<li><a href="../Maths/default.html">Maths</a></li>
+						<li><a href="../Nature/default.html">Nature</a></li>
+						<li><a href="../Politics/default.html">Politics</a></li>
+						<li><a href="../Travel/default.html">Travel</a></li>
+						<li><a href="../Science/default.html">Science</a></li>
 					</ul>
 				</div>
 				<!-- End Sidebar -->
 				<!-- Begin Content -->
 				<div id="content">
+					<script type="text/javascript">GeneratePageHeading();</script>
+					<div id="TOC">
+						<script type="text/javascript">GenerateMenu();</script>
+					</div>
 					<!-- #BeginEditable "content" -->
-			<h2>Construction</h2>
+					
+					<script type="text/javascript">
+
+						var arrayBookmarks = [];
+						
+					</script>
+				<p>&nbsp;</p>
 			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque 
 			ornare ipsum at erat. Quisque elementum tempus urna. Donec ornare fringilla 
 			erat. Phasellus gravida lectus vel dui. Fusce eget justo at odio posuere 
@@ -159,6 +205,8 @@
 			<p>Service Name<br />
 			Service Description<br />
 			$Price</p>
+					<p>insert content here</p>
+					
 					<!-- #EndEditable -->
 				</div>
 				<!-- End Content -->
@@ -191,6 +239,16 @@
 		<!-- End Container -->
 		
 	</body>
+
+	<footer>
+		
+		<script type="text/javascript">
+		
+			ScrollTopContent();
+			
+		</script>
+	
+	</footer>
 
 <!-- #EndTemplate -->
 
