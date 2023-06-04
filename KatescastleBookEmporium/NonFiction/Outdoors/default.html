@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- #BeginTemplate "../../master.dwt" -->
+
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<!-- #BeginEditable "doctitle" -->
+		<title>Outdoors</title>
+		<!-- #EndEditable -->
+		<link href="../../styles/style2.css" rel="stylesheet" type="text/css" />
+		
+		<style>
+
+		
+			.CenterVertically
+			{
+ 				position: relative;
+  				top: 50%;
+  				-ms-transform: translateY(-50%);
+  				transform: translateY(-50%);
+  			}
+  			.Logo
+  			{
+				display:inline-block;
+				float:left;
+				border-style: none;
+				border-color: black;
+				border-width: 1px;
+				/*border-radius:50px;*/
+				overflow:hidden;
+				margin-left:10px;
+				margin-right:10px;
+			}
+			.Title
+			{
+				display:inline-block;
+				float:left;
+				padding-left:20px;
+				width:68%;
+				text-align:left;
+				font-size:26px;
+				color:navy;
+				/*background-color:blue;*/		
+			}
+			.Contact
+			{
+				display:inline-block;
+				float:right;
+				text-align:left;
+				font-size:small;
+				margin-right: 15px;
+				/*background-color:red;*/
+			}
+			.FloatLeft
+			{
+				float:left;
+				margin:5px;
+				position: relative;
+
+			}
+			.FloatRight
+			{
+				float:right;
+				margin:5px;
+				position: relative;
+			}
+			.ImageDisplayBlock
+			{
+				display:inline-block;
+				margin:5px;
+			}
+					
+ 		</style>
+ 		<!-- #BeginEditable "PageStyles" -->
+
+		<style>
+</style>		
+		<!-- #EndEditable -->
+
+		
+			<script type="text/javascript">
+								
+				function GenerateMenu()
+				{
+					var nNumLinks = 0;
+					var nMaxLinks = 6;
+
+					for (var nI = 0; nI < arrayBookmarks.length; nI++)
+					{
+						if (arrayBookmarks[nI].length > 0)
+						{
+							document.write("<a href=\"#" + arrayBookmarks[nI] + "\">" + arrayBookmarks[nI] + "</a>");
+						}
+						nNumLinks = nI + 1;
+						if ((nNumLinks % nMaxLinks) == 0)
+						{
+							document.write("<br/>");
+						}
+					}
+				}
+				
+				function GeneratePageHeading()
+				{
+					document.write("<br/><h2 id=\"Top\" class=\"PageHeading\">&nbsp;<u>" + document.title + "</u></h2><br/>");
+				}
+				
+				function ScrollTopContent()
+				{
+					document.getElementById("content").scrollTop = -100;
+				}
+				
+				function GenerateTopButton()
+				{
+					document.write("<div id=\"TOC\"><a href=\"#Top\">Go To Top</a></div>");
+				}
+								
+			</script>
+			
+			<!-- #BeginEditable "Subcategories" -->
+
+				<script type="text/javascript">
+
+					var arrayBookmarks = [];
+					
+				</script>
+				
+			<!-- #EndEditable -->
+			
+	</head>
+	
+	<body>
+	
+		<!-- Begin Container -->
+		<div id="container">
+			<!-- Begin Masthead -->
+			<div id="masthead">
+				<div class="CenterVertically Logo" >
+					<img alt="" height="100" src="../../images/Logo.png" />
+				</div>
+				<div class="CenterVertically Title">
+					<h1 style="display:inline;">KATESCASTLE Book Emporium</h1><br/>
+					<h6 style="display:inline;"><b>ABN:</b> 81 431 577 147</h6>
+				</div>
+				<div class="CenterVertically Contact">
+					<b>Phone:</b> 0447 817 687<br />
+					<b>Email:</b> katescastle at ozemail.com.au<br />
+					<b>Facebook:</b> Katescastle Book Emporium <br />
+				</div>
+			</div>
+			<!-- End Masthead -->
+			<!-- Begin Page Content -->
+			<div id="page_content">
+				<!-- Begin Sidebar -->
+				
+				<div id="sidebar">
+					<ul>
+						<li><a href="../../index.htm">Home</a></li>
+						<li><a href="../../Emporium/default.html">Emporium</a></li>
+						<li><a href="../../Requests/default.html">Requests</a></li>
+						<li><a href="../../Children/default.html">Children</a></li>
+						<li><a href="../../Young%20Adults/default.html">Young Adults</a></li>
+						<li><a href="../../Facebook/default.html">Facebook</a></li>
+						<li><a href="../../FAQ/default.html">FAQ</a></li>
+						<p>&nbsp;<b><u>FICTION</u></b></p>
+						<li><a href="../../Fiction/Action/default.html">Action</a></li>
+						<li><a href="../../Fiction/Crime/default.html">Crime</a></li>
+						<li><a href="../../Fiction/Fantasy/default.html">Fantasy</a></li>
+						<li><a href="../../Fiction/General/default.html">General</a></li>
+						<li><a href="../../Fiction/Horror/default.html">Horror</a></li>
+						<li><a href="../../Fiction/Mystery/default.html">Mystery</a></li>
+						<li><a href="../../Fiction/Romance/default.html">Romance</a></li>
+						<li><a href="../../Fiction/Sagas/default.html">Sagas</a></li>
+						<li>
+						<a href="../../Fiction/Sci-Fi%20Fantasy/default.html">Sci-Fi Fantasy</a></li>
+						<li><a href="../../Fiction/Thrillers/default.html">Thrillers</a></li>
+						<li><a href="../../Fiction/Westerns/default.html">Westerns</a></li>
+						<p>&nbsp;<b><u>NON-FICTION</u></b></p>
+						<li><a href="../Arts/default.html">Arts</a></li>
+						<li><a href="../AutoBiographies/default.html">Auto/Biography</a></li>
+						<li><a href="../Cooking/default.html">Cooking</a></li>
+						<li><a href="../Crafts/default.html">Crafts</a></li>
+						<li><a href="../Education/default.html">Education</a></li>
+						<li><a href="../Gardening/default.html">Gardening</a></li>
+						<li><a href="../Health/default.html">Health</a></li>
+						<li><a href="../Hobbies/default.html">Hobbies</a></li>
+						<li><a href="../Humour/default.html">Humour</a></li>
+						<li><a href="../Outdoor/default.html">Outdoors</a></li>
+						<li><a href="../Reference/default.html">Reference</a></li>
+						<li><a href="../Religion/default.html">Religion</a></li>
+						<li><a href="../Sports/default.html">Sports</a></li>
+						<li><a href="../Technology/default.html">Technology</a></li>
+						<li><a href="../Travel/default.html">Travel</a></li>
+						<li><a href="../World/default.html">World</a></li>
+					</ul>
+				</div>
+				<!-- End Sidebar -->
+				<!-- Begin Content -->
+				<div id="content">
+					
+					<img class="ImageDisplayBlock" alt="" height="200" src="../../images/SiteUnderConstruction.png" />
+					<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Site it under construction...</h4><br/>
+
+					<script type="text/javascript">GeneratePageHeading();</script>
+					<div id="TOC">
+						<script type="text/javascript">GenerateMenu();</script>
+					</div>
+					<!-- #BeginEditable "content" -->
+					
+					<script type="text/javascript">
+
+						var arrayBookmarks = [];
+						
+					</script>
+				<p>&nbsp;</p>
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque 
+			ornare ipsum at erat. Quisque elementum tempus urna. Donec ornare fringilla 
+			erat. Phasellus gravida lectus vel dui. Fusce eget justo at odio posuere 
+			dignissim.</p>
+			<img alt="" height="143" src="images/briefcase.jpg" width="216" />
+			<p>Promotion Name<br />
+			Promotion Description<br />
+			$Price</p>
+			<img alt="" height="143" src="images/briefcase.jpg" width="216" />
+			<p>Promotion Name<br />
+			Promotion Description<br />
+			$Price</p>
+					<p>insert content here</p>
+					
+					<!-- #EndEditable -->
+				</div>
+				<!-- End Content -->
+			</div>
+			<!-- End Page Content -->
+			<!-- Begin Footer -->
+			<div id="footer">
+				<p class="FloatLeft" style="font-size:small;margin:10px;">
+					<a href="../../index.htm">Home</a> | 
+					<a href="../../Fiction/Horror/default.html">About</a> 
+					<a href="../../Fiction/Sci-Fi%20Fantasy/default.html">Calendar</a> |
+					<a href="../../Fiction/Fantasy/default.html">Contact</a> |
+					<a href="../../Fiction/Romance/default.html">Employees</a> |
+					<a href="../../Fiction/Historical/default.html">Employment</a> |
+					<a href="../../Fiction/Crime/default.html">FAQ</a> |
+					<a href="../../Fiction/Action/default.html">Information Links</a><br />
+					<a href="../../Fiction/Drama/default.html">News</a> |
+					<a href="../../Fiction/Political/default.html">Photo Gallery</a> |
+					<a href="../Culture/default.html">Press</a> | 
+					<a href="../Science/default.html">
+					Products</a> | <a href="../History/default.html">Promotions</a> |
+					<a href="../AutoBiographies/default.html">Services</a> |
+					<a href="../Crafts/default.html">Site Map</a><br />
+				</p>
+				<p class="FloatRight" style="font-size:small;margin:20px;">
+					<b>Copyright &copy; 2023 Cathy Schwager. All Rights Reserved.</b>
+				</p>
+			</div>
+			<!-- End Footer --></div>
+		<!-- End Container -->
+		
+	</body>
+
+	<footer>
+		
+		<script type="text/javascript">
+		
+			ScrollTopContent();
+			
+		</script>
+	
+	</footer>
+
+<!-- #EndTemplate -->
+
+</html>
