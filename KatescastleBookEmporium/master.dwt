@@ -167,7 +167,7 @@
 							<div class="MenuPopup NonFictionPopup" id="MenuPopup" name="NonFictionPopupMenu">
 								<ul>
 									<li class="MenuPopupItem"><a href="NonFiction/Arts/default.html">Arts</a></li>
-									<li class="MenuPopupItem"><a href="NonFiction/AutoBiography/default.html">Auto/Biography</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/AutoBiographies/default.html">Auto/Biography</a></li>
 									<li class="MenuPopupItem"><a href="NonFiction/Cooking/default.html">Cooking</a></li>
 									<li class="MenuPopupItem"><a href="NonFiction/Crafts/default.html">Crafts</a></li>
 									<li class="MenuPopupItem"><a href="NonFiction/Education/default.html">Education</a></li>
