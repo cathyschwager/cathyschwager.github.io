@@ -11,67 +11,7 @@
 		<link href="../styles/style2.css" rel="stylesheet" type="text/css" />
 		
 		<style>
-
-		
-			.CenterVertically
-			{
- 				position: relative;
-  				top: 50%;
-  				-ms-transform: translateY(-50%);
-  				transform: translateY(-50%);
-  			}
-  			.Logo
-  			{
-				display:inline-block;
-				float:left;
-				border-style: none;
-				border-color: black;
-				border-width: 1px;
-				/*border-radius:50px;*/
-				overflow:hidden;
-				margin-left:10px;
-				margin-right:10px;
-			}
-			.Title
-			{
-				display:inline-block;
-				float:left;
-				padding-left:20px;
-				width:68%;
-				text-align:left;
-				font-size:26px;
-				color:navy;
-				/*background-color:blue;*/		
-			}
-			.Contact
-			{
-				display:inline-block;
-				float:right;
-				text-align:left;
-				font-size:small;
-				margin-right: 15px;
-				/*background-color:red;*/
-			}
-			.FloatLeft
-			{
-				float:left;
-				margin:5px;
-				position: relative;
-
-			}
-			.FloatRight
-			{
-				float:right;
-				margin:5px;
-				position: relative;
-			}
-			.ImageDisplayBlock
-			{
-				display:inline-block;
-				margin:5px;
-			}
-					
- 		</style>
+</style>
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
@@ -114,7 +54,52 @@
 				{
 					document.write("<div id=\"TOC\"><a href=\"#Top\">Go To Top</a></div>");
 				}
+				
+				var bFictionPopupMenu = false, bNonFictionPopupMenu = false;
 								
+				function DoToggleFictionPopupMenu()
+				{
+					var strPopupName = "FictionPopupMenu";
+			
+					if (document.getElementsByName(strPopupName) !== null)
+					{
+						if (bFictionPopupMenu)
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "none";
+						}
+						else
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "block";
+						}
+						bFictionPopupMenu = !bFictionPopupMenu;
+					}
+					else
+					{
+						alert("No such object with name '" + strPopupName + "'!");
+					}
+				}
+								
+				function DoToggleNonFictionPopupMenu()
+				{
+					var strPopupName = "NonFictionPopupMenu";
+					
+					if (document.getElementsByName(strPopupName)!== null)
+					{
+						if (bNonFictionPopupMenu)
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "none";
+						}
+						else
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "block";
+						}
+						bNonFictionPopupMenu = !bNonFictionPopupMenu;
+					}
+					else
+					{
+						alert("No such object with name '" + strPopupName + "'!");
+					}
+				}
 			</script>
 			
 			<!-- #BeginEditable "Subcategories" -->
@@ -154,38 +139,78 @@
 				<!-- Begin Sidebar -->
 				
 				<div id="sidebar">
+					<h1 style="display:none" id="top">INVISIBLE</h1>
+					
 					<ul>
 						<li><a href="../index.htm">Home</a></li>
 						<li><a href="default.html">FAQ</a></li>
 						<li><a href="../Emporium/default.html">Emporium</a></li>
 						<li><a href="../Requests/default.html">Requests</a></li>
 						<li><a href="../Facebook/default.html">Facebook</a></li>
-						<p>&nbsp;<b><u>FICTION</u></b></p>
-						<li><a href="../Fiction/Action&Adventure/default.html">Action</a></li>
-						<li><a href="../Fiction/Crime/default.html">Crime</a></li>
-						<li><a href="../Fiction/Drama/default.html">Drama</a></li>
-						<li><a href="../Fiction/Fantasy/default.html">Fantasy</a></li>
-						<li><a href="../Fiction/Historical/default.html">Historical</a></li>
-						<li><a href="../Fiction/Horror/default.html">Horror</a></li>
-						<li><a href="../Fiction/Romance/default.html">Political</a></li>
-						<li><a href="../Fiction/Romance/default.html">Romance</a></li>
-						<li><a href="../Fiction/ScienceFiction/default.html">Science</a></li>
-						<p>&nbsp;<b><u>NON-FICTION</u></b></p>
-						<li><a href="../NonFiction/Biographies/default.html">Biographies</a></li>
-						<li><a href="../NonFiction/Construction/default.html">Construction</a></li>
-						<li><a href="../NonFiction/Crafts/default.html">Crafts</a></li>
-						<li><a href="../NonFiction/Culture/default.html">Culture</a></li>
-						<li><a href="../NonFiction/Engineering/default.html">Engineering</a></li>
-						<li><a href="../NonFiction/Food/default.html">Food</a></li>
-						<li><a href="../NonFiction/Geography/default.html">Geography</a></li>
-						<li><a href="../NonFiction/Handyman/default.html">Handyman</a></li>
-						<li><a href="../NonFiction/History/default.html">History</a></li>
-						<li><a href="../NonFiction/Maths/default.html">Maths</a></li>
-						<li><a href="../NonFiction/Nature/default.html">Nature</a></li>
-						<li><a href="../NonFiction/Politics/default.html">Politics</a></li>
-						<li><a href="../NonFiction/Sports/default.html">Sports</a></li>
-						<li><a href="../NonFiction/Travel/default.html">Travel</a></li>
-						<li><a href="../NonFiction/Science/default.html">Science</a></li>
+						<li onclick="DoToggleFictionPopupMenu()"><a href="#top">Fiction</a></li>
+							<div class="MenuPopup FictionPopup" id="MenuPopup" name="FictionPopupMenu">
+								<ul>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Action/default.html">Action</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Crime/default.html">Crime</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Fantasy/default.html">Fantasy</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/General/default.html">General</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Horror/default.html">Horror</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Mystery/default.html">Mystery</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Romance/default.html">Romance</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Sagas/default.html">Sagas</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Sci-Fi%20Fantasy/default.html">Sci-Fi Fantasy</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Thrillers/default.html">Thrillers</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Westerns/default.html">Westerns</a></li>
+								</ul>
+							</div>
+						<li onclick="DoToggleNonFictionPopupMenu()"><a href="#Top">Non-Fiction</a></li>
+							<div class="MenuPopup NonFictionPopup" id="MenuPopup" name="NonFictionPopupMenu">
+								<ul>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Arts/default.html">Arts</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/AutoBiography/default.html">Auto/Biography</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Cooking/default.html">Cooking</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Crafts/default.html">Crafts</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Education/default.html">Education</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Gardening/default.html">Gardening</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Health/default.html">Health</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Hobbies/default.html">Hobbies</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Humour/default.html">Humour</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Outdoor/default.html">Outdoors</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Reference/default.html">Reference</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Religion/default.html">Religion</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Sports/default.html">Sports</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Technology/default.html">Technology</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Travel/default.html">Travel</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/World/default.html">World</a></li>
+								</ul>
+							</div>
 					</ul>
 				</div>
 				<!-- End Sidebar -->
