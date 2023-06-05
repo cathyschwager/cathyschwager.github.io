@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
 
 <!-- #BeginTemplate "../../master.dwt" -->
@@ -11,74 +11,13 @@
 		<link href="../../styles/style2.css" rel="stylesheet" type="text/css" />
 		
 		<style>
-
-		
-			.CenterVertically
-			{
- 				position: relative;
-  				top: 50%;
-  				-ms-transform: translateY(-50%);
-  				transform: translateY(-50%);
-  			}
-  			.Logo
-  			{
-				display:inline-block;
-				float:left;
-				border-style: none;
-				border-color: black;
-				border-width: 1px;
-				/*border-radius:50px;*/
-				overflow:hidden;
-				margin-left:10px;
-				margin-right:10px;
-			}
-			.Title
-			{
-				display:inline-block;
-				float:left;
-				padding-left:20px;
-				width:68%;
-				text-align:left;
-				font-size:26px;
-				color:navy;
-				/*background-color:blue;*/		
-			}
-			.Contact
-			{
-				display:inline-block;
-				float:right;
-				text-align:left;
-				font-size:small;
-				margin-right: 15px;
-				/*background-color:red;*/
-			}
-			.FloatLeft
-			{
-				float:left;
-				margin:5px;
-				position: relative;
-
-			}
-			.FloatRight
-			{
-				float:right;
-				margin:5px;
-				position: relative;
-			}
-			.ImageDisplayBlock
-			{
-				display:inline-block;
-				margin:5px;
-			}
-					
- 		</style>
+		</style>
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 		<!-- #EndEditable -->
 
-		
 			<script type="text/javascript">
 								
 				function GenerateMenu()
@@ -114,14 +53,60 @@
 				{
 					document.write("<div id=\"TOC\"><a href=\"#Top\">Go To Top</a></div>");
 				}
+				
+				var bFictionPopupMenu = false, bNonFictionPopupMenu = false;
 								
+				function DoToggleFictionPopupMenu()
+				{
+					var strPopupName = "FictionPopupMenu";
+			
+					if (document.getElementsByName(strPopupName) !== null)
+					{
+						if (bFictionPopupMenu)
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "none";
+						}
+						else
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "block";
+						}
+						bFictionPopupMenu = !bFictionPopupMenu;
+					}
+					else
+					{
+						alert("No such object with name '" + strPopupName + "'!");
+					}
+				}
+								
+				function DoToggleNonFictionPopupMenu()
+				{
+					var strPopupName = "NonFictionPopupMenu";
+					
+					if (document.getElementsByName(strPopupName)!== null)
+					{
+						if (bNonFictionPopupMenu)
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "none";
+						}
+						else
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "block";
+						}
+						bNonFictionPopupMenu = !bNonFictionPopupMenu;
+					}
+					else
+					{
+						alert("No such object with name '" + strPopupName + "'!");
+					}
+				}
 			</script>
 			
 			<!-- #BeginEditable "Subcategories" -->
 
 				<script type="text/javascript">
 
-					var arrayBookmarks = [];
+					var arrayBookmarks = ["Astronomy", "Biology", "Chemistry", "English", "Geography", "Geology",
+											"Maths", "Physics", "Psychology", "Textbooks", "Other"];
 					
 				</script>
 				
@@ -156,42 +141,74 @@
 				<div id="sidebar">
 					<ul>
 						<li><a href="../../index.htm">Home</a></li>
+						<li><a href="../../FAQ/default.html">FAQ</a></li>
 						<li><a href="../../Emporium/default.html">Emporium</a></li>
 						<li><a href="../../Requests/default.html">Requests</a></li>
-						<li><a href="../../Children/default.html">Children</a></li>
-						<li><a href="../../Young%20Adults/default.html">Young Adults</a></li>
 						<li><a href="../../Facebook/default.html">Facebook</a></li>
-						<li><a href="../../FAQ/default.html">FAQ</a></li>
-						<p>&nbsp;<b><u>FICTION</u></b></p>
-						<li><a href="../../Fiction/Action/default.html">Action</a></li>
-						<li><a href="../../Fiction/Crime/default.html">Crime</a></li>
-						<li><a href="../../Fiction/Fantasy/default.html">Fantasy</a></li>
-						<li><a href="../../Fiction/General/default.html">General</a></li>
-						<li><a href="../../Fiction/Horror/default.html">Horror</a></li>
-						<li><a href="../../Fiction/Mystery/default.html">Mystery</a></li>
-						<li><a href="../../Fiction/Romance/default.html">Romance</a></li>
-						<li><a href="../../Fiction/Sagas/default.html">Sagas</a></li>
-						<li>
-						<a href="../../Fiction/Sci-Fi%20Fantasy/default.html">Sci-Fi Fantasy</a></li>
-						<li><a href="../../Fiction/Thrillers/default.html">Thrillers</a></li>
-						<li><a href="../../Fiction/Westerns/default.html">Westerns</a></li>
-						<p>&nbsp;<b><u>NON-FICTION</u></b></p>
-						<li><a href="../Arts/default.html">Arts</a></li>
-						<li><a href="../AutoBiographies/default.html">Auto/Biography</a></li>
-						<li><a href="../Cooking/default.html">Cooking</a></li>
-						<li><a href="../Crafts/default.html">Crafts</a></li>
-						<li><a href="default.html">Education</a></li>
-						<li><a href="../Gardening/default.html">Gardening</a></li>
-						<li><a href="../Health/default.html">Health</a></li>
-						<li><a href="../Hobbies/default.html">Hobbies</a></li>
-						<li><a href="../Humour/default.html">Humour</a></li>
-						<li><a href="../Outdoor/default.html">Outdoors</a></li>
-						<li><a href="../Reference/default.html">Reference</a></li>
-						<li><a href="../Religion/default.html">Religion</a></li>
-						<li><a href="../Sports/default.html">Sports</a></li>
-						<li><a href="../Technology/default.html">Technology</a></li>
-						<li><a href="../Travel/default.html">Travel</a></li>
-						<li><a href="../World/default.html">World</a></li>
+						<li onclick="DoToggleFictionPopupMenu()"><a href="#">Fiction</a></li>
+						<div class="MenuPopup FictionPopup" id="MenuPopup" name="FictionPopupMenu">
+							<ul>
+								<li class="MenuPopupItem">
+								<a href="../../Fiction/Action/default.html">Action</a></li>
+								<li class="MenuPopupItem">
+								<a href="../../Fiction/Crime/default.html">Crime</a></li>
+								<li class="MenuPopupItem">
+								<a href="../../Fiction/Fantasy/default.html">Fantasy</a></li>
+								<li class="MenuPopupItem">
+								<a href="../../Fiction/General/default.html">General</a></li>
+								<li class="MenuPopupItem">
+								<a href="../../Fiction/Horror/default.html">Horror</a></li>
+								<li class="MenuPopupItem">
+								<a href="../../Fiction/Mystery/default.html">Mystery</a></li>
+								<li class="MenuPopupItem">
+								<a href="../../Fiction/Romance/default.html">Romance</a></li>
+								<li class="MenuPopupItem">
+								<a href="../../Fiction/Sagas/default.html">Sagas</a></li>
+								<li class="MenuPopupItem">
+								<a href="../../Fiction/Sci-Fi%20Fantasy/default.html">Sci-Fi Fantasy</a></li>
+								<li class="MenuPopupItem">
+								<a href="../../Fiction/Thrillers/default.html">Thrillers</a></li>
+								<li class="MenuPopupItem">
+								<a href="../../Fiction/Westerns/default.html">Westerns</a></li>
+							</ul>
+						</div>
+						<li onclick="DoToggleNonFictionPopupMenu()"><a href="#">Non-Fiction</a></li>
+						<div class="MenuPopup NonFictionPopup" id="MenuPopup" name="NonFictionPopupMenu">
+							<ul>
+								<li class="MenuPopupItem">
+								<a href="../Arts/default.html">Arts</a></li>
+								<li class="MenuPopupItem">
+								<a href="../AutoBiographies/default.html">Auto/Biography</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Cooking/default.html">Cooking</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Crafts/default.html">Crafts</a></li>
+								<li class="MenuPopupItem">
+								<a href="default.html">Education</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Gardening/default.html">Gardening</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Health/default.html">Health</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Hobbies/default.html">Hobbies</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Humour/default.html">Humour</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Outdoors/default.html">Outdoors</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Reference/default.html">Reference</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Religion/default.html">Religion</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Sports/default.html">Sports</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Technology/default.html">Technology</a></li>
+								<li class="MenuPopupItem">
+								<a href="../Travel/default.html">Travel</a></li>
+								<li class="MenuPopupItem">
+								<a href="../World/default.html">World</a></li>
+							</ul>
+						</div>
 					</ul>
 				</div>
 				<!-- End Sidebar -->
@@ -206,27 +223,84 @@
 						<script type="text/javascript">GenerateMenu();</script>
 					</div>
 					<!-- #BeginEditable "content" -->
-					
-					<script type="text/javascript">
+			
+					<h3 id="Astronomy">Astronomy</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
 
-						var arrayBookmarks = [];
-						
-					</script>
-				<p>&nbsp;</p>
-			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque 
-			ornare ipsum at erat. Quisque elementum tempus urna. Donec ornare fringilla 
-			erat. Phasellus gravida lectus vel dui. Fusce eget justo at odio posuere 
-			dignissim.</p>
-			<img alt="" height="159" src="images/services.jpg" width="239" />
-			<p>Service Name<br />
-			Service Description<br />
-			$Price</p>
-			<img alt="" height="159" src="images/services.jpg" width="239" />
-			<p>Service Name<br />
-			Service Description<br />
-			$Price</p>
-					<p>insert content here</p>
+					<h3 id="Biology">Biology</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
 					
+					<h3 id="Chemistry">Chemsitry</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+
+					<h3 id="English">English</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+					
+					<h3 id="Geography">Geography</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+
+					<h3 id="Geology">Geology</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+					
+					<h3 id="Maths">Maths</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+
+					<h3 id="Physics">Physics</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+					
+					<h3 id="Psychology">Psychology</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+
+					<h3 id="Textbooks">Textbooks</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+					
+					<h3 id="Other">Other</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>				
+			
 					<!-- #EndEditable -->
 				</div>
 				<!-- End Content -->
@@ -237,18 +311,18 @@
 				<p class="FloatLeft" style="font-size:small;margin:10px;">
 					<a href="../../index.htm">Home</a> | 
 					<a href="../../Fiction/Horror/default.html">About</a> 
-					<a href="../../Fiction/Sci-Fi%20Fantasy/default.html">Calendar</a> |
+					<a href="../../Fiction/ScienceFiction/default.html">Calendar</a> |
 					<a href="../../Fiction/Fantasy/default.html">Contact</a> |
 					<a href="../../Fiction/Romance/default.html">Employees</a> |
 					<a href="../../Fiction/Historical/default.html">Employment</a> |
 					<a href="../../Fiction/Crime/default.html">FAQ</a> |
-					<a href="../../Fiction/Action/default.html">Information Links</a><br />
+					<a href="../../Fiction/Action&Adventure/default.html">Information Links</a><br />
 					<a href="../../Fiction/Drama/default.html">News</a> |
 					<a href="../../Fiction/Political/default.html">Photo Gallery</a> |
 					<a href="../Culture/default.html">Press</a> | 
 					<a href="../Science/default.html">
 					Products</a> | <a href="../History/default.html">Promotions</a> |
-					<a href="../AutoBiographies/default.html">Services</a> |
+					<a href="../Biographies/default.html">Services</a> |
 					<a href="../Crafts/default.html">Site Map</a><br />
 				</p>
 				<p class="FloatRight" style="font-size:small;margin:20px;">
