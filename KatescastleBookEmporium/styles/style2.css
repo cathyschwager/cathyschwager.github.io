@@ -32,7 +32,7 @@ body {
 	overflow-y: auto;
 	overflow-x: hidden;
 	height: 100%;
-	width: 14%;
+	width: 22%;
 	/*background-color:aqua;*/
 }
 #content {
@@ -183,16 +183,6 @@ h1,h2,h3,h4,h5,h6 {
 	color: black;
 	background-color: #cb8;
 	width:90%;
-}
-.FictionPopup
-{
-
-
-}
-.NonFictionPopup
-{
-
-
 }
 /* Styles for Footer */
 #footer p {

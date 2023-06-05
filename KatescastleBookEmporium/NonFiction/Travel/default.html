@@ -6,7 +6,7 @@
 	<head>
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 		<!-- #BeginEditable "doctitle" -->
-		<title>Science</title>
+		<title>Travel</title>
 		<!-- #EndEditable -->
 		<link href="../../styles/style2.css" rel="stylesheet" type="text/css" />
 		
@@ -18,6 +18,7 @@
 </style>		
 		<!-- #EndEditable -->
 
+		
 			<script type="text/javascript">
 								
 				function GenerateMenu()
@@ -54,7 +55,7 @@
 					document.write("<div id=\"TOC\"><a href=\"#Top\">Go To Top</a></div>");
 				}
 				
-				var bFictionPopupMenu = false, bNonFictionPopupMenu = false;
+				var bFictionPopupMenu = false, bNonFictionPopupMenu = false, bSpecialistPopupMenu = false;
 								
 				function DoToggleFictionPopupMenu()
 				{
@@ -99,13 +100,36 @@
 						alert("No such object with name '" + strPopupName + "'!");
 					}
 				}
+
+				function DoToggleSpecialistPopupMenu()
+				{
+					var strPopupName = "SpecialistPopupMenu";
+					
+					if (document.getElementsByName(strPopupName)!== null)
+					{
+						if (bSpecialistPopupMenu )
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "none";
+						}
+						else
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "block";
+						}
+						bSpecialistPopupMenu = !bSpecialistPopupMenu ;
+					}
+					else
+					{
+						alert("No such object with name '" + strPopupName + "'!");
+					}
+				}
+
 			</script>
 			
 			<!-- #BeginEditable "Subcategories" -->
 
 				<script type="text/javascript">
 
-					var arrayBookmarks = [];
+					var arrayBookmarks = ["Guides", "Foreign Language", "Maps", "Travel Stories", "Other"];
 					
 				</script>
 				
@@ -147,7 +171,7 @@
 						<li><a href="../../Requests/default.html">Requests</a></li>
 						<li><a href="../../Facebook/default.html">Facebook</a></li>
 						<li onclick="DoToggleFictionPopupMenu()"><a href="#top">Fiction</a></li>
-							<div class="MenuPopup FictionPopup" id="MenuPopup" name="FictionPopupMenu">
+							<div class="MenuPopup" id="MenuPopup" name="FictionPopupMenu">
 								<ul>
 									<li class="MenuPopupItem">
 									<a href="../../Fiction/Action/default.html">Action</a></li>
@@ -174,12 +198,12 @@
 								</ul>
 							</div>
 						<li onclick="DoToggleNonFictionPopupMenu()"><a href="#Top">Non-Fiction</a></li>
-							<div class="MenuPopup NonFictionPopup" id="MenuPopup" name="NonFictionPopupMenu">
+							<div class="MenuPopup" id="MenuPopup" name="NonFictionPopupMenu">
 								<ul>
 									<li class="MenuPopupItem">
 									<a href="../Arts/default.html">Arts</a></li>
 									<li class="MenuPopupItem">
-									<a href="../AutoBiography/default.html">Auto/Biography</a></li>
+									<a href="../AutoBiographies/default.html">Auto/Biography</a></li>
 									<li class="MenuPopupItem">
 									<a href="../Cooking/default.html">Cooking</a></li>
 									<li class="MenuPopupItem">
@@ -195,7 +219,7 @@
 									<li class="MenuPopupItem">
 									<a href="../Humour/default.html">Humour</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Outdoor/default.html">Outdoors</a></li>
+									<a href="../Outdoors/default.html">Outdoors</a></li>
 									<li class="MenuPopupItem">
 									<a href="../Reference/default.html">Reference</a></li>
 									<li class="MenuPopupItem">
@@ -208,6 +232,41 @@
 									<a href="default.html">Travel</a></li>
 									<li class="MenuPopupItem">
 									<a href="../World/default.html">World</a></li>
+								</ul>
+							</div>
+						<li onclick="DoToggleSpecialistPopupMenu()"><a href="#Top">Specialist</a></li>
+							<div class="MenuPopup" id="MenuPopup" name="SpecialistPopupMenu">
+								<ul>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/AntiquePre1950/default.html">Antique pre-1950</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/Vintage1950To1975/default.html">Vintage 1950-1975</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/Retro1975To2000/default.html">Retro 1975-2000</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/FirstEditions/default.html">First Editions</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/Classics/default.html">Classics</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/Shakespeare/default.html">Shakespeare</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/Penguin/default.html">Penquin</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/BoxSets/default.html">Box Sets</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/Series/default.html">Series</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/ProlificAuthors/default.html">Prolific Authors</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/ReadersDigestCondensed/default.html">Reader's Digest Condensed</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/MillsAndBoon/default.html">Mills &amp; Boon</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/NationalGeographic/default.html">National Geographic</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/Miscellaneous/default.html">Miscellaneous</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Specialist/Penguin/default.html">Penquin</a></li>
 								</ul>
 							</div>
 					</ul>
@@ -225,25 +284,41 @@
 					</div>
 					<!-- #BeginEditable "content" -->
 					
-					<script type="text/javascript">
+					<h3 id="Guides">Guides</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
 
-						var arrayBookmarks = [];
-						
-					</script>
-				<p>&nbsp;</p>
-					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Quisque 
-					ornare ipsum at erat. Quisque elementum tempus urna. Donec ornare fringilla 
-					erat. Phasellus gravida lectus vel dui. Fusce eget justo at odio posuere 
-					dignissim.</p>
-					<img alt="" height="145" src="images/clipboard.jpg" width="216" />
-					<p>Product Name<br />
-					Product Description<br />
-					$Price</p>
-					<img alt="" height="145" src="images/clipboard.jpg" width="216" />
-					<p>Product Name<br />
-					Product Description<br />
-					$Price</p>
-					<p>insert content here</p>
+					<h3 id="Foreign Language">Foreign Language</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+
+					<h3 id="Maps">Maps</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+
+					<h3 id="Travel Stories">Travel Stories</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+					
+					<h3 id="Other">Other</h3>
+					<h4>Book Tile</h4>
+					<p>XXXXXXXXXX</p>
+					<h4>Book Title</h4>
+					<p>XXXXXXXXX</p>
+					<script type="text/javascript">GenerateTopButton();</script>
+
 					
 					<!-- #EndEditable -->
 				</div>

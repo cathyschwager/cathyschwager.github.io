@@ -1,0 +1,344 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+
+	<!-- #BeginTemplate "../../master.dwt" -->
+
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<!-- #BeginEditable "doctitle" -->
+		<title>Penguin</title>
+		<!-- #EndEditable -->
+		<link href="../../styles/style2.css" rel="stylesheet" type="text/css" />
+		
+		<style>
+		</style>
+ 		<!-- #BeginEditable "PageStyles" -->
+
+		<style>
+		</style>		
+		<!-- #EndEditable -->
+
+		
+			<script type="text/javascript">
+								
+				function GenerateMenu()
+				{
+					var nNumLinks = 0;
+					var nMaxLinks = 6;
+
+					for (var nI = 0; nI < arrayBookmarks.length; nI++)
+					{
+						if (arrayBookmarks[nI].length > 0)
+						{
+							document.write("<a href=\"#" + arrayBookmarks[nI] + "\">" + arrayBookmarks[nI] + "</a>");
+						}
+						nNumLinks = nI + 1;
+						if ((nNumLinks % nMaxLinks) == 0)
+						{
+							document.write("<br/>");
+						}
+					}
+				}
+				
+				function GeneratePageHeading()
+				{
+					document.write("<br/><h2 id=\"Top\" class=\"PageHeading\">&nbsp;<u>" + document.title + "</u></h2><br/>");
+				}
+				
+				function ScrollTopContent()
+				{
+					document.getElementById("content").scrollTop = -100;
+				}
+				
+				function GenerateTopButton()
+				{
+					document.write("<div id=\"TOC\"><a href=\"#Top\">Go To Top</a></div>");
+				}
+				
+				var bFictionPopupMenu = false, bNonFictionPopupMenu = false, bSpecialistPopupMenu = false;
+								
+				function DoToggleFictionPopupMenu()
+				{
+					var strPopupName = "FictionPopupMenu";
+			
+					if (document.getElementsByName(strPopupName) !== null)
+					{
+						if (bFictionPopupMenu)
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "none";
+						}
+						else
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "block";
+						}
+						bFictionPopupMenu = !bFictionPopupMenu;
+					}
+					else
+					{
+						alert("No such object with name '" + strPopupName + "'!");
+					}
+				}
+								
+				function DoToggleNonFictionPopupMenu()
+				{
+					var strPopupName = "NonFictionPopupMenu";
+					
+					if (document.getElementsByName(strPopupName)!== null)
+					{
+						if (bNonFictionPopupMenu)
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "none";
+						}
+						else
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "block";
+						}
+						bNonFictionPopupMenu = !bNonFictionPopupMenu;
+					}
+					else
+					{
+						alert("No such object with name '" + strPopupName + "'!");
+					}
+				}
+
+				function DoToggleSpecialistPopupMenu()
+				{
+					var strPopupName = "SpecialistPopupMenu";
+					
+					if (document.getElementsByName(strPopupName)!== null)
+					{
+						if (bSpecialistPopupMenu )
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "none";
+						}
+						else
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "block";
+						}
+						bSpecialistPopupMenu = !bSpecialistPopupMenu ;
+					}
+					else
+					{
+						alert("No such object with name '" + strPopupName + "'!");
+					}
+				}
+
+			</script>
+			
+			<!-- #BeginEditable "Subcategories" -->
+
+				<script type="text/javascript">
+
+					var arrayBookmarks = [];
+					
+				</script>
+				
+			<!-- #EndEditable -->
+			
+	</head>
+	
+	<body>
+	
+		<!-- Begin Container -->
+		<div id="container">
+			<!-- Begin Masthead -->
+			<div id="masthead">
+				<div class="CenterVertically Logo" >
+					<img alt="" height="100" src="../../images/Logo.png" />
+				</div>
+				<div class="CenterVertically Title">
+					<h1 style="display:inline;">KATESCASTLE Book Emporium</h1><br/>
+					<h6 style="display:inline;"><b>ABN:</b> 81 431 577 147</h6>
+				</div>
+				<div class="CenterVertically Contact">
+					<b>Phone:</b> 0447 817 687<br />
+					<b>Email:</b> katescastle at ozemail.com.au<br />
+					<b>Facebook:</b> Katescastle Book Emporium <br />
+				</div>
+			</div>
+			<!-- End Masthead -->
+			<!-- Begin Page Content -->
+			<div id="page_content">
+				<!-- Begin Sidebar -->
+				
+				<div id="sidebar">
+					<h1 style="display:none" id="top">INVISIBLE</h1>
+					
+					<ul>
+						<li><a href="../../index.htm">Home</a></li>
+						<li><a href="../../FAQ/default.html">FAQ</a></li>
+						<li><a href="../../Emporium/default.html">Emporium</a></li>
+						<li><a href="../../Requests/default.html">Requests</a></li>
+						<li><a href="../../Facebook/default.html">Facebook</a></li>
+						<li onclick="DoToggleFictionPopupMenu()"><a href="#top">Fiction</a></li>
+							<div class="MenuPopup" id="MenuPopup" name="FictionPopupMenu">
+								<ul>
+									<li class="MenuPopupItem">
+									<a href="../../Fiction/Action/default.html">Action</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Fiction/Crime/default.html">Crime</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Fiction/Fantasy/default.html">Fantasy</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Fiction/General/default.html">General</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Fiction/Horror/default.html">Horror</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Fiction/Mystery/default.html">Mystery</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Fiction/Romance/default.html">Romance</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Fiction/Sagas/default.html">Sagas</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Fiction/Sci-Fi%20Fantasy/default.html">Sci-Fi Fantasy</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Fiction/Thrillers/default.html">Thrillers</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../Fiction/Westerns/default.html">Westerns</a></li>
+								</ul>
+							</div>
+						<li onclick="DoToggleNonFictionPopupMenu()"><a href="#Top">Non-Fiction</a></li>
+							<div class="MenuPopup" id="MenuPopup" name="NonFictionPopupMenu">
+								<ul>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Arts/default.html">Arts</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/AutoBiographies/default.html">Auto/Biography</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Cooking/default.html">Cooking</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Crafts/default.html">Crafts</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Education/default.html">Education</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Gardening/default.html">Gardening</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Health/default.html">Health</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Hobbies/default.html">Hobbies</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Humour/default.html">Humour</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Outdoors/default.html">Outdoors</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Reference/default.html">Reference</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Religion/default.html">Religion</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Sports/default.html">Sports</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Technology/default.html">Technology</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/Travel/default.html">Travel</a></li>
+									<li class="MenuPopupItem">
+									<a href="../../NonFiction/World/default.html">World</a></li>
+								</ul>
+							</div>
+						<li onclick="DoToggleSpecialistPopupMenu()"><a href="#Top">Specialist</a></li>
+							<div class="MenuPopup" id="MenuPopup" name="SpecialistPopupMenu">
+								<ul>
+									<li class="MenuPopupItem">
+									<a href="../AntiquePre1950/default.html">Antique pre-1950</a></li>
+									<li class="MenuPopupItem">
+									<a href="default.html">Vintage 1950-1975</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Retro1975To2000/default.html">Retro 1975-2000</a></li>
+									<li class="MenuPopupItem">
+									<a href="../FirstEditions/default.html">First Editions</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Classics/default.html">Classics</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Shakespeare/default.html">Shakespeare</a></li>
+									<li class="MenuPopupItem">
+									<a href="default.html">Penquin</a></li>
+									<li class="MenuPopupItem">
+									<a href="../BoxSets/default.html">Box Sets</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Series/default.html">Series</a></li>
+									<li class="MenuPopupItem">
+									<a href="../ProlificAuthors/default.html">Prolific Authors</a></li>
+									<li class="MenuPopupItem">
+									<a href="../ReadersDigestCondensed/default.html">Reader's Digest Condensed</a></li>
+									<li class="MenuPopupItem">
+									<a href="../MillsAndBoon/default.html">Mills &amp; Boon</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NationalGeographic/default.html">National Geographic</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Miscellaneous/default.html">Miscellaneous</a></li>
+									<li class="MenuPopupItem">
+									<a href="default.html">Penquin</a></li>
+								</ul>
+							</div>
+					</ul>
+				</div>
+				<!-- End Sidebar -->
+				<!-- Begin Content -->
+				<div id="content">
+					
+					<img class="ImageDisplayBlock" alt="" height="200" src="../../images/SiteUnderConstruction.png" />
+					<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Site it under construction...</h4><br/>
+
+					<script type="text/javascript">GeneratePageHeading();</script>
+					<div id="TOC">
+						<script type="text/javascript">GenerateMenu();</script>
+					</div>
+					<!-- #BeginEditable "content" -->
+					
+									
+					<h4>Book Title</h4>
+					<p>xxxxxxxxx</p>	
+					<h4>Book Title</h4>
+					<p>xxxxxxxxx</p>	
+					<h4>Book Title</h4>
+					<p>xxxxxxxxx</p>	
+					<h4>Book Title</h4>
+					<p>xxxxxxxxx</p>	
+
+					
+					<!-- #EndEditable -->
+				</div>
+				<!-- End Content -->
+			</div>
+			<!-- End Page Content -->
+			<!-- Begin Footer -->
+			<div id="footer">
+				<p class="FloatLeft" style="font-size:small;margin:10px;">
+					<a href="../../index.htm">Home</a> | 
+					<a href="../../Fiction/Horror/default.html">About</a> 
+					<a href="../../Fiction/ScienceFiction/default.html">Calendar</a> |
+					<a href="../../Fiction/Fantasy/default.html">Contact</a> |
+					<a href="../../Fiction/Romance/default.html">Employees</a> |
+					<a href="../../Fiction/Historical/default.html">Employment</a> |
+					<a href="../../Fiction/Crime/default.html">FAQ</a> |
+					<a href="../../Fiction/Action&Adventure/default.html">Information Links</a><br />
+					<a href="../../Fiction/Drama/default.html">News</a> |
+					<a href="../../Fiction/Political/default.html">Photo Gallery</a> |
+					<a href="../../NonFiction/Culture/default.html">Press</a> | 
+					<a href="../../NonFiction/Science/default.html">
+					Products</a> | 
+					<a href="../../NonFiction/History/default.html">Promotions</a> |
+					<a href="../../NonFiction/Biographies/default.html">Services</a> |
+					<a href="../../NonFiction/Crafts/default.html">Site Map</a><br />
+				</p>
+				<p class="FloatRight" style="font-size:small;margin:20px;">
+					<b>Copyright &copy; 2023 Cathy Schwager. All Rights Reserved.</b>
+				</p>
+			</div>
+			<!-- End Footer --></div>
+		<!-- End Container -->
+		
+	</body>
+
+	<footer>
+		
+		<script type="text/javascript">
+		
+			ScrollTopContent();
+			
+		</script>
+	
+	</footer>
+
+<!-- #EndTemplate -->
+
+</html>
