@@ -46,6 +46,10 @@ body {
 	overflow-y: auto;
 	overflow-x: auto;
 }
+.footer_link
+{
+	margin-left:50px;
+}
 #footer {
 	clear: both;
 	width: 99%;
