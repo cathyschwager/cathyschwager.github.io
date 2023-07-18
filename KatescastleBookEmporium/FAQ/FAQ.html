@@ -1,0 +1,412 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
+
+<!-- #BeginTemplate "../master.dwt" -->
+
+	<head>
+		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+		<!-- #BeginEditable "doctitle" -->
+		<title>FAQ</title>
+		<!-- #EndEditable -->
+		<link href="../styles/style2.css" rel="stylesheet" type="text/css" />
+		
+		<style>
+</style>
+ 		<!-- #BeginEditable "PageStyles" -->
+
+		<style>
+</style>		
+		<!-- #EndEditable -->
+
+		
+			<script type="text/javascript">
+								
+				function GenerateGregsEmailAddress()
+				{
+					var strEmailAddress = "gregplants" + "@" + "bigpond" + "." + "com";
+					document.write("<a class=\"Email\" href=\"mailto: " + strEmailAddress + "\">" + strEmailAddress + "</a>");
+				}
+				
+				function GenerateCathysEmailAddress()
+				{
+					var strEmailAddress = "katescastle" + "@" + "ozemail" + "." + "com" + "." + "au";
+					document.write("<a class=\"Email\" href=\"mailto: " + strEmailAddress + "\">" + strEmailAddress + "</a>");
+				}
+				
+				function GenerateMenu()
+				{
+					var nNumLinks = 0;
+					var nMaxLinks = 6;
+
+					for (var nI = 0; nI < arrayBookmarks.length; nI++)
+					{
+						if (arrayBookmarks[nI].length > 0)
+						{
+							document.write("<a href=\"#" + arrayBookmarks[nI] + "\">" + arrayBookmarks[nI] + "</a>");
+						}
+						nNumLinks = nI + 1;
+						if ((nNumLinks % nMaxLinks) == 0)
+						{
+							document.write("<br/>");
+						}
+					}
+				}
+				
+				function GeneratePageHeading()
+				{
+					document.write("<br/><h2 id=\"Top\" class=\"PageHeading\">&nbsp;<u>" + document.title + "</u></h2><br/>");
+				}
+				
+				function GenerateBookmarks(arrayCategoryBookmarks, arrayCategoryBookLists)
+				{
+					for (let nI = 0; nI < arrayCategoryBookmarks.length; nI++)
+					{
+						document.write("<h3 id=\"" + arrayCategoryBookmarks[nI] + "\">" + arrayCategoryBookmarks[nI] + "</h3>");
+						
+						let arrayBookList = arrayCategoryBookLists[nI];
+						for (let nJ = 0; nJ < arrayBookList.length; nJ++)
+						{
+							/*
+								// List of books for Bookmark1
+								[
+									["Title 1", 4.00, "Book description 1"],
+									["Title 2", 1.00, "Book description 2"],
+									["Title 3", 3.00, "Book description 3"]
+								],
+							*/
+							document.write("<h4 id=\"" + arrayBookList[nJ][0] + "\">" + arrayBookList[nJ][0] + "</h4>");
+							document.write("<p><b>Price:</b> $" + arrayBookList[nJ][1] + "<br/><br/>");
+							document.write("<b><u>Description</u></b><br>");
+							document.write(arrayBookList[nJ][2] + "</p><br/><hr>");
+						}
+					}
+				}
+
+				function ScrollTopContent()
+				{
+					document.getElementById("content").scrollTop = -100;
+				}
+				
+				function GenerateTopButton()
+				{
+					document.write("<div id=\"TOC\"><a href=\"#Top\">Go To Top</a></div>");
+				}
+				
+				var bFictionPopupMenu = false, bNonFictionPopupMenu = false, bSpecialistPopupMenu = false;
+								
+				function DoToggleFictionPopupMenu()
+				{
+					var strPopupName = "FictionPopupMenu";
+			
+					if (document.getElementsByName(strPopupName) !== null)
+					{
+						if (bFictionPopupMenu)
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "none";
+						}
+						else
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "block";
+						}
+						bFictionPopupMenu = !bFictionPopupMenu;
+					}
+					else
+					{
+						alert("No such object with name '" + strPopupName + "'!");
+					}
+				}
+								
+				function DoToggleNonFictionPopupMenu()
+				{
+					var strPopupName = "NonFictionPopupMenu";
+					
+					if (document.getElementsByName(strPopupName)!== null)
+					{
+						if (bNonFictionPopupMenu)
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "none";
+						}
+						else
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "block";
+						}
+						bNonFictionPopupMenu = !bNonFictionPopupMenu;
+					}
+					else
+					{
+						alert("No such object with name '" + strPopupName + "'!");
+					}
+				}
+
+				function DoToggleSpecialistPopupMenu()
+				{
+					var strPopupName = "SpecialistPopupMenu";
+					
+					if (document.getElementsByName(strPopupName)!== null)
+					{
+						if (bSpecialistPopupMenu )
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "none";
+						}
+						else
+						{
+							document.getElementsByName(strPopupName)[0].style.display = "block";
+						}
+						bSpecialistPopupMenu = !bSpecialistPopupMenu ;
+					}
+					else
+					{
+						alert("No such object with name '" + strPopupName + "'!");
+					}
+				}
+
+				/***********************************************************************************************
+				 ***********************************************************************************************
+				 
+				 EXAMPLE PAGE CONTENT
+				 
+				 arrayCategoryBookmarks contains the book categories which appears as a series of links at
+				 the top of the page and as a series of headings to which those links will jump to on the page.
+				 
+				 arrayCategoryBookLists contains the details of the books in each category in the same order as
+				 the bookmarks.
+				 
+				 ***********************************************************************************************
+				 ***********************************************************************************************
+
+					const arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
+					
+					const arrayCategoryBookLists =
+					[
+					  // List of books for Bookmark1
+					  [
+					  	["Title 1", 4.00, "Book description 1"],
+					  	["Title 2", 1.00, "Book description 2"],
+					  	["Title 3", 3.00, "Book description 3"]
+					  ],
+					  // List of books for Bookmark2
+					  [
+					  	["Title 1", 4.00, "Book description 1"],
+					  	["Title 2", 1.00, "Book description 2"],
+					  	["Title 3", 3.00, "Book description 3"]
+					  ],
+					  // List of books for Bookmark3
+					  [
+					  	["Title 1", 4.00, "Book description 1"],
+					  	["Title 2", 1.00, "Book description 2"],
+					  	["Title 3", 3.00, "Book description 3"]
+					  ]
+					];
+					
+				***********************************************************************************************
+				***********************************************************************************************/
+			</script>
+			
+			<!-- #BeginEditable "Subcategories" -->
+
+				<script type="text/javascript">
+
+					var arrayBookmarks = [];
+					
+				</script>
+				
+			<!-- #EndEditable -->
+			
+	</head>
+	
+	<body>
+	
+		<!-- Begin Container -->
+		<div id="container">
+			<!-- Begin Masthead -->
+			<div id="masthead">
+				<div class="CenterVertically Logo" >
+					<img alt="" height="100" src="../images/Logo.png" />
+				</div>
+				<div id="Title" class="CenterVertically Title">
+					<h2 style="display:inline;">KATESCASTLE Book Emporium</h2><br/>
+					<img class="Books" alt="" src="../images/Books.png" /><br/><br/>
+					<h6 style="display:inline">“So many books, so little time” - Frank Zappa</h6>
+ 				</div>
+				<div class="CenterVertically Contact">
+					<b>ABN:</b> 81 431 577 147<br/>
+					<b>Phone:</b> 0447 817 687<br/>
+					<b>Email:</b> <script type="text/javascript">GenerateCathysEmailAddress();</script><br/>
+					<b>Facebook:</b> Katescastle Book Emporium<br/><br/>
+					<div class="Author" id="Author">
+						<b>Web site coded by Gregary Boyles</b><br/>
+						<b>Enquiries:</b> <script type="text/javascript">GenerateGregsEmailAddress();</script>
+					</div>
+				</div>
+			</div>
+			<!-- End Masthead -->
+			<!-- Begin Page Content -->
+			<div id="page_content">
+				<!-- Begin Sidebar -->
+				
+				<div id="sidebar">
+					<h1 style="display:none" id="top">INVISIBLE</h1>
+					
+					<ul>
+						<li><a href="../index.htm">Home</a></li>
+						<li><a href="FAQ.html">FAQ</a></li>
+						<li><a href="../Facebook/Facebook.html">Facebook</a></li>
+						<li><a href="../Requests/Requests.html">Requests</a></li>
+						<li><a href="../Children/Children.html">Children</a></li>
+						<li><a href="../Emporium/Emporium.html">Emporium</a></li>
+						<li onclick="DoToggleFictionPopupMenu()"><a href="#top">Fiction</a></li>
+							<div class="MenuPopup" id="MenuPopup" name="FictionPopupMenu">
+								<ul>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Action/Action.html">Action</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Crime/Crime.html">Crime</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Fantasy/Fantasy.html">Fantasy</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/General/General.html">General</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Horror/Horror.html">Horror</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Mystery/Mystery.html">Mystery</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Romance/Romance.html">Romance</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Sagas/Sagas.html">Sagas</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Sci-Fi%20Fantasy/Sci-Fi%20Fantasy.html">Sci-Fi Fantasy</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Thrillers/Thrillers.html">Thrillers</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Fiction/Westerns/Westerners.html">Westerns</a></li>
+								</ul>
+							</div>
+						<li onclick="DoToggleNonFictionPopupMenu()"><a href="#Top">Non-Fiction</a></li>
+							<div class="MenuPopup" id="MenuPopup" name="NonFictionPopupMenu">
+								<ul>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Arts/Arts.html">Arts</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/AutoBiographies/AutoBiographies.html">Auto/Biography</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Cooking/Cooking.html">Cooking</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Crafts/Crafts.html">Crafts</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Education/Education.html">Education</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Gardening/Gardening.html">Gardening</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Health/Health.html">Health</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Hobbies/Hobbies.html">Hobbies</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Humour/Humour.html">Humour</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Outdoors/Outdoors.html">Outdoors</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Reference/Reference.html">Reference</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Religion/Religion.html">Religion</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Sports/Sports.html">Sports</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Technology/Technology.html">Technology</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/Travel/Travel.html">Travel</a></li>
+									<li class="MenuPopupItem">
+									<a href="../NonFiction/World/World.html">World</a></li>
+								</ul>
+							</div>
+						<li onclick="DoToggleSpecialistPopupMenu()"><a href="#Top">Specialist</a></li>
+							<div class="MenuPopup" id="MenuPopup" name="SpecialistPopupMenu">
+								<ul>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/AntiquePre1950/AntiquePre1950.html">Antique pre-1950</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/Vintage1950To1975/Vintage1950To1975.html">Vintage 1950-1975</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/Retro1975To2000/Retro1975To2000.html">Retro 1975-2000</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/FirstEditions/FirstEditions.html">First Editions</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/Classics/Classics.html">Classics</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/Shakespeare/Shakespeare.html">Shakespeare</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/Penguin/Penguin.html">Penquin</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/BoxSets/BoxSets.html">Box Sets</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/Series/Series.html">Series</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/ProlificAuthors/ProlificAuthors.html">Prolific Authors</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/ReadersDigestCondensed/ReadersDigestCondensed.html">Reader's Digest Condensed</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/MillsAndBoon/MillsAndBoon.html">Mills &amp; Boon</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/NationalGeographic/NationalGeographic.html">National Geographic</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/Miscellaneous/Miscellaneous.html">Miscellaneous</a></li>
+									<li class="MenuPopupItem">
+									<a href="../Specialist/Penguin/Penguin.html">Penquin</a></li>
+								</ul>
+							</div>
+					</ul>
+				</div>
+				<!-- End Sidebar -->
+				<!-- Begin Content -->
+				<div id="content">
+					
+					<img class="ImageDisplayBlock" alt="" height="200" src="../images/SiteUnderConstruction.png" />
+					<h4>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Site it under construction...</h4><br/>
+
+					<script type="text/javascript">GeneratePageHeading();</script>
+					<div id="TOC">
+						<script type="text/javascript">
+							GenerateMenu();
+							GenerateBookmarks(arrayBookmarks, arrayCategoryBookLists);
+						</script>
+					</div>
+					<!-- #BeginEditable "content" -->
+					
+					<p>insert content here</p>
+					
+					<!-- #EndEditable -->
+				</div>
+				<!-- End Content -->
+			</div>
+			<!-- End Page Content -->
+			<!-- Begin Footer -->
+			<div id="footer">
+				<p class="FloatLeft" style="font-size:small;margin:10px;">
+					<a class="footer_link" href="#Top">Top of Page</a>
+					<a class="footer_link" href="../index.htm">Home</a>
+					<a class="footer_link" href="FAQ.html">FAQ</a>
+					<a class="footer_link" href="../Emporium/Emporium.html">Emporium</a>
+					<a class="footer_link" href="../Requests/Requests.html">Requests</a>
+					<a class="footer_link" href="../Facebook/Facebook.html">Facebook</a>
+				</p>
+				<div class="FloatRight" style="font-size:small;position:relative;top:13px;">
+					<div><b>Copyright &copy; 2023 Cathy Schwager. All Rights Reserved.</b></div>
+				</div>
+			</div>
+			<!-- End Footer --></div>
+		<!-- End Container -->
+		
+	</body>
+
+	<footer>
+		
+		<script type="text/javascript">
+		
+			ScrollTopContent();
+			
+		</script>
+	
+	</footer>
+
+<!-- #EndTemplate -->
+
+</html>
