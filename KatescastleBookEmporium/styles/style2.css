@@ -60,29 +60,24 @@ body
 	display:inline-block;
 	float:right;
 	text-align:left;
-	font-size:small;
+	font-size:medium;
 	margin-right: 15px;
-	color: #1A74DD;
+	color: /*#1A74DD;*/white;
 	/*background-color:red;*/
+}
+.Email
+{
+	color: white;
+}
+a:hover
+{
+	color: red;
 }
 #page_content 
 {
 	position: relative;
 	overflow: hidden;
 	height: 398px;
-}
-#sidebar 
-{
-	display:inline-block;
-	position: relative;
-	float: left;
-	width: 140px;
-	background-color: /*#DBDFFD*/#BBBFFD;
-	overflow-y: auto;
-	overflow-x: hidden;
-	height: 100%;
-	width: 22%;
-	/*background-color:aqua;*/
 }
 #content 
 {
@@ -113,7 +108,7 @@ body
 	padding-bottom: 1%;
 	padding-left: 1%;
 	background-color: #061C6B;
-	color: #1A74DD;
+	color: /*#1A74DD*/white;
 }
 #masthead img 
 {
@@ -138,35 +133,51 @@ h1,h2,h3,h4,h5,h6
 #TOC a
 {
 	display: inline-block;
+	border-radius: 15px;
 	position: relative;
-	background-color: #cb8;
+	background-color: #079938;
 	margin-left: 0px;
 	margin-right: 10px;
 	margin-bottom: 10px;
 	width: 150px;
 	padding-bottom: 5px;
+	padding-top: 5px;
 	text-align: center;
 	font-weight: bold;
 	text-decoration: none;
-	color: black;
+	color: #993333;
 }
 
 #TOC a:hover
 {
 	display: inline-block;
 	position: relative;
-	background-color: #dc9;
+	background-color: #89FF6C;
 	margin-left: 0px;
 	margin-right: 10px;
 	margin-bottom: 10px;
 	width: 150px;
 	padding-bottom: 5px;
+	padding-top: 5px;
 	text-align: center;
 	font-weight: bold;
 	text-decoration: none;
-	color: black;
+	color: #993333;
 }
 /* Styles for Navigation */
+#sidebar 
+{
+	display:inline-block;
+	position: relative;
+	float: left;
+	width: 140px;
+	background-color: /*#BBBFFD*/#1A74DD;
+	overflow-y: auto;
+	overflow-x: hidden;
+	height: 100%;
+	width: 22%;
+	/*background-color:aqua;*/
+}
 #sidebar ul {
 	list-style-type: none;
 	width: 100%;
@@ -180,8 +191,9 @@ h1,h2,h3,h4,h5,h6
 }
 #sidebar a {
 	font-weight: bold;
+	font-size: large;
 	text-decoration: none;
-	color: black;
+	color: #993333;
 	padding-left: 5%;
 	padding-top: 1%;
 	display: inline-block;
@@ -190,8 +202,8 @@ h1,h2,h3,h4,h5,h6
 #sidebar a:hover {
 	font-weight: bold;
 	text-decoration: none;
-	color: black;
-	background-color: #dc9;
+	color: #993333;
+	background-color: #7DB1F0;
 	width:90%;
 }
 .MenuPopup
@@ -200,37 +212,25 @@ h1,h2,h3,h4,h5,h6
 	display: none;
 	position: relative;
 	width: 85%;
-	background-color: #dc9;
+	background-color: #7DB1F0;
 	padding: 5px;
 	margin-left: 10px;
-	/*background-color: maroon;*/
 }
 .MenuPopupItem
 {
-	background-color: #dc9;
+	background-color: #7DB1F0;
 }
 #MenuPopup a:hover 
 {
 	font-weight: bold;
 	text-decoration: none;
-	color: black;
-	background-color: #cb8;
+	background-color: #1A74DD;
 	width:90%;
 }
 /* Styles for Footer */
 #footer p 
 {
 	font-size: x-small;
-}
-a 
-{
-	color: #393939;
-	text-decoration: underline;
-}
-a:hover 
-{
-	color: #78a;
-	text-decoration: underline;
 }
 .style_bold 
 {

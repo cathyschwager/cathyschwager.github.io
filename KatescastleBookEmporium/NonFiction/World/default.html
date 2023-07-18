@@ -21,6 +21,18 @@
 		
 			<script type="text/javascript">
 								
+				function GenerateGregsEmailAddress()
+				{
+					var strEmailAddress = "gregplants" + "@" + "bigpond" + "." + "com";
+					document.write("<a class=\"Email\" href=\"mailto: " + strEmailAddress + "\">" + strEmailAddress + "</a>");
+				}
+				
+				function GenerateCathysEmailAddress()
+				{
+					var strEmailAddress = "katescastle" + "@" + "ozemail" + "." + "com" + "." + "au";
+					document.write("<a class=\"Email\" href=\"mailto: " + strEmailAddress + "\">" + strEmailAddress + "</a>");
+				}
+				
 				function GenerateMenu()
 				{
 					var nNumLinks = 0;
@@ -155,8 +167,12 @@
 				<div class="CenterVertically Contact">
 					<b>ABN:</b> 81 431 577 147<br/>
 					<b>Phone:</b> 0447 817 687<br/>
-					<b>Email:</b> katescastle at ozemail.com.au<br/>
-					<b>Facebook:</b> Katescastle Book Emporium <br/>
+					<b>Email:</b> <script type="text/javascript">GenerateCathysEmailAddress();</script><br/>
+					<b>Facebook:</b> Katescastle Book Emporium<br/><br/>
+					<div class="Author" id="Author">
+						<b>Web site coded by Gregary Boyles</b><br/>
+						<b>Enquiries:</b> <script type="text/javascript">GenerateGregsEmailAddress();</script>
+					</div>
 				</div>
 			</div>
 			<!-- End Masthead -->
@@ -366,9 +382,9 @@
 					<a class="footer_link" href="../../Requests/default.html">Requests</a>
 					<a class="footer_link" href="../../Facebook/default.html">Facebook</a>
 				</p>
-				<p class="FloatRight" style="font-size:small;margin:20px;">
-					<b>Copyright &copy; 2023 Cathy Schwager. All Rights Reserved.</b>
-				</p>
+				<div class="FloatRight" style="font-size:small;position:relative;top:13px;">
+					<div><b>Copyright &copy; 2023 Cathy Schwager. All Rights Reserved.</b></div>
+				</div>
 			</div>
 			<!-- End Footer --></div>
 		<!-- End Container -->
