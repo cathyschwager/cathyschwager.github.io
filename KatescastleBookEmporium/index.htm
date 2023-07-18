@@ -103,6 +103,12 @@
 
 
 
+
+
+
+
+
+
 			.Paragraph
 			{
 				display: inline-block;
@@ -192,6 +198,24 @@
 				
 				var bFictionPopupMenu = false, bNonFictionPopupMenu = false, bSpecialistPopupMenu = false;
 								
+				function ResizeSideBar()
+				{
+					let divSideBar = document.getElementById("sidebar");
+					
+					if (divSideBar)
+					{
+						if (bFictionPopupMenu || bNonFictionPopupMenu || bSpecialistPopupMenu)
+						{
+							divSideBar.style.width = "21.2%";
+						}
+						else
+						{
+							divSideBar.style.width = "20%";
+
+						}
+					}
+				}
+				
 				function DoToggleFictionPopupMenu()
 				{
 					var strPopupName = "FictionPopupMenu";
@@ -207,6 +231,7 @@
 							document.getElementsByName(strPopupName)[0].style.display = "block";
 						}
 						bFictionPopupMenu = !bFictionPopupMenu;
+						ResizeSideBar();
 					}
 					else
 					{
@@ -229,6 +254,7 @@
 							document.getElementsByName(strPopupName)[0].style.display = "block";
 						}
 						bNonFictionPopupMenu = !bNonFictionPopupMenu;
+						ResizeSideBar();
 					}
 					else
 					{
@@ -250,7 +276,8 @@
 						{
 							document.getElementsByName(strPopupName)[0].style.display = "block";
 						}
-						bSpecialistPopupMenu = !bSpecialistPopupMenu ;
+						bSpecialistPopupMenu = !bSpecialistPopupMenu;
+						ResizeSideBar();
 					}
 					else
 					{

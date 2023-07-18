@@ -175,46 +175,52 @@ h1,h2,h3,h4,h5,h6
 	overflow-y: auto;
 	overflow-x: hidden;
 	height: 100%;
-	width: 22%;
+	width: 20%;
 	/*background-color:aqua;*/
 }
-#sidebar ul {
+#sidebar ul 
+{
 	list-style-type: none;
 	width: 100%;
 	display: block;
 	margin: 0;
 	padding: 0;
 }
-#sidebar li {
+#sidebar li 
+{
 	display: block;
 	/*border: 1px solid #cb8;*/
 }
-#sidebar a {
+#sidebar a 
+{
 	font-weight: bold;
 	font-size: large;
 	text-decoration: none;
 	color: #993333;
 	padding-left: 5%;
+	margin-left: 4%;
 	padding-top: 1%;
 	display: inline-block;
-	width:90%;
+	width:85.5%;
 }
-#sidebar a:hover {
+#sidebar a:hover 
+{
+	margin-left: 4%;
 	font-weight: bold;
 	text-decoration: none;
 	color: #993333;
 	background-color: #7DB1F0;
-	width:90%;
+	width:85.5%;
 }
 .MenuPopup
 {
 	/*display: inline.block;*/
 	display: none;
 	position: relative;
-	width: 85%;
+	width: 87%;
 	background-color: #7DB1F0;
 	padding: 5px;
-	margin-left: 10px;
+	margin-left: 4%;
 }
 .MenuPopupItem
 {
@@ -226,6 +232,7 @@ h1,h2,h3,h4,h5,h6
 	text-decoration: none;
 	background-color: #1A74DD;
 	width:90%;
+	margin-left: 2%;
 }
 /* Styles for Footer */
 #footer p 
