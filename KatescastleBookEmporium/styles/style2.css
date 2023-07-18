@@ -86,8 +86,8 @@ a:hover
 	margin-left: 140px;
 	padding: 10px;
 	background-color: #fff;
-	height: /*98.6%*/100%;
-	width: /*86.5%;*/76.5%;
+	height: 100%;
+	width: 78.5%;
 	overflow-y: auto;
 	overflow-x: auto;
 }
