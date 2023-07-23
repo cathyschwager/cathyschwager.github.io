@@ -11,11 +11,11 @@
 		<link href="../styles/style2.css" rel="stylesheet" type="text/css" />
 		
 		<style>
-</style>
+		</style>
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 		<!-- #EndEditable -->
 
 		
@@ -133,8 +133,7 @@
 				function GenerateShoppingContents(divShoppingCart)
 				{
 					divShoppingCart.innerHTML = "<br/><h2 id=\"Top\" class=\"PageHeading\">&nbsp;<u>Shopping Cart</u></h2><br/>";
-					location.search = "?ShoppingCart=" + JSON.stringify(arrayShoppingCart);
-	alert(location.search);
+
 					for (let nI = 0; nI < arrayShoppingCart.length; nI++)
 					{
 						divShoppingCart.innerHTML += "<p class=\"Paragraph\">" + arrayShoppingCart[nI][0] + 
@@ -294,7 +293,7 @@
 
 				<script type="text/javascript">
 
-					const arrayBookmarks = ["We're Looking For", "You're Looking For" ];
+					const arrayCategoryBookmarks= ["We're Looking For", "You're Looking For" ];
 					
 					const arrayCategoryBookLists =
 					[
