@@ -65,9 +65,19 @@ body
 	color: /*#1A74DD;*/white;
 	/*background-color:red;*/
 }
+.Author
+{
+	
+}
 .Email
 {
 	color: white;
+}
+.cart_button
+{
+	display: inline-block;
+	border-radius: 5px;
+	height: 25%;
 }
 a:hover
 {
@@ -90,6 +100,14 @@ a:hover
 	width: 78.5%;
 	overflow-y: auto;
 	overflow-x: auto;
+}
+.shopping_cart
+{
+	display: none;
+}
+.not_shopping_cart
+{
+	display: block;
 }
 .footer_link
 {
@@ -123,6 +141,15 @@ a:hover
 h1,h2,h3,h4,h5,h6 
 {
 	font-family: Arial Black;
+}
+.Paragraph
+{
+	display: inline-block;
+	font-size: large;
+	vertical-align: top;
+	line-height:28px;
+	margin-left: 3px;
+	margin-right: 3px;
 }
 .PageHeading
 {

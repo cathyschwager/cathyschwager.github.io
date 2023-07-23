@@ -38,11 +38,11 @@
 					var nNumLinks = 0;
 					var nMaxLinks = 6;
 
-					for (var nI = 0; nI < arrayBookmarks.length; nI++)
+					for (var nI = 0; nI < arrayCategoryBookmarks.length; nI++)
 					{
-						if (arrayBookmarks[nI].length > 0)
+						if (arrayCategoryBookmarks [nI].length > 0)
 						{
-							document.write("<a href=\"#" + arrayBookmarks[nI] + "\">" + arrayBookmarks[nI] + "</a>");
+							document.write("<a href=\"#" + arrayCategoryBookmarks[nI] + "\">" + arrayCategoryBookmarks[nI] + "</a>");
 						}
 						nNumLinks = nI + 1;
 						if ((nNumLinks % nMaxLinks) == 0)
@@ -57,31 +57,95 @@
 					document.write("<br/><h2 id=\"Top\" class=\"PageHeading\">&nbsp;<u>" + document.title + "</u></h2><br/>");
 				}
 				
-				function GenerateBookmarks(arrayCategoryBookmarks, arrayCategoryBookLists)
+				function GeneratePageContents(arrayCategoryBookmarks, arrayCategoryBookLists)
 				{
 					for (let nI = 0; nI < arrayCategoryBookmarks.length; nI++)
 					{
 						document.write("<h3 id=\"" + arrayCategoryBookmarks[nI] + "\">" + arrayCategoryBookmarks[nI] + "</h3>");
 						
 						let arrayBookList = arrayCategoryBookLists[nI];
-						for (let nJ = 0; nJ < arrayBookList.length; nJ++)
+						if (arrayBookList)
 						{
-							/*
-								// List of books for Bookmark1
-								[
-									["Title 1", 4.00, "Book description 1"],
-									["Title 2", 1.00, "Book description 2"],
-									["Title 3", 3.00, "Book description 3"]
-								],
-							*/
-							document.write("<h4 id=\"" + arrayBookList[nJ][0] + "\">" + arrayBookList[nJ][0] + "</h4>");
-							document.write("<p><b>Price:</b> $" + arrayBookList[nJ][1] + "<br/><br/>");
-							document.write("<b><u>Description</u></b><br>");
-							document.write(arrayBookList[nJ][2] + "</p><br/><hr>");
+							for (let nJ = 0; nJ < arrayBookList.length; nJ++)
+							{
+								/*
+									// List of books for Bookmark1
+									[
+										["Title 1", 4.00, "Book description 1", "image.jpg"],
+										["Title 2", 1.00, "Book description 2", "image.jpg"],
+										["Title 3", 3.00, "Book description 3", "image.jpg"]
+									],
+								*/
+								document.write("<h4 id=\"" + arrayBookList[nJ][0] + "\">" + arrayBookList[nJ][0] + "</h4>");
+								document.write("<p><b>Price:</b> $" + arrayBookList[nJ][1] + "<br/><br/>");
+								document.write("<p><b>Author(s):</b> " + arrayBookList[nJ][2] + "<br/><br/>");
+								document.write("<b><u>Description</u></b><br>");
+								document.write(arrayBookList[nJ][3] + "</p>");
+								document.write("<button type=\"button\" id=\"AddCart" + arrayBookList[nJ][0] + arrayBookList[nJ][2] + "\" class=\"cart_button\" onclick=\"OnClickAddCartButton('" + arrayBookList[nJ][0] + "', '" + arrayBookList[nJ][2] + "', " + arrayBookList[nJ][1] + ", '" + arrayBookList[nJ][4] + "')\"><img src=\"../images/add_shopping_cart.jpg\" alt=\"Add to cart\" /></button>&nbsp;");
+								document.write("<button type=\"button\" style=\"display: none;\" id=\"RemoveCart" + arrayBookList[nJ][0] + arrayBookList[nJ][2] + "\" class=\"cart_button\" onclick=\"OnRemoveCartButton('" + arrayBookList[nJ][0] + "', '" + arrayBookList[nJ][2] + "')\"><img src=\"../images/remove_shopping_cart.jpg\" alt=\"Remobe from cart\" /></button>&nbsp;");
+								document.write("<button type=\"button\" id=\"ShowCart" + arrayBookList[nJ][0] + arrayBookList[nJ][2] + "\" class=\"cart_button\" onclick=\"OnClickShowCartButton()\")><img src=\"../images/shopping_cart.jpg\" alt=\"Go to cart\" /></button><br/><br/>");
+								document.write("<a href=\"images/" + arrayBookList[nJ][4] + "\" alt=\"\"><img width=\"200\" src=\"images/" + arrayBookList[nJ][4] + "\" alt=\"images/" + arrayBookList[nJ][4] + "\" /></a>");
+								document.write("<br/><br/><hr>");
+							}
 						}
 					}
 				}
+				
+				var arrayShoppingCart = [];
+				
+				function OnClickAddCartButton(strTitle, strAuthor, nPrice, strImage)
+				{
+					document.getElementById("AddCart" + strTitle + strAuthor).style.display = "none";
+					document.getElementById("RemoveCart" + strTitle + strAuthor).style.display = "inline-block";
+					arrayShoppingCart.push([strTitle, strAuthor, nPrice, strImage]);
+				}
 
+				function OnRemoveCartButton(strTitle, strAuthor)
+				{
+					document.getElementById("AddCart" + strTitle + strAuthor).style.display= "inline-block";
+					document.getElementById("RemoveCart" + strTitle + strAuthor).style.display= "none";
+
+					for (let nI = 0; nI < arrayShoppingCart.length; nI++)
+					{
+						if ((arrayShoppingCart[nI][0] == strTitle) && (arrayShoppingCart[nI][1] == strAuthor))
+						{
+							let arrayLeft = arrayShoppingCart.slice(0, nI);
+							let arrayRight = arrayShoppingCart.slice(nI + 1, arrayShoppingCart.length - 1);							//arrayShoppingCart = arrayLeft;
+							arrayShoppingCart = arrayLeft;
+							arrayShoppingCart.concat(arrayRight);
+						}
+					}
+				}
+								
+				function OnClickShowCartButton()
+				{
+					var divShoppingCart = document.getElementById("shopping_cart");
+					var divNotShoppingCart = document.getElementById("not_shopping_cart");
+					
+					if (divShoppingCart && divNotShoppingCart)
+					{
+						GenerateShoppingContents(divShoppingCart);
+						divShoppingCart.style.display = "block";
+						divNotShoppingCart.style.display = "none";
+					}
+				}
+				
+				function GenerateShoppingContents(divShoppingCart)
+				{
+					divShoppingCart.innerHTML = "<br/><h2 id=\"Top\" class=\"PageHeading\">&nbsp;<u>Shopping Cart</u></h2><br/>";
+					location.search = "?ShoppingCart=" + JSON.stringify(arrayShoppingCart);
+	alert(location.search);
+					for (let nI = 0; nI < arrayShoppingCart.length; nI++)
+					{
+						divShoppingCart.innerHTML += "<p class=\"Paragraph\">" + arrayShoppingCart[nI][0] + 
+													", " + arrayShoppingCart[nI][1] + 
+													", $" + arrayShoppingCart[nI][2].toFixed(2) + "<br/>" + 
+													"<img width=\"200\" alt=\"" + arrayShoppingCart[nI][3] + "\"" + 
+													"src=\"images/" + arrayShoppingCart[nI][3] + "\" /></p>" +
+													"<br/><br/><hr><br/><br/>";
+					}
+				}
+				
 				function ScrollTopContent()
 				{
 					document.getElementById("content").scrollTop = -100;
@@ -204,21 +268,21 @@
 					[
 					  // List of books for Bookmark1
 					  [
-					  	["Title 1", 4.00, "Book description 1"],
-					  	["Title 2", 1.00, "Book description 2"],
-					  	["Title 3", 3.00, "Book description 3"]
+					  	["Title 1", 4.00, "Fred Smith", "Book description 1", "image.jpg"],
+					  	["Title 2", 1.00, "Fred Smith", "Book description 2", "image.jpg"],
+					  	["Title 3", 3.00, "Fred Smith", "Book description 3", "image.jpg"]
 					  ],
 					  // List of books for Bookmark2
 					  [
-					  	["Title 1", 4.00, "Book description 1"],
-					  	["Title 2", 1.00, "Book description 2"],
-					  	["Title 3", 3.00, "Book description 3"]
+					  	["Title 1", 4.00, "Fred Smith", "Book description 1", "image.jpg"],
+					  	["Title 2", 1.00, "Fred Smith", "Book description 2", "image.jpg"],
+					  	["Title 3", 3.00, "Fred Smith", "Book description 3", "image.jpg"]
 					  ],
 					  // List of books for Bookmark3
 					  [
-					  	["Title 1", 4.00, "Book description 1"],
-					  	["Title 2", 1.00, "Book description 2"],
-					  	["Title 3", 3.00, "Book description 3"]
+					  	["Title 1", 4.00, "Fred Smith", "Book description 1", "image.jpg"],
+					  	["Title 2", 1.00, "Fred Smith", "Book description 2", "image.jpg"],
+					  	["Title 3", 3.00, "Fred Smith", "Book description 3", "image.jpg"]
 					  ]
 					];
 					
@@ -401,13 +465,20 @@
 					
 					<p>
 					<img class="ImageDisplayBlock" alt="" height="200" src="../images/SiteUnderConstruction.png" /></p>
-					<marquee behavior="alternate" width="70%"><h1>Site it under construction...</h1></marquee><br/>
-
-					<script type="text/javascript">GeneratePageHeading();</script>
-					<div id="TOC">
+					<marquee behavior="alternate" width="70%"><h1>Site under construction...</h1></marquee><br/>
+					
+					<div id="shopping_cart" class="shopping_cart">
+						<br/><h2 id="Top" class="PageHeading">&nbsp;<u>Shopping Cart</u></h2><br/>
+					</div>
+					<div id="not_shopping_cart" class="not_shopping_cart">
+						<script type="text/javascript">GeneratePageHeading();</script>
+						<div id="TOC">
+							<script type="text/javascript">
+								GenerateMenu();
+							</script>
+						</div>
 						<script type="text/javascript">
-							GenerateMenu();
-							GenerateBookmarks(arrayBookmarks, arrayCategoryBookLists);
+							GeneratePageContents(arrayCategoryBookmarks, arrayCategoryBookLists);
 						</script>
 					</div>
 					<!-- #BeginEditable "content" -->
