@@ -11,7 +11,7 @@ body
 {
 	width: 100%;
 	height: 100%;
-	background-color: #cb8;
+	background-color: white;
 }
 #masthead 
 {
@@ -73,15 +73,11 @@ body
 {
 	color: white;
 }
-a:hover
-{
-	color: red;
-}
 #page_content 
 {
 	position: relative;
 	overflow: hidden;
-	height: 398px;
+	height: /*398px*/466px;
 }
 #content 
 {
@@ -125,11 +121,45 @@ a:hover
 	cursor: pointer;
 	color: red;
 }
+a:hover
+{
+	color: red;
+}
+#footer_link a
+{
+	color: white;
+}
+#footer_link a:hover
+{
+	color: red;
+}
 .footer_link
 {
-	margin-left:50px;
+	margin-left:0px;
+	margin-right: 120px;
 	color: white;
 	font-size: large;
+	/*background-color: aqua;*/
+}
+.footer_image
+{
+	position: relative;
+	top: 4px;
+}
+.Copyright
+{
+	font-size: small;
+	position: relative;
+	top: 5px;
+	width: 16%;
+	/*background-color: lime;*/
+}
+.Links
+{
+	position: relative;
+	top: 3px;
+	width: 81%;
+	/*background-color: aqua;*/
 }
 #footer 
 {
@@ -232,6 +262,7 @@ h1,h2,h3,h4,h5,h6
 #sidebar li 
 {
 	display: block;
+	margin-bottom: 5px;
 	/*border: 1px solid #cb8;*/
 }
 #sidebar a 
@@ -245,6 +276,8 @@ h1,h2,h3,h4,h5,h6
 	padding-top: 1%;
 	display: inline-block;
 	width:85.5%;
+	background-color: #061C6B;
+	border-radius: 10px;
 }
 #sidebar a:hover 
 {
