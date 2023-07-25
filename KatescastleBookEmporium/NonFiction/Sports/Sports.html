@@ -237,9 +237,11 @@
 								GenerateMenu(g_arrayCategoryBookmarks);
 							</script>
 						</div>
-						<script type="text/javascript">
-							GeneratePageContents(g_arrayCategoryBookmarks, g_arrayCategoryBookLists);
-						</script>
+						<div id="items">
+							<script type="text/javascript">
+								GeneratePageContents(g_arrayCategoryBookmarks, g_arrayCategoryBookLists);
+							</script>
+						</div>
 					</div>
 					<!-- #BeginEditable "content" -->
 					
@@ -257,8 +259,8 @@
 					<a class="footer_link" href="../../Emporium/Emporium.html">Emporium</a>
 					<a class="footer_link" href="../../Requests/Requests.html">Requests</a>
 					<a class="footer_link" href="../../Facebook/Facebook.html">Facebook</a>
-					<span class="footer_link" id="show_shopping_cart_link" onclick="OnClickShowCartButton()"><u>Show Shopping Cart</u></span>
-					<span class="footer_link" id="hide_shopping_cart_link" style="display:none;" onclick="OnClickHideCartButton()"><u>Hide Shopping Cart</u></span>
+					<span class="footer_link" id="show_shopping_cart_link" onclick="OnClickShowCartButton(g_arrayCategoryBookmarks, g_arrayCategoryBookLists)"><u>Show Shopping Cart</u></span>
+					<span class="footer_link" id="hide_shopping_cart_link" style="display:none;" onclick="OnClickHideCartButton(g_arrayCategoryBookmarks, g_arrayCategoryBookLists)"><u>Hide Shopping Cart</u></span>
 				</p>
 				<div class="FloatRight" style="font-size:small;position:relative;top:13px;">
 					<div><b>Copyright &copy; 2023 Cathy Schwager. All Rights Reserved.</b></div>
