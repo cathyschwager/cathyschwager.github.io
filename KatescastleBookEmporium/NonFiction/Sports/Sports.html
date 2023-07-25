@@ -222,11 +222,10 @@
 				<!-- Begin Content -->
 				<div id="content">
 					
-					<p>
-					<img class="ImageDisplayBlock" alt="" height="200" src="../../images/SiteUnderConstruction.png" /></p>
-					<marquee behavior="alternate" width="70%"><h1>Site under construction...</h1></marquee><br/>
+					<div id="Top" class="Top">&nbsp;</div>
 					
-					<span id="Top">&nbsp;</span><br/>
+					<!--<p><img class="ImageDisplayBlock" alt="" height="100" src="images/SiteUnderConstruction.png" /></p>-->
+					<marquee behavior="alternate" width="100%"><h1>Site under construction...</h1></marquee>
 					
 					<div id="shopping_cart" class="shopping_cart">
 						<br/><h2 class="PageHeading">&nbsp;<u>Shopping Cart</u></h2><br/>
@@ -258,6 +257,8 @@
 					<a class="footer_link" href="../../Emporium/Emporium.html">Emporium</a>
 					<a class="footer_link" href="../../Requests/Requests.html">Requests</a>
 					<a class="footer_link" href="../../Facebook/Facebook.html">Facebook</a>
+					<span class="footer_link" id="show_shopping_cart_link" onclick="OnClickShowCartButton()"><u>Show Shopping Cart</u></span>
+					<span class="footer_link" id="hide_shopping_cart_link" style="display:none;" onclick="OnClickHideCartButton()"><u>Hide Shopping Cart</u></span>
 				</p>
 				<div class="FloatRight" style="font-size:small;position:relative;top:13px;">
 					<div><b>Copyright &copy; 2023 Cathy Schwager. All Rights Reserved.</b></div>

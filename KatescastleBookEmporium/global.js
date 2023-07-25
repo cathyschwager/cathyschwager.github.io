@@ -99,6 +99,9 @@ function GeneratePageContents(arrayCategoryBookmarks, arrayCategoryBookLists)
 				document.write("<b><u>Description</u></b><br>");
 				document.write(arrayBookList[nJ][3] + "</p>");
 				
+				document.write("<p><a href=\"images/" + arrayBookList[nJ][4] + "\" alt=\"\"><img width=\"200\" src=\"images/" + 
+								arrayBookList[nJ][4] + "\" alt=\"images/" + arrayBookList[nJ][4] + "\" /></a></p>");
+
 				if (FindBookItem_(arrayBookList[nJ][0], arrayBookList[nJ][1]))
 				{
 					document.write("<button type=\"button\" style=\"display: none;\" id=\"AddCart" + arrayBookList[nJ][0] + arrayBookList[nJ][1] + 
@@ -122,12 +125,11 @@ function GeneratePageContents(arrayCategoryBookmarks, arrayCategoryBookLists)
 									arrayBookList[nJ][1] + "\" class=\"cart_button\" onclick=\"OnRemoveCartButton('" + 
 									arrayBookList[nJ][0] + "', '" + arrayBookList[nJ][1] + 
 									"')\"><img src=\"../images/remove_shopping_cart.jpg\" alt=\"Remobe from cart\" /></button>&nbsp;");
-				
 				}
+				/*
 				document.write("<button type=\"button\" id=\"ShowCart" + arrayBookList[nJ][0] + arrayBookList[nJ][1] +
 								"\" class=\"cart_button\" onclick=\"OnClickShowCartButton()\")><img src=\"../images/shopping_cart.jpg\" alt=\"Go to cart\" /></button><br/><br/>");
-				document.write("<a href=\"images/" + arrayBookList[nJ][4] + "\" alt=\"\"><img width=\"200\" src=\"images/" + 
-								arrayBookList[nJ][4] + "\" alt=\"images/" + arrayBookList[nJ][4] + "\" /></a>");
+				*/
 				document.write("<br/><br/><hr>");
 			}
 		}
@@ -178,7 +180,7 @@ function GenerateShoppingContents(divShoppingCart)
 				
 	if (arrayShoppingCart.length == 0)
 	{
-		divShoppingCart.innerHTML += "<p><button type=\"button\" class=\"cart_button\" onclick=\"OnClickContinueShoppingButton()\"><img src=\"../images/continue_shopping.jpg\" alt=\"Continue shopping\" /></button></p>"
+		//divShoppingCart.innerHTML += "<p><button type=\"button\" class=\"cart_button\" onclick=\"OnClickContinueShoppingButton()\"><img src=\"../images/continue_shopping.jpg\" alt=\"Continue shopping\" /></button></p>"
 		for (let nI = 0; nI < 1; nI++)
 			divShoppingCart.innerHTML += "<p >&nbsp;</p>";
 	}
@@ -186,22 +188,23 @@ function GenerateShoppingContents(divShoppingCart)
 	{	
 		for (let nI = 0; nI < arrayShoppingCart.length; nI++)
 		{
-			divShoppingCart.innerHTML += "<p class=\"Paragraph\">" + arrayShoppingCart[nI][0] + 
-										", " + arrayShoppingCart[nI][1] + 
-										", $" + arrayShoppingCart[nI][2] + "<br/>" + 
-										"<img width=\"200\" alt=\"images/" + arrayShoppingCart[nI][3] + "\"" + 
-										"src=\"images/" + arrayShoppingCart[nI][3] + "\" /></p>" +
+			divShoppingCart.innerHTML += "<p class=\"Paragraph\"><b>Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>" + arrayShoppingCart[nI][0] + "<br/>" +
+										"<b>Author: </b>" + arrayShoppingCart[nI][1] + "<br/>" +
+										"<b>Price: &nbsp;&nbsp;&nbsp;</b>$" + arrayShoppingCart[nI][2] + "<br/>" + 
+										"<b><u>Description</u></b><br/>" + arrayShoppingCart[nI][3] + "<br/>" +
+										"<img width=\"200\" alt=\"images/" + arrayShoppingCart[nI][4] + "\"" + 
+										"src=\"images/" + arrayShoppingCart[nI][4] + "\" /><br/>" +
 										
-										"<p><button type=\"button\" class=\"cart_button\" onclick=\"OnRemoveCartButton('" + 
+										"<button type=\"button\" class=\"cart_button\" onclick=\"OnRemoveCartButton('" + 
 										arrayShoppingCart[nI][0] + "', '" + arrayShoppingCart[nI][1] + 
 										"')\"><img src=\"../images/remove_shopping_cart.jpg\" alt=\"Remove from cart\" /></button>&nbsp;" +
 															
 										"<button type=\"button\" class=\"cart_button\" onclick=\"OnClickEmptyShoppingButton()\">" + 
 										"<img src=\"../images/empty_shopping_cart.jpg\" alt=\"Empty shopping cart\" /></button>&nbsp;" +
-										
+										/*
 										"<button type=\"button\" class=\"cart_button\" onclick=\"OnClickContinueShoppingButton()\">" + 
 										"<img src=\"../images/continue_shopping.jpg\" alt=\"Continue shopping\" /></button></p>" +
-										
+										*/
 										"<br/><hr><br/>";
 		}
 	}
@@ -240,27 +243,35 @@ function OnRemoveCartButton(strTitle, strAuthor)
 				
 function OnClickShowCartButton()
 {
-	var divShoppingCart = document.getElementById("shopping_cart");
-	var divNotShoppingCart = document.getElementById("not_shopping_cart");
+	let divShoppingCart = document.getElementById("shopping_cart");
+	let divNotShoppingCart = document.getElementById("not_shopping_cart");
+	let spanShowShoppingCart = document.getElementById("show_shopping_cart_link");
+	let spanHideShoppingCart = document.getElementById("hide_shopping_cart_link");
 		
-	if (divShoppingCart && divNotShoppingCart)
+	if (divShoppingCart && divNotShoppingCart && spanShowShoppingCart && spanHideShoppingCart)
 	{
 		GenerateShoppingContents(divShoppingCart);
 		divShoppingCart.style.display = "block";
 		divNotShoppingCart.style.display = "none";
+		spanShowShoppingCart.style.display = "none";
+		spanHideShoppingCart.style.display = "inline";
 	}
 }
 
-function OnClickContinueShoppingButton()
+function OnClickHideCartButton()
 {
 	let divShoppingCart = document.getElementById("shopping_cart");
 	let divNotShoppingCart = document.getElementById("not_shopping_cart");
+	let spanShowShoppingCart = document.getElementById("show_shopping_cart_link");
+	let spanHideShoppingCart = document.getElementById("hide_shopping_cart_link");
 	
-	if (divShoppingCart && divNotShoppingCart)
+	if (divShoppingCart && divNotShoppingCart && spanShowShoppingCart && spanHideShoppingCart)
 	{
 		GenerateShoppingContents(divShoppingCart);
 		divShoppingCart.style.display = "none";
 		divNotShoppingCart.style.display = "block";
+		spanShowShoppingCart.style.display = "inline";
+		spanHideShoppingCart.style.display = "none";
 	}
 }
 
@@ -275,7 +286,7 @@ if (typeof sessionStorage["ShoppingCart"] === "undefined")
 
 function ScrollTopContent()
 {
-	document.getElementById("content").scrollTop = -100;
+	//document.getElementById("content").scrollTop = -100;
 }
 
 function GenerateTopButton()

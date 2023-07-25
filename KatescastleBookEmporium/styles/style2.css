@@ -101,6 +101,10 @@ a:hover
 	border-radius: 5px;
 	height: 25%;
 }
+.Top
+{
+	display: inline;
+}
 .shopping_cart
 {
 	display: none;
@@ -110,6 +114,16 @@ a:hover
 {
 	display: block;
 	height: 100%;
+}
+#show_shopping_cart_link:hover
+{
+	cursor: pointer;
+	color: red;
+}
+#hide_shopping_cart_link:hover
+{
+	cursor: pointer;
+	color: red;
 }
 .footer_link
 {
