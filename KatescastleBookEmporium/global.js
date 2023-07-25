@@ -42,7 +42,7 @@ function GenerateMenu(arrayCategoryBookmarks)
 
 function GeneratePageHeading()
 {
-	document.write("<br/><h2 id=\"Top\" class=\"PageHeading\">&nbsp;<u>" + document.title + "</u></h2><br/>");
+	document.write("<br/><h2 class=\"PageHeading\">&nbsp;<u>" + document.title + "</u></h2><br/>");
 }
 
 function FindBookItem(strTitle, strAuthor, arrayShoppingCart)
@@ -171,7 +171,7 @@ function GenerateShoppingContents(divShoppingCart)
 {
 	var arrayShoppingCart = [];
 
-	divShoppingCart.innerHTML = "<br/><h2 id=\"Top\" class=\"PageHeading\">&nbsp;<u>Shopping Cart</u></h2><br/>";
+	divShoppingCart.innerHTML = "<br/><h2 class=\"PageHeading\">&nbsp;<u>Shopping Cart</u></h2><br/>";
 	
 	if (sessionStorage["ShoppingCart"] !== "")
 		arrayShoppingCart = JSON.parse(sessionStorage["ShoppingCart"]);
@@ -179,6 +179,8 @@ function GenerateShoppingContents(divShoppingCart)
 	if (arrayShoppingCart.length == 0)
 	{
 		divShoppingCart.innerHTML += "<p><button type=\"button\" class=\"cart_button\" onclick=\"OnClickContinueShoppingButton()\"><img src=\"../images/continue_shopping.jpg\" alt=\"Continue shopping\" /></button></p>"
+		for (let nI = 0; nI < 1; nI++)
+			divShoppingCart.innerHTML += "<p >&nbsp;</p>";
 	}
 	else
 	{	

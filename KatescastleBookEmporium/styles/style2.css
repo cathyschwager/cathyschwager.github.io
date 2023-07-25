@@ -104,10 +104,12 @@ a:hover
 .shopping_cart
 {
 	display: none;
+	height: 100%;
 }
 .not_shopping_cart
 {
 	display: block;
+	height: 100%;
 }
 .footer_link
 {
