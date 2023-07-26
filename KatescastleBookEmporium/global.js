@@ -108,8 +108,8 @@ function GeneratePageContents(arrayCategoryBookmarks, arrayCategoryBookLists)
 						],
 					*/
 					divItems.innerHTML += "<h4 id=\"" + arrayBookList[nJ][0] + "\">" + arrayBookList[nJ][0] + "</h4>";
-					divItems.innerHTML += "<p><b>Price:</b> $" + arrayBookList[nJ][1] + "<br/><br/>";
-					divItems.innerHTML += "<p><b>Author(s):</b> " + arrayBookList[nJ][2] + "<br/><br/>";
+					divItems.innerHTML += "<p><b>Author(s):</b> " + arrayBookList[nJ][1] + "<br/><br/>";
+					divItems.innerHTML += "<p><b>Price:</b> $" + arrayBookList[nJ][2] + "<br/><br/>";
 					divItems.innerHTML += "<b><u>Description</u></b><br>";
 					divItems.innerHTML += arrayBookList[nJ][3] + "</p>";
 					
