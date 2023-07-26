@@ -1,4 +1,4 @@
-﻿﻿//********************************************************************************************************************************
+﻿﻿﻿//********************************************************************************************************************************
 //********************************************************************************************************************************
 // GLOBAL VARIBALES
 //********************************************************************************************************************************
@@ -6,8 +6,7 @@
 var g_arrayCategoryBookmarks = [];
 var g_arrayCategoryBookLists = [];
 var g_bFictionPopupMenu = false, g_bNonFictionPopupMenu = false, g_bSpecialistPopupMenu = false;
-				
-
+var g_strURL = "https://cathyschwager.github.io/KatescastleBookEmporium";		
 
 function GenerateGregsEmailAddress()
 {
@@ -114,8 +113,8 @@ function GeneratePageContents(arrayCategoryBookmarks, arrayCategoryBookLists)
 					divItems.innerHTML += "<b><u>Description</u></b><br>";
 					divItems.innerHTML += arrayBookList[nJ][3] + "</p>";
 					
-					divItems.innerHTML += "<p><a href=\"images/" + arrayBookList[nJ][4] + "\" alt=\"\"><img width=\"200\" src=\"images/" + 
-											arrayBookList[nJ][4] + "\" alt=\"images/" + arrayBookList[nJ][4] + "\" /></a></p>";
+					divItems.innerHTML += "<p><a href=\"" + g_strURL + arrayBookList[nJ][4] + "\"><img width=\"200\" src=\"" + g_strURL + 
+											arrayBookList[nJ][4] + "\" alt=\"" + g_strURL + arrayBookList[nJ][4] + "\" /></a></p>";
 
 					if (FindBookItem_(arrayBookList[nJ][0], arrayBookList[nJ][1], arrayShoppingCart))
 					{
@@ -205,7 +204,7 @@ function GenerateShoppingContents(divShoppingCart)
 										"<b>Price: &nbsp;&nbsp;&nbsp;</b>$" + arrayShoppingCart[nI][2] + "<br/>" + 
 										"<b><u>Description</u></b><br/>" + arrayShoppingCart[nI][3] + "<br/>" +
 										"<img width=\"200\" alt=\"images/" + arrayShoppingCart[nI][4] + "\"" + 
-										"src=\"images/" + arrayShoppingCart[nI][4] + "\" /><br/>" +
+										"src=\"" + g_strURL + arrayShoppingCart[nI][4] + "\" /><br/>" +
 										
 										"<button type=\"button\" class=\"cart_button\" onclick=\"OnRemoveCartButton('" + 
 										arrayShoppingCart[nI][0] + "', '" + arrayShoppingCart[nI][1] + 
