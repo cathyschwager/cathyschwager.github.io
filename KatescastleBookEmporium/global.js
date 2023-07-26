@@ -147,6 +147,18 @@ function GeneratePageContents(arrayCategoryBookmarks, arrayCategoryBookLists)
 	}
 }
 
+function ShowEmptyShoppingCartLink(bShow)
+{
+	let divShoppingCart = document.getElementById("empty_shopping_cart_link");
+	if (divShoppingCart)
+	{
+		if (bShow)
+			divShoppingCart.style.display = "inline";
+		else
+			divShoppingCart.style.display = "none";
+	}
+}
+
 function OnClickAddCartButton(strTitle, strAuthor, strPrice, strDesc, strImage)
 {
 	document.getElementById("AddCart" + strTitle + strAuthor).style.display = "none";
@@ -178,6 +190,7 @@ function OnClickAddCartButton(strTitle, strAuthor, strPrice, strDesc, strImage)
 		arrayShoppingCart[nI] = [strTitle, strAuthor, strPrice, strDesc, strImage];
 	}
 	sessionStorage["ShoppingCart"] = JSON.stringify(arrayShoppingCart);
+	ShowEmptyShoppingCartLink(true);
 }
 
 function GenerateShoppingContents(divShoppingCart)
@@ -203,15 +216,16 @@ function GenerateShoppingContents(divShoppingCart)
 										"<b>Author: </b>" + arrayShoppingCart[nI][1] + "<br/>" +
 										"<b>Price: &nbsp;&nbsp;&nbsp;</b>$" + arrayShoppingCart[nI][2] + "<br/>" + 
 										"<b><u>Description</u></b><br/>" + arrayShoppingCart[nI][3] + "<br/>" +
-										"<img width=\"200\" alt=\"images/" + arrayShoppingCart[nI][4] + "\"" + 
+										"<img width=\"100\" alt=\"images/" + arrayShoppingCart[nI][4] + "\"" + 
 										"src=\"" + g_strURL + arrayShoppingCart[nI][4] + "\" /><br/>" +
 										
 										"<button type=\"button\" class=\"cart_button\" onclick=\"OnRemoveCartButton('" + 
 										arrayShoppingCart[nI][0] + "', '" + arrayShoppingCart[nI][1] + 
 										"')\"><img src=\"../images/remove_shopping_cart.jpg\" alt=\"Remove from cart\" /></button>&nbsp;" +
-															
+										/*					
 										"<button type=\"button\" class=\"cart_button\" onclick=\"OnClickEmptyShoppingButton()\">" + 
 										"<img src=\"../images/empty_shopping_cart.jpg\" alt=\"Empty shopping cart\" /></button>&nbsp;" +
+										*/
 										/*
 										"<button type=\"button\" class=\"cart_button\" onclick=\"OnClickContinueShoppingButton()\">" + 
 										"<img src=\"../images/continue_shopping.jpg\" alt=\"Continue shopping\" /></button></p>" +
@@ -248,6 +262,7 @@ function OnRemoveCartButton(strTitle, strAuthor)
 		arrayShoppingCart.concat(arrayRight);
 		sessionStorage["ShoppingCart"] = JSON.stringify(arrayShoppingCart);
 		GenerateShoppingContents(document.getElementById("shopping_cart"));
+		ShowEmptyShoppingCartLink(arrayShoppingCart.length > 0);
 	}
 	//alert(sessionStorage["ShoppingCart"]);
 }
@@ -287,10 +302,18 @@ function OnClickHideCartButton(arrayCategoryBookmarks, arrayCategoryBookLists)
 	}
 }
 
-function OnClickEmptyShoppingButton()
+function OnClickEmptyShoppingButton(arrayCategoryBookmarks, arrayCategoryBookLists)
 {
 	sessionStorage["ShoppingCart"] = "";
 	GenerateShoppingContents(document.getElementById("shopping_cart"));
+	GeneratePageContents(arrayCategoryBookmarks, arrayCategoryBookLists);
+	
+	let divShoppingCart = document.getElementById("shopping_cart");
+	if (divShoppingCart)
+	{
+		//if (window.getComputedStyle(divShoppingCart).display === "none")
+		ShowEmptyShoppingCartLink(false);
+	}
 }
 
 if (typeof sessionStorage["ShoppingCart"] === "undefined")

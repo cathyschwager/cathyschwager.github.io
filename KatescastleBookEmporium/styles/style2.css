@@ -121,6 +121,16 @@ body
 	cursor: pointer;
 	color: red;
 }
+#empty_shopping_cart_link:hover
+{
+	cursor: pointer;
+	color: red;
+}
+#footer_link:hover
+{
+	cursor: pointer;
+	color: red;
+}
 a:hover
 {
 	color: red;
@@ -157,7 +167,7 @@ a:hover
 .Links
 {
 	position: relative;
-	top: 3px;
+	top: -12px;
 	width: 81%;
 	/*background-color: aqua;*/
 }
