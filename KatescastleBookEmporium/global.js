@@ -149,13 +149,21 @@ function GeneratePageContents(arrayCategoryBookmarks, arrayCategoryBookLists)
 
 function ShowEmptyShoppingCartLink(bShow)
 {
-	let divShoppingCart = document.getElementById("empty_shopping_cart_link");
-	if (divShoppingCart)
+	let spanShoppingCart = document.getElementById("empty_shopping_cart_link");
+	let divLinks = document.getElementById("Links");
+	
+	if (spanShoppingCart && divLinks)
 	{
 		if (bShow)
-			divShoppingCart.style.display = "inline";
+		{
+			spanShoppingCart.style.display = "inline";
+			divLinks.style.top = "-12px";
+		}
 		else
-			divShoppingCart.style.display = "none";
+		{
+			spanShoppingCart.style.display = "none";
+			divLinks.style.top = "0px";
+		}
 	}
 }
 
