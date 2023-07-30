@@ -255,7 +255,30 @@
 							<input id="TextEmail" type="text" size="50"/><br/>
 							
 							<label id="LabelMobile" for="Phone"><b>Phone number (digits only) </b></label><br/>
-							<input id="TextPhoneNumber" type="text" size="15"/><br/><br/>
+							<input id="TextPhoneNumber" type="text" size="15"/><br/>
+							
+							<label id="LabelAddress" for="Address"><b>Address </b></label><br/>
+							<input id="TextAddress" type="text" size="60"/><br/>
+
+							<label id="LabelSuburb" for="Address"><b>Suburb / Town </b></label><br/>
+							<input type="text" id="TextSuburb" size="30"/><br/>
+
+							<label id="LabelState" for="Address"><b>State </b></label><br/>
+							<select id="SelState" onchange="OnStateChange()">
+								<option value="ACT">ACT</option>
+								<option value="NSW">NSW</option>
+								<option value="NT">NT</option>
+								<option value="QLD">QLD</option>
+								<option value="SA">SA</option>
+								<option value="TAS">TAS</option>
+								<option value="VIC" selected>VIC</option>
+								<option value="WA">WA</option>
+							</select><br/>
+
+							<label id="LabelPostcode" for="Address"><b>Postcode </b></label><br/>
+							<select id="SelPostcode">
+							</select><br/><br/>
+
 							<input id="ButtonNext" type="button" value="NEXT" class="NextButton" onclick="DoValidateOrderDetails()"/>
 						</form>
 						<br/><br/>
