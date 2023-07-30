@@ -249,6 +249,7 @@ function GenerateShoppingContents(divShoppingCart)
 	divShoppingCart.innerHTML += document.getElementById("OrderForm").innerHTML;
 	strSubmitOrder = "<a class=\"SubmitOrderButton\" id=\"SubmitOrderButton\" href=\"\">SUBMIT ORDER</a><br/><br/>";
 	divShoppingCart.innerHTML += strSubmitOrder;
+	OnStateChange();
 }
 
 function isValidEmail(strEmail)
@@ -319,18 +320,137 @@ function DoValidateOrderDetails()
 {
 	var textGivenNames = document.getElementById("TextGivenNames"), textSurname = document.getElementById("TextSurname"),
 		textEmail = document.getElementById("TextEmail"), textPhoneNumber = document.getElementById("TextPhoneNumber"),
+		textAddress = document.getElementById("TextAddress"), selState = document.getElementById("SelState"),
+		textSuburb = document.getElementById("TextSuburb"), selPostcode = document.getElementById("SelPostcode"),
 		linkSubmitOrder = document.getElementById("SubmitOrderButton");
 
-	if (linkSubmitOrder && textGivenNames && textSurname && textEmail && textPhoneNumber)
+	if (linkSubmitOrder && textGivenNames && textSurname && textEmail && textPhoneNumber && selState && textSuburb && selPostcode && textAddress)
 	{
 		if (isValidGivenNames(textGivenNames.value) && isValidSurname(textSurname.value) && isValidEmail(textEmail.value) && isValidPhoneNumber(textPhoneNumber.value))
 		{
 			linkSubmitOrder.href = "mailto: " + g_strEmail + "?" +
 							"subject=BOOK ORDER&body=Name: " + textGivenNames.value + " " + textSurname.value + "%0D%0A" +
 							"Email: " + textEmail.value + "%0D%0A" +  "Mobile: " + textPhoneNumber.value + "%0D%0A%0D%0A" +
+							
+							"Unit / Street" + textAddress.value + "%0D%0A" +
+							"Suburb/ Town: " + textSuburb.value + "%0D%0A" +
+							"State: " + selState.options[selState.selectedIndex].value + "%0D%0A" +
+							"Postcode: " + selPostcode.options[selPostcode.selectedIndex].value + "%0D%0A%0D%0A" +
+
 							g_strItemsShoppingCartItems4Email + "%0D%0A%0D%0AORDER TOTAL: $" + g_fShoppingCartTotal4Email.toFixed(2) + 
 							"%0D%0A";				
 			linkSubmitOrder.style.display="inline";
+		}
+	}
+}
+
+function DoAddPostCodes(SelPostcodes, nStart, nEnd)
+{
+	var option = null, strPostcode = "";
+	
+	for (let nPostcode = nStart; nPostcode <= nEnd; nPostcode ++)
+	{
+		if (nPostcode < 1000)
+			strPostcode = "0" + nPostcode.toString();
+		else
+			strPostcode = nPostcode.toString();
+		
+		option = document.createElement("option");
+		option.text = strPostcode;
+		option.value = strPostcode;
+		SelPostcodes.add(option); 
+	}
+}
+
+function OnStateChange()
+{
+	var SelState = document.getElementById("SelState"),
+		SelPostcode = document.getElementById("SelPostcode");
+		
+	if (SelState && SelPostcode)
+	{
+		let strState = SelState.options[SelState.selectedIndex].text;
+
+		while (SelPostcode.length > 0)
+		{
+			SelPostcode.remove(0);
+		}	
+		if (strState == "ACT")
+		{
+			/*
+				0200—0299 (LVRs and PO Boxes only)
+				2600—2618
+				2900—2920 
+			*/
+			DoAddPostCodes(SelPostcode, 200, 299);
+			DoAddPostCodes(SelPostcode, 2600, 2618);
+			DoAddPostCodes(SelPostcode, 2900, 2920);
+		}
+		else if (strState == "NSW")
+		{
+			/*
+				1000—1999 (LVRs and PO Boxes only)
+				2000—2599
+				2619—2899
+				2921—2999 			*/
+			DoAddPostCodes(SelPostcode, 1000, 1999);
+			DoAddPostCodes(SelPostcode, 2000, 2599);
+			DoAddPostCodes(SelPostcode, 2619, 2899);
+			DoAddPostCodes(SelPostcode, 2921, 299);
+		}
+		else if (strState == "NT")
+		{
+			/*
+				0800—0899
+				0900—0999 (LVRs and PO Boxes only)
+			*/
+			DoAddPostCodes(SelPostcode, 800, 899);
+			DoAddPostCodes(SelPostcode, 900, 999);
+		}
+		else if (strState == "QLD")
+		{
+			/*
+				4000—4999
+				9000—9999 (LVRs and PO Boxes only)
+			*/
+			DoAddPostCodes(SelPostcode, 4000, 4999);
+			DoAddPostCodes(SelPostcode, 9000, 9999);
+		}
+		else if (strState == "SA")
+		{
+			/*
+				5000—5799
+				5800—5999 (LVRs and PO Boxes only)
+			*/
+			DoAddPostCodes(SelPostcode, 5000, 5799);
+			DoAddPostCodes(SelPostcode, 5800, 5999);
+		}
+		else if (strState == "TAS")
+		{
+			/*
+				7000—7799
+				7800—7999 (LVRs and PO Boxes only)
+			*/
+			DoAddPostCodes(SelPostcode, 7000, 7799);
+			DoAddPostCodes(SelPostcode, 7800, 7999);
+		}
+		else if (strState == "VIC")
+		{
+			/*
+				3000—3999
+				8000—8999 (LVRs and PO Boxes only)
+			*/
+			DoAddPostCodes(SelPostcode, 3000, 3999);
+			DoAddPostCodes(SelPostcode, 8000, 8999);
+		}
+		else if (strState == "WA")
+		{
+			/*
+				6000—6797
+				6800—6999 (LVRs and PO Boxes only)	
+			*/
+			DoAddPostCodes(SelPostcode, 6000, 6797);
+			DoAddPostCodes(SelPostcode, 6800, 6999);
 		}
 	}
 }
