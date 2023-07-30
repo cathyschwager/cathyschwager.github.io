@@ -37,7 +37,7 @@ body
 	display:block;
 	float:left;
 	padding-left:20px;
-	width:68%;
+	width:65%;
 	text-align:left;
 	font-size:26px;
 	color:white;
@@ -53,10 +53,20 @@ body
 }
 .Books
 {
+	display: inline-block;
 	width: 30%;
+	margin-left: 22%;
+	/*background-color: lime;*/
+}
+.Motto
+{
+	display:inline;
+	margin-left:13%;
 }
 .Contact
 {
+	position: relative;
+	top: 0px;
 	display:inline-block;
 	float:right;
 	text-align:left;
@@ -253,7 +263,6 @@ h1,h2,h3,h4,h5,h6
 	display:inline-block;
 	position: relative;
 	float: left;
-	width: 140px;
 	background-color: /*#BBBFFD*/#1A74DD;
 	overflow-y: auto;
 	overflow-x: hidden;
