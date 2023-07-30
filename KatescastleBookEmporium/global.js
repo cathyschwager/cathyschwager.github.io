@@ -6,7 +6,8 @@
 var g_arrayCategoryBookmarks = [];
 var g_arrayCategoryBookLists = [];
 var g_bFictionPopupMenu = false, g_bNonFictionPopupMenu = false, g_bSpecialistPopupMenu = false;
-var g_strURL = "https://cathyschwager.github.io/KatescastleBookEmporium";		
+var g_strURL = "https://cathyschwager.github.io/KatescastleBookEmporium";
+var g_strEmail = "katescastle" + "@" + "ozemail" + "." + "com" + "." + "au";
 
 function GenerateGregsEmailAddress()
 {
@@ -16,8 +17,7 @@ function GenerateGregsEmailAddress()
 
 function GenerateCathysEmailAddress()
 {
-	var strEmailAddress = "katescastle" + "@" + "ozemail" + "." + "com" + "." + "au";
-	document.write("<a class=\"Email\" href=\"mailto: " + strEmailAddress + "\">" + strEmailAddress + "</a>");
+	document.write("<a class=\"Email\" href=\"mailto: " + g_strEmail + "\">" + strEmailAddress + "</a>");
 }
 
 function GenerateMenu(arrayCategoryBookmarks)
@@ -203,7 +203,7 @@ function OnClickAddCartButton(strTitle, strAuthor, strPrice, strDesc, strImage)
 
 function GenerateShoppingContents(divShoppingCart)
 {
-	var arrayShoppingCart = [];
+	var arrayShoppingCart = [], strItems = "", nTotal = 0, strSubmitOrder = "";
 
 	divShoppingCart.innerHTML = "<br/><h2 class=\"PageHeading\">&nbsp;<u>Shopping Cart</u></h2><br/>";
 	
@@ -238,8 +238,26 @@ function GenerateShoppingContents(divShoppingCart)
 										"<button type=\"button\" class=\"cart_button\" onclick=\"OnClickContinueShoppingButton()\">" + 
 										"<img src=\"../images/continue_shopping.jpg\" alt=\"Continue shopping\" /></button></p>" +
 										*/
-										"<br/><hr><br/>";
+										"<br/><hr><br/><br/>";
+										strItems += arrayShoppingCart[nI][0] + ", " + arrayShoppingCart[nI][1] + ", " + 
+													arrayShoppingCart[nI][2] + "\n";
+										nTotal += Number(arrayShoppingCart[nI][2]);
 		}
+	}
+	divShoppingCart.innerHTML += document.getElementById("OrderForm").innerHTML;
+	strSubmitOrder = "<a class=\"SubmitOrderButton\" id=\"SubmitOrderButton\" href=\"mailto: " + g_strEmail + "?" + 
+						"subject=BOOK ORDER&body=" + strItems + "%0D%0A%0D%0AORDER TOTAL: $" + nTotal.toFixed(2) + 
+						"%0D%0A\">SUBMIT ORDER</a><br/><br/>";
+ 	divShoppingCart.innerHTML += strSubmitOrder;
+}
+
+function DoValidateOrderDetails()
+{
+	var linkSubmitOrder = document.getElementById("SubmitOrderButton");
+	
+	if (linkSubmitOrder)
+	{
+		linkSubmitOrder.style.display="inline";
 	}
 }
 
@@ -257,7 +275,7 @@ function OnRemoveCartButton(strTitle, strAuthor)
 	nI = FindBookItem(strTitle, strAuthor, arrayShoppingCart);
 	/*
 	alert(strTitle);
-	alert(strAuthor);
+	alert(strAuthor)
 	alert(nI);
 	alert(sessionStorage["ShoppingCart"]);
 	*/
