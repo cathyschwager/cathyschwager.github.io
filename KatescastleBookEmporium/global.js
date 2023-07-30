@@ -1,4 +1,4 @@
-﻿﻿﻿//********************************************************************************************************************************
+﻿﻿//********************************************************************************************************************************
 //********************************************************************************************************************************
 // GLOBAL VARIBALES
 //********************************************************************************************************************************
@@ -8,6 +8,8 @@ var g_arrayCategoryBookLists = [];
 var g_bFictionPopupMenu = false, g_bNonFictionPopupMenu = false, g_bSpecialistPopupMenu = false;
 var g_strURL = "https://cathyschwager.github.io/KatescastleBookEmporium";
 var g_strEmail = "katescastle" + "@" + "ozemail" + "." + "com" + "." + "au";
+var g_strItemsShoppingCartItems4Email = "";
+var g_fShoppingCartTotal4Email = 0;
 
 function GenerateGregsEmailAddress()
 {
@@ -203,7 +205,7 @@ function OnClickAddCartButton(strTitle, strAuthor, strPrice, strDesc, strImage)
 
 function GenerateShoppingContents(divShoppingCart)
 {
-	var arrayShoppingCart = [], strItems = "", nTotal = 0, strSubmitOrder = "";
+	var arrayShoppingCart = [], strSubmitOrder = "";
 
 	divShoppingCart.innerHTML = "<br/><h2 class=\"PageHeading\">&nbsp;<u>Shopping Cart</u></h2><br/>";
 	
@@ -239,25 +241,97 @@ function GenerateShoppingContents(divShoppingCart)
 										"<img src=\"../images/continue_shopping.jpg\" alt=\"Continue shopping\" /></button></p>" +
 										*/
 										"<br/><hr><br/><br/>";
-										strItems += arrayShoppingCart[nI][0] + ", " + arrayShoppingCart[nI][1] + ", " + 
-													arrayShoppingCart[nI][2] + "\n";
-										nTotal += Number(arrayShoppingCart[nI][2]);
+										g_strItemsShoppingCartItems4Email+= arrayShoppingCart[nI][0] + ", " + 
+												arrayShoppingCart[nI][1] + ", " + arrayShoppingCart[nI][2] + "\n";
+										g_fShoppingCartTotal4Email += Number(arrayShoppingCart[nI][2]);
 		}
 	}
 	divShoppingCart.innerHTML += document.getElementById("OrderForm").innerHTML;
-	strSubmitOrder = "<a class=\"SubmitOrderButton\" id=\"SubmitOrderButton\" href=\"mailto: " + g_strEmail + "?" + 
-						"subject=BOOK ORDER&body=" + strItems + "%0D%0A%0D%0AORDER TOTAL: $" + nTotal.toFixed(2) + 
-						"%0D%0A\">SUBMIT ORDER</a><br/><br/>";
- 	divShoppingCart.innerHTML += strSubmitOrder;
+	strSubmitOrder = "<a class=\"SubmitOrderButton\" id=\"SubmitOrderButton\" href=\"\">SUBMIT ORDER</a><br/><br/>";
+	divShoppingCart.innerHTML += strSubmitOrder;
+}
+
+function isValidEmail(strEmail)
+{
+	var bIsValid = false;
+	
+	if (strEmail.length == 0)
+		alert("Email address cannot be blank!");
+	else
+	{
+		let nPosAt = strEmail.indexOf("@"),
+			nPosDot = strEmail.indexOf(".");
+			
+		if ((nPosAt > -1) && (nPosDot > -1) && (nPosDot > nPosAt))
+			bIsValid = true;
+		else
+			alert("'" + strEmail + "' is not a valid email address!");
+	}
+	return bIsValid;
+}
+
+function isValidPhoneNumber(strPhoneNumber)
+{
+	var bIsValid = false;
+
+	if (strPhoneNumber.length == 0)
+		alert("Phone number cannot be blank!");
+	else
+	{
+		bIsValid = true;
+		for (let nI = 0; nI < strPhoneNumber.length; nI++)
+		{
+			bIsValid = (strPhoneNumber[nI] >= '0') && (strPhoneNumber[nI] <= '9');
+			if (!bIsValid)
+				break;
+		}
+		if (!bIsValid)
+			alert("'" + strPhoneNumber + "' is not a valid phone number!");
+	}
+	return bIsValid;
+}
+
+function isValidGivenNames(strName)
+{
+	var bIsValid = false;
+
+	if (strName.length == 0)
+		alert("Given names cannot be blank!");
+	else
+		bIsValid = true;
+		
+	return bIsValid;
+}
+
+function isValidSurname(strName)
+{
+	var bIsValid = false;
+	
+	if (strName.length == 0)
+		alert("Surname cannot be blank!");
+	else
+		bIsValid = true;
+		
+	return bIsValid;
 }
 
 function DoValidateOrderDetails()
 {
-	var linkSubmitOrder = document.getElementById("SubmitOrderButton");
-	
-	if (linkSubmitOrder)
+	var textGivenNames = document.getElementById("TextGivenNames"), textSurname = document.getElementById("TextSurname"),
+		textEmail = document.getElementById("TextEmail"), textPhoneNumber = document.getElementById("TextPhoneNumber"),
+		linkSubmitOrder = document.getElementById("SubmitOrderButton");
+
+	if (linkSubmitOrder && textGivenNames && textSurname && textEmail && textPhoneNumber)
 	{
-		linkSubmitOrder.style.display="inline";
+		if (isValidGivenNames(textGivenNames.value) && isValidSurname(textSurname.value) && isValidEmail(textEmail.value) && isValidPhoneNumber(textPhoneNumber.value))
+		{
+			linkSubmitOrder.href = "mailto: " + g_strEmail + "?" +
+							"subject=BOOK ORDER&body=Name: " + textGivenNames.value + " " + textSurname.value + "%0D%0A" +
+							"Email: " + textEmail.value + "%0D%0A" +  "Mobile: " + textPhoneNumber.value + "%0D%0A%0D%0A" +
+							g_strItemsShoppingCartItems4Email + "%0D%0A%0D%0AORDER TOTAL: $" + g_fShoppingCartTotal4Email.toFixed(2) + 
+							"%0D%0A";				
+			linkSubmitOrder.style.display="inline";
+		}
 	}
 }
 
@@ -273,12 +347,7 @@ function OnRemoveCartButton(strTitle, strAuthor)
 		arrayShoppingCart = JSON.parse(sessionStorage["ShoppingCart"]);
 	
 	nI = FindBookItem(strTitle, strAuthor, arrayShoppingCart);
-	/*
-	alert(strTitle);
-	alert(strAuthor)
-	alert(nI);
-	alert(sessionStorage["ShoppingCart"]);
-	*/
+
 	if (nI > -1)
 	{
 		let arrayLeft = arrayShoppingCart.slice(0, nI - 1);
