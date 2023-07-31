@@ -7,15 +7,81 @@
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 		<!-- #BeginEditable "doctitle" -->
 		<title>Vintage 1950-1975</title>
+
+		<style>
+</style>		
+
+				<script type="text/javascript">
+
+					g_arrayCategoryBookmarks = [];
+					
+					g_arrayCategoryBookLists = [];
+					
+				</script>
+				
 		<!-- #EndEditable -->
 		<link href="../../styles/style2.css" rel="stylesheet" type="text/css" />
 		
-		<style>
-</style>
+		<div id="OrderForm" style="display:none;">
+			<h2><u>CONTACT DETAILS FOR ORDER</u></h2>
+
+			<form id="OrderForm" method="post" class="OrderDetailsForm">
+				<label id="LabelGivenNames" for="GivenNames"><b>Given names</b></label><br/>
+				<input id="TextGivenNames" type="text" size="30"/><br/>
+				
+				<label id="LabelSurname" for="Surname"><b>Surname</b></label><br/>
+				<input id="TextSurname" type="text" size="30"/><br/>
+				
+				<label id="LabelEmail" for="Email"><b>Email address</b></label><br/>
+				<input id="TextEmail" type="text" size="50"/><br/>
+				
+				<label id="LabelMobile" for="Phone"><b>Phone number (digits only) </b></label><br/>
+				<input id="TextPhoneNumber" type="text" size="15"/><br/>
+				
+				<label id="LabelAddress" for="Address"><b>Unit/Street </b></label><br/>
+				<input id="TextAddress" type="text" size="60"/><br/>
+
+				<label id="LabelSuburb" for="Address"><b>City/Suburb/Town </b></label><br/>
+				<input type="text" id="TextSuburb" size="30" onchange="DoAddPostCodes"DoOnChangeSuburb()/><br/>
+
+				<label id="LabelState" for="Address"><b>State </b></label><br/>
+				<select id="SelState" onchange="OnStateChange()">
+					<option value="ACT">ACT</option>
+					<option value="NSW">NSW</option>
+					<option value="NT">NT</option>
+					<option value="QLD">QLD</option>
+					<option value="SA">SA</option>
+					<option value="TAS">TAS</option>
+					<option value="VIC" selected>VIC</option>
+					<option value="WA">WA</option>
+				</select><br/>
+
+				<label id="LabelPostcode" for="Address"><b>Postcode </b></label><br/>
+				<select id="SelPostcode">
+				</select><br/><br/>
+				
+				<input id="ButtonClear" type="button" value="ERASE DETAILS" class="NextButton" onclick="DoEraseDetails()"/>
+				<br/><br/>
+
+				<label id="LabelSubtotal" for="Subtotal"><b>Subtotal </b></label><br/>
+				<input id="TextSubtotal" type="text" size="10" readonly /><br/>
+
+				<label id="LabelPostage" for="Postage"><b>Postage &amp; handling </b></label><br/>
+				<input id="TextPostage" type="text" size="10" readonly /><br/>
+
+				<label id="LabelTotal" for="Postage"><b>Total </b></label><br/>
+				<input id="TextTotal" type="text" size="10" readonly /><br/><br/>
+
+				<input id="ButtonNext" type="button" value="NEXT" class="NextButton" onclick="DoValidateOrderDetails()"/>
+			</form>
+			<br/><br/>
+		</div>
+
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
 </style>		
+
 		<!-- #EndEditable -->
 
 		
@@ -35,9 +101,9 @@
 				 ***********************************************************************************************
 				 ***********************************************************************************************
 
-					const arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
+					var arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
 					
-					const arrayCategoryBookLists =
+					var arrayCategoryBookLists =
 					[
 					  // List of books for Bookmark1
 					  [
@@ -61,15 +127,16 @@
 					
 				***********************************************************************************************
 				***********************************************************************************************/
+					
 			</script>
 			
 			<!-- #BeginEditable "Subcategories" -->
 
 				<script type="text/javascript">
 
-					g_arrayCategoryBookmarks = [];
+					const arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
 					
-					g_arrayCategoryBookLists = [];
+					const arrayCategoryBookLists = [];
 					
 				</script>
 				
@@ -113,7 +180,7 @@
 					<ul>
 						<li><a href="../../index.htm">Home</a></li>
 						<li><a href="../../FAQ/FAQ.html">FAQ</a></li>
-						<li><a href="../../Facebook/Facebook.html">Facebook</a></li>
+						<li><a href="../../LearnToCode/LearnToCode.html">Learn to code</a></li>
 						<li><a href="../../Requests/Requests.html">Requests</a></li>
 						<li><a href="../../Children/Children.html">Children</a></li>
 						<li><a href="../../Emporium/Emporium.html">Emporium</a></li>
@@ -224,79 +291,24 @@
 					
 					<!--<p><img class="ImageDisplayBlock" alt="" height="100" src="images/SiteUnderConstruction.png" /></p>-->
 					<marquee behavior="alternate" width="100%"><h1>Site under construction...</h1></marquee>
-					
-					<div id="shopping_cart" class="shopping_cart">
-						<br/><h2 class="PageHeading">&nbsp;<u>Shopping Cart</u></h2><br/>
+		
+					<script type="text/javascript">GeneratePageHeading();</script>
+					<div id="TOC">
+						<script type="text/javascript">
+							GenerateMenu(g_arrayCategoryBookmarks);
+						</script>
 					</div>
-					<div id="not_shopping_cart" class="not_shopping_cart">
-						<script type="text/javascript">GeneratePageHeading();</script>
-						<div id="TOC">
-							<script type="text/javascript">
-								GenerateMenu(g_arrayCategoryBookmarks);
-							</script>
-						</div>
-						<div id="items">
-							<script type="text/javascript">
-								GeneratePageContents(g_arrayCategoryBookmarks, g_arrayCategoryBookLists);
-							</script>
-						</div>
-					</div>
-					<div id="OrderForm" style="display:none;">
-						<h2><u>CONTACT DETAILS FOR ORDER</u></h2>
-
-						<form id="OrderForm" method="post" class="OrderDetailsForm">
-							<label id="LabelGivenNames" for="GivenNames"><b>Given names</b></label><br/>
-							<input id="TextGivenNames" type="text" size="30"/><br/>
-							
-							<label id="LabelSurname" for="Surname"><b>Surname</b></label><br/>
-							<input id="TextSurname" type="text" size="30"/><br/>
-							
-							<label id="LabelEmail" for="Email"><b>Email address</b></label><br/>
-							<input id="TextEmail" type="text" size="50"/><br/>
-							
-							<label id="LabelMobile" for="Phone"><b>Phone number (digits only) </b></label><br/>
-							<input id="TextPhoneNumber" type="text" size="15"/><br/>
-							
-							<label id="LabelAddress" for="Address"><b>Unit/Street </b></label><br/>
-							<input id="TextAddress" type="text" size="60"/><br/>
-
-							<label id="LabelSuburb" for="Address"><b>City/Suburb/Town </b></label><br/>
-							<input type="text" id="TextSuburb" size="30" onchange="DoAddPostCodes"DoOnChangeSuburb()/><br/>
-
-							<label id="LabelState" for="Address"><b>State </b></label><br/>
-							<select id="SelState" onchange="OnStateChange()">
-								<option value="ACT">ACT</option>
-								<option value="NSW">NSW</option>
-								<option value="NT">NT</option>
-								<option value="QLD">QLD</option>
-								<option value="SA">SA</option>
-								<option value="TAS">TAS</option>
-								<option value="VIC" selected>VIC</option>
-								<option value="WA">WA</option>
-							</select><br/>
-
-							<label id="LabelPostcode" for="Address"><b>Postcode </b></label><br/>
-							<select id="SelPostcode">
-							</select><br/><br/>
-							
-							<input id="ButtonClear" type="button" value="ERASE DETAILS" class="NextButton" onclick="DoEraseDetails()"/>
-							<br/><br/>
-
-							<label id="LabelSubtotal" for="Subtotal"><b>Subtotal </b></label><br/>
-							<input id="TextSubtotal" type="text" size="10" readonly /><br/>
-
-							<label id="LabelPostage" for="Postage"><b>Postage &amp; handling </b></label><br/>
-							<input id="TextPostage" type="text" size="10" readonly /><br/>
-
-							<label id="LabelTotal" for="Postage"><b>Total </b></label><br/>
-							<input id="TextTotal" type="text" size="10" readonly /><br/><br/>
-
-							<input id="ButtonNext" type="button" value="NEXT" class="NextButton" onclick="DoValidateOrderDetails()"/>
-						</form>
-						<br/><br/>
-					</div>
-					
+					<script type="text/javascript">
+						GeneratePageContents(g_arrayCategoryBookmarks, g_arrayCategoryBookLists);
+					</script>
+											
 					<!-- #BeginEditable "content" -->
+					
+					
+					
+					
+					
+					
 					
 					<!-- #EndEditable -->
 				</div>
@@ -310,10 +322,10 @@
 					<img alt="" width="1%" class="footer_image" src="../../images/top.png" />&nbsp;<a href="#Top">Top of Page</a></span>
 					<span class="footer_link" id="footer_link">
 					<img alt="" width="2%" class="footer_image" src="../../images/home.png" />&nbsp;<a href="../../index.htm">Home</a></span>
-					<span class="footer_link" id="show_shopping_cart_link" onclick="OnClickShowCartButton(g_arrayCategoryBookmarks, g_arrayCategoryBookLists)">
-					<img alt="" width="2.5%" class="footer_image" src="../../images/shopping_cart.png" />&nbsp;<u>Show Shopping Cart</u></span>
-					<span class="footer_link" id="hide_shopping_cart_link" style="display:none;" onclick="OnClickHideCartButton(g_arrayCategoryBookmarks, g_arrayCategoryBookLists)">
-					<img alt="" width="2.5%" class="footer_image" src="../../images/shopping_cart.png" />&nbsp;<u>Hide Shopping Cart</u></span>
+					<span class="footer_link" id="show_shopping_cart_span">
+					<img alt="" width="2%" class="footer_image" src="../../images/shopping_cart.png" />&nbsp;<a href="../../ShoppingCart.html" id="show_shopping_cart_link" onclick="OnClickShowCartButton()">Show Shopping Cart</a></span>
+					<span class="footer_link" id="hide_shopping_cart_span" style="display:none;">
+					<img alt="" width="2.5%" class="footer_image" src="../../images/shopping_cart.png" />&nbsp;<a href="" id="hide_shopping_cart_link" onclick="OnClickHideCartButton()">Hide Shopping Cart</a></span>	
 				</div>
 				<div class="FloatRight Copyright">
 					<div><b>Copyright &copy; 2023 Cathy Schwager.<br/>All Rights Reserved.</b></div>
@@ -329,9 +341,10 @@
 		<script type="text/javascript">
 		
 			ScrollTopContent();
+			SetShowHideShoppingCartLink();
 			
 		</script>
-	
+			
 	</footer>
 
 <!-- #EndTemplate -->

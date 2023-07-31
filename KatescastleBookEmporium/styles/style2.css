@@ -174,13 +174,9 @@ a:hover
 {
 	color: red;
 }
-#footer_link a
+a
 {
 	color: white;
-}
-#footer_link a:hover
-{
-	color: red;
 }
 .footer_link
 {
