@@ -252,10 +252,10 @@ function GenerateShoppingCartContents()
 			document.write(arrayShoppingCart[nI][0] + "', '" + arrayShoppingCart[nI][1]); 
 			document.write("')\"><img src=\"../images/remove_shopping_cart.jpg\" alt=\"Remove from cart\" /></button>&nbsp;");
 			document.write("<br/><hr><br/><br/>");
-			document.write(g_structOrderDetails.strShoppingCartItems += arrayShoppingCart[nI][0] + ", " + 
-							arrayShoppingCart[nI][1] + ", " + arrayShoppingCart[nI][2] + "\n");
-			document.write(g_structOrderDetails.fShoppingCartTotal += Number(arrayShoppingCart[nI][2]));
-			document.write(g_structOrderDetails.fShoppingCartTotalMass += Number(arrayShoppingCart[nI][5]));
+			
+			g_structOrderDetails.strShoppingCartItems += arrayShoppingCart[nI][0] + ", " + arrayShoppingCart[nI][1] + ", " + arrayShoppingCart[nI][2] + "\n";
+			g_structOrderDetails.fShoppingCartTotal += Number(arrayShoppingCart[nI][2]);
+			g_structOrderDetails.fShoppingCartTotalMass += Number(arrayShoppingCart[nI][5]);
 		}
 		document.write(document.getElementById("OrderForm").innerHTML);
 		document.write("<a class=\"SubmitOrderButton\" id=\"SubmitOrderButton\" href=\"\">SUBMIT ORDER</a><br/><br/>");
