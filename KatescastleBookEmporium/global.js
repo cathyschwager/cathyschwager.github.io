@@ -8,6 +8,7 @@ var g_arrayCategoryBookLists = [];
 var g_bFictionPopupMenu = false, g_bNonFictionPopupMenu = false, g_bSpecialistPopupMenu = false;
 var g_strURL = "https://cathyschwager.github.io/KatescastleBookEmporium";
 var g_strEmail = "katescastle" + "@" + "ozemail" + "." + "com" + "." + "au";
+var g_strGregsEmail = "gregplants" + "@" + "bigpond" + "." + "com";
 var g_structOrderDetails = {
 								strShoppingCartItems: "",
 								fShoppingCartTotal: 0,
@@ -17,7 +18,7 @@ var g_structOrderDetails = {
 function GenerateGregsEmailAddress()
 {
 	var strEmailAddress = "gregplants" + "@" + "bigpond" + "." + "com";
-	document.write("<a class=\"Email\" href=\"mailto: " + strEmailAddress + "\">" + strEmailAddress + "</a>");
+	document.write("<a class=\"Email\" href=\"mailto: " + g_strGregsEmail+ "\">" + g_strGregsEmail+ "</a>");
 }
 
 function GenerateCathysEmailAddress()
