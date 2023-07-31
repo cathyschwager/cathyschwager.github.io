@@ -41,21 +41,21 @@
 					[
 					  // List of books for Bookmark1
 					  [
-					  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg"],
-					  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg"],
-					  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg"]
+					  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg", "300"],
+					  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg", "160"],
+					  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg", "200"]
 					  ],
 					  // List of books for Bookmark2
 					  [
-					  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg"],
-					  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg"],
-					  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg"]
+					  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg", "120"],
+					  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg", "230"],
+					  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg", "330"]
 					  ],
 					  // List of books for Bookmark3
 					  [
-					  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg"],
-					  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg"],
-					  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg"]
+					  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg", "50"],
+					  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg", "170"],
+					  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg", "240"]
 					  ]
 					];
 					
@@ -243,6 +243,7 @@
 					</div>
 					<div id="OrderForm" style="display:none;">
 						<h2><u>CONTACT DETAILS FOR ORDER</u></h2>
+
 						<form id="OrderForm" method="post" class="OrderDetailsForm">
 							<label id="LabelGivenNames" for="GivenNames"><b>Given names</b></label><br/>
 							<input id="TextGivenNames" type="text" size="30"/><br/>
@@ -256,11 +257,11 @@
 							<label id="LabelMobile" for="Phone"><b>Phone number (digits only) </b></label><br/>
 							<input id="TextPhoneNumber" type="text" size="15"/><br/>
 							
-							<label id="LabelAddress" for="Address"><b>Address </b></label><br/>
+							<label id="LabelAddress" for="Address"><b>Unit/Street </b></label><br/>
 							<input id="TextAddress" type="text" size="60"/><br/>
 
-							<label id="LabelSuburb" for="Address"><b>Suburb / Town </b></label><br/>
-							<input type="text" id="TextSuburb" size="30"/><br/>
+							<label id="LabelSuburb" for="Address"><b>City/Suburb/Town </b></label><br/>
+							<input type="text" id="TextSuburb" size="30" onchange="DoAddPostCodes"DoOnChangeSuburb()/><br/>
 
 							<label id="LabelState" for="Address"><b>State </b></label><br/>
 							<select id="SelState" onchange="OnStateChange()">
@@ -277,6 +278,18 @@
 							<label id="LabelPostcode" for="Address"><b>Postcode </b></label><br/>
 							<select id="SelPostcode">
 							</select><br/><br/>
+							
+							<input id="ButtonClear" type="button" value="ERASE DETAILS" class="NextButton" onclick="DoEraseDetails()"/>
+							<br/><br/>
+
+							<label id="LabelSubtotal" for="Subtotal"><b>Subtotal </b></label><br/>
+							<input id="TextSubtotal" type="text" size="10" readonly /><br/>
+
+							<label id="LabelPostage" for="Postage"><b>Postage &amp; handling </b></label><br/>
+							<input id="TextPostage" type="text" size="10" readonly /><br/>
+
+							<label id="LabelTotal" for="Postage"><b>Total </b></label><br/>
+							<input id="TextTotal" type="text" size="10" readonly /><br/><br/>
 
 							<input id="ButtonNext" type="button" value="NEXT" class="NextButton" onclick="DoValidateOrderDetails()"/>
 						</form>
