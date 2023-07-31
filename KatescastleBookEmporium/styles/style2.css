@@ -33,15 +33,15 @@ body
 	margin-right:10px;
 }
 .Title
-{
+{	
 	display:block;
 	float:left;
 	padding-left:20px;
-	width:65%;
+	width:55%;
 	text-align:left;
 	font-size:26px;
 	color:white;
-	/*background-image: url(../images/Books.png);*/
+	/*background-color: lime;*/
 }
 #Title h2,h6
 {
@@ -54,8 +54,8 @@ body
 .Books
 {
 	display: inline-block;
-	width: 30%;
-	margin-left: 22%;
+	width: 34%;
+	margin-left: 28%;
 	/*background-color: lime;*/
 }
 .Motto
