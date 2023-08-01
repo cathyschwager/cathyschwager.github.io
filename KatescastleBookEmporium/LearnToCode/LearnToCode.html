@@ -308,7 +308,24 @@
 						<h1 style="color: red;font-weight:bold;">NEXT SESSION TIME: <span style="color:black;font-weight:normal;" id="NextSession">Thursday, 1/8</span></h1>
 						<h2 style="color: blue;font-weight:bold;">PLACES AVAILABLE: </h2>
 
-						<h3 id="SessionEmail" style="color: green;font-weight:bold;">Please <script type="text/javascript">document.write("<a style=\"color:blue;\" href=\"mailto:" + g_strEmail + "?cc=" + g_strGregsEmail + "&subject=I would like to attend the coding session on " + document.getElementById("NextSession").innerText + "&body=Name of child:%0D%0AAge:%0D%0A%0D%0AName of child:%0D%0AAge:%0D%0A%0D%0AName of child:%0D%0AAge:%0D%0A%0D%0AName of parent:%0D%0A%0D%0A\">email</a>");</script> Cathy to indicate your interest in attending the next session, as the space availabe is limited!</h3>
+						<h3 id="SessionEmail" style="color: green;font-weight:bold;">Please 
+						
+						<a style="color:blue;" id="EmailLink" href="XXXX">email</a> Cathy to indicate your interest in attending the next session, as the space availabe is limited!</h3>
+						<script type="text/javascript">
+
+							var linkEmail = document.getElementById("EmailLink");
+
+							if (linkEmail)
+							{
+								linkEmail.href = "mailto: " + g_strEmail + "?cc=" + g_strGregsEmail + 
+												"&subject=I would like to attend the coding session on " + 
+												document.getElementById("NextSession").innerText + 
+												"&body=Name of child:%0D%0AAge:%0D%0A%0D%0AName of child:%0D%0AAge:%0D%0A%0D%0AName" + 
+												" of child:%0D%0AAge:%0D%0A%0D%0AName of parent:%0D%0A%0D%0A";
+								alert(linkEmail.href);
+							}
+						</script> 
+						<!--Cathy to indicate your interest in attending the next session, as the space availabe is limited!</h3>-->
 						<hr>
 						
 						<h4><b>WHY WOULD YOU WANT TO LEARN TO CODE?</b></h4>
