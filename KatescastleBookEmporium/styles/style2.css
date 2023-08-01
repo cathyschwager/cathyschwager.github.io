@@ -178,6 +178,15 @@ a
 {
 	color: white;
 }
+
+.CodeSessionEmailLink
+{
+	color: blue;
+}
+#CodeSessionEmailLink a:hover
+{
+	color: red;
+}
 .footer_link
 {
 	margin-left:0px;
