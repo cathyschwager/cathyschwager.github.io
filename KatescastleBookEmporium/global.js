@@ -312,7 +312,7 @@ function isValidEmail(strEmail)
 	else
 	{
 		let nPosAt = strEmail.indexOf("@"),
-			nPosDot = strEmail.indexOf(".");
+			nPosDot = strEmail.indexOf(".", nPosAt + 1);
 			
 		if ((nPosAt > -1) && (nPosDot > -1) && (nPosDot > nPosAt))
 			bIsValid = true;
