@@ -342,15 +342,84 @@ if (typeof sessionStorage["ShoppingCart"] === "undefined")
 //********************************************************************************************************************************
 //********************************************************************************************************************************
 
+function BookItem(strTitle, strAuthor, strPrice, strDescription, strImage, strWeight)
+{
+	this.strTitle = strTitle;
+	this.strAuthor = strAuthor;
+	this.strPrice = strPrice;
+	this.strDescription = strDescription;
+	this.strImage = strImage;
+	this.strWeight = strWeight;
+}
+
+function GetBookImprovedBookLists(arrayBookLists)
+{
+	let arrayImprovedBooklists = [];
+	/*
+		var g_arrayCategoryBookLists =
+		[
+		  // List of books for Bookmark1
+		  [
+		  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg", "300"],
+		  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg", "160"],
+		  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg", "200"]
+		  ],
+		  // List of books for Bookmark2
+		  [
+		  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg", "120"],
+		  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg", "230"],
+		  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg", "330"]
+		  ],
+		  // List of books for Bookmark3
+		  [
+		  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg", "50"],
+		  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg", "170"],
+		  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg", "240"]
+		  ]
+		];	
+	*/
+	
+	for (let nI = 0; nI < arrayBookLists.length; nI++)
+	{
+		/*
+		  // List of books for Bookmark1
+		  [
+		  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg", "300"],
+		  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg", "160"],
+		  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg", "200"]
+		  ],
+		*/
+		let arrayNextBookList = arrayBookLists[nI];
+		let arrayNextImprovedBookList = [];
+
+		for (let nJ = 0; nJ < arrayNextBookList.length; nJ++)
+		{
+		  	// ["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg", "300"],
+			let arrayBook = arrayNextBookList[nJ];
+			arrayNextImprovedBookList.push(new BookItem(arrayBook[0], arrayBook[1], arrayBook[2], arrayBook[3], arrayBook[4], 
+											arrayBook[5]));		
+		
+		}
+		arrayImprovedBooklists.push(arrayNextImprovedBookList);
+		arrayNextImprovedBookList = [];
+	}
+	return arrayImprovedBooklists;
+}
+
 function GeneratePageContents(arrayCategoryBookmarks, arrayCategoryBookLists)
 {
 	let arrayShoppingCart = GetShoppingCartArray();
+	let	arrayImprovedBooklists = GetBookImprovedBookLists(arrayCategoryBookLists);
+	
+	//console.log(arrayImprovedBooklists);
 
 	if (arrayCategoryBookmarks.length > 0)
 	{		
 		for (let nI = 0; nI < arrayCategoryBookmarks.length; nI++)
 		{
-			let arrayBookList = arrayCategoryBookLists[nI];
+			let arrayBookList = arrayImprovedBooklists[nI];
+			//console.log(arrayBookList);
+			
 			if (arrayBookList)
 			{
 				for (let nJ = 0; nJ < arrayBookList.length; nJ++)
@@ -363,37 +432,37 @@ function GeneratePageContents(arrayCategoryBookmarks, arrayCategoryBookLists)
 							["Title 3", "Author", 3.00, "Book description 3", "image.jpg"]
 						],
 					*/
-					document.write("<h4 id=\"" + arrayBookList[nJ][0] + "\">" + arrayBookList[nJ][1]+ "</h4>");
-					document.write("<p><b>Author(s):</b> " + arrayBookList[nJ][1]+ "<br/><br/>");
-					document.write("<p><b>Price:</b> $" + arrayBookList[nJ][2]+ "<br/><br/>");
+					document.write("<h4 id=\"" + arrayBookList[nJ].strTitle + "\">" + arrayBookList[nJ].strAuthor+ "</h4>");
+					document.write("<p><b>Author(s):</b> " + arrayBookList[nJ].strAuthor+ "<br/><br/>");
+					document.write("<p><b>Price:</b> $" + arrayBookList[nJ].strPrice+ "<br/><br/>");
 					document.write("<b><u>Description</u></b><br>");
-					document.write(arrayBookList[nJ][3]+ "</p>");
+					document.write(arrayBookList[nJ].strDescription+ "</p>");
 					
-					document.write("<p><a href=\"" + g_strURL + arrayBookList[nJ][4] + "\"><img width=\"200\" src=\"" + g_strURL + 
-									arrayBookList[nJ][4]+ "\" alt=\"" + g_strURL + arrayBookList[nJ][4]+ "\" /></a></p>");
+					document.write("<p><a href=\"" + g_strURL + arrayBookList[nJ].strImage + "\"><img width=\"200\" src=\"" + g_strURL + 
+									arrayBookList[nJ].strImage+ "\" alt=\"" + g_strURL + arrayBookList[nJ].strImage+ "\" /></a></p>");
 
-					if (FindBookItem_(arrayBookList[nJ][0], arrayBookList[nJ][1], arrayShoppingCart))
+					if (FindBookItem_(arrayImprovedBooklists[nJ].strTitle, arrayImprovedBooklists[nJ].strAuthor, arrayShoppingCart))
 					{
-						document.write("<button type=\"button\" style=\"display: none;\" id=\"AddCart" + arrayBookList[nJ][0]+ arrayBookList[nJ][1]); 
-						document.write("\" class=\"cart_button\" onclick=\"OnClickAddCartButton('" + arrayBookList[nJ][0]);
-						document.write("', '" + arrayBookList[nJ][1]+ "', '" + arrayBookList[nJ][2]+ "', '" + arrayBookList[nJ][3]);
-						document.write("', '" + arrayBookList[nJ][4]+ "', '" + arrayBookList[nJ][5]);
+						document.write("<button type=\"button\" style=\"display: none;\" id=\"AddCart" + arrayBookList[nJ].strTitle+ arrayBookList[nJ].strAuthor); 
+						document.write("\" class=\"cart_button\" onclick=\"OnClickAddCartButton('" + arrayBookList[nJ].strTitle);
+						document.write("', '" + arrayBookList[nJ].strAuthor+ "', '" + arrayBookList[nJ].strPrice+ "', '" + arrayBookList[nJ].strDescription);
+						document.write("', '" + arrayBookList[nJ].strImage+ "', '" + arrayBookList[nJ].strWeight);
 						document.write("')\"><img src=\"../images/add_shopping_cart.jpg\" alt=\"Add to cart\" /></button>&nbsp;");
-						document.write("<button type=\"button\" id=\"RemoveCart" + arrayBookList[nJ][0]);
-						document.write(arrayBookList[nJ][1] + "\" class=\"cart_button\" onclick=\"OnRemoveCartButton('");
-						document.write(arrayBookList[nJ][0] + "', '" + arrayBookList[nJ][1]);
+						document.write("<button type=\"button\" id=\"RemoveCart" + arrayBookList[nJ].strTitle);
+						document.write(arrayBookList[nJ].strAuthor + "\" class=\"cart_button\" onclick=\"OnRemoveCartButton('");
+						document.write(arrayBookList[nJ].strTitle + "', '" + arrayBookList[nJ].strAuthor);
 						document.write("')\"><img src=\"../images/remove_shopping_cart.jpg\" alt=\"Remobe from cart\" /></button>&nbsp;");
 					}
 					else
 					{
-						document.write("<button type=\"button\" id=\"AddCart" + arrayBookList[nJ][0] + arrayBookList[nJ][1]);
-						document.write("\" class=\"cart_button\" onclick=\"OnClickAddCartButton('" + arrayBookList[nJ][0]); 
-						document.write("', '" + arrayBookList[nJ][1]+ "', '" + arrayBookList[nJ][2] + "', '" + arrayBookList[nJ][3]);
-						document.write("', '" + arrayBookList[nJ][4] + "', '" + arrayBookList[nJ][5])
+						document.write("<button type=\"button\" id=\"AddCart" + arrayBookList[nJ].strTitle + arrayBookList[nJ].strAuthor);
+						document.write("\" class=\"cart_button\" onclick=\"OnClickAddCartButton('" + arrayBookList[nJ].strTitle); 
+						document.write("', '" + arrayBookList[nJ].strAuthor+ "', '" + arrayBookList[nJ].strPrice + "', '" + arrayImprovedBooklists[nJ].strDescription);
+						document.write("', '" + arrayBookList[nJ].strImage + "', '" + arrayBookList[nJ].strWeight)
 						document.write("')\"><img src=\"../images/add_shopping_cart.jpg\" alt=\"Add to cart\" /></button>&nbsp;");
-						document.write("<button type=\"button\" style=\"display: none;\" id=\"RemoveCart" + arrayBookList[nJ][0]);
-						document.write(arrayBookList[nJ][1]+ "\" class=\"cart_button\" onclick=\"OnRemoveCartButton('");
-						document.write(arrayBookList[nJ][0] + "', '" + arrayBookList[nJ][1]); 
+						document.write("<button type=\"button\" style=\"display: none;\" id=\"RemoveCart" + arrayBookList[nJ].strTitle);
+						document.write(arrayBookList[nJ].strAuthor+ "\" class=\"cart_button\" onclick=\"OnRemoveCartButton('");
+						document.write(arrayBookList[nJ].strTitle + "', '" + arrayBookList[nJ].strAuthor); 
 						document.write("')\"><img src=\"../images/remove_shopping_cart.jpg\" alt=\"Remobe from cart\" /></button>&nbsp;");
 					}
 					document.write("<br/><br/><hr>");
