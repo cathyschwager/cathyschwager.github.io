@@ -287,35 +287,35 @@
 							<div class="MenuPopup" id="MenuPopup" name="SpecialistPopupMenu">
 								<ul>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/AntiquePre1950/AntiquePre1950.html">Antique pre-1950</a></li>
+									<a href="../Specialist/AntiquePre1950/AntiquePre1950.php">Antique pre-1950</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/Vintage1950To1975/Vintage1950To1975.html">Vintage 1950-1975</a></li>
+									<a href="../Specialist/Vintage1950To1975/Vintage1950To1975.php">Vintage 1950-1975</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/Retro1975To2000/Retro1975To2000.html">Retro 1975-2000</a></li>
+									<a href="../Specialist/Retro1975To2000/Retro1975To2000.php">Retro 1975-2000</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/FirstEditions/FirstEditions.html">First Editions</a></li>
+									<a href="../Specialist/FirstEditions/FirstEditions.php">First Editions</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/Classics/Classics.html">Classics</a></li>
+									<a href="../Specialist/Classics/Classics.php">Classics</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/Shakespeare/Shakespeare.html">Shakespeare</a></li>
+									<a href="../Specialist/Shakespeare/Shakespeare.php">Shakespeare</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/Penguin/Penguin.html">Penquin</a></li>
+									<a href="../Specialist/Penguin/Penguin.php">Penquin</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/BoxSets/BoxSets.html">Box Sets</a></li>
+									<a href="../Specialist/BoxSets/BoxSets.php">Box Sets</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/Series/Series.html">Series</a></li>
+									<a href="../Specialist/Series/Series.php">Series</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/ProlificAuthors/ProlificAuthors.html">Prolific Authors</a></li>
+									<a href="../Specialist/ProlificAuthors/ProlificAuthors.php">Prolific Authors</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/ReadersDigestCondensed/ReadersDigestCondensed.html">Reader's Digest Condensed</a></li>
+									<a href="../Specialist/ReadersDigestCondensed/ReadersDigestCondensed.php">Reader's Digest Condensed</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/MillsAndBoon/MillsAndBoon.html">Mills &amp; Boon</a></li>
+									<a href="../Specialist/MillsAndBoon/MillsAndBoon.php">Mills &amp; Boon</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/NationalGeographic/NationalGeographic.html">National Geographic</a></li>
+									<a href="../Specialist/NationalGeographic/NationalGeographic.php">National Geographic</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/Miscellaneous/Miscellaneous.html">Miscellaneous</a></li>
+									<a href="../Specialist/Miscellaneous/Miscellaneous.php">Miscellaneous</a></li>
 									<li class="MenuPopupItem">
-									<a href="../Specialist/Penguin/Penguin.html">Penquin</a></li>
+									<a href="../Specialist/Penguin/Penguin.php">Penquin</a></li>
 								</ul>
 							</div>
 					</ul>
