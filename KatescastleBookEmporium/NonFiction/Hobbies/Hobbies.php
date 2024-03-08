@@ -9,12 +9,12 @@
 		<title>Hobbies</title>
 
 		<style>
-</style>		
+		</style>		
 
 				<script type="text/javascript">
 
 					g_arrayCategoryBookmarks = ["Collecting", "Antiques", "Coins", "Comic Books", "Stamps", "Puzzle Books",
-												"Plains", "Trains", "Automobiles", "Shop Manuals", "Other"];
+												"Planes", "Trains", "Automobiles", "Shop Manuals", "Other"];
 					
 					g_arrayCategoryBookLists = [];
 					
@@ -81,7 +81,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 

@@ -9,11 +9,11 @@
 		<title>Gardening</title>
 
 		<style>
-</style>		
+		</style>		
 
 				<script type="text/javascript">
 
-					g_arrayCategoryBookmarks = ["Climate", "Ecology", "Farming", "Flowers", "Food", "Nature",
+					g_arrayCategoryBookmarks = ["Climate", "Ecology", "Farming", "Flowers", "Productive", "Nature",
 												"Plants", "Sustainability", "Trees", "Other"];
 					
 					g_arrayCategoryBookLists = [];
@@ -81,7 +81,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 

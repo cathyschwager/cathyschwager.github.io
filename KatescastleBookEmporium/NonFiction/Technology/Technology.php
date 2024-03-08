@@ -9,12 +9,12 @@
 		<title>Technology</title>
 
 		<style>
-</style>		
+		</style>		
 
 				<script type="text/javascript">
 
-					g_arrayCategoryBookmarks = ["Automation", "Coding", "Cyber Secrity", "Electronics", "Gaming", 
-										 		"Internet", "Networking", "Programming", "Robotics", "Software", "Other"];
+					g_arrayCategoryBookmarks = ["Automation", "Coding & Programming", "Cyber Secrity", "Electronics", "Gaming", 
+										 		"Internet", "Networking", "Robotics", "Software", "Other"];
 					
 					g_arrayCategoryBookLists = [];
 					
@@ -81,7 +81,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 
