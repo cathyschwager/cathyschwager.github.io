@@ -9,11 +9,11 @@
 		<title>Fantasy</title>
 
 		<style>
-</style>		
+		</style>		
 
 				<script type="text/javascript">
 
-					var arrayBookmarks = ["Paranormal", "Vampire", "Urban", "Other"];
+					var arrayBookmarks = ["Animals", "Computer Games", "Magic", "Genies & Jinns", "Other"];
 					
 				</script>
 				
@@ -78,7 +78,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 

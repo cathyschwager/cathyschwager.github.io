@@ -9,11 +9,11 @@
 		<title>General</title>
 
 		<style>
-</style>		
+		</style>		
 
 				<script type="text/javascript">
 
-					g_arrayCategoryBookmarks = ["Literary", "Television", "Movies", "Mills and Boon", "RD Condensed", "Other"];
+					g_arrayCategoryBookmarks = ["Literary", "Television", "Movies", "Other"];
 					
 					
 					g_arrayCategoryBookLists = []
@@ -81,7 +81,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 

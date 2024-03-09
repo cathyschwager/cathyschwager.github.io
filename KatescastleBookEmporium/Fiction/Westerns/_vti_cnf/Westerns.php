@@ -1,14 +1,14 @@
 vti_encoding:SR|utf8-nl
-vti_timelastmodified:TR|08 Mar 2024 14:08:36 -0000
+vti_timelastmodified:TR|09 Mar 2024 04:44:35 -0000
 vti_extenderversion:SR|12.0.0.0
 vti_author:SR|DESKTOP-KFJ8F7O\\boyle
 vti_modifiedby:SR|LATITUDE-E5430\\gregaryb
 vti_timecreated:TR|18 Jul 2023 12:27:54 -0000
 vti_title:SR|Westerns
 vti_backlinkinfo:VX|Fiction/Westerns/Westerns.php
-vti_nexttolasttimemodified:TR|08 Mar 2024 14:08:10 -0000
-vti_cacheddtm:TX|08 Mar 2024 14:08:36 -0000
-vti_filesize:IR|15000
+vti_nexttolasttimemodified:TW|09 Mar 2024 04:42:52 -0000
+vti_cacheddtm:TX|09 Mar 2024 04:44:35 -0000
+vti_filesize:IR|15048
 vti_cachedtitle:SR|Westerns
 vti_cachedbodystyle:SR|<body>
 vti_cachedlinkinfo:VX|G|../../master.dwt Q|../../styles/style2.css S|../../global.js S|../../images/Logo.png S|../../images/Books.png H|../../index.htm H|../../FAQ/FAQ.php H|../../LearnToCode/LearnToCode.html H|../../Requests/Requests.php H|../../Children/Children.php H|../../Emporium/Emporium.php K|Westerns.php H|../Action/Action.php H|../Crime/Crime.php H|../Fantasy.php H|../General/General.php H|../Horror/Horror.php H|../Mystery/Mystery.php H|../Romance/Romance.php H|../Sagas/Sagas.php H|../Science/science.php H|../Thrillers/Thrillers.php H|Westerners.html K|Westerns.php H|../../NonFiction/Arts/Arts.php H|../../NonFiction/AutoBiographies/AutoBiographies.php H|../../NonFiction/Cooking/Cooking.php H|../../NonFiction/Crafts/Crafts.php H|../../NonFiction/Education/Education.php H|../../NonFiction/Gardening/Gardening.php H|../../NonFiction/Health/Health.php H|../../NonFiction/Hobbies/Hobbies.php H|../../NonFiction/Humour/Humour.php H|../../NonFiction/Outdoors/Outdoors.php H|../../NonFiction/Reference/Reference.php H|../../NonFiction/Religion/Religion.php H|../../NonFiction/Sports/Sports.php H|../../NonFiction/Technology/Technology.php H|../../NonFiction/Travel/Travel.php H|../../NonFiction/World/World.php K|Westerns.php H|../../Specialist/AntiquePre1950/AntiquePre1950.php H|../../Specialist/Vintage1950To1975/Vintage1950To1975.php H|../../Specialist/Retro1975To2000/Retro1975To2000.php H|../../Specialist/FirstEditions/FirstEditions.php H|../../Specialist/Classics/Classics.php H|../../Specialist/Shakespeare/Shakespeare.php H|../../Specialist/Penguin/Penguin.php H|../../Specialist/BoxSets/BoxSets.php H|../../Specialist/Series/Series.php H|../../Specialist/ProlificAuthors/ProlificAuthors.php H|../../Specialist/ReadersDigestCondensed/ReadersDigestCondensed.php H|../../Specialist/MillsAndBoon/MillsAndBoon.php H|../../Specialist/NationalGeographic/NationalGeographic.php H|../../Specialist/Miscellaneous/Miscellaneous.php H|../../Specialist/Penguin/Penguin.php S|../../images/top.png K|Westerns.php S|../../images/home.png H|../../index.htm S|../../images/shopping_cart.png H|../../ShoppingCart.php S|../../images/shopping_cart.png

@@ -9,7 +9,7 @@
 		<title>Sci-Fi Fantasy</title>
 
 		<style>
-</style>		
+		</style>		
 
 				<script type="text/javascript">
 
@@ -80,7 +80,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 
@@ -134,7 +134,7 @@
 
 				<script type="text/javascript">
 
-					const arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
+					const arrayCategoryBookmarks= ["AI", "Disaster", "Extratorrestrials", "History", "Military", "Space", "Time", "Other"];
 					
 					const arrayCategoryBookLists = [];
 					

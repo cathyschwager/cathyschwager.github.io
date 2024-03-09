@@ -9,7 +9,7 @@
 		<title>Mystery</title>
 
 		<style>
-</style>		
+		</style>		
 
 				<script type="text/javascript">
 
@@ -80,7 +80,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 
@@ -134,7 +134,7 @@
 
 				<script type="text/javascript">
 
-					const arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
+					const arrayCategoryBookmarks= ["Disappearance", "Murder", "Robbery", "Other"];
 					
 					const arrayCategoryBookLists = [];
 					

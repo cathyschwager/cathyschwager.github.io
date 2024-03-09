@@ -9,7 +9,7 @@
 		<title>Horror</title>
 
 		<style>
-</style>		
+		</style>		
 
 				<script type="text/javascript">
 
@@ -80,7 +80,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 
@@ -134,7 +134,8 @@
 
 				<script type="text/javascript">
 
-					const arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
+					const arrayCategoryBookmarks= ["Pyschological", "Scientific", "Slasher", "Supernatural", 
+													"Warewolves & Vampires", "Zombie"];
 					
 					const arrayCategoryBookLists = [];
 					
