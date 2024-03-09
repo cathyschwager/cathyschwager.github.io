@@ -4,23 +4,14 @@
 <!-- #BeginTemplate "../../master.dwt" -->
 
 	<head>
+	
+		<?php require_once $_SERVER["DOCUMENT_ROOT"] . "\common.php"; ?>
+		
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 		<!-- #BeginEditable "doctitle" -->
 		<title>Arts</title>
-
-		<style>
-</style>		
-
-				<script type="text/javascript">
-
-					g_arrayCategoryBookmarks = ["Arts", "Dance", "Music", "Photography", "Theatre", "Other"];
-					
-					g_arrayCategoryBookLists = [];
-					
-				</script>
-				
 		<!-- #EndEditable -->
-		<link href="../../styles/style2.css" rel="stylesheet" type="text/css" />
+		<link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 		
 		<div id="OrderForm" style="display:none;">
 			<h4>CONTACT DETAILS FOR ORDER</h4>
@@ -85,58 +76,15 @@
 		<!-- #EndEditable -->
 
 		
-			<script type="text/javascript" src="../../global.js">											
+			<?php require_once $_SERVER["DOCUMENT_ROOT"] . "\SweetAlert.js"; ?>
+			<?php require_once $_SERVER["DOCUMENT_ROOT"] . "\common.js"; ?>											
 
-				/***********************************************************************************************
-				 ***********************************************************************************************
-				 
-				 EXAMPLE PAGE CONTENT
-				 
-				 arrayCategoryBookmarks contains the book categories which appears as a series of links at
-				 the top of the page and as a series of headings to which those links will jump to on the page.
-				 
-				 arrayCategoryBookLists contains the details of the books in each category in the same order as
-				 the bookmarks.
-				 
-				 ***********************************************************************************************
-				 ***********************************************************************************************
-
-					var g_arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
-					
-					var g_arrayCategoryBookLists =
-					[
-					  // List of books for Bookmark1
-					  [
-					  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg", "300"],
-					  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg", "160"],
-					  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg", "200"]
-					  ],
-					  // List of books for Bookmark2
-					  [
-					  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg", "120"],
-					  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg", "230"],
-					  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg", "330"]
-					  ],
-					  // List of books for Bookmark3
-					  [
-					  	["Title 1", "Fred Smith", "4.00", "Book description 1", "image.jpg", "50"],
-					  	["Title 2", "Fred Smith", "1.00", "Book description 2", "image.jpg", "170"],
-					  	["Title 3", "Fred Smith", "3.00", "Book description 3", "image.jpg", "240"]
-					  ]
-					];
-					
-				***********************************************************************************************
-				***********************************************************************************************/
-					
-			</script>
-			
 			<!-- #BeginEditable "Subcategories" -->
 
 				<script type="text/javascript">
 
-					const arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
-					
-					const arrayCategoryBookLists = [];
+					g_arrayTopicBookmarks = [<?php DoGetTopics($g_mapCategory->non_fiction, $g_mapSubcategory->arts); ?>];
+					g_arrayTopicBookLists =[<?php DoGetBooks($g_mapCategory->non_fiction, $g_mapSubcategory->arts); ?>]
 					
 				</script>
 				
@@ -192,7 +140,7 @@
 									<li class="MenuPopupItem">
 									<a href="../../Fiction/Crime/Crime.php">Crime</a></li>
 									<li class="MenuPopupItem">
-									<a href="../../Fiction/Fantasy.php">Fantasy</a></li>
+									<a href="../../Fiction/Fantasy/Fantasy.php">Fantasy</a></li>
 									<li class="MenuPopupItem">
 									<a href="../../Fiction/General/General.php">General</a></li>
 									<li class="MenuPopupItem">
@@ -208,7 +156,7 @@
 									<li class="MenuPopupItem">
 									<a href="../../Fiction/Thrillers/Thrillers.php">Thrillers</a></li>
 									<li class="MenuPopupItem">
-									<a href="../../Fiction/Westerns/Westerners.html">Westerns</a></li>
+									<a href="../../Fiction/Westerns/Westerns.php">Westerns</a></li>
 								</ul>
 							</div>
 						<li onclick="DoToggleNonFictionPopupMenu()"><a href="#Top">Non-Fiction</a></li>
@@ -283,6 +231,7 @@
 									<a href="../../Specialist/Penguin/Penguin.php">Penquin</a></li>
 								</ul>
 							</div>
+						<li><a href="../../YoungAdults/YoungAdults.php">Young Adults</a></li>
 					</ul>
 				</div>
 				<!-- End Sidebar -->
@@ -297,11 +246,11 @@
 					<script type="text/javascript">GeneratePageHeading();</script>
 					<div id="TOC">
 						<script type="text/javascript">
-							GenerateMenu(g_arrayCategoryBookmarks);
+							GenerateMenu(g_arrayTopicBookmarks);
 						</script>
 					</div>
 					<script type="text/javascript">
-						GeneratePageContents(g_arrayCategoryBookmarks, g_arrayCategoryBookLists);
+						GeneratePageContents(g_arrayTopicBookmarks, g_arrayTopicBookLists);
 					</script>
 											
 					<!-- #BeginEditable "content" -->
