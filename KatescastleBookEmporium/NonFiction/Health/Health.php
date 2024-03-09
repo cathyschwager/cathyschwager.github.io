@@ -182,7 +182,7 @@
 						<li><a href="../../index.htm">Home</a></li>
 						<li><a href="../../FAQ/FAQ.php">FAQ</a></li>
 						<li><a href="../../LearnToCode/LearnToCode.html">Learn to code</a></li>
-						<li><a href="../../Requests/Requests.html">Requests</a></li>
+						<li><a href="../../Requests/Requests.php">Requests</a></li>
 						<li><a href="../../Children/Children.php">Children</a></li>
 						<li><a href="../../Emporium/Emporium.php">Emporium</a></li>
 						<li onclick="DoToggleFictionPopupMenu()"><a href="#top">Fiction</a></li>
@@ -326,7 +326,7 @@
 					<span class="footer_link" id="footer_link">
 					<img alt="" width="2%" class="footer_image" src="../../images/home.png" />&nbsp;<a href="../../index.htm">Home</a></span>
 					<span class="footer_link" id="show_shopping_cart_span">
-					<img alt="" width="2%" class="footer_image" src="../../images/shopping_cart.png" />&nbsp;<a href="../../ShoppingCart.html" id="show_shopping_cart_link" onclick="OnClickShowCartButton()">Show Shopping Cart</a></span>
+					<img alt="" width="2%" class="footer_image" src="../../images/shopping_cart.png" />&nbsp;<a href="../../ShoppingCart.php" id="show_shopping_cart_link" onclick="OnClickShowCartButton()">Show Shopping Cart</a></span>
 					<span class="footer_link" id="hide_shopping_cart_span" style="display:none;">
 					<img alt="" width="2.5%" class="footer_image" src="../../images/shopping_cart.png" />&nbsp;<a href="" id="hide_shopping_cart_link" onclick="OnClickHideCartButton()">Hide Shopping Cart</a></span>	
 				</div>

@@ -1,27 +1,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html dir="ltr" xmlns="http://www.w3.org/1999/xhtml">
 
-<!-- #BeginTemplate "../../master.dwt" -->
+<!-- #BeginTemplate "master.dwt" -->
 
 	<head>
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 		<!-- #BeginEditable "doctitle" -->
-		<title>Religion</title>
-
-		<style>
-</style>		
-
-				<script type="text/javascript">
-
-					g_arrayCategoryBookmarks = ["Alternative", "Astrology", "Inspirational", "New Age", "Occult",
-												"Spiritual", "Tarot", "Other"];
-					
-					g_arrayCategoryBookLists = [];
-					
-				</script>
-				
+		<title>Shopping Cart</title>
+		
 		<!-- #EndEditable -->
-		<link href="../../styles/style2.css" rel="stylesheet" type="text/css" />
+		<link href="styles/style2.css" rel="stylesheet" type="text/css" />
 		
 		<div id="OrderForm" style="display:none;">
 			<h4>CONTACT DETAILS FOR ORDER</h4>
@@ -86,7 +74,7 @@
 		<!-- #EndEditable -->
 
 		
-			<script type="text/javascript" src="../../global.js">											
+			<script type="text/javascript" src="global.js">											
 
 				/***********************************************************************************************
 				 ***********************************************************************************************
@@ -135,9 +123,9 @@
 
 				<script type="text/javascript">
 
-					const arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
+					g_arrayCategoryBookmarks= [];
 					
-					const arrayCategoryBookLists = [];
+					g_arrayCategoryBookLists = [];
 					
 				</script>
 				
@@ -152,11 +140,11 @@
 			<!-- Begin Masthead -->
 			<div id="masthead">
 				<div class="CenterVertically Logo" >
-					<img alt="" height="100" src="../../images/Logo.png" />
+					<img alt="" height="100" src="images/Logo.png" />
 				</div>
 				<div id="Title" class="CenterVertically Title">
 					<h2 style="display:inline;">KATESCASTLE Book Emporium</h2><br/>
-					<img class="Books" alt="" src="../../images/Books.png" /><br/><br/>
+					<img class="Books" alt="" src="images/Books.png" /><br/><br/>
 					<h6 class="Motto">“So many books, so little time” - Frank Zappa</h6>
  				</div>
 				<div class="CenterVertically Contact">
@@ -179,109 +167,67 @@
 					<span id="top">&nbsp;</span><br/>
 					
 					<ul>
-						<li><a href="../../index.htm">Home</a></li>
-						<li><a href="../../FAQ/FAQ.php">FAQ</a></li>
-						<li><a href="../../LearnToCode/LearnToCode.html">Learn to code</a></li>
-						<li><a href="../../Requests/Requests.php">Requests</a></li>
-						<li><a href="../../Children/Children.php">Children</a></li>
-						<li><a href="../../Emporium/Emporium.php">Emporium</a></li>
+						<li><a href="index.htm">Home</a></li>
+						<li><a href="FAQ/FAQ.php">FAQ</a></li>
+						<li><a href="LearnToCode/LearnToCode.html">Learn to code</a></li>
+						<li><a href="Requests/Requests.php">Requests</a></li>
+						<li><a href="Children/Children.php">Children</a></li>
+						<li><a href="Emporium/Emporium.php">Emporium</a></li>
 						<li onclick="DoToggleFictionPopupMenu()"><a href="#top">Fiction</a></li>
 							<div class="MenuPopup" id="MenuPopup" name="FictionPopupMenu">
 								<ul>
-									<li class="MenuPopupItem">
-									<a href="../../Fiction/Action/Action.php">Action</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Fiction/Crime/Crime.php">Crime</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Fiction/Fantasy.php">Fantasy</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Fiction/General/General.php">General</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Fiction/Horror/Horror.php">Horror</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Fiction/Mystery/Mystery.php">Mystery</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Fiction/Romance/Romance.php">Romance</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Fiction/Sagas/Sagas.php">Sagas</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Fiction/Science/science.php">Science</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Fiction/Thrillers/Thrillers.php">Thrillers</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Fiction/Westerns/Westerners.html">Westerns</a></li>
+									<li class="MenuPopupItem"><a href="Fiction/Action/Action.php">Action</a></li>
+									<li class="MenuPopupItem"><a href="Fiction/Crime/Crime.php">Crime</a></li>
+									<li class="MenuPopupItem"><a href="Fiction/Fantasy.php">Fantasy</a></li>
+									<li class="MenuPopupItem"><a href="Fiction/General/General.php">General</a></li>
+									<li class="MenuPopupItem"><a href="Fiction/Horror/Horror.php">Horror</a></li>
+									<li class="MenuPopupItem"><a href="Fiction/Mystery/Mystery.php">Mystery</a></li>
+									<li class="MenuPopupItem"><a href="Fiction/Romance/Romance.php">Romance</a></li>
+									<li class="MenuPopupItem"><a href="Fiction/Sagas/Sagas.php">Sagas</a></li>
+									<li class="MenuPopupItem"><a href="Fiction/Science/science.php">Science</a></li>
+									<li class="MenuPopupItem"><a href="Fiction/Thrillers/Thrillers.php">Thrillers</a></li>
+									<li class="MenuPopupItem"><a href="Fiction/Westerns/Westerners.html">Westerns</a></li>
 								</ul>
 							</div>
 						<li onclick="DoToggleNonFictionPopupMenu()"><a href="#Top">Non-Fiction</a></li>
 							<div class="MenuPopup" id="MenuPopup" name="NonFictionPopupMenu">
 								<ul>
-									<li class="MenuPopupItem">
-									<a href="../Arts/Arts.php">Arts</a></li>
-									<li class="MenuPopupItem">
-									<a href="../AutoBiographies/AutoBiographies.php">Auto/Biography</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Cooking/Cooking.php">Cooking</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Crafts/Crafts.php">Crafts</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Education/Education.php">Education</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Gardening/Gardening.php">Gardening</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Health/Health.php">Health</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Hobbies/Hobbies.php">Hobbies</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Humour/Humour.php">Humour</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Outdoors/Outdoors.php">Outdoors</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Reference/Reference.php">Reference</a></li>
-									<li class="MenuPopupItem">
-									<a href="Religion.php">Religion</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Sports/Sports.php">Sports</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Technology/Technology.php">Technology</a></li>
-									<li class="MenuPopupItem">
-									<a href="../Travel/Travel.php">Travel</a></li>
-									<li class="MenuPopupItem">
-									<a href="../World/World.php">World</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Arts/Arts.php">Arts</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/AutoBiographies/AutoBiographies.php">Auto/Biography</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Cooking/Cooking.php">Cooking</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Crafts/Crafts.php">Crafts</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Education/Education.php">Education</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Gardening/Gardening.php">Gardening</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Health/Health.php">Health</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Hobbies/Hobbies.php">Hobbies</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Humour/Humour.php">Humour</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Outdoors/Outdoors.php">Outdoors</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Reference/Reference.php">Reference</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Religion/Religion.php">Religion</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Sports/Sports.php">Sports</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Technology/Technology.php">Technology</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/Travel/Travel.php">Travel</a></li>
+									<li class="MenuPopupItem"><a href="NonFiction/World/World.php">World</a></li>
 								</ul>
 							</div>
 						<li onclick="DoToggleSpecialistPopupMenu()"><a href="#Top">Specialist</a></li>
 							<div class="MenuPopup" id="MenuPopup" name="SpecialistPopupMenu">
 								<ul>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/AntiquePre1950/AntiquePre1950.php">Antique pre-1950</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/Vintage1950To1975/Vintage1950To1975.php">Vintage 1950-1975</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/Retro1975To2000/Retro1975To2000.php">Retro 1975-2000</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/FirstEditions/FirstEditions.php">First Editions</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/Classics/Classics.php">Classics</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/Shakespeare/Shakespeare.php">Shakespeare</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/Penguin/Penguin.php">Penquin</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/BoxSets/BoxSets.php">Box Sets</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/Series/Series.php">Series</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/ProlificAuthors/ProlificAuthors.php">Prolific Authors</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/ReadersDigestCondensed/ReadersDigestCondensed.php">Reader's Digest Condensed</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/MillsAndBoon/MillsAndBoon.php">Mills &amp; Boon</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/NationalGeographic/NationalGeographic.php">National Geographic</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/Miscellaneous/Miscellaneous.php">Miscellaneous</a></li>
-									<li class="MenuPopupItem">
-									<a href="../../Specialist/Penguin/Penguin.php">Penquin</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/AntiquePre1950/AntiquePre1950.php">Antique pre-1950</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/Vintage1950To1975/Vintage1950To1975.php">Vintage 1950-1975</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/Retro1975To2000/Retro1975To2000.php">Retro 1975-2000</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/FirstEditions/FirstEditions.php">First Editions</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/Classics/Classics.php">Classics</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/Shakespeare/Shakespeare.php">Shakespeare</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/Penguin/Penguin.php">Penquin</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/BoxSets/BoxSets.php">Box Sets</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/Series/Series.php">Series</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/ProlificAuthors/ProlificAuthors.php">Prolific Authors</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/ReadersDigestCondensed/ReadersDigestCondensed.php">Reader's Digest Condensed</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/MillsAndBoon/MillsAndBoon.php">Mills &amp; Boon</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/NationalGeographic/NationalGeographic.php">National Geographic</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/Miscellaneous/Miscellaneous.php">Miscellaneous</a></li>
+									<li class="MenuPopupItem"><a href="Specialist/Penguin/Penguin.php">Penquin</a></li>
 								</ul>
 							</div>
 					</ul>
@@ -313,6 +259,14 @@
 					
 					
 					
+						<script type="text/javascript">GenerateShoppingCartContents();</script>	
+					
+					
+					
+					
+					
+					
+					
 					<!-- #EndEditable -->
 				</div>
 				<!-- End Content -->
@@ -321,14 +275,10 @@
 			<!-- Begin Footer -->
 			<div id="footer">
 				<div class="FloatLeft Links" style="font-size:small;margin:10px;">
-					<span class="footer_link" id="footer_link">
-					<img alt="" width="1%" class="footer_image" src="../../images/top.png" />&nbsp;<a href="#Top">Top of Page</a></span>
-					<span class="footer_link" id="footer_link">
-					<img alt="" width="2%" class="footer_image" src="../../images/home.png" />&nbsp;<a href="../../index.htm">Home</a></span>
-					<span class="footer_link" id="show_shopping_cart_span">
-					<img alt="" width="2%" class="footer_image" src="../../images/shopping_cart.png" />&nbsp;<a href="../../ShoppingCart.php" id="show_shopping_cart_link" onclick="OnClickShowCartButton()">Show Shopping Cart</a></span>
-					<span class="footer_link" id="hide_shopping_cart_span" style="display:none;">
-					<img alt="" width="2.5%" class="footer_image" src="../../images/shopping_cart.png" />&nbsp;<a href="" id="hide_shopping_cart_link" onclick="OnClickHideCartButton()">Hide Shopping Cart</a></span>	
+					<span class="footer_link" id="footer_link"><img alt="" width="1%" class="footer_image" src="images/top.png" />&nbsp;<a href="#Top">Top of Page</a></span>
+					<span class="footer_link" id="footer_link"><img alt="" width="2%" class="footer_image" src="images/home.png" />&nbsp;<a href="index.htm">Home</a></span>
+					<span class="footer_link" id="show_shopping_cart_span"><img alt="" width="2%" class="footer_image" src="images/shopping_cart.png" />&nbsp;<a href="ShoppingCart.php" id="show_shopping_cart_link" onclick="OnClickShowCartButton()">Show Shopping Cart</a></span>
+					<span class="footer_link" id="hide_shopping_cart_span" style="display:none;"><img alt="" width="2.5%" class="footer_image" src="images/shopping_cart.png" />&nbsp;<a href="" id="hide_shopping_cart_link" onclick="OnClickHideCartButton()">Hide Shopping Cart</a></span>	
 				</div>
 				<div class="FloatRight Copyright">
 					<div><b>Copyright &copy; 2023 Cathy Schwager.<br/>All Rights Reserved.</b></div>
