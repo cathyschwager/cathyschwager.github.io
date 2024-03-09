@@ -23,6 +23,16 @@
 	//********************************************************************************************************************************
 	//********************************************************************************************************************************
 	
+	function GetInput(strID)
+	{
+		var input = document.getElementById(strID);
+		
+		if (!input)
+			alert("Input with ID '" + strID + "' does not exist!");
+			
+		return input;
+	}
+	
 	function GenerateGregsEmailAddress()
 	{
 		var strEmailAddress = "gregplants" + "@" + "bigpond" + "." + "com";

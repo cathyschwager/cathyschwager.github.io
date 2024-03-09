@@ -71,7 +71,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-		</style>		
+</style>		
 
 		<!-- #EndEditable -->
 
@@ -232,6 +232,7 @@
 								</ul>
 							</div>
 						<li><a href="../../YoungAdults/YoungAdults.php">Young Adults</a></li>
+						<li><a href="../../admin.php">Admin Login</a></li>
 					</ul>
 				</div>
 				<!-- End Sidebar -->
