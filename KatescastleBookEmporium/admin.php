@@ -538,6 +538,8 @@
 									</tr>
 								</table>
 								<input name="hidden_save" id="hidden_save" type="hidden" />
+								<input name="hidden_category" id="hidden_category" type="hidden" />
+								<input name="hidden_subcategory" id="hidden_subcategory" type="hidden" />
 								<input name="hidden_data" id="hidden_data" type="hidden" />
 							</form>
 								
@@ -739,27 +741,37 @@
 										else if (strSaveWhat == "save_subcategories")
 										{
 											let selectCategories = GetInput("select_categories_c"),
-												strKey = "";
+												strKey = "",
+												hiddenCategory = GetInput("hidden_category"),
+												hiddenSubcategory = GetInput("hidden_subcategory");
 											
-											if (selectCategories && (selectCategories.selectedIndex > 0))
+											if (hiddenCategory && hiddenSubcategory && selectCategories && 
+												(selectCategories.selectedIndex > 0))
 											{
 												strKey = selectCategories.options[selectCategories.selectedIndex];
 												hiddenData.value = JSON.stringify(g_arrayCategory2Subcategory[strKey]);
+												hiddenCategory.value = = selectCategories.options[selectCategories.selectedIndex];
+												hiddenSubcategory.value = "";
 											}
 										}
 										else if (strSaveWhat == "save_topics")
 										{
 											let selectCategories = GetInput("select_categories_s"),
 												selectSubcategories = GetInput("select_subcategories_s"),
-												strKey = "";
+												strKey = "",
+												hiddenCategory = GetInput("hidden_category"),
+												hiddenSubcategory = GetInput("hidden_subcategory");
 											
-											if (selectCategories && selectSubcategories && 
+											if (hiddenCategory && hiddenSubcategory &&
+												selectCategories && selectSubcategories && 
 												(selectCategories.selectedIndex > 0) && 
 												(selectSubcategories.selectedIndex > 0))
 											{
 												strKey = selectCategories.options[selectCategories.selectedIndex] + 
 															", " + selectSubategories.options[selectSubategories.selectedIndex];
 												hiddenData.value = JSON.stringify(g_arrayCategory2Subcategory2Topic[strKey]);
+												hiddenCategory.value = selectCategories.options[selectCategories.selectedIndex];
+												hiddenSubcategory.value = selectSubategories.options[selectSubategories.selectedIndex];
 											}
 										}
 									}
