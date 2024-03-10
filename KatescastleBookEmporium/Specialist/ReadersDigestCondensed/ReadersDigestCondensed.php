@@ -10,18 +10,6 @@
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 		<!-- #BeginEditable "doctitle" -->
 		<title>Reader's Digest Condensed</title>
-
-		<style>
-</style>		
-
-				<script type="text/javascript">
-
-					g_arrayCategoryBookmarks = [];
-					
-					g_arrayCategoryBookLists = [];
-					
-				</script>
-				
 		<!-- #EndEditable -->
 		<link href="../../styles/style.css" rel="stylesheet" type="text/css" />
 		
@@ -83,7 +71,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 
@@ -95,9 +83,8 @@
 
 				<script type="text/javascript">
 
-					const arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
-					
-					const arrayCategoryBookLists = [];
+					g_arrayTopicBookmarks = [<?php DoGetTopics($g_mapCategory["specialist"], $g_mapSubcategory["readers_digest"]); ?>];
+					g_arrayTopicBookLists =[<?php DoGetBooks($g_mapCategory["specialist"], $g_mapSubcategory["readers_digest"]); ?>]
 					
 				</script>
 				

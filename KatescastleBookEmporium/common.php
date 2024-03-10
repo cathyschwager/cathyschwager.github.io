@@ -623,57 +623,102 @@
 		}
 	}
 	
-	$g_mapCategory = (object)[];
-	$g_mapCategory->children = DoGetCategoryID("children");
-	$g_mapCategory->emporium = DoGetCategoryID("emporium");
-	$g_mapCategory->fiction = DoGetCategoryID("fiction");
-	$g_mapCategory->non_fiction = DoGetCategoryID("non_fiction");
-	$g_mapCategory->specialist = DoGetCategoryID("specialist");
-	$g_mapCategory->young_adults = DoGetCategoryID("young_adults");
-
-	$g_mapSubcategory = (object)[];
-	$g_mapSubcategory->action = DoGetSubcategoryID("action", $g_mapCategory->fiction);
-	$g_mapSubcategory->crime = DoGetSubcategoryID("crime", $g_mapCategory->fiction);
-	$g_mapSubcategory->fantasy = DoGetSubcategoryID("fantasy", $g_mapCategory->fiction);
-	$g_mapSubcategory->general = DoGetSubcategoryID("general", $g_mapCategory->fiction);
-	$g_mapSubcategory->horror = DoGetSubcategoryID("horror", $g_mapCategory->fiction);
-	$g_mapSubcategory->mystery = DoGetSubcategoryID("mystery", $g_mapCategory->fiction);
-	$g_mapSubcategory->romance = DoGetSubcategoryID("romance", $g_mapCategory->fiction);
-	$g_mapSubcategory->saga = DoGetSubcategoryID("saga", $g_mapCategory->fiction);
-	$g_mapSubcategory->science = DoGetSubcategoryID("science", $g_mapCategory->fiction);
-	$g_mapSubcategory->thrillers = DoGetSubcategoryID("thrillers", $g_mapCategory->fiction);
-	$g_mapSubcategory->westerns = DoGetSubcategoryID("westerns", $g_mapCategory->fiction);
-	$g_mapSubcategory->arts = DoGetSubcategoryID("arts", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->autobiography = DoGetSubcategoryID("autobiography", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->cooking = DoGetSubcategoryID("cooking", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->crafts = DoGetSubcategoryID("crafts", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->education = DoGetSubcategoryID("education", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->gardening = DoGetSubcategoryID("gardening", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->health = DoGetSubcategoryID("health", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->hobbies = DoGetSubcategoryID("hobbies", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->humour = DoGetSubcategoryID("humour", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->outdoors = DoGetSubcategoryID("outdoors", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->reference = DoGetSubcategoryID("reference", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->religion = DoGetSubcategoryID("religion", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->sports = DoGetSubcategoryID("sports", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->technology = DoGetSubcategoryID("technology", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->travel = DoGetSubcategoryID("travel", $g_mapCategory->non_fiction);
-	$g_mapSubcategory->world = DoGetSubcategoryID("world", $g_mapCategory->non_fiction);
+	function DoGetSubcategories()
+	{
+		global $g_dbKatesCastle;
+		$mapSubcategories = [];
+		
+		$results = DoFindAllQuery($g_dbKatesCastle, "subcategories");
+		if ($results && ($results->num_rows > 0))
+		{
+			while ($row = $results->fetch_assoc())
+			{
+				$mapSubcategories[$row["name"]] = $row["id"];
+			}
+		}
+		return $mapSubcategories;
+	}
 	
-	$g_mapSubcategory->antiques = DoGetSubcategoryID("antiques", $g_mapCategory->specialist);
-	$g_mapSubcategory->box_sets = DoGetSubcategoryID("box_sets", $g_mapCategory->specialist);
-	$g_mapSubcategory->classics = DoGetSubcategoryID("classics", $g_mapCategory->specialist);
-	$g_mapSubcategory->first_editions = DoGetSubcategoryID("first_editions", $g_mapCategory->specialist);
-	$g_mapSubcategory->mills_and_boon = DoGetSubcategoryID("mills_and_boon", $g_mapCategory->specialist);
-	$g_mapSubcategory->miscellaneous = DoGetSubcategoryID("miscellaneous", $g_mapCategory->specialist);
-	$g_mapSubcategory->national_geographic = DoGetSubcategoryID("national_geographic", $g_mapCategory->specialist);
-	$g_mapSubcategory->penguin = DoGetSubcategoryID("penguin", $g_mapCategory->specialist);
-	$g_mapSubcategory->authors = DoGetSubcategoryID("authors", $g_mapCategory->specialist);
-	$g_mapSubcategory->readers_digest = DoGetSubcategoryID("readers_digest", $g_mapCategory->specialist);
-	$g_mapSubcategory->retro = DoGetSubcategoryID("retro", $g_mapCategory->specialist);
-	$g_mapSubcategory->series = DoGetSubcategoryID("series", $g_mapCategory->specialist);
-	$g_mapSubcategory->shakespeare = DoGetSubcategoryID("shakespeare", $g_mapCategory->specialist);
-	$g_mapSubcategory->vintage = DoGetSubcategoryID("vintage", $g_mapCategory->specialist);
+	function DoGetCategories()
+	{
+		global $g_dbKatesCastle;
+		$mapCategories = [];
+		
+		$results = DoFindAllQuery($g_dbKatesCastle, "categories");
+		if ($results && ($results->num_rows > 0))
+		{
+			while ($row = $results->fetch_assoc())
+			{
+				$mapCategories[$row["name"]] = $row["id"];
+			}
+		}
+		return $mapCategories;
+	}
 	
+	function HasSubCategories($strCategoryID)
+	{
+		global $g_dbKatesCastle;
+		
+		$results = DoFindQuery1($g_dbKatesCastle, "subcategories", "id", $strCategoryID);
+		
+		return ($results && ($results->num_rows > 0));
+	}
+	
+	function DoGenerateMenu()
+	{
+		global $g_dbKatesCastle;
+		/*
+		<li onclick="DoTogglePopupMenu('specialist_popup_menu')"><a href="#Top">Specialist</a></li>
+			<div class="MenuPopup" id="specialist_popup_menu">
+				<ul>
+					<li class="MenuPopupItem"><a href="specialist/antique/antique.php">Antique pre-1950</a></li>
+					<li class="MenuPopupItem"><a href="specialist/vintage/vintage.php">Vintage 1950-1975</a></li>
+					<li class="MenuPopupItem"><a href="specialist/retro/retro.php">Retro 1975-2000</a></li>
+					<li class="MenuPopupItem"><a href="specialist/first_editions/first_editions.php">First Editions</a></li>
+					<li class="MenuPopupItem"><a href="specialist/classics/classics.php">Classics</a></li>
+					<li class="MenuPopupItem"><a href="specialist/shakespeare/shakespeare.php">Shakespeare</a></li>
+					<li class="MenuPopupItem"><a href="specialist/penguin/penguin.php">Penquin</a></li>
+					<li class="MenuPopupItem"><a href="specialist/box_sets/box_sets.php">Box Sets</a></li>
+					<li class="MenuPopupItem"><a href="specialist/series/series.php">Series</a></li>
+					<li class="MenuPopupItem"><a href="specialist/authors/authors.php">Prolific Authors</a></li>
+					<li class="MenuPopupItem"><a href="specialist/readers_digest/readers_digest.php">Reader's Digest Condensed</a></li>
+					<li class="MenuPopupItem"><a href="specialist/mills_and_boon/mills_and_boon.php">Mills &amp; Boon</a></li>
+					<li class="MenuPopupItem"><a href="specialist/national_geographic/national_geographic.php">National Geographic</a></li>
+					<li class="MenuPopupItem"><a href="specialist/miscellaneous/miscellaneous.php">Miscellaneous</a></li>
+					<li class="MenuPopupItem"><a href="specialist/penguin/penguin.php">Penquin</a></li>
+				</ul>
+			</div>
+		*/
+		
+		$resultsCategories = DoFindAllQuery($g_dbKatesCastle, "categories", "", "name");
+		if ($resultsCategories && ($resultsCategories->num_rows > 0))
+		{
+			while ($rowCategories = $resultsCategories->fetch_assoc())
+			{
+				$resultsSubcategories = DoFindQuery1($g_dbKatesCastle, "subcategories", "category_id", $rowCategories["id"], "", "name");
+				if ($resultsSubcategories && ($resultsSubcategories->num_rows > 0))
+				{
+					echo "<li class=\"menu_item\" onclick=\"DoTogglePopupMenu('" . $rowCategories["name"] . "_popup_menu')\"><a href=\"#Top\">" . $rowCategories["description"] . "</a></li>\n";
+					echo "<div class=\"MenuPopup\" id=\"" . $rowCategories["name"] . "_popup_menu\">\n";
+					echo "<ul>\n";
+					
+					while ($rowSubcategories = $resultsSubcategories->fetch_assoc())
+					{
+						// <li class="MenuPopupItem"><a href="specialist/series/series.php">Series</a></li>
+						echo "<li class=\"MenuPopupItem\"><a href=\"" . $rowCategories["name"] . "/" . $rowSubcategories["name"] . "/" . $rowSubcategories["name"] . ".php\">" . $rowSubcategories["description"] . "</a></li>\n";
+					}
+					echo "</ul>\n";
+					echo "</div>\n";
+				}
+				else
+					echo "<li class=\"menu_item\" ><a href=\"" . $rowCategories["name"] . "/" . $rowCategories["name"] . ".php\">" . $rowCategories["description"] . "</a></li>\n";
+			}
+		}
+	}
+	
+	$g_mapCategory = DoGetCategories();
+	//print_r($g_mapCategory);
+	$g_mapSubcategory = DoGetSubcategories();
 	//print_r($g_mapSubcategory);
+
 ?>

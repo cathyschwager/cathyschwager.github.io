@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Untitled 1</title>
+<style>
+			.button
+			{
+				font-weight: bold;
+				width: 150px;
+			}
+			
+			.text
+			{
+				border-color: silver;
+				border-style: inset;
+			}
+			
+			.select
+			{
+				border-color: silver;
+				border-style: inset;
+			}
+			
+			.checkbox
+			{
+				border-color: silver;
+				border-style: inset;
+			}
+			
+			.form
+			{
+				border-color: silver;
+				border-style: outset;
+				background-color: silver;
+				padding: 20px;
+			}
+
+</style>
+</head>
+
+<body>
+
+						<form method="post" class="form" style="width:370px;">
+							<fieldset name="group_categories" style="padding:10px;">
+								<legend style="padding-bottom:5px;">Categories</legend>
+									<table cellpadding="10" cellspacing="0" border="1" style="table-layout:fixed;">
+										<tr>
+											<td>
+												<select name="select_categories" id="select_categories" class="select" size="10" style="width:150px;">
+													<option></option>
+												</select>
+											</td>
+											<td><input name="button" type="button" value="DELETE" class="button" onclick="DoDeleteListItem('select_categories')"/></td>
+										</tr>
+										<tr>
+											<td><label id="label_category">Category name: </label></td>
+											<td><input name="text_category_name" type="text" class="text" style="width:150px;" onkeydown="return /[a-z,_]/i.test(event.key)"/></td>
+										</tr>
+ 										<tr>
+											<td><label id="label_category">Category description: </label></td>
+											<td><input name="text_category_desc" type="text" class="text" style="width:150px;" onkeydown="return /[a-z,A-Z,_]/i.test(event.key)"/></td>
+										</tr>
+										<tr>
+											<td><input name="button" type="button" value="EDIT" class="button" onclick="DoEditListItem('select_categories', 'text_category_name', 'text_category_desc')"/></td>
+											<td><input name="button" type="button" value="ADD" class="button" onclick="DoAddListItem('select_categories', 'text_category_name', 'text_category_desc')"//></td>
+										</tr>
+										<tr>
+											<td colspan="2"><input name="button" type="submit" value="SAVE" class="button"/></td>
+										</tr>
+									</table>
+								</fieldset>
+							</form>
+							
+							<script type="text/javascript">
+							
+								function DoDeleteListItem(strListID)
+								{
+									var list = GetInput(strListID);
+									
+									if (list.selectionIndex > -1)
+									{
+										list.remove(list.selectionIndex);
+										list.focus();
+									}
+									else
+									{
+										AlertError("Please select an Item to delete!");
+									}
+								}
+								
+								function DoEditListItem(strListID, strTextNameID, strTextDescID)
+								{
+									var list = GetInput(strListID),
+										textName = GetInput(strTextNameID),
+										textDesc = GetInput(strTextDescID);
+									
+									list.options[list.selectedIndex].text = textName.text + ", " + textDesc.text;
+								}
+								
+								function DoAddListItem(strListID, strTextNameID, strTextDescID)
+								{
+									var list = GetInput(strListID),
+										textName = GetInput(strTextNameID),
+										textDesc = GetInput(strTextDescID),
+										option = null;
+										
+									option = document.createElement("option");
+									option.text = textName.text + ", " + textDesc.text;
+									list.add(option);
+								}
+								
+							</script>
+</body>
+
+</html>

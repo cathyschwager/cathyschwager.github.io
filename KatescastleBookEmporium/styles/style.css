@@ -300,7 +300,7 @@ h1,h2,h3,h4,h5,h6
 	color: #993333;
 }
 /* Styles for Navigation */
-#sidebar 
+.sidebar 
 {
 	display:inline-block;
 	position: relative;
@@ -312,7 +312,7 @@ h1,h2,h3,h4,h5,h6
 	width: 20%;
 	/*background-color:aqua;*/
 }
-#sidebar ul 
+.sidebar ul 
 {
 	list-style-type: none;
 	width: 100%;
@@ -320,13 +320,13 @@ h1,h2,h3,h4,h5,h6
 	margin: 0;
 	padding: 0;
 }
-#sidebar li 
+.sidebar li 
 {
 	display: block;
 	margin-bottom: 5px;
 	/*border: 1px solid #cb8;*/
 }
-#sidebar a 
+.sidebar a 
 {
 	font-weight: bold;
 	font-size: large;
@@ -340,7 +340,7 @@ h1,h2,h3,h4,h5,h6
 	background-color: #061C6B;
 	border-radius: 10px;
 }
-#sidebar a:hover 
+.sidebar a:hover 
 {
 	margin-left: 4%;
 	font-weight: bold;
@@ -363,7 +363,7 @@ h1,h2,h3,h4,h5,h6
 {
 	background-color: #7DB1F0;
 }
-#MenuPopup a:hover 
+.MenuPopup a:hover 
 {
 	font-weight: bold;
 	text-decoration: none;

@@ -28,11 +28,69 @@
 		var input = document.getElementById(strID);
 		
 		if (!input)
-			alert("Input with ID '" + strID + "' does not exist!");
+			AlertIDError(strID, "HTML");
 			
 		return input;
 	}
 	
+	function AlertInformation(strTitle, strMsg)
+	{
+		swal({
+		 		title: strTitle,
+		  		text: strMsg,
+		  		icon: "info",
+		  		buttons: true,
+		  		closeModal: true
+			});	
+	}
+	
+	function AlertSuccess(strMsg)
+	{
+		swal({
+		 		title: "SUCCESS",
+		  		text: strMsg,
+		  		icon: "success",
+		  		buttons: true,
+		  		closeModal: true
+			});	
+	}
+
+	function AlertWarning(strMsg)
+	{
+		swal({
+		 		title: "WARNING",
+		  		text: strMsg,
+		  		icon: "warning",
+		  		buttons: true,
+		  		closeModal: true
+			});	
+	}
+
+	function AlertError(strMsg)
+	{
+		let strEmailAddress = "find-a-tradie@outlook.com",
+			strEmailAdmin = "Email admin at " + strEmailAddress + " with this error message...";
+		
+		swal({
+		 		title: "ERROR",
+		  		text: strMsg + "\n\n" + strEmailAdmin,
+		  		icon: "error",
+		  		buttons: true,
+		  		closeModal: true
+			});	
+	}
+
+	function AlertIDError(strID, strDescription)
+	{
+		swal({
+		 		title: "ELEMENT ID ERROR",
+		  		text: "The " + strDescription + " element with ID '" + strID + "' does not exist!",
+		  		icon: "error",
+		  		buttons: true,
+		  		closeModal: true
+			});	
+	}
+
 	function GenerateGregsEmailAddress()
 	{
 		var strEmailAddress = "gregplants" + "@" + "bigpond" + "." + "com";
@@ -672,7 +730,7 @@
 		var bIsValid = false;
 		
 		if (strEmail.length == 0)
-			alert("Email address cannot be blank!");
+			AlertError("Email address cannot be blank!");
 		else
 		{
 			let nPosAt = strEmail.indexOf("@"),
@@ -681,7 +739,7 @@
 			if ((nPosAt > -1) && (nPosDot > -1) && (nPosDot > nPosAt))
 				bIsValid = true;
 			else
-				alert("'" + strEmail + "' is not a valid email address!");
+				AlertError("'" + strEmail + "' is not a valid email address!");
 		}
 		return bIsValid;
 	}
@@ -691,7 +749,7 @@
 		var bIsValid = false;
 	
 		if (strPhoneNumber.length == 0)
-			alert("Phone number cannot be blank!");
+			AlertError("Phone number cannot be blank!");
 		else
 		{
 			bIsValid = true;
@@ -702,7 +760,7 @@
 					break;
 			}
 			if (!bIsValid)
-				alert("'" + strPhoneNumber + "' is not a valid phone number!");
+				AlertError("'" + strPhoneNumber + "' is not a valid phone number!");
 		}
 		return bIsValid;
 	}
@@ -712,7 +770,7 @@
 		var bIsValid = false;
 	
 		if (strName.length == 0)
-			alert("Given names cannot be blank!");
+			AlertError("Given names cannot be blank!");
 		else
 			bIsValid = true;
 			
@@ -724,7 +782,7 @@
 		var bIsValid = false;
 		
 		if (strName.length == 0)
-			alert("Surname cannot be blank!");
+			AlertError("Surname cannot be blank!");
 		else
 			bIsValid = true;
 			
@@ -922,74 +980,55 @@
 			}
 		}
 	}
-	
-	function DoToggleFictionPopupMenu()
+		
+	g_mapPopupMenuFlags = new Map([
+<?php
+
+	function DoGetPopupMenuFlags()
 	{
-		var strPopupName = "FictionPopupMenu";
-	
-		if (document.getElementsByName(strPopupName) !== null)
+		global $g_dbKatesCastle;
+		$mapPopupMenuFlags = [];
+		
+		$resultsCategories = DoFindAllQuery($g_dbKatesCastle, "categories");
+		if ($resultsCategories && ($resultsCategories->num_rows > 0))
 		{
-			if (g_bFictionPopupMenu)
+			$nCount = 0;
+			while ($rowCategories = $resultsCategories->fetch_assoc())
 			{
-				document.getElementsByName(strPopupName)[0].style.display = "none";
+				$nCount++;
+				echo "[\"" . $rowCategories["name"] . "_popup_menu\", false]";
+				if ($nCount < $resultsCategories->num_rows)
+					echo ",\n";
+				else
+					echo "\n";
 			}
-			else
-			{
-				document.getElementsByName(strPopupName)[0].style.display = "block";
-			}
-			g_bFictionPopupMenu = !g_bFictionPopupMenu;
-			ResizeSideBar();
-		}
-		else
-		{
-			alert("No such object with name '" + strPopupName + "'!");
 		}
 	}
-					
-	function DoToggleNonFictionPopupMenu()
+	DoGetPopupMenuFlags();
+
+?>
+								]);
+
+	function DoTogglePopupMenu(strID)
 	{
-		var strPopupName = "NonFictionPopupMenu";
-		
-		if (document.getElementsByName(strPopupName)!== null)
+		if (GetInput(strID) !== null)
 		{
-			if (g_bNonFictionPopupMenu)
+			if (g_mapPopupMenuFlags[strID])
 			{
-				document.getElementsByName(strPopupName)[0].style.display = "none";
+				GetInput(strID).style.display = "none";
 			}
 			else
 			{
-				document.getElementsByName(strPopupName)[0].style.display = "block";
+				GetInput(strID).style.display = "block";
 			}
-			g_bNonFictionPopupMenu = !g_bNonFictionPopupMenu;
+			g_mapPopupMenuFlags[strID] = !g_mapPopupMenuFlags[strID];
 			ResizeSideBar();
 		}
 		else
 		{
-			alert("No such object with name '" + strPopupName + "'!");
+			AlertIDError(strID + "object");
 		}
-	}
-	
-	function DoToggleSpecialistPopupMenu()
-	{
-		var strPopupName = "SpecialistPopupMenu";
-		
-		if (document.getElementsByName(strPopupName)!== null)
-		{
-			if (g_bSpecialistPopupMenu )
-			{
-				document.getElementsByName(strPopupName)[0].style.display = "none";
-			}
-			else
-			{
-				document.getElementsByName(strPopupName)[0].style.display = "block";
-			}
-			g_bSpecialistPopupMenu = !g_bSpecialistPopupMenu;
-			ResizeSideBar();
-		}
-		else
-		{
-			alert("No such object with name '" + strPopupName + "'!");
-		}
+		return bPopupmenu;
 	}
 	
 </script>
