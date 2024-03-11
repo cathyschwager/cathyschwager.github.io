@@ -748,9 +748,9 @@
 											if (hiddenCategory && hiddenSubcategory && selectCategories && 
 												(selectCategories.selectedIndex > 0))
 											{
-												strKey = selectCategories.options[selectCategories.selectedIndex];
-												hiddenData.value = JSON.stringify(g_arrayCategory2Subcategory[strKey]);
-												hiddenCategory.value = = selectCategories.options[selectCategories.selectedIndex];
+												hiddenData.value = JSON.stringify(g_arrayCategory2Subcategory);
+												let strValue = selectCategories.options[selectCategories.selectedIndex].text;
+												hiddenCategory.value = strValue.substring(0, strValue.indexOf(","));
 												hiddenSubcategory.value = "";
 											}
 										}
@@ -767,10 +767,9 @@
 												(selectCategories.selectedIndex > 0) && 
 												(selectSubcategories.selectedIndex > 0))
 											{
-												strKey = selectCategories.options[selectCategories.selectedIndex] + 
-															", " + selectSubategories.options[selectSubategories.selectedIndex];
-												hiddenData.value = JSON.stringify(g_arrayCategory2Subcategory2Topic[strKey]);
-												hiddenCategory.value = selectCategories.options[selectCategories.selectedIndex];
+												hiddenData.value = JSON.stringify(g_arrayCategory2Subcategory2Topic);
+												let strValue = selectCategories.options[selectCategories.selectedIndex].text;
+												hiddenCategory.value = strValue.substring(0, strValue.indexOf(","));
 												hiddenSubcategory.value = selectSubategories.options[selectSubategories.selectedIndex];
 											}
 										}
