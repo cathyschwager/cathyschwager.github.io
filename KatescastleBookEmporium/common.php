@@ -519,6 +519,15 @@
 		return DoQuery($dbConnection, $g_strQuery);
 	}
 	
+	function CheckExists($strTable, $strColumn, $strValue)
+	{
+		global $g_dbKatesCastle;
+	
+		$results = DoFindQuery1($g_dbKatesCastle, $strTable, $strColumn, $strValue);
+		
+		return $results && ($results->num_rows > 0);
+	}
+	
 	//******************************************************************************
 	//******************************************************************************
 	//** 

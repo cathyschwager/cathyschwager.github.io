@@ -33,6 +33,37 @@
 		return input;
 	}
 	
+	function DoGetToken(strText, strDelim)
+	{
+		let nPos = strText.indexOf(strDelim);
+		let strToken = "";
+		
+		if (nPos > -1)
+		{
+			strToken = strText.substring(0, nPos);
+		}
+		else
+		{
+			strToken = strText;
+		}
+		return strToken;
+	}
+
+	function DoRemoveToken(strText, strDelim)
+	{
+		let nPos = strText.indexOf(strDelim);
+		
+		if (nPos > -1)
+		{
+			strText = strText.substring(nPos + strDelim.length);
+		}
+		else
+		{
+			strText = "";
+		}
+		return strText;
+	}
+
 	function AlertInformation(strTitle, strMsg)
 	{
 		swal({
