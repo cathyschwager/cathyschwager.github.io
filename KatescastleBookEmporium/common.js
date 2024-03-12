@@ -25,7 +25,7 @@
 	
 	function GetInput(strID)
 	{
-		var input = document.getElementById(strID);
+		let input = document.getElementById(strID);
 		
 		if (!input)
 			AlertIDError(strID, "HTML");
