@@ -325,6 +325,7 @@
 								$strTopicID = "";
 								$strMsg = "";
 								$bChanges = false;
+								$results = true;
 								
 								$arraySavedTopics = json_decode($_POST["hidden_saved_topics"]);
 								$arrayDeletedTopics = json_decode($_POST["hidden_deleted_topics"]);
@@ -359,20 +360,17 @@
 									//**************************************************************************
 									//**************************************************************************									
 									foreach ($arraySavedTopics as $strKey => $arrayTopics)
-									{																				
-										$strCategoryID = "";
-										$strSubcategoryID = "";
-										DoGetToken($strKey, $strCategoryID, $strDelim);
-										DoGetToken($strKey, $strSubcategoryID, $strDelim);
-																					
+									{																																									
 										for ($nI = 0; $nI < count($arrayTopics); $nI++)
 										{										
 											$objTopic = $arrayTopics[$nI];
 																														
 											if ($objTopic->id == "*")
 											{
-												$results = DoInsertQuery4($g_dbKatesCastle, "topics", "name", $objTopic["name"], 
-																		"description", $objTopic["description"], "category_id", $objTopic["category_id"], "subcategory_id", $objTopic["subcategory_id"]);
+												$results = DoInsertQuery4($g_dbKatesCastle, "topics", "name", $objTopic->name, 
+																		"description", $objTopic->description, "category_id", 
+																		$objTopic->category_id, "subcategory_id", 
+																		$objTopic->subcategory_id);
 												$strMsg .= "NEW TOPIC: " . $objTopic->name . ", " . $objTopic->description . "\\n";
 												$bChanges = true;
 											}
@@ -380,8 +378,8 @@
 											{												
 												$results = DoFindQuery5($g_dbKatesCastle, "topics", "id", $objTopic->id, 
 																		"name", $objTopic->name, "description", $objTopic->description,
-																		"category_id", $strCategoryID, "subcategory_id", 
-																		$strSubcategoryID);
+																		"category_id", $objTopic->category_id, "subcategory_id", 
+																		$objTopic->subcategory_id);
 																														
 												if ($results && ($results->num_rows == 0))
 												{
@@ -555,8 +553,10 @@
 													while ($rowTopics = $resultsTopics->fetch_assoc())
 													{
 														echo "g_arrayTopic[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "\"].push({id:\"" . $rowTopics["id"] . 
-															"\",name:\"" . $rowTopics["name"] . "\",description:\"" . $rowTopics["description"] . 
-															"\",category_id:\"" . $rowTopics["category_id"] . "\",subcategory_id:\"" . $rowTopics["subcategory_id"] . "\"});\n";
+															"\",name:\"" . $rowTopics["name"] . "\",description:\"" . 
+															$rowTopics["description"] . "\",category_id:\"" . 
+															$rowTopics["category_id"] . "\",subcategory_id:\"" . 
+															$rowTopics["subcategory_id"] . "\"});\n";
 													}
 												}
 											}
@@ -569,7 +569,11 @@
 												echo "g_arrayTopic[\"" . $rowCat["id"] . ",0\"] = [];\n";
 												while ($rowTopics = $resultsTopics->fetch_assoc())
 												{
-													echo "g_arrayTopic[\"" . $rowCat["id"] . ",0\"].push({id:\"" . $rowTopics["id"] . "\",name:\"" . $rowTopics["name"] . "\",description:\"" . $rowTopics["description"] . "\"});\n";
+													echo "g_arrayTopic[\"" . $rowCat["id"] . ",0\"].push({id:\"" . 
+														$rowTopics["id"] . "\",name:\"" . $rowTopics["name"] . 
+														"\",description:\"" . $rowTopics["description"] . 
+														"\",category_id:\"" . $rowTopics["category_id"] . 
+														"\",subcategory_id:\"" . $rowTopics["subcategory_id"] . "\"});\n";
 												}
 											}
 										}
@@ -1102,7 +1106,7 @@
 										
 										strKey = selectCategory.options[selectCategory.selectedIndex].text + "," + 
 													selectSubcategory.options[selectSubcategory.selectedIndex].text + "," +
-													strTopic.options[strTopic.selectedIndex].text;
+													selectTopic.options[selectTopic.selectedIndex].text;
 										arrayBookItems = g_arrayBooks[strKey];
 										
 										while (selectBooks.options.length > 0)
