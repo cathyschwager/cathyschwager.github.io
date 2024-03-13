@@ -414,7 +414,7 @@
 								if ($bChanges)
 								{
 									if (strpos($strMsg, "error") !== false)
-										PrintJavascriptLine("AlertError(\"" . $strMsg . "\");", 5, true);
+										PrintJavascriptLine("AlertWarning(\"" . $strMsg . "\");", 5, true);
 									else
 										PrintJavascriptLine("AlertSuccess(\"" . $strMsg . "\");", 5, true);
 								}
@@ -659,7 +659,7 @@
 										<td style="text-align:right">Select a subcategory:</td>
 										<td>
 											<select id="select_subcategories" onchange="OnChangeSubcategory('select_categories', 'select_subcategories', 'select_topics')" class="select">
-												<option value="0" selected>BLANK SUBCATEGORY</option>
+												<option value="0" selected>No Subcategory</option>
 											</select>
 										</td>
 									</tr>
@@ -669,16 +669,9 @@
 											</select>
 										</td>
 										<td>
-											<input type="button" value="DELETE" class="button" onclick="DoDeleteListItem('select_topics')"/><br/>
+											<input type="button" value="DELETE TOPIC" class="button" onclick="DoDeleteTopicItem('select_topics', 'select_categories', 'select_subcategories', 'select_topics')"/><br/>
 											<br/>
-											<input type="button" value="COPY" class="button" onclick="DoCopyListItem('hidden_id', 'text_topic_name', 'text_topic_desc')"/>
-										</td>
-									</tr>
-									<tr>
-										<td style="text-align:right"><label id="label_topic">Topic name:</label></td>
-										<td>
-											<input type="hidden" id="hidden_id"/>
-											<input id="text_topic_name" type="text" class="text" style="width:150px;" onkeydown="return /[a-z,_]/i.test(event.key)"/>
+											<input type="button" value="FETCH TOPIC ▼" class="button" onclick="DoCopyTopicItem('select_topics', 'text_topic_desc')"/>
 										</td>
 									</tr>
  									<tr>
@@ -686,8 +679,8 @@
 										<td><input id="text_topic_desc" type="text" class="text" style="width:150px;" onkeydown="return /[a-z,A-Z,_]/i.test(event.key)"/></td>
 									</tr>
 									<tr>
-										<td><input type="button" value="EDIT" class="button" onclick="DoEditListItem('hidden_id', 'text_topic_name', 'text_topic_desc', 'select_categories', 'select_subcategories')"/></td>
-										<td><input type="button" value="ADD" class="button" onclick="DoAddListItem('text_topic_name', 'text_topic_desc', 'select_categories', 'select_subcategories')"/></td>
+										<td><input type="button" value="EDIT TOPIC ▲" class="button" onclick="DoEditTopicItem('select_topics', 'text_topic_desc', 'select_categories', 'select_subcategories')"/></td>
+										<td><input type="button" value="NEW TOPIC ▲" class="button" onclick="DoAddTopicItem('select_topics', 'text_topic_desc', 'select_categories', 'select_subcategories')"/></td>
 									</tr>
 									<tr>
 										<td colspan="2"><input type="button" value="SAVE TOPICS" class="button" onclick="OnClickSaveButton('form_topics')"/></td>
@@ -698,7 +691,7 @@
 								<input name="hidden_deleted_topics" id="hidden_deleted_topics" type="hidden" />
 							</form>
 							<br/>
-							<form method="post" id="form_books" class="form" style="width:552px;">
+							<form method="post" id="form_books" class="form" style="width:600px;">
 								<table cellpadding="10" cellspacing="0" border="0" class="table">
 									<tr><td colspan="2"><b>BOOKS</b></td></tr>
 									<tr>
@@ -712,8 +705,8 @@
 									<tr>
 										<td style="text-align:right">Select a subcategory:</td>
 										<td>
-											<select id="select_subcategoriesb" onchange="OnChangeSubcategory('select_categoriesb', 'select_subcategoriesb', 'select_topicsb')" class="select">
-												<option value="0" selected>BLANK SUBCATEGORY</option>
+											<select id="select_subcategoriesb" onchange="OnChangeSubcategory('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb')" class="select">
+												<option value="0" selected>No Subcategory</option>
 											</select>
 										</td>
 									</tr>
@@ -721,7 +714,7 @@
 										<td style="text-align:right">Select a topic:</td>
 										<td>
 											<select id="select_topicsb" onchange="OnChangeTopic('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb')" class="select">
-												<option value="0" selected=>BLANK TOPIC</option>
+												<option value="0" selected=>Other</option>
 											</select>
 											<input type="hidden" id="hidden_topic_idb"/>
 										</td>
@@ -732,9 +725,9 @@
 											</select>
 										</td>
 										<td>
-											<input type="button" value="DELETE" class="button" onclick="DoDeleteBookItem('bselect_books')"/><br/>
+											<input type="button" value="DELETE BOOK" class="button" onclick="DoDeleteBookItem('bselect_books', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/><br/>
 											<br/>
-											<input type="button" value="COPY" class="button" onclick="DoCopyBookItem('bselect_books')"/>
+											<input type="button" value="FETCH BOOK ▼" class="button" onclick="DoCopyBookItem('bselect_books', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/>
 										</td>
 									</tr>
 									<tr>
@@ -773,8 +766,39 @@
 										</td>
 									</tr>
 									<tr>
-										<td><input type="button" value="EDIT" class="button" onclick="DoEditBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
-										<td><input type="button" value="ADD" class="button" onclick="DoAddBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
+										<td><input type="button" value="EDIT BOOK ▲" class="button" onclick="DoEditBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
+										<td><input type="button" value="MOVE BOOKS ▼" class="button" onclick="DoMoveBookItem('select_booksb', 'select_categoriesm', 'select_subcategoriesm', 'select_topicsm', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
+									</tr>
+									<tr>
+										<td><input type="button" value="NEW BOOK ▲" class="button" onclick="DoAddBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
+										<td>
+											<table cellpadding="2" cellspacing="0" border="0">
+												<tr>
+													<td style="text-align:right;">New category:</td>
+													<td>
+														<select id="select_categoriesm" onchange="OnChangeCategory('select_categoriesm', 'select_subcategoriesm', 'select_topicsm')" class="select">
+															<?php DoGetCategoryOptions(); ?>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align:right;">New subcategory:</td>
+													<td>
+														<select id="select_subcategoriesm" onchange="OnChangeSubcategory('select_categoriesb', 'select_subcategoriesm', 'select_topicsm', 'select_booksb')" class="select">
+															<option value="0" selected>No Subcategory</option>
+														</select>
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align:right;">New topic:</td>
+													<td>
+														<select id="select_topicsm" onchange="OnChangeTopic('select_categoriesm', 'select_subcategoriesm', 'select_topicsm', 'select_booksb')" class="select">
+															<option value="0" selected=>Other</option>
+														</select>
+													</td>
+												</tr>
+											</table>
+										</td>
 									</tr>
 									<tr>
 										<td colspan="2"><input type="button" value="SAVE BOOKS" class="button" onclick="OnClickSaveButton('form_books')"/></td>
@@ -802,23 +826,54 @@
 								<?php DoCreateBookEntries(); ?>
 								
 								let g_arrayDeletedBooks = [];
+								
+								let g_nCurrentTopicID = 0;
 									
+								function DoFormatName(strDescription)
+								{
+									strDescription = strDescription.toLowerCase();
+									while (strDescription.indexOf(" ") > -1)
+										strDescription.str_replace(" ", "_");
+								}
+								
+								function DoGetTopicIndex(nCurrentTopicID, arrayTopics)
+								{
+									let nIndex = -1;
+									
+									for (let nI = 0; nI < arrayTopics.length; nI++)
+									{
+										if (nCurrentTopicID == arrayTopics[nI].id)
+											break;
+									}
+									return nIndex;
+								}
+								
 								function OnChangeCategory(strCategorySelectID, strSubcategorySelectID, strTopicSelectID, strBookSelectID)
 								{
 									let selectCategory = GetInput(strCategorySelectID),
 										selectSubcategory = GetInput(strSubcategorySelectID),
-										strKey = "",
+										selectTopic = GetInput(strTopicSelectID),
 										arraySubcategoryItems = [],
 										option = null;
 	
 									if (selectCategory && selectSubcategory && (selectCategory.selectedIndex > -1))
 									{
-										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategory.options[selectSubcategory.selectedIndex].value;
-										arraySubcategoryItems = g_arraySubcategory[strKey];
+										arraySubcategoryItems = g_arraySubcategory[selectCategory.options[selectCategory.selectedIndex].value];
 																				
-										while (selectSubcategory.options.length > 1)
-											selectSubcategory.remove(selectSubcategory.options.length - 1);
-												
+										if (strBookSelectID !== undefined)
+										{
+											while (selectSubcategory.options.length > 0)
+												selectSubcategory.remove(0);
+											while (selectTopic.options.length > 1)
+												selectTopic.remove(1);
+										}
+										else
+										{
+											while (selectSubcategory.options.length > 1)
+												selectSubcategory.remove(1);
+											while (selectTopic.options.length > 0)
+												selectTopic.remove(0);
+										}
 										if (arraySubcategoryItems !== undefined)
 										{											
 											for (let nI = 0; nI < arraySubcategoryItems.length; nI++)
@@ -835,6 +890,18 @@
 												OnChangeSubcategory(strCategorySelectID, strSubcategorySelectID, strTopicSelectID, strBookSelectID);
 											}
 										}
+										arrayTopicItems = g_arrayTopic[selectCategory.options[selectCategory.selectedIndex].value + ",0"];
+										if (arrayTopicItems !== undefined)
+										{
+											for (let nI = 0; nI < arrayTopicItems.length; nI++)
+											{
+												option = document.createElement("option");
+												option.value = arrayTopicItems[nI].id;
+												option.text = arrayTopicItems[nI].description;
+												selectTopic.add(option);
+											}
+											selectTopic.selectedIndex = 0;
+										}
 									}
 								}
 								
@@ -846,15 +913,21 @@
 										arrayTopicItems = [],
 										option = null,
 										strKey = "";
-	
+
 									if (selectCategory && selectSubcategory && selectTopic && (selectCategory.selectedIndex > -1) && (selectSubcategory.selectedIndex > -1))
 									{
+										if (strBookSelectID !== undefined)
+										{
+											while (selectTopic.options.length > 1)
+												selectTopic.remove(1);
+										}
+										else
+										{
+											while (selectTopic.options.length > 0)
+												selectTopic.remove(0);
+										}
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategory.options[selectSubcategory.selectedIndex].value;
-										arrayTopicItems = g_arrayTopic[strKey];
-										
-										while (selectTopic.options.length > 1)
-											selectTopic.remove(selectSubcategory.options.length - 1);
-											
+										arrayTopicItems = g_arrayTopic[strKey];	
 										if (arrayTopicItems !== undefined)
 										{
 											for (let nI = 0; nI < arrayTopicItems.length; nI++)
@@ -870,6 +943,8 @@
 												OnChangeTopic(strCategorySelectID, strSubcategorySelectID, strTopicSelectID, strBookSelectID)
 											}
 										}
+										
+										strKey = selectCategory.options[selectCategory.selectedIndex].value;
 									}
 								}
 								
@@ -879,111 +954,101 @@
 								OnChangeCategory("select_categoriesb", "select_subcategoriesb", "select_topicsb");
 								OnChangeSubcategory("select_categoriesb", "select_subcategoriesb", 'select_topicsb', 'select_booksb');
 	
-								function DoDeleteListItem(strListID)
+								function DoDeleteTopicItem(strListID, strCategoryID, strSubcategoryID, strTopicID)
 								{
-									let list = GetInput(strListID);
+									let list = GetInput(strListID),
+										selectCategory = GetInput(strCategoryID),
+										selectSubcategoryID = GetInput(strSubcategoryID),
+										selectTopics = GetInput(strTopicID),
+										strKey = "", strValue = "";
 
 									if (list.selectedIndex > -1)
 									{
-										let strValue = list.options[list.selectedIndex].text;
-										if (strValue.indexOf("*") == -1)
+										strValue = list.options[list.selectedIndex].value;
+										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategoryID.options[selectSubcategoryID.selectedIndex].value + "," + selectTopics.options[selectTopics.selectedIndex].value;
+										if (strValue != "*")
 										{
 											g_arrayDeletedTopics.push(strValue);
 										}
-										list.remove(list.selectedIndex);
-										list.focus();
+										if (!g_arrayBooks[strKey])
+										{
+											delete g_arrayTopic[strKey];
+											list.remove(list.selectedIndex);
+											list.focus();
+										}
+										else
+										{
+											AlertWarning("This topic contains book items that need to be moved or removed in order to delete this topic!");
+										}
 									}
 									else
 									{
-										AlertError("Please select an Item to delete!");
+										AlertWarning("Please select an Item to delete!");
 									}
 								}
 								
-								function DoEditListItem(strListID, strHiddenID, strTextNameID, strTextDescID, strCategoryID, strSubcategoryID)
+								function DoEditTopicItem(strListID, strTextDescID, strCategoryID, strSubcategoryID)
 								{
 									let list = GetInput(strListID),
-										textName = GetInput(strTextNameID),
 										textDesc = GetInput(strTextDescID),
-										hiddenID = GetInput(strHiddenID),
 										selectCategory = GetInput(strCategoryID),
 										selectSubcategory = GetInput(strSubcategoryID),
-										strKey = "", 
-										strValue = "", strItem = "",
+										strKey = "",
 										arrayTopics = [],
 										strIDInArray = "", 
-										strDelim = ", ";
+										strDelim = ", ",
+										nI = 0;
 									
 									if (list.selectedIndex > -1)
 									{
-										strKey = selectCategory.options[selectCategory.selectedIndex].text + ", " + 
-													selectSubcategory.options[selectSubcategory.selectedIndex].text;
-										strValue = hiddenID.value + ", " + textName.value + ", " + textDesc.value;
-										
-										list.options[list.selectedIndex].text = strValue;
+										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
+												selectSubcategory.options[selectSubcategory.selectedIndex].value;
+										list.options[list.selectedIndex].text = textDesc.value;
 										arrayTopics = g_arrayTopic[strKey];
-										for (let nI = 0; nI < arrayTopics.length; nI++)
-										{
-											strItem = arrayTopics[nI];
-											strIDInArray = DoGetToken(strItem, strDelim);
-											if (hiddenID.value == strIDInArray)
-											{
-												arrayTopics[nI] = strValue;
-												break;
-											}
-										}
+										nI = DoGetTopicIndex(g_nCurrentTopicID, arrayTopics);
+										arrayTopics[strKey][nI].description = textDesc.value;
+										arrayTopics[strKey][nI].name = DoFormatName(textDesc.value);
 										g_arrayTopic[strKey] = arrayTopics;
 									}
 									else
 									{
-										AlertError("Please select an Item to edit!");
+										AlertWarning("Please select an Item to edit!");
 									}
 								}
-								
-								function DoCopyListItem(strListID, strHiddenID, strTextNameID, strTextDescID)
+																
+								function DoCopyTopicItem(strListID, strTextDescID)
 								{
 									let list = GetInput(strListID),
-										textName = GetInput(strTextNameID),
-										textDesc = GetInput(strTextDescID),
-										hiddenID = GetInput(strHiddenID),
-										nPos1 = 0, nPos2 = 0;
+										textDesc = GetInput(strTextDescID);
 									
 									if (list.selectedIndex > -1)
 									{
-										strValue = list.options[list.selectedIndex].text;
-										nPos1 = strValue.indexOf(",");
-										nPos2 = strValue.lastIndexOf(",");
-										hiddenID.value = strValue.substring(0, nPos1)
-										textName.value = strValue.substring(nPos1 + 2, nPos2);
-										textDesc.value = strValue.substring(nPos2 + 2);
+										textDesc.value = list.options[list.selectedIndex].text;
+										g_nCurrentTopicID = list.options[list.selectedIndex].value;
 									}
 									else
 									{
-										AlertError("Please select an Item to edit!");
+										AlertWarning("Please select an Item to edit!");
 									}
 								}
 								
-								function DoAddListItem(strListID, strTextNameID, strTextDescID, strCategoryID, strSubcategoryID)
+								function DoAddTopicItem(strListID, strTextDescID, strCategoryID, strSubcategoryID)
 								{
 									let list = GetInput(strListID),
-										textName = GetInput(strTextNameID),
 										textDesc = GetInput(strTextDescID),
 										selectCategory = GetInput(strCategoryID),
 										selectSubcategory = GetInput(strSubcategoryID),
-										option = null,
-										strItem = "";
+										option = null;
 										
 									option = document.createElement("option");
-									strItem = "*, " + textName.value + ", " + textDesc.value
-									option.text = strItem;
+									option.value = "*";
+									option.text = textDesc.value;
 									list.add(option);
 									
-									strKey = selectCategory.options[selectCategory.selectedIndex].text + ", " + 
-												selectSubcategory.options[selectSubcategory.selectedIndex].text;
+									strKey = selectCategory.options[selectCategory.selectedIndex].value + ", " + 
+												selectSubcategory.options[selectSubcategory.selectedIndex].value;
 									g_arrayTopic[strKey].push(strItem);
 								}
-								
-								
-								
 								
 								function OnChangeTopic(strCategoryID, strSubcategoryID, strTopicID, strBooksID)
 								{
@@ -999,7 +1064,7 @@
 									{
 										strKey = selectCategory.options[selectCategory.selectedIndex].text + "," + 
 													selectSubcategory.options[selectSubcategory.selectedIndex].text + "," +
-													strSelectedTopicText.options[strSelectedTopicText.selectedIndex].text;
+													strTopic.options[strTopic.selectedIndex].text;
 										arrayBookItems = g_arrayBooks[strKey];
 										
 										while (selectBooks.options.length > 0)
@@ -1019,19 +1084,77 @@
 									}
 								}
 								
+								function DoMoveBookItem(strSelectBooks, strNewCategoryID, strNewSubcategoryID, strNewTopicID, strOrigCategoryID, strOrigSubcategoryID, strOrigTopicID)
+								{
+									let selectBooks = GetInput(strListID),
+										selectNewCategory = GetInput(strNewCategoryID),
+										selectNewSubcategory = GetInput(strNewSubcategoryID),
+										selectNewTopic = GetInput(strSelectNewTopicsID),
+										selectOrigCategory = GetInput(strOrigCategoryID),
+										selectOrigSubcategory = GetInput(strOrigSubcategoryID),
+										selectOrigTopic = GetInput(strSelectOrigTopicsID),
+										strKey = "",
+										arrayBooks = [];
+										
+									if (selectBooks && selectNewCategory && selectNewSubcategory && selectNewTopic &&
+										selectOrigCategory && selectOrigSubcategory && selectOrigTopic)
+									{
+										strKey = selectOrigCategory.options[selectOrigCategory.selectedIndex].value + "," + 
+													selectOrigSubcategory.options[selectOrigSubcategory.selectedIndex].value + ","
+													selectOrigTopic.options[selectOrigTopic.selectedIndex].value;
+										arrayBooks = g_arrayBooks[strKey];
+										for (let nI = 0; nI < arrayBooks.length; nI++)
+										{
+											arrayBooks[nI].category_id = selectNewCategory.options[selectNewCategory.selectedIndex].value;
+											arrayBooks[nI].subcategory_id = selectNewSubcategory.options[selectNewSubcategory.selectedIndex].value;
+											arrayBooks[nI].topic_id = selectNewTopic.options[selectNewTopic.selectedIndex].value;
+										}
+										g_arrayBooks[strKey] = arrayBooks;
+										OnChangeCategory(strOrigCategoryID, strOrigSubcategoryID, strOrigTopicID);
+										OnChangeSubcategory(strOrigCategoryID, strOrigSubcategoryID, strOrigTopicID, strSelectBooks);
+									}
+								}
+								
 								function DoEditBookItem(strListID, strCategoryID, strSubcategoryID, strTopicsID)
 								{
-									let list = GetInput(strListID),
+									let selectBooks = GetInput(strListID),
 										selectCategory = GetInput(strCategoryID),
 										selectSubcategory = GetInput(strSubcategoryID),
-										selectTopic = GetInput(strSelectTopicsID);
-				
-	
+										selectTopic = GetInput(strSelectTopicsID),
+										textTitle = GetInput("text_title"),
+										textAuthor = GetInput("text_author"),
+										textSummary = GetInput("text_summary"),
+										textPrice = GetInput("text_price"),
+										textWeight = GetInput("text_weight"),
+										textQuantity = GetInput("text_quantity"),
+										mapBookItem = {}, 
+										option = null;
+										
+									if (selectBooks && selectCategory && selectSubcategory && 
+										selectTopic && (selectTopic.selectedIndex > -1) && textTitle &&
+										textAuthor && textSummary && textPrice && textWeight && textQuantity)
+									{
+										strKey = hiddenCategoryID.value + ", " + hiddenSubcategoryID.value + ", " + hiddenBookTopicID.value + ", " + hiddenBookID.value;
+										mapBookItem = g_arrayBooks[strKey];
+										mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].text;
+										mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].text;
+										mapBookItem["topic_id"] = selectTopics.options[selectTopics.selectedIndex].text;
+										mapBookItem["title"] = textTitle.value;
+										mapBookItem["author"] = textAuthor.value;
+										mapBookItem["summary"] = textSummary.value;
+										mapBookItem["price"] = textPrice.value;
+										mapBookItem["weight"] = textWeight.value;
+										mapBookItem["quantity"] = textQuantity.value;
+										mapBookItem["image_filename"] = mapBookItem["image_filename"];
+										g_arrayBooks[strKey] = mapBookItem;
+
+										selectBooks.options[selectBooks.selectedIndex].text = textTitle.value + ", " + textAuthor.value + ", $" + textPrice.value + ", " + textQuantity.value;
+									}
 								}
 								
 								function DoAddBookItem(strListID, strCategoryID, strSubcategoryID, strTopicID)
 								{
-									let list = GetInput(strListID),
+									let selectBooks = GetInput(strListID),
 										selectCategory = GetInput(strCategoryID),
 										selectSubcategory = GetInput(strSubcategoryID),
 										selectTopic = GetInput(strTopicID),
@@ -1044,11 +1167,10 @@
 										mapBookItem = {}, 
 										option = null;
 									
-									if (list && selectCategory && selectSubcategory && 
+									if (selectBooks && selectCategory && selectSubcategory && 
 										selectTopic && (selectTopic.selectedIndex > -1) && textTitle &&
 										textAuthor && textSummary && textPrice && textWeight && textQuantity)
 									{
-										mapBookItem = {};
 										mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].text;
 										mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].text;
 										mapBookItem["topic_id"] = selectTopics.options[selectTopics.selectedIndex].text;
@@ -1070,7 +1192,7 @@
 								
 								function DoCopyBookItem(strListID)
 								{
-									let list = GetInput(strListID),
+									let selectBooks = GetInput(strListID),
 										selectCategory = GetInput(""),
 										selectSubcategory = GetInput(""),
 										selectTopic = GetInput(""),
@@ -1085,11 +1207,13 @@
 										hiddenSubcategoryID = GetInput("hidden_subcategory_id"),
 										hiddenBookTopicID = GetInput("hidden_topic_id"),
 										hiddenBookID = GetInput("hidden_book_id"),
-										mapBookItem = {};
+										mapBookItem = {},
+										strKey = "";
 									
-									if (list.selectedIndex > -1)
+									if (selectBooks.selectedIndex > -1)
 									{
-										mapBookItem = g_arrayBooks[hiddenCategoryID.value + ", " + hiddenSubcategoryID.value + ", " + hiddenBookTopicID.value + ", " + hiddenBookID.value];
+										strKey = hiddenCategoryID.value + ", " + hiddenSubcategoryID.value + ", " + hiddenBookTopicID.value + ", " + hiddenBookID.value;
+										mapBookItem = g_arrayBooks[strKey];
 										textTitle.value = mapBookItem["title"];
 										textAuthor.value = mapBookItem["author"];
 										textSummary.value = mapBookItem["summary"];
@@ -1100,30 +1224,37 @@
 									}
 									else
 									{
-										AlertError("Please select an Item to edit!");
-									}								}
+										AlertWarning("Please select an Item to edit!");
+									}
+								}
 
-								function DoDeleteBookItem(strListID)
+								function DoDeleteBookItem(strListID, strCategoryID, strSubcategoryID, strTopicID)
 								{
-									let list = GetInput(strListID);
+									let selectBooks = GetInput(strListID),
+										selectCategory = GetInput(strCategoryID),
+										selectSubcategory = GetInput(strSubcategoryID),
+										selectTopicID = GetInput(strTopicID),
+										strKey = "", strValue = "";
 
-									if (list.selectedIndex > -1)
+									if (selectBooks.selectedIndex > -1)
 									{
-										let strValue = list.options[list.selectedIndex].text;
+										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategory.options[selectSubcategory.selectedIndex].value + "," + selectTopic.options[selectTopic.selectedIndex].value;
+										strValue = selectBooks.options[selectBooks.selectedIndex].text;
 										if (strValue.indexOf("*") == -1)
 										{
 											g_arrayDeletedBooks.push(strValue);
 										}
-										list.remove(list.selectedIndex);
-										list.focus();
+										selectBooks.remove(selectBooks.selectedIndex);
+										delete m_arrayBooks[strKey];
+										selectBooks.focus();
 									}
 									else
 									{
-										AlertError("Please select an Item to delete!");
+										AlertWarning("Please select an Item to delete!");
 									}
 								}
 													
-								function OnClickSaveButton(strFunction)
+								function OnClickSaveButton(strFunction, strCategoryID, strSubcategoryID, strTopicID)
 								{
 									if (strFunction == "form_topics")
 									{
