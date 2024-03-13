@@ -387,6 +387,82 @@
 		return DoQuery($dbConnection, $g_strQuery);
 	}
 	
+	function DoFindQuery4($dbConnection, $strTableName, $strColumnName1, $strColumnValue1, $strColumnName2, $strColumnValue2, $strColumnName3, $strColumnValue3, $strColumnName4, $strColumnValue4, $strCondition = "", $strOrderBy = "", $bAscending = true)
+	{	
+		global $g_strQuery;
+		$g_strQuery = "SELECT * FROM " . $strTableName . " WHERE " . $strColumnName1 . "='" . EscapeSingleQuote($strColumnValue1) . "' AND " . $strColumnName2 . "='" . EscapeSingleQuote($strColumnValue2) . "' AND " . $strColumnName3 . "='" . EscapeSingleQuote($strColumnValue3) . "' AND " . $strColumnName4 . "='" . EscapeSingleQuote($strColumnValue4) . "'";		
+	
+		if (strlen($strCondition) > 0)
+			$g_strQuery = $g_strQuery . " AND " . $strCondition;
+		if (strlen($strOrderBy) > 0)
+		{
+			$g_strQuery = $g_strQuery . " ORDER BY " . $strOrderBy;
+			if ($bAscending)
+			{
+				$g_strQuery = $g_strQuery . " ASC";
+			}
+			else
+			{
+				$g_strQuery = $g_strQuery . " DESC";
+			}
+		}
+		return DoQuery($dbConnection, $g_strQuery);
+	}
+	
+
+
+
+
+	function DoFindQuery5($dbConnection, $strTableName, $strColumnName1, $strColumnValue1, $strColumnName2, $strColumnValue2, $strColumnName3, $strColumnValue3, $strColumnName4, $strColumnValue4, $strColumnName5, $strColumnValue5, $strCondition = "", $strOrderBy = "", $bAscending = true)
+	{	
+		global $g_strQuery;
+		$g_strQuery = "SELECT * FROM " . $strTableName . " WHERE " . $strColumnName1 . "='" . EscapeSingleQuote($strColumnValue1) . "' AND " . $strColumnName2 . "='" . EscapeSingleQuote($strColumnValue2) . "' AND " . $strColumnName3 . "='" . EscapeSingleQuote($strColumnValue3) . "' AND " . $strColumnName4 . "='" . EscapeSingleQuote($strColumnValue4) . "' AND " . $strColumnName5 . "='" . EscapeSingleQuote($strColumnValue5) . "'";		
+	
+		if (strlen($strCondition) > 0)
+			$g_strQuery = $g_strQuery . " AND " . $strCondition;
+		if (strlen($strOrderBy) > 0)
+		{
+			$g_strQuery = $g_strQuery . " ORDER BY " . $strOrderBy;
+			if ($bAscending)
+			{
+				$g_strQuery = $g_strQuery . " ASC";
+			}
+			else
+			{
+				$g_strQuery = $g_strQuery . " DESC";
+			}
+		}
+		return DoQuery($dbConnection, $g_strQuery);
+	}
+	
+	function DoFindQuery6($dbConnection, $strTableName, $strColumnName1, $strColumnValue1, $strColumnName2, $strColumnValue2, $strColumnName3, $strColumnValue3, $strColumnName4, $strColumnValue4, $strColumnName5, $strColumnValue5, $strColumnName6, $strColumnValue6, $strCondition = "", $strOrderBy = "", $bAscending = true)
+	{	
+		global $g_strQuery;
+		$g_strQuery = "SELECT * FROM " . $strTableName . " WHERE " . $strColumnName1 . "='" . EscapeSingleQuote($strColumnValue1) . "' AND " . $strColumnName2 . "='" . EscapeSingleQuote($strColumnValue2) . "' AND " . $strColumnName3 . "='" . EscapeSingleQuote($strColumnValue3) . "' AND " . $strColumnName4 . "='" . EscapeSingleQuote($strColumnValue4) . "' AND " . $strColumnName5 . "='" . EscapeSingleQuote($strColumnValue5) . "' AND " . $strColumnName6 . "='" . EscapeSingleQuote($strColumnValue6) . "'";		
+	
+		if (strlen($strCondition) > 0)
+			$g_strQuery = $g_strQuery . " AND " . $strCondition;
+		if (strlen($strOrderBy) > 0)
+		{
+			$g_strQuery = $g_strQuery . " ORDER BY " . $strOrderBy;
+			if ($bAscending)
+			{
+				$g_strQuery = $g_strQuery . " ASC";
+			}
+			else
+			{
+				$g_strQuery = $g_strQuery . " DESC";
+			}
+		}
+		return DoQuery($dbConnection, $g_strQuery);
+	}
+	
+
+
+
+
+
+
 	function DoInsertFindQuery1($dbConnection, $strQuery, $strTableName, $strColumnName, $strColumnValue)
 	{
 		$result = DoFindQuery1($dbConnection, $strTableName, $strColumnName, $strColumnValue);

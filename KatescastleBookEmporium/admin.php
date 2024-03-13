@@ -319,72 +319,83 @@
 							}
 							else if (isset($_POST["hidden_submit_topics"]))
 							{
-								$strDelim = ", ";
+								$strDelim = ",";
 								$strCategoryID = "";
 								$strSubcategoryID = "";
 								$strTopicID = "";
-								$strName = "";
-								$strDesc = "";
-								$strText = "";
 								$strMsg = "";
 								$bChanges = false;
 								
-								$arraySaveTopics = json_decode($_POST["hidden_save_topics"]);
-								if ($arraySaveTopics)
+								$arraySavedTopics = json_decode($_POST["hidden_saved_topics"]);
+								$arrayDeletedTopics = json_decode($_POST["hidden_deleted_topics"]);
+																
+								if ($arraySavedTopics)
 								{
-									/*
-										stdClass Object ( 
-										
-										[3, fiction, Fiction, 1, action, Action] => Array ( [0] => 142, espionage, Espionage 
-																							[1] => 143, martial_arts, Martial Arts 
-																							[2] => 144, disasters, Disasters 
-																							[3] => 145, war, War 
-																							[4] => 146, treasure, Treasure ) 
-																							
-										[3, fiction, Fiction, 2, crime, Crime] => Array ( [0] => 147, drugs, Drugs 
-																						  [1] => 148, gangs, Gangs 
-																						  [2] => 149, hate, Hate 
-																						  [3] => 150, robbery, Robbery 
-																						  [4] => 151, terrorism, Terrorism )
-									*/ 
-									foreach ($arraySaveTopics as $strKey => $arrayTopics)
-									{
-										//echo $strKey . "<br>";
-										//print_r($arrayTopics);
-										//echo "<br><br>";						
-																				
+									//**************************************************************************
+									//**************************************************************************
+									//** 
+									//** EXAMPLE SAVED TOPICS
+									//** ---------------------
+									//**
+									//** stdClass Object 
+									//** ( 
+									//** 	[1,0] => Array
+									//**    ( 
+									//** 		[0] => stdClass Object 
+									//**			( 
+									//**				[id] => 1 
+									//**				[name] => activity 
+									//**				[description] => Activity Books 
+									//**			) 
+									//**		[1] => stdClass Object 
+									//** 			( 
+									//**				[id] => 2 
+									//**				[name] => board 
+									//**				[description] => Board Books 
+									//**			) 
+									//**	)
+									//** )
+									//** 
+									//**************************************************************************
+									//**************************************************************************									
+									foreach ($arraySavedTopics as $strKey => $arrayTopics)
+									{																				
+										$strCategoryID = "";
+										$strSubcategoryID = "";
 										DoGetToken($strKey, $strCategoryID, $strDelim);
-										DoGetToken($strKey, $strName, $strDelim);
-										DoGetToken($strKey, $strDesc, $strDelim);
-										
 										DoGetToken($strKey, $strSubcategoryID, $strDelim);
-										DoGetToken($strKey, $strName, $strDelim);
-										DoGetToken($strKey, $strDesc, $strDelim);
-										
-										for ($nI = 0; $nI < count( $arrayTopics); $nI++)
-										{																						
-											$strText = $arrayTopics[$nI];
-											DoGetToken($strText, $strTopicID, $strDelim);
-											DoGetToken($strText, $strName, $strDelim);
-											DoGetToken($strText, $strDesc, $strDelim);
-											
-											if ($strTopicID == "*")
+																					
+										for ($nI = 0; $nI < count($arrayTopics); $nI++)
+										{										
+											$objTopic = $arrayTopics[$nI];
+																														
+											if ($objTopic->id == "*")
 											{
-												$results = true;//DoInsertQuery4($g_dbKatesCastle, "topics", "name", $strName, 
-																//		"description", $strDesc, "category_id", $strCategoryID, "subcategory_id", $strSubcategoryID);
-												$strMsg .= "NEW TOPIC: " . $strName . ", " . $strDesc . "\\n";
+												$results = DoInsertQuery4($g_dbKatesCastle, "topics", "name", $objTopic["name"], 
+																		"description", $objTopic["description"], "category_id", $objTopic["category_id"], "subcategory_id", $objTopic["subcategory_id"]);
+												$strMsg .= "NEW TOPIC: " . $objTopic->name . ", " . $objTopic->description . "\\n";
 												$bChanges = true;
 											}
 											else
-											{
-												$results = DoFindQuery3($g_dbKatesCastle, "topics", "id", $strTopicID, 
-																		"name", $strName, "description", $strDesc);
+											{												
+												$results = DoFindQuery5($g_dbKatesCastle, "topics", "id", $objTopic->id, 
+																		"name", $objTopic->name, "description", $objTopic->description,
+																		"category_id", $strCategoryID, "subcategory_id", 
+																		$strSubcategoryID);
+																														
 												if ($results && ($results->num_rows == 0))
 												{
-													$results = true;//DoUpdateQuery2($g_dbKatesCastle, "topics", "name", $strName, 
-																	//		"description", $strDesc, "id", $strTopicID);
-													$strMsg .= "EDIT TOPIC: " . $strName . ", " . $strDesc . "\\n";
-													$bChanges = true;
+													$results = DoUpdateQuery2($g_dbKatesCastle, "topics", "name", 
+																				$objTopic->name, "description", 
+																				$objTopic->description, "id", 
+																				$objTopic->id);
+																				
+													if ($results)
+													{
+														$strMsg .= "EDIT TOPIC: " . $objTopic->name . ", " . 
+																	$objTopic->description . "\\n";
+														$bChanges = true;
+													}
 												}
 											}
 											if (!$results)
@@ -395,19 +406,22 @@
 										}
 									}
 								}
-								else
-								{
-									print_r($_POST);
-								}
-								$arrayDeletedTopics = json_decode($_POST["hidden_deleted_topics"]);
 								if ($arrayDeletedTopics)
 								{
+									//**************************************************************************
+									//**************************************************************************
+									//** 
+									//** EXAMPLE DELETED TOPICS
+									//** -----------------------
+									//**
+									//** Array ( [0] => stdClass Object ( [id] => 1 [name] => activity_books [description] => Activity Books ) )
+									//**
+									//**************************************************************************
+									//**************************************************************************
 									for ($nI = 0; $nI < count($arrayDeletedTopics); $nI++)
 									{
-										$strText = $arrayDeletedTopics[$nI];
-										DoGetToken($strText, $strID, $strDelim);
-										$results = true;//DoDeleteQuery($g_dbKatesCastle, "topics", "id", $strID);
-										$strMsg .= "DELETE TOPIC: " . $strName . ", " . $strDesc . "\\n";
+										$results = DoDeleteQuery($g_dbKatesCastle, "topics", "id", $arrayDeletedTopics[$nI]->id);
+										$strMsg .= "DELETE TOPIC: " . $arrayDeletedTopics[$nI]->description. "\\n";
 										$bChanges = true;
 									}
 								}
@@ -420,6 +434,20 @@
 								}
 								else
 									PrintJavascriptLine("AlertWarning(\"No changes to your topics were found!\");", 5, true);
+							}
+							else if (isset($_POST["hidden_submit_books"]))
+							{
+								$arraySavedBooks = json_decode($_POST["hidden_saved_books"]);
+								$arrayDeletedBooks = json_decode($_POST["hidden_deleted_books"]);
+								
+								if ($arraySavedBooks)
+								{
+									print_r($arraySavedBooks);
+								}
+								if ($arrayDeletedBooks)
+								{
+									print_r($arrayDeletedBooks);
+								}
 							}
 							else
 							{
@@ -526,7 +554,9 @@
 													echo "g_arrayTopic[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "\"] = [];\n";
 													while ($rowTopics = $resultsTopics->fetch_assoc())
 													{
-														echo "g_arrayTopic[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "\"].push({id:\"" . $rowTopics["id"] . "\",name:\"" . $rowTopics["name"] . "\",description:\"" . $rowTopics["description"] . "\"});\n";
+														echo "g_arrayTopic[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "\"].push({id:\"" . $rowTopics["id"] . 
+															"\",name:\"" . $rowTopics["name"] . "\",description:\"" . $rowTopics["description"] . 
+															"\",category_id:\"" . $rowTopics["category_id"] . "\",subcategory_id:\"" . $rowTopics["subcategory_id"] . "\"});\n";
 													}
 												}
 											}
@@ -644,7 +674,7 @@
 							</form>
 							<br/><br/>
 								
-							<form method="post" id="form_topics" class="form" style="width:450px;">
+							<form method="post" id="form_topics" class="form" style="width:448px;">
 								<table cellpadding="10" cellspacing="0" border="0" class="table">
 									<tr><td colspan="2"><b>TOPICS</b></td></tr>
 									<tr>
@@ -687,11 +717,11 @@
 									</tr>
 								</table>
 								<input name="hidden_submit_topics" id="hidden_submit_topics" type="hidden" value="SUBMIT"/>
-								<input name="hidden_save_topics" id="hidden_save_topics" type="hidden" />
+								<input name="hidden_saved_topics" id="hidden_saved_topics" type="hidden" />
 								<input name="hidden_deleted_topics" id="hidden_deleted_topics" type="hidden" />
 							</form>
 							<br/>
-							<form method="post" id="form_books" class="form" style="width:600px;">
+							<form method="post" id="form_books" class="form" style="width:538px;">
 								<table cellpadding="10" cellspacing="0" border="0" class="table">
 									<tr><td colspan="2"><b>BOOKS</b></td></tr>
 									<tr>
@@ -721,30 +751,30 @@
 									</tr>
 									<tr>
 										<td>
-											<select id="select_booksb" class="select" size="10" style="width:200px;height:200px;">
-											</select>
+											<input type="button" value="DELETE BOOK" class="button" onclick="DoDeleteBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/><br/>
+											<br/>
+											<input type="button" value="FETCH BOOK ▼" class="button" onclick="DoCopyBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/>
 										</td>
 										<td>
-											<input type="button" value="DELETE BOOK" class="button" onclick="DoDeleteBookItem('bselect_books', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/><br/>
-											<br/>
-											<input type="button" value="FETCH BOOK ▼" class="button" onclick="DoCopyBookItem('bselect_books', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/>
+											<select id="select_booksb" class="select" size="10" style="width:338px;">
+											</select>
 										</td>
 									</tr>
 									<tr>
 										<td style="text-align:right"><label id="label_topic">Title:</label></td>
 										<td>
 											<input type="hidden" id="hidden_book_id"/>
-											<input id="text_title" type="text" class="text" style="width:150px;"/>
+											<input id="text_title" type="text" class="text" style="width:330px;"/>
 										</td>
 									</tr>
  									<tr>
 										<td style="text-align:right"><label id="label_topic">Author:</label></td>
-										<td><input id="text_author" type="text" class="text" style="width:150px;" onkeydown="return /[a-z,A-Z,_,',-]/i.test(event.key)"/></td>
+										<td><input id="text_author" type="text" class="text" style="width:330px;" /></td>
 									</tr>
  									<tr>
 										<td style="text-align:right"><label id="label_topic">Summary:</label></td>
 										<td>
-											<textarea id="text_summary" maxlength="1024" cols="40" rows="8" style="resize: none;"></textarea>
+											<textarea id="text_summary" maxlength="1024" cols="44" rows="8" style="resize: none;"></textarea>
 										</td>
 									</tr>
  									<tr>
@@ -805,7 +835,7 @@
 									</tr>
 								</table>
 								<input name="hidden_submit_books" id="hidden_submit_books" type="hidden" value="SUBMIT"/>
-								<input name="hidden_save_books" id="hidden_save_books" type="hidden" />
+								<input name="hidden_save_books" id="hidden_saved_books" type="hidden" />
 								<input name="hidden_deleted_books" id="hidden_deleted_books" type="hidden" />
 							</form>
 
@@ -814,15 +844,15 @@
 								let g_arrayCategories = [];
 								<?php DoCreateCategoryEntries(); ?>
 								
-								let g_arraySubcategory = [];
+								let g_arraySubcategory = {};
 								<?php DoCreateSubcategoryEntries(); ?>
 								
-								let g_arrayTopic = [];
+								let g_arrayTopic = {};
 								<?php DoCreateTopicEntries(); ?>
 																
 								let g_arrayDeletedTopics = [];
 									
-								let g_arrayBooks = [];
+								let g_arrayBooks = {};
 								<?php DoCreateBookEntries(); ?>
 								
 								let g_arrayDeletedBooks = [];
@@ -831,21 +861,28 @@
 									
 								function DoFormatName(strDescription)
 								{
+									let strNewDescription = "";
 									strDescription = strDescription.toLowerCase();
-									while (strDescription.indexOf(" ") > -1)
-										strDescription.str_replace(" ", "_");
+									for (let nI = 0; nI < strDescription.length; nI++)
+									{
+										if (strDescription[nI] == " ")
+											strNewDescription += "_";
+										else
+											strNewDescription += strDescription[nI];
+									}										
+									return strNewDescription;
 								}
 								
 								function DoGetTopicIndex(nCurrentTopicID, arrayTopics)
 								{
-									let nIndex = -1;
+									let nI = -1;
 									
-									for (let nI = 0; nI < arrayTopics.length; nI++)
+									for (nI = 0; nI < arrayTopics.length; nI++)
 									{
 										if (nCurrentTopicID == arrayTopics[nI].id)
 											break;
 									}
-									return nIndex;
+									return nI;
 								}
 								
 								function OnChangeCategory(strCategorySelectID, strSubcategorySelectID, strTopicSelectID, strBookSelectID)
@@ -965,10 +1002,10 @@
 									if (list.selectedIndex > -1)
 									{
 										strValue = list.options[list.selectedIndex].value;
-										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategoryID.options[selectSubcategoryID.selectedIndex].value + "," + selectTopics.options[selectTopics.selectedIndex].value;
+										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategoryID.options[selectSubcategoryID.selectedIndex].value;
 										if (strValue != "*")
 										{
-											g_arrayDeletedTopics.push(strValue);
+											g_arrayDeletedTopics.push(g_arrayTopic[strKey][DoGetTopicIndex(g_nCurrentTopicID, g_arrayTopic[strKey])]);
 										}
 										if (!g_arrayBooks[strKey])
 										{
@@ -1006,8 +1043,8 @@
 										list.options[list.selectedIndex].text = textDesc.value;
 										arrayTopics = g_arrayTopic[strKey];
 										nI = DoGetTopicIndex(g_nCurrentTopicID, arrayTopics);
-										arrayTopics[strKey][nI].description = textDesc.value;
-										arrayTopics[strKey][nI].name = DoFormatName(textDesc.value);
+										arrayTopics[nI].description = textDesc.value;
+										arrayTopics[nI].name = DoFormatName(textDesc.value);
 										g_arrayTopic[strKey] = arrayTopics;
 									}
 									else
@@ -1024,7 +1061,6 @@
 									if (list.selectedIndex > -1)
 									{
 										textDesc.value = list.options[list.selectedIndex].text;
-										g_nCurrentTopicID = list.options[list.selectedIndex].value;
 									}
 									else
 									{
@@ -1060,8 +1096,10 @@
 										
 									if (selectCategory && selectSubcategory && selectTopic && 
 										(selectCategory.selectedIndex > -1) && (selectSubcategory.selectedIndex > -1) &&
-										(selectTopic.selectedIndex > 0))
+										(selectTopic.selectedIndex > -1))
 									{
+										g_nCurrentTopicID = selectTopic.options[selectTopic.selectedIndex].value;
+										
 										strKey = selectCategory.options[selectCategory.selectedIndex].text + "," + 
 													selectSubcategory.options[selectSubcategory.selectedIndex].text + "," +
 													strTopic.options[strTopic.selectedIndex].text;
@@ -1173,7 +1211,7 @@
 									{
 										mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].text;
 										mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].text;
-										mapBookItem["topic_id"] = selectTopics.options[selectTopics.selectedIndex].text;
+										mapBookItem["topic_id"] = selectTopic.options[selectTopic.selectedIndex].text;
 										mapBookItem["id"] = "*";
 										mapBookItem["title"] = textTitle.value;
 										mapBookItem["author"] = textAuthor.value;
@@ -1233,7 +1271,7 @@
 									let selectBooks = GetInput(strListID),
 										selectCategory = GetInput(strCategoryID),
 										selectSubcategory = GetInput(strSubcategoryID),
-										selectTopicID = GetInput(strTopicID),
+										selectTopic = GetInput(strTopicID),
 										strKey = "", strValue = "";
 
 									if (selectBooks.selectedIndex > -1)
@@ -1245,7 +1283,7 @@
 											g_arrayDeletedBooks.push(strValue);
 										}
 										selectBooks.remove(selectBooks.selectedIndex);
-										delete m_arrayBooks[strKey];
+										delete g_arrayBooks[strKey];
 										selectBooks.focus();
 									}
 									else
@@ -1255,18 +1293,24 @@
 								}
 													
 								function OnClickSaveButton(strFunction, strCategoryID, strSubcategoryID, strTopicID)
-								{
+								{										
 									if (strFunction == "form_topics")
-									{
-										let hiddenSaveTopics = GetInput("hidden_save_topics"),
+									{											
+										let hiddenSavedTopics = GetInput("hidden_saved_topics"),
 											hiddenDeletedTopics = GetInput("hidden_deleted_topics");
 											
-										hiddenSaveTopics.value = JSON.stringify(g_arrayTopic);
+										hiddenSavedTopics.value = JSON.stringify(g_arrayTopic);
 										hiddenDeletedTopics.value  = JSON.stringify(g_arrayDeletedTopics);
 										document.getElementById("form_topics").submit();
 									}
 									else if (strFunction == "form_books")
 									{
+										let hiddenSavedBooks = GetInput("hidden_saved_books"),
+											hiddenDeletedBooks = GetInput("hidden_deleted_books");
+											
+										hiddenSavedBooks.value = JSON.stringify(g_arrayBooks);
+										hiddenDeletedBooks.value  = JSON.stringify(g_arrayDeletedBooks);
+										document.getElementById("form_books").submit();
 									}
 								}								
 								
