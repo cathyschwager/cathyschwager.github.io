@@ -317,7 +317,7 @@
 									$g_strAdminDisplay = "none";
 								}
 							}
-							else if (isset($_POST["hidden_submit_topics"]))
+							else if (isset($_POST["button_save_topics"]))
 							{
 								$strDelim = ",";
 								$strCategoryID = "";
@@ -433,14 +433,78 @@
 								else
 									PrintJavascriptLine("AlertWarning(\"No changes to your topics were found!\");", 5, true);
 							}
-							else if (isset($_POST["hidden_submit_books"]))
+							else if (isset($_POST["button_save_books"]))
 							{
-								$arraySavedBooks = json_decode($_POST["hidden_saved_books"]);
+								$mapSavedBooks = json_decode($_POST["hidden_saved_books"]);
 								$arrayDeletedBooks = json_decode($_POST["hidden_deleted_books"]);
+								$strMsg = "";
 								
-								if ($arraySavedBooks)
+								if ($mapSavedBooks)
 								{
-									print_r($arraySavedBooks);
+									/*
+										[1,0,1] => Array
+										( 
+											[0] => ( 
+													[category_id] => 1 
+													[subcategory_id] => 0 
+													[topic_id] => 1 
+													[id] => * 
+													[title] => xxxxxxx 
+													[author] => yyyyyy 
+													[summary] => sgsDFGSFDgSFDg 
+													[price] => 3 
+													[weight] => 345 
+													[quantity] => 1 
+												   ) 
+										)
+									*/
+									$results = NULL;
+									foreach ($mapSavedBooks as $strKey => $arraySavedBooks)
+									{
+										$strCategoryID = "";
+										$strSubcategoryID = "";
+										$strTopicID = "";
+
+										DoGetToken($strKey, $strCategoryID, ",");
+										DoGetToken($strKey, $strSubcategoryID, ",");
+										DoGetToken($strKey, $strTopicID, ",");
+										
+										for ($nI = 0; $nI < count($arraySavedBooks); $nI++)
+										{
+											if (strcmp($arraySavedBooks[$nI]->id, "*") == 0)
+											{
+												$strMsg = "NEW BOOK: ";
+
+												$results = DoInsertQuery7($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
+																										"author", $arraySavedBooks[$nI]->author,
+																										"summary", $arraySavedBooks[$nI]->summary,
+																										"price", $arraySavedBooks[$nI]->price,
+																										"weight", $arraySavedBooks[$nI]->weight,
+																										"quantity", $arraySavedBooks[$nI]->quantity,
+																										"category_id", $strCategoryID,
+																										"subcategory_id", $strSubcategoryID,
+																										"topic_id", $arraySavedBooks[$nI]->topic_id);
+											}
+											else
+											{
+												$strMsg = "EDIT BOOK: ";
+
+												$results = DoUpdateQuery7($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
+																										"author", $arraySavedBooks[$nI]->author,
+																										"summary", $arraySavedBooks[$nI]->summary,
+																										"price", $arraySavedBooks[$nI]->price,
+																										"weight", $arraySavedBooks[$nI]->weight,
+																										"quantity", $arraySavedBooks[$nI]->quantity,
+																										"category_id", $strCategoryID,
+																										"subcategory_id", $strSubcategoryID,
+																										"topic_id", $arraySavedBooks[$nI]->topic_id,
+																										"id", $arraySavedBooks[$nI]->id);
+											}
+											$strMsg .= $arraySavedBooks[$nI]->title . ", " . $arraySavedBooks[$nI]->author . ", $" . 
+														$arraySavedBooks[$nI]->price . ", " .$arraySavedBooks[$nI]->weight . "grams, x " .
+														$arraySavedBooks[$nI]->quantity . "\n";
+										}
+									}
 								}
 								if ($arrayDeletedBooks)
 								{
@@ -500,7 +564,7 @@
 							{
 								global $g_dbKatesCastle;
 								
-								$resultsCat = DoFindAllQuery($g_dbKatesCastle, "categories");
+								$resultsCat = DoFindAllQuery($g_dbKatesCastle, "categories", "", "description");
 								if ($resultsCat && ($resultsCat->num_rows > 0))
 								{
 									while ($rowCat = $resultsCat->fetch_assoc())
@@ -519,7 +583,7 @@
 								{
 									while ($rowCat = $resultsCat->fetch_assoc())
 									{																													
-										$resultsSubcat = DoFindQuery1($g_dbKatesCastle, "subcategories", "category_id", $rowCat["id"]);
+										$resultsSubcat = DoFindQuery1($g_dbKatesCastle, "subcategories", "category_id", $rowCat["id"], "", "description");
 										if ($resultsSubcat && ($resultsSubcat->num_rows > 0))
 										{
 											echo "g_arraySubcategory[\"" . $rowCat["id"] . "\"] = [];\n";
@@ -546,8 +610,7 @@
 										{
 											while ($rowSubcat = $resultsSubcat->fetch_assoc())
 											{
-												$resultsTopics = DoFindQuery2($g_dbKatesCastle, "topics", "category_id", $rowCat["id"], "subcategory_id", $rowSubcat["id"]);
-												if ($resultsTopics && ($resultsTopics->num_rows > 0))
+												$resultsTopics = DoFindQuery2($g_dbKatesCastle, "topics", "category_id", $rowCat["id"], "subcategory_id", $rowSubcat["id"], "", "description");
 												{
 													echo "g_arrayTopic[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "\"] = [];\n";
 													while ($rowTopics = $resultsTopics->fetch_assoc())
@@ -563,7 +626,7 @@
 										}
 										else
 										{
-											$resultsTopics = DoFindQuery2($g_dbKatesCastle, "topics", "category_id", $rowCat["id"], "subcategory_id", "0");
+											$resultsTopics = DoFindQuery2($g_dbKatesCastle, "topics", "category_id", $rowCat["id"], "subcategory_id", "0", "", "description");
 											if ($resultsTopics && ($resultsTopics->num_rows > 0))
 											{
 												echo "g_arrayTopic[\"" . $rowCat["id"] . ",0\"] = [];\n";
@@ -600,19 +663,17 @@
 												{
 													while ($rowTopics = $resultsTopics->fetch_assoc())
 													{
-														$resultsBooks = DoFindQuery3($g_dbKatesCastle, "books", "category_id", $rowCat["id"], "subcategory_id", $rowSubcat["id"], "topic_id", $rowTopics["id"]);
+														$resultsBooks = DoFindQuery3($g_dbKatesCastle, "books", "category_id", $rowCat["id"], "subcategory_id", $rowSubcat["id"], "topic_id", $rowTopics["id"], "", "title");
 														if ($resultsBooks && ($resultsBooks->num_rows > 0))
 														{
-															echo "g_arrayBooks[\"" + $rowCat["id"] + "," + $rowSubcat["id"] + "," + $rowTopics["id"] + "\"] = [];\n";														
+															echo "g_arrayBooks[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "," . $rowTopics["id"] . "\"] = [];\n";														
 															while ($rowBooks = $resultsBooks->fetch_assoc())
 															{
-							echo "g_arrayBooks.push({id:\"" . $rowCat["id"] . ", " . $rowSubcat["id"] . ", " . 
-													$rowTopics["id"] . "\"].push({title:\"" . $rowBooks["title"] . 
-													"\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
-													$rowBooks["price"] . "\",quantity:\"" . $rowBooks["quantity"] .
-													"\",weight:\"" . $rowBooks["weight"] . "\",summary:\"" . 
-													$rowBooks["summary"] . "\",image_filename:\"" . 
-													$rowBooks["image_filename"] ."});\n";
+echo "g_arrayBooks[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "," . $rowTopics["id"] . "\"].push(" . 
+					"{title:\"" . $rowBooks["title"] . "\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
+							$rowBooks["price"] . "\",quantity:\"" . $rowBooks["quantity"] . "\",weight:\"" . 
+							$rowBooks["weight"] . "\",summary:\"" . $rowBooks["summary"] . "\",image_filename:\"" . 
+							$rowBooks["image_filename"] ."\"});\n";
 															}
 														}
 													}
@@ -633,13 +694,11 @@
 														echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"] = [];\n";															
 														while ($rowBooks = $resultsBooks->fetch_assoc())
 														{
-						echo "g_arrayBooks.push({id:\"" . $rowCat["id"] . ", " . $rowSubcat["id"] . ", " . 
-												$rowTopics["id"] . "\"].push({title:\"" . $rowBooks["title"] . 
-												"\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
-												$rowBooks["price"] . "\",quantity:\"" . $rowBooks["quantity"] .
-												"\",weight:\"" . $rowBooks["weight"] . "\",summary:\"" . 
-												$rowBooks["summary"] . "\",image_filename:\"" . 
-												$rowBooks["image_filename"] ."});\n";
+echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" . 
+					"{title:\"" . $rowBooks["title"] . "\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
+							$rowBooks["price"] . "\",quantity:\"" . $rowBooks["quantity"] . "\",weight:\"" . 
+							$rowBooks["weight"] . "\",summary:\"" . $rowBooks["summary"] . "\",image_filename:\"" . 
+							$rowBooks["image_filename"] ."\"});\n";
 														}
 													}
 												}
@@ -684,7 +743,7 @@
 									<tr>
 										<td style="text-align:right">Select a category:</td>
 										<td>
-											<select id="select_categories" onchange="OnChangeCategory('select_categories', 'select_subcategories', 'select_topics')" class="select">
+											<select id="select_categories" onchange="OnChangeCategory('select_categories', 'select_subcategories', 'select_topics', '')" class="select">
 												<?php DoGetCategoryOptions(); ?>
 											</select>
 										</td>
@@ -692,14 +751,14 @@
 									<tr>
 										<td style="text-align:right">Select a subcategory:</td>
 										<td>
-											<select id="select_subcategories" onchange="OnChangeSubcategory('select_categories', 'select_subcategories', 'select_topics')" class="select">
+											<select id="select_subcategories" onchange="OnChangeSubcategory('select_categories', 'select_subcategories', 'select_topics', '')" class="select">
 												<option value="0" selected>No Subcategory</option>
 											</select>
 										</td>
 									</tr>
 									<tr>
 										<td>
-											<select id="select_topics" class="select" size="10" style="width:200px;height:200px;">
+											<select id="select_topics" class="select" size="10" style="width:200px;height:200px;overflow-x:scroll;">
 											</select>
 										</td>
 										<td>
@@ -717,10 +776,12 @@
 										<td><input type="button" value="NEW TOPIC ▲" class="button" onclick="DoAddTopicItem('select_topics', 'text_topic_desc', 'select_categories', 'select_subcategories')"/></td>
 									</tr>
 									<tr>
-										<td colspan="2"><input type="button" value="SAVE TOPICS" class="button" onclick="OnClickSaveButton('form_topics')"/></td>
+										<td colspan="2">
+											<input type="button" name="button_save_topics" value="SAVE TOPICS" class="button" onclick="OnClickSaveButton('form_topics')"/>
+										</td>
 									</tr>
 								</table>
-								<input name="hidden_submit_topics" id="hidden_submit_topics" type="hidden" value="SUBMIT"/>
+								<input name="button_save_topics" type="hidden" value="SAVE TOPICS"/>
 								<input name="hidden_saved_topics" id="hidden_saved_topics" type="hidden" />
 								<input name="hidden_deleted_topics" id="hidden_deleted_topics" type="hidden" />
 							</form>
@@ -731,7 +792,7 @@
 									<tr>
 										<td style="text-align:right">Select a category:</td>
 										<td>
-											<select id="select_categoriesb" onchange="OnChangeCategory('select_categoriesb', 'select_subcategoriesb', 'select_topicsb')" class="select">
+											<select id="select_categoriesb" onchange="OnChangeCategory('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb')" class="select">
 												<?php DoGetCategoryOptions(); ?>
 											</select>
 										</td>
@@ -739,7 +800,7 @@
 									<tr>
 										<td style="text-align:right">Select a subcategory:</td>
 										<td>
-											<select id="select_subcategoriesb" onchange="OnChangeSubcategory('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb')" class="select">
+											<select id="select_subcategoriesb" onchange="OnChangeSubcategory('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb', 'select_booksb')" class="select">
 												<option value="0" selected>No Subcategory</option>
 											</select>
 										</td>
@@ -747,7 +808,7 @@
 									<tr>
 										<td style="text-align:right">Select a topic:</td>
 										<td>
-											<select id="select_topicsb" onchange="OnChangeTopic('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb')" class="select">
+											<select id="select_topicsb" onchange="OnChangeTopic('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb', 'select_booksb')" class="select">
 												<option value="0" selected=>Other</option>
 											</select>
 											<input type="hidden" id="hidden_topic_idb"/>
@@ -760,7 +821,7 @@
 											<input type="button" value="FETCH BOOK ▼" class="button" onclick="DoCopyBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/>
 										</td>
 										<td>
-											<select id="select_booksb" class="select" size="10" style="width:338px;">
+											<select id="select_booksb" class="select" size="10" style="width:338px;overflow-x:scroll;">
 											</select>
 										</td>
 									</tr>
@@ -826,7 +887,7 @@
 												<tr>
 													<td style="text-align:right;">New topic:</td>
 													<td>
-														<select id="select_topicsm" onchange="OnChangeTopic('select_categoriesm', 'select_subcategoriesm', 'select_topicsm', 'select_booksb')" class="select">
+														<select id="select_topicsm" onchange="OnChangeTopic('', 'select_categoriesm', 'select_subcategoriesm', 'select_topicsm', 'select_booksb')" class="select">
 															<option value="0" selected=>Other</option>
 														</select>
 													</td>
@@ -835,16 +896,20 @@
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2"><input type="button" value="SAVE BOOKS" class="button" onclick="OnClickSaveButton('form_books')"/></td>
+										<td colspan="2">
+											<input type="button" name="button_save_books" value="SAVE BOOKS" class="button" onclick="OnClickSaveButton('form_books')"/>
+										</td>
 									</tr>
 								</table>
-								<input name="hidden_submit_books" id="hidden_submit_books" type="hidden" value="SUBMIT"/>
-								<input name="hidden_save_books" id="hidden_saved_books" type="hidden" />
+								<input name="button_save_books" type="hidden" value="SAVE BOOKS" />
+								<input name="hidden_saved_books" id="hidden_saved_books" type="hidden" />
 								<input name="hidden_deleted_books" id="hidden_deleted_books" type="hidden" />
 							</form>
 
 							<script type="text/javascript">
 							
+								g_strOptionWidth = "1000px";
+								
 								let g_arrayCategories = [];
 								<?php DoCreateCategoryEntries(); ?>
 								
@@ -922,6 +987,7 @@
 												option = document.createElement("option");
 												option.value = arraySubcategoryItems[nI].id;
 												option.text = arraySubcategoryItems[nI].description;
+												option.style.width = g_strOptionWidth;
 												selectSubcategory.add(option);
 											}
 											selectSubcategory.selectedIndex = 0;
@@ -939,6 +1005,7 @@
 												option = document.createElement("option");
 												option.value = arrayTopicItems[nI].id;
 												option.text = arrayTopicItems[nI].description;
+												option.style.width = g_strOptionWidth;
 												selectTopic.add(option);
 											}
 											selectTopic.selectedIndex = 0;
@@ -976,6 +1043,7 @@
 												option = document.createElement("option");
 												option.text = arrayTopicItems[nI].description;
 												option.value = arrayTopicItems[nI].id;
+												option.style.width = g_strOptionWidth;
 												selectTopic.add(option);
 											}
 											selectTopic.selectedIndex = 0;
@@ -1083,6 +1151,7 @@
 									option = document.createElement("option");
 									option.value = "*";
 									option.text = textDesc.value;
+									option.style.width = g_strOptionWidth;
 									list.add(option);
 									
 									strKey = selectCategory.options[selectCategory.selectedIndex].value + ", " + 
@@ -1090,12 +1159,12 @@
 									g_arrayTopic[strKey].push(strItem);
 								}
 								
-								function OnChangeTopic(strCategoryID, strSubcategoryID, strTopicID, strBooksID)
+								function OnChangeTopic(strCategoryID, strSubcategoryID, strTopicID, strBookID)
 								{
 									let selectCategory = GetInput(strCategoryID),
 										selectSubcategory = GetInput(strSubcategoryID),
 										selectTopic = GetInput(strTopicID),
-										selectBooks = GetInput(strBooksID),
+										selectBooks = GetInput(strBookID),
 										strKey = "";
 										
 									if (selectCategory && selectSubcategory && selectTopic && 
@@ -1103,26 +1172,7 @@
 										(selectTopic.selectedIndex > -1))
 									{
 										g_nCurrentTopicID = selectTopic.options[selectTopic.selectedIndex].value;
-										
-										strKey = selectCategory.options[selectCategory.selectedIndex].text + "," + 
-													selectSubcategory.options[selectSubcategory.selectedIndex].text + "," +
-													selectTopic.options[selectTopic.selectedIndex].text;
-										arrayBookItems = g_arrayBooks[strKey];
-										
-										while (selectBooks.options.length > 0)
-											selectBooks.remove(0);
-											
-										if (arrayBookItems !== undefined)
-										{
-											for (let nI = 0; nI < arrayBookItems.length; nI++)
-											{
-												option = document.createElement("option");
-												option.text = arrayBookItems[nI]["title"] + ", " + arrayBookItems[nI]["author"] + ", " + arrayBookItems[nI]["price"] + ", " + arrayBookItems[nI]["quantity"];
-												option.value = arrayBookItems[nI]["id"];
-												selectBooks.add(option);
-											}
-											selectBooks.selectedIndex = 0;
-										}
+										DoFillBookList(strCategoryID, strSubcategoryID, strTopicID, strBookID)
 									}
 								}
 								
@@ -1178,9 +1228,9 @@
 									{
 										strKey = hiddenCategoryID.value + ", " + hiddenSubcategoryID.value + ", " + hiddenBookTopicID.value + ", " + hiddenBookID.value;
 										mapBookItem = g_arrayBooks[strKey];
-										mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].text;
-										mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].text;
-										mapBookItem["topic_id"] = selectTopics.options[selectTopics.selectedIndex].text;
+										mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].value;
+										mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].value;
+										mapBookItem["topic_id"] = selectTopics.options[selectTopics.selectedIndex].value;
 										mapBookItem["title"] = textTitle.value;
 										mapBookItem["author"] = textAuthor.value;
 										mapBookItem["summary"] = textSummary.value;
@@ -1207,15 +1257,16 @@
 										textWeight = GetInput("text_weight"),
 										textQuantity = GetInput("text_quantity"),
 										mapBookItem = {}, 
-										option = null;
+										option = null,
+										strKey = "";
 									
 									if (selectBooks && selectCategory && selectSubcategory && 
 										selectTopic && (selectTopic.selectedIndex > -1) && textTitle &&
 										textAuthor && textSummary && textPrice && textWeight && textQuantity)
 									{
-										mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].text;
-										mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].text;
-										mapBookItem["topic_id"] = selectTopic.options[selectTopic.selectedIndex].text;
+										mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].value;
+										mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].value;
+										mapBookItem["topic_id"] = selectTopic.options[selectTopic.selectedIndex].value;
 										mapBookItem["id"] = "*";
 										mapBookItem["title"] = textTitle.value;
 										mapBookItem["author"] = textAuthor.value;
@@ -1224,11 +1275,14 @@
 										mapBookItem["weight"] = textWeight.value;
 										mapBookItem["quantity"] = textQuantity.value;
 										mapBookItem["image_filename"] = mapBookItem["image_filename"];
-										g_arrayBooks.push(mapBookItem);
+										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
+													selectSubcategory.options[selectSubcategory.selectedIndex].value + "," +
+													selectTopic.options[selectTopic.selectedIndex].value;
+										if (g_arrayBooks[strKey] == undefined)
+											g_arrayBooks[strKey] = [];
+										g_arrayBooks[strKey].push(mapBookItem);
 										
-										option = document.createElement("option");
-										option.text = textTitle.value + ", " + textAuthor.value + ", $" + textPrice.value + ", " + textQuantity.value;
-										selectBooks.add(option);
+										DoFillBookList(strBookListID, strCategoryID, strSubcategoryID, strTopicID);
 									}
 								}
 								
@@ -1293,6 +1347,38 @@
 									else
 									{
 										AlertWarning("Please select an Item to delete!");
+									}
+								}
+								
+								function DoFillBookList(strCategoryID, strSubcategoryID, strTopicID, strBookListID)
+								{
+									let selectBookList = GetInput(strBookListID),
+										selectCategory = GetInput(strCategoryID),
+										selectSubcategory = GetInput(strSubcategoryID),
+										selectTopic = GetInput(strTopicID),
+										strKey = "",
+										arrayBooks = [],
+										option = null;
+										
+									if (selectBookList && selectCategory && selectSubcategory && selectTopic)
+									{
+										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," +
+												 selectSubcategory.options[selectSubcategory.selectedIndex].value + "," +
+												 selectTopic.options[selectTopic.selectedIndex].value;
+										arrayBooks = g_arrayBooks[strKey];
+										if (arrayBooks !== undefined)
+										{
+											for (let nI = 0; nI < arrayBooks.length; nI++)
+											{
+												option = document.createElement("option");
+												option.value = arrayBooks[nI].id;
+												option.text = arrayBooks[nI].title + ", " + arrayBooks[nI].author + ", $" + 
+													Number(arrayBooks[nI].price).toFixed(2).toString() + ", x" + parseInt(arrayBooks[nI].quantity).toString();
+												option.style.width = g_strOptionWidth;
+												selectBookList.add(option);
+											}
+											selectBookList.selectedIndex = 0;
+										}
 									}
 								}
 													
