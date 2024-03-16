@@ -1247,11 +1247,11 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									}
 								}
 								
-								function DoEditBookItem(strListID, strCategoryID, strSubcategoryID, strTopicsID)
+								function DoEditBookItem(strSelectBooksID, strSelectCategoryID, strSelectSubcategoryID, strSelectTopicsID)
 								{
-									let selectBooks = GetInput(strListID),
-										selectCategory = GetInput(strCategoryID),
-										selectSubcategory = GetInput(strSubcategoryID),
+									let selectBooks = GetInput(strSelectBooksID),
+										selectCategory = GetInput(strSelectCategoryID),
+										selectSubcategory = GetInput(strSelectSubcategoryID),
 										selectTopic = GetInput(strSelectTopicsID),
 										textTitle = GetInput("text_title"),
 										textAuthor = GetInput("text_author"),
@@ -1266,13 +1266,18 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										selectTopic && (selectTopic.selectedIndex > -1) && textTitle &&
 										textAuthor && textSummary && textPrice && textWeight && textQuantity)
 									{
-										if (!IsDuplicateBook(textTitle.value, textAuthor.value, list))
+										if (!IsDuplicateBook(textTitle.value, textAuthor.value, selectBooks))
 										{
-											strKey = hiddenCategoryID.value + ", " + hiddenSubcategoryID.value + ", " + hiddenBookTopicID.value + ", " + hiddenBookID.value;
-											mapBookItem = g_arrayBooks[strKey];
+											strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
+													selectSubcategory.options[selectSubcategory.selectedIndex].value + "," + 
+													selectTopic.options[selectTopic.selectedIndex].value;
+													
+											let nI = DoGetBookIndex(selectBooks.options[selectBooks.selectedIndex].value, g_arrayBooks[strKey]);
+											mapBookItem = g_arrayBooks[strKey][nI];
+											
 											mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].value;
 											mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].value;
-											mapBookItem["topic_id"] = selectTopics.options[selectTopics.selectedIndex].value;
+											mapBookItem["topic_id"] = selectTopic.options[selectTopic.selectedIndex].value;
 											mapBookItem["title"] = textTitle.value;
 											mapBookItem["author"] = textAuthor.value;
 											mapBookItem["summary"] = textSummary.value;
@@ -1280,7 +1285,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											mapBookItem["weight"] = textWeight.value;
 											mapBookItem["quantity"] = textQuantity.value;
 											mapBookItem["image_filename"] = mapBookItem["image_filename"];
-											g_arrayBooks[strKey] = mapBookItem;
+											g_arrayBooks[strKey][nI] = mapBookItem;
 	
 											selectBooks.options[selectBooks.selectedIndex].text = textTitle.value + ", " + textAuthor.value + ", $" + textPrice.value + ", " + textQuantity.value;
 										}
