@@ -670,9 +670,9 @@
 															while ($rowBooks = $resultsBooks->fetch_assoc())
 															{
 echo "g_arrayBooks[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "," . $rowTopics["id"] . "\"].push(" . 
-					"{title:\"" . $rowBooks["title"] . "\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
-							$rowBooks["price"] . "\",quantity:\"" . $rowBooks["quantity"] . "\",weight:\"" . 
-							$rowBooks["weight"] . "\",summary:\"" . $rowBooks["summary"] . "\",image_filename:\"" . 
+					"{id:\"" . $rowBooks["id"] . "\",title:\"" . $rowBooks["title"] . "\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
+							sprintf("%.2f", $rowBooks["price"]) . "\",quantity:\"" . sprintf("%d", $rowBooks["quantity"]) . "\",weight:\"" . 
+							sprintf("%d", $rowBooks["weight"]) . "\",summary:\"" . $rowBooks["summary"] . "\",image_filename:\"" . 
 							$rowBooks["image_filename"] ."\"});\n";
 															}
 														}
@@ -695,9 +695,9 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "," . $rowTopi
 														while ($rowBooks = $resultsBooks->fetch_assoc())
 														{
 echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" . 
-					"{title:\"" . $rowBooks["title"] . "\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
-							$rowBooks["price"] . "\",quantity:\"" . $rowBooks["quantity"] . "\",weight:\"" . 
-							$rowBooks["weight"] . "\",summary:\"" . $rowBooks["summary"] . "\",image_filename:\"" . 
+					"{id:\"" . $rowBooks["id"] . "\",title:\"" . $rowBooks["title"] . "\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
+							sprintf("%.2f", $rowBooks["price"]) . "\",quantity:\"" . sprintf("%d", $rowBooks["quantity"]) . "\",weight:\"" . 
+							sprintf("%d", $rowBooks["weight"]) . "\",summary:\"" . $rowBooks["summary"] . "\",image_filename:\"" . 
 							$rowBooks["image_filename"] ."\"});\n";
 														}
 													}
@@ -712,11 +712,11 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 													echo "g_arrayBooks[\"" . $rowCat["id"] . ",0,0\"] = [];\n";															
 													while ($rowBooks = $resultsBooks->fetch_assoc())
 													{
-					echo "g_arrayBooks.push({id:\"" . $rowCat["id"] . ", " . $rowSubcat["id"] . ", " . 
-											$rowTopics["id"] . "\"].push({title:\"" . $rowBooks["title"] . 
+					echo "g_arrayBooks.push({id:\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "," . 
+											$rowTopics["id"] . "\"].push({id:\"" . $rowBooks["id"] . "\",title:\"" . $rowBooks["title"] . 
 											"\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
-											$rowBooks["price"] . "\",quantity:\"" . $rowBooks["quantity"] .
-											"\",weight:\"" . $rowBooks["weight"] . "\",summary:\"" . 
+											sprintf("%.2f", $rowBooks["price"]) . "\",quantity:\"" . sprintf("%d", $rowBooks["quantity"]) .
+											"\",weight:\"" . sprintf("%d", $rowBooks["weight"]) . "\",summary:\"" . 
 											$rowBooks["summary"] . "\",image_filename:\"" . 
 											$rowBooks["image_filename"] ."});\n";
 													}
@@ -816,9 +816,9 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td>
-											<input type="button" value="DELETE BOOK" class="button" onclick="DoDeleteBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/><br/>
+											<input type="button" value="DELETE BOOK" class="button" onclick="DoDeleteBookItem('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb')"/><br/>
 											<br/>
-											<input type="button" value="FETCH BOOK ▼" class="button" onclick="DoCopyBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/>
+											<input type="button" value="FETCH BOOK ▼" class="button" onclick="DoCopyBookItem('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb')"/>
 										</td>
 										<td>
 											<select id="select_booksb" class="select" size="10" style="width:338px;overflow-x:scroll;">
@@ -928,6 +928,36 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 								
 								let g_nCurrentTopicID = 0;
 									
+								function IsDuplicateBook(strTitle, strAuthor, selectBooks)
+								{
+									let bDuplicate = false;
+									
+									for (let nI = 0; nI < selectBooks.options.length; nI++)
+									{
+										if ((selectBooks.options[nI].text.indexOf(strTitle) > -1) && 
+											(selectBooks.options[nI].text.indexOf(strAuthor) > -1))
+										{
+											bDuplicate = true;
+											break;
+										}
+									}
+									return bDuplicate;
+								}
+								
+								function IsDuplicateTopic(strDescription, selectTopics)
+								{
+									let bDuplicate = false;
+									
+									for (let nI = 0; nI < selectTopics.options.length; nI++)
+									{
+										if (selectTopics.options[nI].text == strDescription)										{
+											bDuplicate = true;
+											break;
+										}
+									}
+									return bDuplicate;
+								}
+								
 								function DoFormatName(strDescription)
 								{
 									let strNewDescription = "";
@@ -1047,7 +1077,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												selectTopic.add(option);
 											}
 											selectTopic.selectedIndex = 0;
-											if (strBookSelectID !== undefined)
+											if ((strBookSelectID !== undefined) && (strBookSelectID != ""))
 											{
 												OnChangeTopic(strCategorySelectID, strSubcategorySelectID, strTopicSelectID, strBookSelectID)
 											}
@@ -1110,14 +1140,17 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									
 									if (list.selectedIndex > -1)
 									{
-										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
-												selectSubcategory.options[selectSubcategory.selectedIndex].value;
-										list.options[list.selectedIndex].text = textDesc.value;
-										arrayTopics = g_arrayTopic[strKey];
-										nI = DoGetTopicIndex(g_nCurrentTopicID, arrayTopics);
-										arrayTopics[nI].description = textDesc.value;
-										arrayTopics[nI].name = DoFormatName(textDesc.value);
-										g_arrayTopic[strKey] = arrayTopics;
+										if (!IsDuplicateTopic(textDesc.value, list))
+										{
+											strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
+													selectSubcategory.options[selectSubcategory.selectedIndex].value;
+											list.options[list.selectedIndex].text = textDesc.value;
+											arrayTopics = g_arrayTopic[strKey];
+											nI = DoGetTopicIndex(g_nCurrentTopicID, arrayTopics);
+											arrayTopics[nI].description = textDesc.value;
+											arrayTopics[nI].name = DoFormatName(textDesc.value);
+											g_arrayTopic[strKey] = arrayTopics;
+										}
 									}
 									else
 									{
@@ -1148,15 +1181,22 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										selectSubcategory = GetInput(strSubcategoryID),
 										option = null;
 										
-									option = document.createElement("option");
-									option.value = "*";
-									option.text = textDesc.value;
-									option.style.width = g_strOptionWidth;
-									list.add(option);
+									if (!IsDuplicateTopic(textDesc.value, list))
+									{
+										option = document.createElement("option");
+										option.value = "*";
+										option.text = textDesc.value;
+										option.style.width = g_strOptionWidth;
+										list.add(option);
 									
-									strKey = selectCategory.options[selectCategory.selectedIndex].value + ", " + 
-												selectSubcategory.options[selectSubcategory.selectedIndex].value;
-									g_arrayTopic[strKey].push(strItem);
+										strKey = selectCategory.options[selectCategory.selectedIndex].value + ", " + 
+													selectSubcategory.options[selectSubcategory.selectedIndex].value;
+										g_arrayTopic[strKey].push(strItem);
+									}
+									else
+									{
+										AlertWarning("The topic '" + textDesc.value + "' is already in the list of topics!");
+									}
 								}
 								
 								function OnChangeTopic(strCategoryID, strSubcategoryID, strTopicID, strBookID)
@@ -1226,21 +1266,24 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										selectTopic && (selectTopic.selectedIndex > -1) && textTitle &&
 										textAuthor && textSummary && textPrice && textWeight && textQuantity)
 									{
-										strKey = hiddenCategoryID.value + ", " + hiddenSubcategoryID.value + ", " + hiddenBookTopicID.value + ", " + hiddenBookID.value;
-										mapBookItem = g_arrayBooks[strKey];
-										mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].value;
-										mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].value;
-										mapBookItem["topic_id"] = selectTopics.options[selectTopics.selectedIndex].value;
-										mapBookItem["title"] = textTitle.value;
-										mapBookItem["author"] = textAuthor.value;
-										mapBookItem["summary"] = textSummary.value;
-										mapBookItem["price"] = textPrice.value;
-										mapBookItem["weight"] = textWeight.value;
-										mapBookItem["quantity"] = textQuantity.value;
-										mapBookItem["image_filename"] = mapBookItem["image_filename"];
-										g_arrayBooks[strKey] = mapBookItem;
-
-										selectBooks.options[selectBooks.selectedIndex].text = textTitle.value + ", " + textAuthor.value + ", $" + textPrice.value + ", " + textQuantity.value;
+										if (!IsDuplicateBook(textTitle.value, textAuthor.value, list))
+										{
+											strKey = hiddenCategoryID.value + ", " + hiddenSubcategoryID.value + ", " + hiddenBookTopicID.value + ", " + hiddenBookID.value;
+											mapBookItem = g_arrayBooks[strKey];
+											mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].value;
+											mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].value;
+											mapBookItem["topic_id"] = selectTopics.options[selectTopics.selectedIndex].value;
+											mapBookItem["title"] = textTitle.value;
+											mapBookItem["author"] = textAuthor.value;
+											mapBookItem["summary"] = textSummary.value;
+											mapBookItem["price"] = textPrice.value;
+											mapBookItem["weight"] = textWeight.value;
+											mapBookItem["quantity"] = textQuantity.value;
+											mapBookItem["image_filename"] = mapBookItem["image_filename"];
+											g_arrayBooks[strKey] = mapBookItem;
+	
+											selectBooks.options[selectBooks.selectedIndex].text = textTitle.value + ", " + textAuthor.value + ", $" + textPrice.value + ", " + textQuantity.value;
+										}
 									}
 								}
 								
@@ -1264,34 +1307,56 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										selectTopic && (selectTopic.selectedIndex > -1) && textTitle &&
 										textAuthor && textSummary && textPrice && textWeight && textQuantity)
 									{
-										mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].value;
-										mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].value;
-										mapBookItem["topic_id"] = selectTopic.options[selectTopic.selectedIndex].value;
-										mapBookItem["id"] = "*";
-										mapBookItem["title"] = textTitle.value;
-										mapBookItem["author"] = textAuthor.value;
-										mapBookItem["summary"] = textSummary.value;
-										mapBookItem["price"] = textPrice.value;
-										mapBookItem["weight"] = textWeight.value;
-										mapBookItem["quantity"] = textQuantity.value;
-										mapBookItem["image_filename"] = mapBookItem["image_filename"];
-										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
-													selectSubcategory.options[selectSubcategory.selectedIndex].value + "," +
-													selectTopic.options[selectTopic.selectedIndex].value;
-										if (g_arrayBooks[strKey] == undefined)
-											g_arrayBooks[strKey] = [];
-										g_arrayBooks[strKey].push(mapBookItem);
-										
-										DoFillBookList(strBookListID, strCategoryID, strSubcategoryID, strTopicID);
+										if (!IsDuplicateBook(textTitle.value, textAuthor.value, list))
+										{
+											mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].value;
+											mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].value;
+											mapBookItem["topic_id"] = selectTopic.options[selectTopic.selectedIndex].value;
+											mapBookItem["id"] = "*";
+											mapBookItem["title"] = textTitle.value;
+											mapBookItem["author"] = textAuthor.value;
+											mapBookItem["summary"] = textSummary.value;
+											mapBookItem["price"] = textPrice.value;
+											mapBookItem["weight"] = textWeight.value;
+											mapBookItem["quantity"] = textQuantity.value;
+											mapBookItem["image_filename"] = mapBookItem["image_filename"];
+											strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
+														selectSubcategory.options[selectSubcategory.selectedIndex].value + "," +
+														selectTopic.options[selectTopic.selectedIndex].value;
+											if (g_arrayBooks[strKey] == undefined)
+												g_arrayBooks[strKey] = [];
+											g_arrayBooks[strKey].push(mapBookItem);
+											
+											DoFillBookList(strBookListID, strCategoryID, strSubcategoryID, strTopicID);
+										}
+										else
+										{
+											AlertWarning("The book '" + textTitle.value + ", " + textAuthor.value + "' is already in the list of topics!");
+										}
 									}
 								}
 								
-								function DoCopyBookItem(strListID)
+								function DoGetBookIndex(strBookID, arrayBooks)
 								{
-									let selectBooks = GetInput(strListID),
-										selectCategory = GetInput(""),
-										selectSubcategory = GetInput(""),
-										selectTopic = GetInput(""),
+									let nIndex = -1;
+									
+									for (let nI = 0; nI < arrayBooks.length; nI++)
+									{
+										if (arrayBooks[nI].id == strBookID)
+										{
+											nIndex = nI;
+											break;
+										}
+									}
+									return nIndex;
+								}
+								
+								function DoCopyBookItem(strSelectCategoriesID, strSelectSubcategoriesID, strSelectTopicsID, strSelectBooksID)
+								{
+									let selectBooks = GetInput(strSelectBooksID),
+										selectCategory = GetInput(strSelectCategoriesID),
+										selectSubcategory = GetInput(strSelectSubcategoriesID),
+										selectTopic = GetInput(strSelectTopicsID),
 										textTitle = GetInput("text_title"),
 										textAuthor = GetInput("text_author"),
 										textSummary = GetInput("text_summary"),
@@ -1299,17 +1364,19 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										textWeight = GetInput("text_weight"),
 										textQuantity = GetInput("text_quantity"),
 										textImageFilename = GetInput("file_book_image"),
-										hiddenCategoryID = GetInput("hidden_category_id"),
-										hiddenSubcategoryID = GetInput("hidden_subcategory_id"),
-										hiddenBookTopicID = GetInput("hidden_topic_id"),
-										hiddenBookID = GetInput("hidden_book_id"),
 										mapBookItem = {},
 										strKey = "";
 									
-									if (selectBooks.selectedIndex > -1)
+									if (selectCategory && selectCategory && selectTopic && selectBooks && 
+										(selectCategory.selectedIndex > -1) && (selectSubcategory.selectedIndex > -1) && 
+										(selectTopic.selectedIndex > -1) && (selectBooks.selectedIndex > -1))
 									{
-										strKey = hiddenCategoryID.value + ", " + hiddenSubcategoryID.value + ", " + hiddenBookTopicID.value + ", " + hiddenBookID.value;
-										mapBookItem = g_arrayBooks[strKey];
+										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
+												selectSubcategory.options[selectSubcategory.selectedIndex].value + "," + 
+												selectTopic.options[selectTopic.selectedIndex].value;
+												
+										let nI = DoGetBookIndex(selectBooks.options[selectBooks.selectedIndex].value, g_arrayBooks[strKey]);
+										mapBookItem = g_arrayBooks[strKey][nI];
 										textTitle.value = mapBookItem["title"];
 										textAuthor.value = mapBookItem["author"];
 										textSummary.value = mapBookItem["summary"];
