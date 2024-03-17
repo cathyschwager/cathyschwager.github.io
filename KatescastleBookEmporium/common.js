@@ -8,7 +8,7 @@
 	var g_arrayTopicBookmarks = [];
 	var g_arrayTopicBookLists = [];
 	var g_bFictionPopupMenu = false, g_bNonFictionPopupMenu = false, g_bSpecialistPopupMenu = false;
-	var g_strURL = "https://cathyschwager.github.io/KatescastleBookEmporium";
+	var g_strURL = "https://www.katescastle.com.au/";
 	var g_strEmail = "katescastle" + "@" + "ozemail" + "." + "com" + "." + "au";
 	var g_strGregsEmail = "gregplants" + "@" + "bigpond" + "." + "com";
 	var g_structOrderDetails = {
