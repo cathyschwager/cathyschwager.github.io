@@ -338,20 +338,19 @@
 								return $strName;
 							}
 							
-							function DoDeleteExistingBookImageFile($strBookID)
+							function DoRemoveExistingBookImageFile($strBookID)
 							{
 								global $g_dbKatesCastle;
-								$strBookImageFilename = "";
+								$strFileName = "";
 								
 								$results = DoFindQuery1($g_dbKatesCastle, "books", "id", $strBookID);
 								if ($results && ($results->num_rows > 0))
 								{
 									if ($row = $results->fetch_assoc())
 									{
-										if (strlen($row["image_filename"]) > 0)
-										{
-											unlink($row["image_filename"]);
-										}
+										$strFileName = $row["image_filename"];
+										if (strlen($strFileName) > 0)
+											unlink($strFileName);
 									}
 								}
 							}
@@ -593,9 +592,8 @@
 									$strFilenName = "";
 									DoGetBookImageFilename($_POST["select_books"], $strFolderName, $strFilenName);
 									$strFilenName = $_FILES["file_name"]["name"];
-									
 									$strTargetPath = $strFolderName . $strFilename;
-									DoDeleteExistingBookImageFile($_POST["select_books"]);
+									DoRemoveExistingBookImageFile($_POST["select_books"]);
 								}
 								if (move_uploaded_file($_FILES["file_image"]["tmp_name"], $strTargetPath))
 								{
