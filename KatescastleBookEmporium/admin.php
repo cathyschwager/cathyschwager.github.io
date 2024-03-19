@@ -930,7 +930,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td colspan="2">
-											<input type="button" name="button_save_topics" value="SAVE TOPICS" class="button" onclick="OnClickSaveButton('form_topics')"/>
+											<input type="button" name="button_save_topics" value="SAVE TO DATABASE" class="button" onclick="OnClickSaveButton('form_topics')"/>
 										</td>
 									</tr>
 								</table>
@@ -1055,7 +1055,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td colspan="2">
-											<input type="button" name="button_save_books" value="SAVE BOOKS" class="button" onclick="OnClickSaveButton('form_books')"/>
+											<input type="button" name="button_save_books" value="SAVE TO DATABASE" class="button" onclick="OnClickSaveButton('form_books')"/>
 										</td>
 									</tr>
 								</table>
@@ -1109,7 +1109,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td colspan="2">
-											<input type="submit" name="button_save_image" value="SAVE IMAGE" class="button" />
+											<input type="submit" name="button_save_image" value="SAVE TO DATABASE" class="button" />
 										</td>
 									</tr>
 								</table>
