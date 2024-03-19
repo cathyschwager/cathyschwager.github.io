@@ -540,7 +540,7 @@
 		global $g_strQuery;
 		$g_strQuery = "UPDATE " . $strTableName . " SET " . $strColumnName1 . "='" . DoEscape($strColumnValue1) . "', " . 
 			$strColumnName2 . "='" .  DoEscape($strColumnValue2) . "', " . $strColumnName3 . "='" .  DoEscape($strColumnValue3) . "', " .
-			$strColumnName4 . "='" .  DoEscape($strColumnValue4) . "', " . $strColumnName5 . "='" .  DoEscape($strColumnValue5) .
+			$strColumnName4 . "='" .  DoEscape($strColumnValue4) . "', " . $strColumnName5 . "='" .  DoEscape($strColumnValue5) . "', " .
 			$strColumnName6 . "='" .  DoEscape($strColumnValue6) . 
 			"' WHERE " . $strFindColumnName . "='" . $strFindColumnValue . "'";
 
@@ -552,8 +552,8 @@
 		global $g_strQuery;
 		$g_strQuery = "UPDATE " . $strTableName . " SET " . $strColumnName1 . "='" . DoEscape($strColumnValue1) . "', " . 
 			$strColumnName2 . "='" .  DoEscape($strColumnValue2) . "', " . $strColumnName3 . "='" .  DoEscape($strColumnValue3) . "', " .
-			$strColumnName4 . "='" .  DoEscape($strColumnValue4) . "', " . $strColumnName5 . "='" .  DoEscape($strColumnValue5) . 
-			$strColumnName6 . "='" .  DoEscape($strColumnValue6) . $strColumnName7 . "='" .  DoEscape($strColumnValue7) .
+			$strColumnName4 . "='" .  DoEscape($strColumnValue4) . "', " . $strColumnName5 . "='" .  DoEscape($strColumnValue5) . "', " .
+			$strColumnName6 . "='" .  DoEscape($strColumnValue6) . "', " . $strColumnName7 . "='" .  DoEscape($strColumnValue7) .
 			"' WHERE " . $strFindColumnName . "='" . $strFindColumnValue . "'";
 
 		return DoQuery($dbConnection, $g_strQuery);
