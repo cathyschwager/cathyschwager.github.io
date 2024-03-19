@@ -73,7 +73,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 
@@ -86,7 +86,7 @@
 				<script type="text/javascript">
 
 					g_arrayTopicBookmarks = [<?php DoGetTopics($g_mapCategory["children"], "0"); ?>];
-					g_arrayTopicBookLists =[<?php DoGetBooks($g_mapCategory["children"], "0"); ?>]
+					g_arrayTopicBookLists = [<?php DoGetBooks($g_mapCategory["children"], "0"); ?>]
 										
 				</script>
 				

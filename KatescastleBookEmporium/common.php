@@ -698,6 +698,50 @@
 			echo "\"None found\", \"" . $strCategoryID. "\", \"" . $strSubcategoryID . "\"";
 		}
 	}
+	
+	function DoEscapeDoubleQuotes($strText)
+	{
+		$strNewText = "";
+		for ($nI = 0; $nI < strlen($strText); $nI++)
+		{
+			if ($strText[$nI] == "\"")
+				$strNewText .= "\\\"";
+			else
+				$strNewText .= $strText[$nI];
+		}
+		return $strNewText;
+	}
+	
+	function DoGetPaypalButton($nPrice)
+	{
+		global $g_dbKatesCastle;
+		$strPaypalButton = "";
+		$result = DoFindQuery1($g_dbKatesCastle, "paypal_buttons", "name", $nPrice);
+		if ($result && ($result->num_rows > 0))
+		{
+			if ($row = $result->fetch_assoc())
+			{
+				$strPaypalButton = $row["code"];
+				$strPaypalButton = DoEscapeDoubleQuotes($strPaypalButton);
+			}
+		}
+		return $strPaypalButton;
+	}
+	
+	function DoGetBookTypeDesc($strID)
+	{
+		global $g_dbKatesCastle;
+		$strTypeDesc = "";
+		$result = DoFindQuery1($g_dbKatesCastle, "book_type", "id", $strID);
+		if ($result && ($result->num_rows > 0))
+		{
+			if ($row = $result->fetch_assoc())
+			{
+				$strTypeDesc = $row["name"];
+			}
+		}		
+		return $strTypeDesc;
+	}
 
 	function DoGetBooks($strCategoryID, $strSubcategoryID)
 	{
@@ -709,37 +753,47 @@
 		],
 		*/
 		global $g_dbKatesCastle;
+		global $g_strQuery;
 		
-		$resultsTopics = DoFindQuery2($g_dbKatesCastle, "topics", "category_id" , $strCategoryID, "subcategory_id", $strSubcategoryID);
+		$resultsTopics = DoFindQuery2($g_dbKatesCastle, "topics", "category_id" , $strCategoryID, "subcategory_id", $strSubcategoryID, "", "name");
 		if ($resultsTopics && ($resultsTopics->num_rows > 0))
 		{
+			echo "\n";
 			$nCountTopic = 0;
 			while ($rowTopic = $resultsTopics->fetch_assoc())
 			{
 				$nCountTopic++;
-				echo "[";
-				$resultsBooks = DoFindQuery3($g_dbKatesCastle, "books", "category_id" , $strCategoryID, "subcategory_id", $strCategoryID, "topic_id", $rowTopic["id"], "", "title");
+				$resultsBooks = DoFindQuery3($g_dbKatesCastle, "books", "category_id" , $strCategoryID, "subcategory_id", $strSubcategoryID, "topic_id", $rowTopic["id"], "", "title");
 
 				if ($resultsBooks && ($resultsBooks->num_rows > 0))
 				{
+					echo "     [";
 					$nCountBooks = 0;
 					while ($rowBooks = $resultsBooks->fetch_assoc())
 					{
-						$nCountBooks++;
-						echo "[";
-						echo "\"" . $rowBooks["id"] . "\", \"" . $rowBooks["title"] . "\", \"" . 
-								sprintf("%.02f", $rowBooks["price"]) . "\", \"" . $rowBooks["sumary"] .
-								"\", \"" . $rowBooks["image_filename"] . "\", \"" . $rowBooks["weight"] . "\"]";
-						echo "]";
-						if ($nCountBooks< $resultsBooks->num_rows)
-							echo ",";
-						echo "\n";
+						if (intval($rowBooks["quantity"]) > 0)
+						{
+							echo "\n          {id:\"" . $rowBooks["id"] . "\",title:\"" . $rowBooks["title"] . 
+									"\",author:\"" . $rowBooks["author"] . "\",price:\"" . sprintf("%.02f", $rowBooks["price"]) . 
+									"\",summary:\"" . $rowBooks["summary"] . "\",image_filename:\"" . $rowBooks["image_filename"] . 
+									"\",weight:\"" . $rowBooks["weight"] . "\",index:\"" . $nCountBooks .
+									"\",type:\"" .  DoGetBookTypeDesc($rowBooks["type_id"]) . 
+									"\",paypal:\"" . DoGetPaypalButton(intval($rowBooks["price"])) ."\"}";
+							$nCountBooks++;
+							if ($nCountBooks< $resultsBooks->num_rows)
+								echo ",";
+							echo "\n";
+						}
 					}
+					echo "     ]";
+					if ($nCountTopic < $resultsTopics->num_rows)
+						echo ",";
+					echo "\n";
 				}
-				echo "]";
-				if ($nCountTopic < $resultsTopics->num_rows)
-					echo ",";
-				echo "\n";
+				else
+				{
+					echo "[],\n";
+				}
 			}
 		}
 	}
