@@ -490,34 +490,37 @@
 				{
 					for (let nJ = 0; nJ < arrayBookList.length; nJ++)
 					{
-						if (HasBookItem(arrayBookList[nJ].id, arrayShoppingCart))
+						if (parseInt(arrayBookList[nJ].quantity) > 0)
 						{
-							strDisplayAdd = "display:inline-block;";
-							strDisplayRemove = "display:none;";
+							if (HasBookItem(arrayBookList[nJ].id, arrayShoppingCart))
+							{
+								strDisplayAdd = "display:inline-block;";
+								strDisplayRemove = "display:none;";
+							}
+							else
+							{
+								strDisplayAdd = "display:none;";
+								strDisplayRemove = "display:inline-block;";
+							}
+							document.write("<h4 id=\"" + arrayBookList[nJ].id + "\">" + arrayBookList[nJ].title + "</h4>");
+							document.write("<p><b>Author(s):</b> " + arrayBookList[nJ].author + "<br/><br/>");
+							document.write("<p><b>Type(s):</b> " + arrayBookList[nJ].type + "<br/><br/>");
+							document.write("<p><b>Price:</b> $" + arrayBookList[nJ].price + "<br/><br/>");
+							document.write("<b><u>Summary</u></b><br>");
+							document.write(arrayBookList[nJ].summary + "<br/><br/>");
+							document.write("</p>");
+							document.write("<p><a href=\"" + g_strURL + arrayBookList[nJ].image_filename + "\"><img width=\"200\" src=\"" + g_strURL + 
+											arrayBookList[nJ].image_filename + "\" alt=\"" + g_strURL + arrayBookList[nJ].image_filename + "\" /></a></p>");
+							document.write("<br/><br/>");
+							document.write("<table cellspacing=\"5\" cellpadding=\"0\" border=\"0\">");
+							document.write("<tr>");
+							document.write("<td><button id=\"button_add_" + arrayBookList[nJ].id + "\" type=\"button\" style=\"" + g_strButtonStyles + strDisplayAdd + "\" onclick=\"OnClickAddCartButton('" + arrayBookList[nJ].id + "')\"><img src=\"/images/add_shopping_cart.png\" alt=\"ADD\" /></button>");
+							document.write("<button id=\"button_remove_" + arrayBookList[nJ].id + "\" type=\"button\" style=\"" + g_strButtonStyles + strDisplayRemove + "\" onclick=\"OnClickRemoveCartButton('" + arrayBookList[nJ].id + "')\"><img src=\"/images/remove_shopping_cart.png\" alt=\"REMOVE\" /></button></td>");
+							document.write("<td><button id=\"button_view_" + arrayBookList[nJ].id + "\" type=\"button\" style=\"" + g_strButtonStyles + "display:inline-block;\" onclick=\"OnClickOpenCartButton()\"><img src=\"/images/shopping_cart.png\" alt=\"VIEW SHOPPING CART\" /></button></td>");
+							document.write("</tr>");
+							document.write("</table>");
+							document.write("</p><br/><br/><hr>");
 						}
-						else
-						{
-							strDisplayAdd = "display:none;";
-							strDisplayRemove = "display:inline-block;";
-						}
-						document.write("<h4 id=\"" + arrayBookList[nJ].id + "\">" + arrayBookList[nJ].title + "</h4>");
-						document.write("<p><b>Author(s):</b> " + arrayBookList[nJ].author + "<br/><br/>");
-						document.write("<p><b>Type(s):</b> " + arrayBookList[nJ].type + "<br/><br/>");
-						document.write("<p><b>Price:</b> $" + arrayBookList[nJ].price + "<br/><br/>");
-						document.write("<b><u>Summary</u></b><br>");
-						document.write(arrayBookList[nJ].summary + "<br/><br/>");
-						document.write("</p>");
-						document.write("<p><a href=\"" + g_strURL + arrayBookList[nJ].image_filename + "\"><img width=\"200\" src=\"" + g_strURL + 
-										arrayBookList[nJ].image_filename + "\" alt=\"" + g_strURL + arrayBookList[nJ].image_filename + "\" /></a></p>");
-						document.write("<br/><br/>");
-						document.write("<table cellspacing=\"5\" cellpadding=\"0\" border=\"0\">");
-						document.write("<tr>");
-						document.write("<td><button id=\"button_add_" + arrayBookList[nJ].id + "\" type=\"button\" style=\"" + g_strButtonStyles + strDisplayAdd + "\" onclick=\"OnClickAddCartButton('" + arrayBookList[nJ].id + "')\"><img src=\"/images/add_shopping_cart.png\" alt=\"ADD\" /></button>");
-						document.write("<button id=\"button_remove_" + arrayBookList[nJ].id + "\" type=\"button\" style=\"" + g_strButtonStyles + strDisplayRemove + "display:none;\" onclick=\"OnClickRemoveCartButton('" + arrayBookList[nJ].id + "')\"><img src=\"/images/remove_shopping_cart.png\" alt=\"REMOVE\" /></button></td>");
-						document.write("<td><button id=\"button_view_" + arrayBookList[nJ].id + "\" type=\"button\" style=\"" + g_strButtonStyles + "display:inline-block;\" onclick=\"OnClickOpenCartButton()\"><img src=\"/images/shopping_cart.png\" alt=\"VIEW SHOPPING CART\" /></button></td>");
-						document.write("</tr>");
-						document.write("</table>");
-						document.write("</p><br/><br/><hr>");
 					}
 				}
 				else

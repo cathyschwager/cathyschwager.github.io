@@ -782,7 +782,7 @@
 							echo "\n          {id:\"" . $rowBooks["id"] . "\",title:\"" . $rowBooks["title"] . 
 									"\",author:\"" . $rowBooks["author"] . "\",price:\"" . sprintf("%.02f", $rowBooks["price"]) . 
 									"\",summary:\"" . $rowBooks["summary"] . "\",image_filename:\"" . $rowBooks["image_filename"] . 
-									"\",weight:\"" . $rowBooks["weight"] . "\",index:\"" . $nCountBooks .
+									"\",weight:\"" . $rowBooks["weight"] . "\",index:\"" . $nCountBooks . "\",quantity:\"" . $rowBooks["quantity"] .
 									"\",type:\"" .  DoGetBookTypeDesc($rowBooks["type_id"]) . "\"}";
 							$nCountBooks++;
 							if ($nCountBooks< $resultsBooks->num_rows)
