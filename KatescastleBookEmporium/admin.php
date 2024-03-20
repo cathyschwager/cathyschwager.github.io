@@ -11,7 +11,7 @@
 		<!-- #BeginEditable "doctitle" -->
 		<title>Admin</title>		
 		<!-- #EndEditable -->
-		<link href="styles/style.css" rel="stylesheet" type="text/css" />
+		<link href="/styles/style.css" rel="stylesheet" type="text/css" />
 		
 		<div id="OrderForm" style="display:none;">
 			<h4>CONTACT DETAILS FOR ORDER</h4>
@@ -976,7 +976,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										</td>
 									</tr>
 									<tr>
-										<td style="text-align:right"><label id="label_topic">Type:</label></td>
+										<td style="text-align:right">
+										<label id="label_topic0">Type:</label></td>
 										<td>
 											<select id="select_type" class="select">
 												<?php DoGetBookTypeyOptions(); ?>
@@ -984,38 +985,45 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										</td>
 									</tr>
 									<tr>
-										<td style="text-align:right"><label id="label_topic">Title:</label></td>
+										<td style="text-align:right">
+										<label id="label_topic1">Title:</label></td>
 										<td>
 											<input id="text_title" type="text" class="text" style="width:330px;"/>
 										</td>
 									</tr>
  									<tr>
-										<td style="text-align:right"><label id="label_topic">Author:</label></td>
+										<td style="text-align:right">
+										<label id="label_topic2">Author:</label></td>
 										<td><input id="text_author" type="text" class="text" style="width:330px;" /></td>
 									</tr>
  									<tr>
-										<td style="text-align:right"><label id="label_topic">Current Image:</label></td>
+										<td style="text-align:right">
+										<label id="label_topic3">Current Image:</label></td>
 										<td>
 											<img id="image_bookb" src="" alt="IMAGE PREVIEW" width="200"/>
 											<p style="font-size:xx-small;">Change book images individually in the next form (below)...</p>
 										</td>
 									</tr>
  									<tr>
-										<td style="text-align:right"><label id="label_topic">Summary:</label></td>
+										<td style="text-align:right">
+										<label id="label_topic4">Summary:</label></td>
 										<td>
 											<textarea id="text_summary" maxlength="1024" cols="44" rows="8" style="resize: none;"></textarea>
 										</td>
 									</tr>
  									<tr>
-										<td style="text-align:right"><label id="label_topic">Price: $</label></td>
+										<td style="text-align:right">
+										<label id="label_topic5">Price: $</label></td>
 										<td><input id="text_price" type="text" class="text" style="width:60px;" onkeydown="return ((event.which >= 48) && (event.which <= 57)) || ((event.which >= 65) && (event.which <= 90)) || ((event.which >= 97) && (event.which <= 122)) || (event.which == 8) || (event.which == 127)"/></td>
 									</tr>
  									<tr>
-										<td style="text-align:right"><label id="label_topic">Weight:</label></td>
+										<td style="text-align:right">
+										<label id="label_topic6">Weight:</label></td>
 										<td><input id="text_weight" type="text" class="text" style="width:60px;" onkeydown="return ((event.which >= 48) && (event.which <= 57)) || ((event.which >= 65) && (event.which <= 90)) || ((event.which >= 97) && (event.which <= 122)) || (event.which == 8) || (event.which == 127)"/>&nbsp;grams</td>
 									</tr>
  									<tr>
-										<td style="text-align:right"><label id="label_topic">Quantity:</label></td>
+										<td style="text-align:right">
+										<label id="label_topic7">Quantity:</label></td>
 										<td><input id="text_quantity" type="text" class="text" style="width:60px;" onkeydown="return ((event.which >= 48) && (event.which <= 57)) || ((event.which >= 65) && (event.which <= 90)) || ((event.which >= 97) && (event.which <= 122)) || (event.which == 8) || (event.which == 127)"/></td>
 									</tr>
 									<tr>
@@ -1099,7 +1107,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										</td>
 									</tr>
 									<tr>
-										<td style="text-align:right"><label id="label_topic">Book Image:</label></td>
+										<td style="text-align:right">
+										<label id="label_topic8">Book Image:</label></td>
 										<td>
 											<input name="file_image" type="file" accept="image/jpg, image/jpeg" />
 											<br/>
@@ -1782,8 +1791,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 				<div class="FloatLeft Links" style="font-size:small;margin:10px;">
 					<span class="footer_link" id="footer_link"><img alt="" width="1%" class="footer_image" src="images/top.png" />&nbsp;<a href="#Top">Top of Page</a></span>
 					<span class="footer_link" id="footer_link"><img alt="" width="2%" class="footer_image" src="images/home.png" />&nbsp;<a href="index.htm">Home</a></span>
-					<span class="footer_link" id="show_shopping_cart_span"><img alt="" width="2%" class="footer_image" src="images/shopping_cart.png" />&nbsp;<a href="ShoppingCart.php" id="show_shopping_cart_link" onclick="OnClickShowCartButton()">Show Shopping Cart</a></span>
-					<span class="footer_link" id="hide_shopping_cart_span" style="display:none;"><img alt="" width="2.5%" class="footer_image" src="images/shopping_cart.png" />&nbsp;<a href="" id="hide_shopping_cart_link" onclick="OnClickHideCartButton()">Hide Shopping Cart</a></span>	
+					<span class="footer_link" id="show_shopping_cart_span"><img alt="" width="2%" class="footer_image" src="images/shopping_cart.png" />&nbsp;<a href="ShoppingCart.php" id="show_shopping_cart_link" onclick="OnClickShowCartButton()">View Shopping Cart</a><span id="shopping_cart_total1"> ($0)</span></span>
+					<span class="footer_link" id="hide_shopping_cart_span" style="display:none;"><img alt="" width="2.5%" class="footer_image" src="images/shopping_cart.png" />&nbsp;<a href="" id="hide_shopping_cart_link" onclick="OnClickHideCartButton()">Close Shopping Cart</a><span id="shopping_cart_total2"> ($0)</span></span>
 				</div>
 				<div class="FloatRight Copyright">
 					<div><b>Copyright &copy; 2023 Cathy Schwager.<br/>All Rights Reserved.</b></div>
@@ -1800,6 +1809,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 		
 			ScrollTopContent();
 			SetShowHideShoppingCartLink();
+			DoUpdateShoppingCartTotal();
 			
 		</script>
 			

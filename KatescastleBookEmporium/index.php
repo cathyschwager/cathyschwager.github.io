@@ -15,7 +15,7 @@
 </style>	
 			
 		<!-- #EndEditable -->
-		<link href="styles/style.css" rel="stylesheet" type="text/css" />
+		<link href="/styles/style.css" rel="stylesheet" type="text/css" />
 		
 		<div id="OrderForm" style="display:none;">
 			<h4>CONTACT DETAILS FOR ORDER</h4>
@@ -327,8 +327,8 @@
 				<div class="FloatLeft Links" style="font-size:small;margin:10px;">
 					<span class="footer_link" id="footer_link"><img alt="" width="1%" class="footer_image" src="images/top.png" />&nbsp;<a href="#Top">Top of Page</a></span>
 					<span class="footer_link" id="footer_link"><img alt="" width="2%" class="footer_image" src="images/home.png" />&nbsp;<a href="index.htm">Home</a></span>
-					<span class="footer_link" id="show_shopping_cart_span"><img alt="" width="2%" class="footer_image" src="images/shopping_cart.png" />&nbsp;<a href="ShoppingCart.php" id="show_shopping_cart_link" onclick="OnClickShowCartButton()">Show Shopping Cart</a></span>
-					<span class="footer_link" id="hide_shopping_cart_span" style="display:none;"><img alt="" width="2.5%" class="footer_image" src="images/shopping_cart.png" />&nbsp;<a href="" id="hide_shopping_cart_link" onclick="OnClickHideCartButton()">Hide Shopping Cart</a></span>	
+					<span class="footer_link" id="show_shopping_cart_span"><img alt="" width="2%" class="footer_image" src="images/shopping_cart.png" />&nbsp;<a href="ShoppingCart.php" id="show_shopping_cart_link" onclick="OnClickShowCartButton()">View Shopping Cart</a><span id="shopping_cart_total1"> ($0)</span></span>
+					<span class="footer_link" id="hide_shopping_cart_span" style="display:none;"><img alt="" width="2.5%" class="footer_image" src="images/shopping_cart.png" />&nbsp;<a href="" id="hide_shopping_cart_link" onclick="OnClickHideCartButton()">Close Shopping Cart</a><span id="shopping_cart_total2"> ($0)</span></span>
 				</div>
 				<div class="FloatRight Copyright">
 					<div><b>Copyright &copy; 2023 Cathy Schwager.<br/>All Rights Reserved.</b></div>
@@ -345,6 +345,7 @@
 		
 			ScrollTopContent();
 			SetShowHideShoppingCartLink();
+			DoUpdateShoppingCartTotal();
 			
 		</script>
 			

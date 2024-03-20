@@ -712,11 +712,17 @@
 		return $strNewText;
 	}
 	
-	function DoGetPaypalButton($nPrice)
+	function DoGetPaypalButton($nPrice, $bLive)
 	{
 		global $g_dbKatesCastle;
+		global $g_strQuery;
+		$strLive = "0";
 		$strPaypalButton = "";
-		$result = DoFindQuery1($g_dbKatesCastle, "paypal_buttons", "name", $nPrice);
+		
+		if ($bLive)
+			$strLive = "1";
+			
+		$result = DoFindQuery2($g_dbKatesCastle, "paypal_buttons", "name", $nPrice, "live", $strLive);
 		if ($result && ($result->num_rows > 0))
 		{
 			if ($row = $result->fetch_assoc())
@@ -777,8 +783,7 @@
 									"\",author:\"" . $rowBooks["author"] . "\",price:\"" . sprintf("%.02f", $rowBooks["price"]) . 
 									"\",summary:\"" . $rowBooks["summary"] . "\",image_filename:\"" . $rowBooks["image_filename"] . 
 									"\",weight:\"" . $rowBooks["weight"] . "\",index:\"" . $nCountBooks .
-									"\",type:\"" .  DoGetBookTypeDesc($rowBooks["type_id"]) . 
-									"\",paypal:\"" . DoGetPaypalButton(intval($rowBooks["price"])) ."\"}";
+									"\",type:\"" .  DoGetBookTypeDesc($rowBooks["type_id"]) . "\"}";
 							$nCountBooks++;
 							if ($nCountBooks< $resultsBooks->num_rows)
 								echo ",";

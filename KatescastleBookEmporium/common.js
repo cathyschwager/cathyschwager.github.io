@@ -187,6 +187,14 @@
 	// SHOPPING CART
 	//********************************************************************************************************************************
 	//********************************************************************************************************************************
+				
+	if (sessionStorage["ShoppingCart"] === undefined)
+		sessionStorage["ShoppingCart"] = "";
+				
+	function SetShoppingCartArray(arrayShoppingCart)
+	{
+		sessionStorage["ShoppingCart"] = JSON.stringify(arrayShoppingCart);
+	}
 	
 	function GetShoppingCartArray()
 	{
@@ -200,15 +208,13 @@
 		return arrayShoppingCart;
 	}
 	
-	function FindBookItem(strTitle, strAuthor, strType, arrayShoppingCart)
+	function FindBookItem(strID, arrayShoppingCart)
 	{
 		let nResult = -1;
 		
 		for (let nI = 0; nI < arrayShoppingCart.length; nI++)
 		{
-			if ((strTitle == arrayShoppingCart[nI].strTitle) &&
-				(strAuthor == arrayShoppingCart[nI].strAuthor) &&
-				(strType == arrayShoppingCart[nI].strType))
+			if (strID == arrayShoppingCart[nI].id)
 			{
 				nResult = nI;
 				break;
@@ -217,12 +223,12 @@
 		return nResult;
 	}
 	
-	function FindBookItem_(strTitle, strAuthor, strType, arrayShoppingCart)
+	function HasBookItem(strID, arrayShoppingCart)
 	{
 		let nI = -1;
 		
-		nI = FindBookItem(strTitle, strAuthor, strType, arrayShoppingCart);
-	//alert("nI = " + nI.toString() + ", strTitle = " + strTitle + ", strAuthor = " + strAuthor);
+		nI = FindBookItem(strID, arrayShoppingCart);
+
 		return nI > -1;
 	}
 	
@@ -246,59 +252,58 @@
 		}
 	}
 	
-	function ShoppingCartItem(strTitle, strAuthor, strPrice, strDesc, strImage, strMass, strType) 
+	function ShoppingCartItem(strID) 
 	{
-	  this.strTitle = strTitle;
-	  this.strAuthor = strAuthor;
-	  this.strPrice = strPrice;
-	  this.strDesc = strDesc;
-	  this.strImage = strImage;
-	  this.strMass = strMass;
-	  this.strType = strType;
+		let nI = 0, nJ = 0, arrayBooks = [], bFound = false;
+		
+		for (nI = 0; nI < g_arrayTopicBookLists.length; nI++)
+		{
+			arrayBooks = g_arrayTopicBookLists[nI];
+			for (nJ = 0; nJ < arrayBooks.length; nJ++)
+			{
+				if (arrayBooks[nJ].id == strID)
+				{
+					this.id = arrayBooks[nJ].id;
+					this.title = arrayBooks[nJ].title;
+					this.author = arrayBooks[nJ].author;
+					this.price = arrayBooks[nJ].price;
+					this.summary = arrayBooks[nJ].summary;
+					this.image_filename = arrayBooks[nJ].image_filename;
+					this.weight = arrayBooks[nJ].weight;
+					this.type = arrayBooks[nJ].type;
+					bFound = true;
+				}
+			}
+		}
+		if (!bFound)
+			alert("Could not find book with ID '" + strID + "'!");	
 	}
-	
-	function OnClickAddCartButton(strTitle, strAuthor, strPrice, strDesc, strImage, strMass, strType)
+
+	function OnClickAddCartButton(strID)
 	{
-		document.getElementById("AddCart" + strTitle + strAuthor).style.display = "none";
-		document.getElementById("RemoveCart" + strTitle + strAuthor).style.display = "inline-block";
+		document.getElementById("button_add_" + strID).style.display = "none";
+		document.getElementById("button_remove_" + strID).style.display = "inline-block";
 		
-		let arrayShoppingCart = [];
-		let nI = 0;
+		let arrayShoppingCart = GetShoppingCartArray(), 
+			nI = 0;
 	
-		/*
-		alert(strTitle);
-		alert(strAuthor);
-		alert(strPrice);
-		alert(strDesc);
-		alert(strImage);
-		alert(sessionStorage["ShoppingCart"]);
-		*/
-		
-		if (sessionStorage["ShoppingCart"].length !== 0)
-			arrayShoppingCart = JSON.parse(sessionStorage["ShoppingCart"]);
-	
-		nI = FindBookItem(strTitle, strAuthor, strType, arrayShoppingCart);
+		nI = FindBookItem(strID, arrayShoppingCart);
 	
 		if (nI === -1)
 		{
 			// ["Title 1", 4.00, "Fred Smith", "Book description 1", "image.jpg"]
-			arrayShoppingCart.push(new ShoppingCartItem(strTitle, strAuthor, strPrice, strDesc, strImage, strMass, strType));
+			arrayShoppingCart.push(new ShoppingCartItem(strID));
+			SetShoppingCartArray(arrayShoppingCart);
+			DoUpdateShoppingCartTotal();
 		}
-		else
-		{
-			arrayShoppingCart[nI] = new ShoppingCartItem(strTitle, strAuthor, strPrice, strDesc, strImage, strMass, strType);
-		}
-		sessionStorage["ShoppingCart"] = JSON.stringify(arrayShoppingCart);
 		ShowEmptyShoppingCartLink(true);
 	}
 	
 	function GenerateShoppingCartContents()
 	{
-		var arrayShoppingCart = [], strSubmitOrder = "";
+		let strSubmitOrder = "",
+			arrayShoppingCart = GetShoppingCartArray();
 		
-		if (sessionStorage["ShoppingCart"] !== "")
-			arrayShoppingCart = JSON.parse(sessionStorage["ShoppingCart"]);
-	
 		if (arrayShoppingCart.length == 0)
 		{
 			for (let nI = 0; nI < 1; nI++)
@@ -311,21 +316,20 @@
 		
 			for (let nI = 0; nI < arrayShoppingCart.length; nI++)
 			{
-				document.write("<p class=\"Paragraph\"><b>Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>" + arrayShoppingCart[nI].strTitle + "<br/>");
-				document.write("<b>Author: </b>" + arrayShoppingCart[nI].strAuthor + "<br/>");
-				document.write("<b>Price: &nbsp;&nbsp;&nbsp;</b>$" + arrayShoppingCart[nI].strPrice + "<br/>"); 
-				document.write("<b><u>Description</u></b><br/>" + arrayShoppingCart[nI].strDescription + "<br/>");
-				document.write("<img width=\"100\" alt=\"images/" + arrayShoppingCart[nI].strImage + "\""); 
-				document.write("src=\"" + g_strURL + arrayShoppingCart[nI].strImage + "\" /><br/><br/>");
+				document.write("<p class=\"Paragraph\"><b>Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>" + arrayShoppingCart[nI].title + "<br/>");
+				document.write("<b>Author: </b>" + arrayShoppingCart[nI].author + "<br/>");
+				document.write("<b>Price: &nbsp;&nbsp;&nbsp;</b>$" + arrayShoppingCart[nI].price + "<br/>"); 
+				document.write("<b><u>Summary</u></b><br/>" + arrayShoppingCart[nI].summary + "<br/>");
+				document.write("<img width=\"100\" alt=\"images/" + arrayShoppingCart[nI].image_filename + "\""); 
+				document.write("src=\"" + g_strURL + arrayShoppingCart[nI].image_filename + "\" /><br/><br/>");
 											
-				document.write("<button type=\"button\" class=\"cart_button\" onclick=\"OnRemoveCartButton('"); 
-				document.write(arrayShoppingCart[nI].strTitle + "', '" + arrayShoppingCart[nI].strAuthor); 
-				document.write("')\"><img src=\"../images/remove_shopping_cart.jpg\" alt=\"Remove from cart\" /></button>&nbsp;");
+				document.write("<button type=\"button\" style=\"" + g_strButtonStyles + "display:inline-block;\" onclick=\"OnClickRemoveCartButton_('" + arrayShoppingCart[nI].id + "')\">"); 
+				document.write("<img src=\"/images/remove_shopping_cart.png\" alt=\"Remove from cart\" /></button>&nbsp;");
 				document.write("<br/><hr><br/><br/>");
 				
-				g_structOrderDetails.strShoppingCartItems += arrayShoppingCart[nI].strTitle + ", " + arrayShoppingCart[nI].strAuthor + ", " + arrayShoppingCart[nI].strPrice + "\n";
-				g_structOrderDetails.fShoppingCartTotal += Number(arrayShoppingCart[nI].strPrice);
-				g_structOrderDetails.fShoppingCartTotalMass += Number(arrayShoppingCart[nI].strMass);
+				g_structOrderDetails.strShoppingCartItems += arrayShoppingCart[nI].title + ", " + arrayShoppingCart[nI].author + ", " + arrayShoppingCart[nI].price + "\n";
+				g_structOrderDetails.fShoppingCartTotal += Number(arrayShoppingCart[nI].price);
+				g_structOrderDetails.fShoppingCartTotalMass += Number(arrayShoppingCart[nI].weigth);
 			}
 			document.write(document.getElementById("OrderForm").innerHTML);
 			document.write("<a class=\"SubmitOrderButton\" id=\"SubmitOrderButton\" href=\"\">SUBMIT ORDER</a><br/><br/>");
@@ -350,29 +354,55 @@
 		}
 	}
 	
-	function OnRemoveCartButton(strTitle, strAuthor, strType)
+	function OnClickRemoveCartButton_(strID)
 	{
-		document.getElementById("AddCart" + strTitle + strAuthor).style.display= "inline-block";
-		document.getElementById("RemoveCart" + strTitle + strAuthor).style.display= "none";
+		OnClickRemoveCartButton(strID);
+		document.location.href = "\ShoppingCart.php";
+	}
 	
-		let arrayShoppingCart = [];
-		let nI = 0;
+	function DoUpdateShoppingCartTotal()
+	{
+		let spanSCT1 = document.getElementById("shopping_cart_total1"),
+			spanSCT2 = document.getElementById("shopping_cart_total2"),
+			arrayShoppingCart = GetShoppingCartArray(),
+			nShoppingCartTotal = 0;
 		
-		if (sessionStorage["ShoppingCart"].length !== 0)
-			arrayShoppingCart = JSON.parse(sessionStorage["ShoppingCart"]);
+		if (spanSCT1 && spanSCT2)
+		{
+			sessionStorage["ShoppingCartTotal"] = 0;
+			for (let nI = 0; nI < arrayShoppingCart.length; nI++)
+			{
+				nShoppingCartTotal += parseFloat(arrayShoppingCart[nI].price);
+			}	
+			spanSCT1.innerText = " ($" + nShoppingCartTotal.toFixed(2) + ")";
+			spanSCT2.innerText = " ($" + nShoppingCartTotal.toFixed(2) + ")";
+		}
+	}
 		
-		nI = FindBookItem(strTitle, strAuthor, strType, arrayShoppingCart);
+	function OnClickRemoveCartButton(strID)
+	{
+		let buttonAdd = document.getElementById("button_add_" + strID),
+			buttonRemove = document.getElementById("button_remove_" + strID),
+			arrayShoppingCart = GetShoppingCartArray(),
+			nI = 0;
+		
+		if (buttonAdd && buttonRemove)
+		{
+			buttonAdd.style.display= "inline-block";
+			buttonRemove.style.display= "none";
+		}				
+		nI = FindBookItem(strID, arrayShoppingCart);
 	
 		if (nI > -1)
-		{
+		{		
 			let arrayLeft = arrayShoppingCart.slice(0, nI - 1);
 			let arrayRight = arrayShoppingCart.slice(nI + 1, arrayShoppingCart.length - 1);	
 			
 			arrayShoppingCart = arrayLeft;
 			arrayShoppingCart.concat(arrayRight);
-			sessionStorage["ShoppingCart"] = JSON.stringify(arrayShoppingCart);
-			GenerateShoppingContents(document.getElementById("shopping_cart"));
+			SetShoppingCartArray(arrayShoppingCart);
 			ShowEmptyShoppingCartLink(arrayShoppingCart.length > 0);
+			DoUpdateShoppingCartTotal();
 		}
 		//alert(sessionStorage["ShoppingCart"]);
 	}
@@ -406,6 +436,12 @@
 		sessionStorage["href"] = document.location.href;
 	}
 	
+	function OnClickOpenCartButton()
+	{
+		OnClickShowCartButton();
+		document.location.href = "/ShoppingCart.php";
+	}
+	
 	function OnClickHideCartButton()
 	{
 		var spanHideShoppingCart = document.getElementById("hide_shopping_cart_span"),
@@ -419,20 +455,6 @@
 	}
 	
 	
-	function OnClickEmptyShoppingButton(arrayTopicBookmarks, arrayTopicBookLists)
-	{
-		sessionStorage["ShoppingCart"] = "";
-		GenerateShoppingContents(document.getElementById("shopping_cart"));
-		GeneratePageContents(arrayTopicBookmarks, arrayTopicBookLists);
-		
-		let divShoppingCart = document.getElementById("shopping_cart");
-		if (divShoppingCart)
-		{
-			//if (window.getComputedStyle(divShoppingCart).display === "none")
-			ShowEmptyShoppingCartLink(false);
-		}
-	}
-	
 	if (typeof sessionStorage["ShoppingCart"] === "undefined")
 		sessionStorage["ShoppingCart"] = "";
 	
@@ -445,20 +467,13 @@
 	// PAGE CONTENTS
 	//********************************************************************************************************************************
 	//********************************************************************************************************************************
-	
-	function BookItem(strTitle, strAuthor, strPrice, strDescription, strImage, strWeight)
-	{
-		this.strTitle = strTitle;
-		this.strAuthor = strAuthor;
-		this.strPrice = strPrice;
-		this.strDescription = strDescription;
-		this.strImage = strImage;
-		this.strWeight = strWeight;
-	}
+	let g_strButtonStyles = "border-radius:5px;width:80px;height:60px;";
 	
 	function GeneratePageContents(arrayTopicBookmarks, arrayTopicBookLists)
 	{
-		let arrayShoppingCart = GetShoppingCartArray();
+		let arrayShoppingCart = GetShoppingCartArray(),
+			strDisplayAdd = "",
+			strDisplayRemove = "";
 		
 		//console.log(arrayBookList);
 	
@@ -475,21 +490,34 @@
 				{
 					for (let nJ = 0; nJ < arrayBookList.length; nJ++)
 					{
-						document.write("<h4 id=\"" + arrayBookList[nJ].title + "\">" + arrayBookList[nJ].title + "</h4>");
+						if (HasBookItem(arrayBookList[nJ].id, arrayShoppingCart))
+						{
+							strDisplayAdd = "display:inline-block;";
+							strDisplayRemove = "display:none;";
+						}
+						else
+						{
+							strDisplayAdd = "display:none;";
+							strDisplayRemove = "display:inline-block;";
+						}
+						document.write("<h4 id=\"" + arrayBookList[nJ].id + "\">" + arrayBookList[nJ].title + "</h4>");
 						document.write("<p><b>Author(s):</b> " + arrayBookList[nJ].author + "<br/><br/>");
 						document.write("<p><b>Type(s):</b> " + arrayBookList[nJ].type + "<br/><br/>");
 						document.write("<p><b>Price:</b> $" + arrayBookList[nJ].price + "<br/><br/>");
 						document.write("<b><u>Summary</u></b><br>");
 						document.write(arrayBookList[nJ].summary + "<br/><br/>");
-						let strPaypal = arrayBookList[nJ].paypal;
-						strPaypal = strPaypal.replace("xxxx", arrayBookList[nJ].id);
-						strPaypal = strPaypal.replace("xxxx", arrayBookList[nJ].id);
-						strPaypal = strPaypal.replace("yyyy", arrayBookList[nJ].index);
-
-						document.write(strPaypal + "</p>");
+						document.write("</p>");
 						document.write("<p><a href=\"" + g_strURL + arrayBookList[nJ].image_filename + "\"><img width=\"200\" src=\"" + g_strURL + 
 										arrayBookList[nJ].image_filename + "\" alt=\"" + g_strURL + arrayBookList[nJ].image_filename + "\" /></a></p>");
-						document.write("<br/><br/><hr>");
+						document.write("<br/><br/>");
+						document.write("<table cellspacing=\"5\" cellpadding=\"0\" border=\"0\">");
+						document.write("<tr>");
+						document.write("<td><button id=\"button_add_" + arrayBookList[nJ].id + "\" type=\"button\" style=\"" + g_strButtonStyles + strDisplayAdd + "\" onclick=\"OnClickAddCartButton('" + arrayBookList[nJ].id + "')\"><img src=\"/images/add_shopping_cart.png\" alt=\"ADD\" /></button>");
+						document.write("<button id=\"button_remove_" + arrayBookList[nJ].id + "\" type=\"button\" style=\"" + g_strButtonStyles + strDisplayRemove + "display:none;\" onclick=\"OnClickRemoveCartButton('" + arrayBookList[nJ].id + "')\"><img src=\"/images/remove_shopping_cart.png\" alt=\"REMOVE\" /></button></td>");
+						document.write("<td><button id=\"button_view_" + arrayBookList[nJ].id + "\" type=\"button\" style=\"" + g_strButtonStyles + "display:inline-block;\" onclick=\"OnClickOpenCartButton()\"><img src=\"/images/shopping_cart.png\" alt=\"VIEW SHOPPING CART\" /></button></td>");
+						document.write("</tr>");
+						document.write("</table>");
+						document.write("</p><br/><br/><hr>");
 					}
 				}
 				else
