@@ -1,10 +1,10 @@
 <?php
-		
+
+	$g_strEmailCathy = "katescastle@ozemail.com.au";
+	$g_strEmailAdmin = "gregplants@bigpond.com";
+	
 	session_start();
 	
-
-
-
 	//******************************************************************************
 	//** 
 	//** ENCRYPTION FUNCTIONS

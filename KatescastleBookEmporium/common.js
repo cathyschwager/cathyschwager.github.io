@@ -5,16 +5,25 @@
 	// GLOBAL VARIBALES
 	//********************************************************************************************************************************
 	//********************************************************************************************************************************
-	var g_arrayTopicBookmarks = [];
-	var g_arrayTopicBookLists = [];
-	var g_bFictionPopupMenu = false, g_bNonFictionPopupMenu = false, g_bSpecialistPopupMenu = false;
-	var g_strURL = "https://www.katescastle.com.au/";
-	var g_strEmail = "katescastle" + "@" + "ozemail" + "." + "com" + "." + "au";
-	var g_strGregsEmail = "gregplants" + "@" + "bigpond" + "." + "com";
-	var g_structOrderDetails = {
-									strShoppingCartItems: "",
+	let g_arrayTopicBookmarks = [];
+	let g_arrayTopicBookLists = [];
+	let g_bFictionPopupMenu = false, g_bNonFictionPopupMenu = false, g_bSpecialistPopupMenu = false;
+	let g_strURL = "https://www.katescastle.com.au/";
+	let g_strEmail = "katescastle" + "@" + "ozemail" + "." + "com" + "." + "au";
+	let g_strGregsEmail = "gregplants" + "@" + "bigpond" + "." + "com";
+	let g_structOrderDetails = {
+									arrayShoppingCartItems: [],
 									fShoppingCartTotal: 0,
-									fShoppingCartTotalMass: 0
+									fShoppingCartTotalMass: 0,
+									strGivenNames: "",
+									strSurname: "",
+									strEmail: "",
+									strMobile: "",
+									strPhone: "",
+									strStreet: "",
+									strSuburb: "",
+									strState: "",
+									strPostcode: ""
 								};
 	
 	//********************************************************************************************************************************
@@ -169,9 +178,15 @@
 			});	
 	}
 
+	//********************************************************************************************************************************
+	//********************************************************************************************************************************
+	// PAGE CONTENT FUNCTIONS
+	//********************************************************************************************************************************
+	//********************************************************************************************************************************
+
 	function GenerateGregsEmailAddress()
 	{
-		var strEmailAddress = "gregplants" + "@" + "bigpond" + "." + "com";
+		let strEmailAddress = "gregplants" + "@" + "bigpond" + "." + "com";
 		document.write("<a class=\"Email\" href=\"mailto: " + g_strGregsEmail+ "\">" + g_strGregsEmail+ "</a>");
 	}
 	
@@ -188,7 +203,7 @@
 	
 		if (arrayTopicBookmarks.length > 0)
 		{
-			for (var nI = 0; nI < arrayTopicBookmarks.length; nI++)
+			for (let nI = 0; nI < arrayTopicBookmarks.length; nI++)
 			{
 				if (arrayTopicBookmarks [nI].length > 0)
 				{
@@ -210,7 +225,7 @@
 	
 	function GetlSelectedIndex(Select, strTextToSelect)
 	{
-		var nSelectionIndex = 0;
+		let nSelectionIndex = 0;
 		
 		if (Select)
 		{
@@ -358,46 +373,56 @@
 		}
 		else
 		{
-			g_structOrderDetails.strShoppingCartItems = "";
 			g_structOrderDetails.fShoppingCartTotal = g_structOrderDetails.fShoppingCartTotalMass = 0;
-		
-			for (let nI = 0; nI < arrayShoppingCart.length; nI++)
+			g_structOrderDetails.arrayShoppingCartItems = [];
+			
+			if (arrayShoppingCart.length > 0)
 			{
-				document.write("<p class=\"Paragraph\"><b>Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>" + arrayShoppingCart[nI].title + "<br/>");
-				document.write("<b>Author: </b>" + arrayShoppingCart[nI].author + "<br/>");
-				document.write("<b>Price: &nbsp;&nbsp;&nbsp;</b>$" + arrayShoppingCart[nI].price + "<br/>"); 
-				document.write("<b><u>Summary</u></b><br/>" + arrayShoppingCart[nI].summary + "<br/>");
-				document.write("<img width=\"100\" alt=\"images/" + arrayShoppingCart[nI].image_filename + "\""); 
-				document.write("src=\"" + g_strURL + arrayShoppingCart[nI].image_filename + "\" /><br/><br/>");
-											
-				document.write("<button type=\"button\" style=\"" + g_strButtonStyles + "display:inline-block;\" onclick=\"OnClickRemoveCartButton_('" + arrayShoppingCart[nI].id + "')\">"); 
-				document.write("<img src=\"/images/remove_shopping_cart.png\" alt=\"Remove from cart\" /></button>&nbsp;");
-				document.write("<br/><hr><br/><br/>");
-				
-				g_structOrderDetails.strShoppingCartItems += arrayShoppingCart[nI].title + ", " + arrayShoppingCart[nI].author + ", " + arrayShoppingCart[nI].price + "\n";
-				g_structOrderDetails.fShoppingCartTotal += Number(arrayShoppingCart[nI].price);
-				g_structOrderDetails.fShoppingCartTotalMass += Number(arrayShoppingCart[nI].weigth);
+				for (let nI = 0; nI < arrayShoppingCart.length; nI++)
+				{
+					document.write("<p class=\"Paragraph\"><b>Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>" + arrayShoppingCart[nI].title + "<br/>");
+					document.write("<b>Author: </b>" + arrayShoppingCart[nI].author + "<br/>");
+					document.write("<b>Price: &nbsp;&nbsp;&nbsp;</b>$" + arrayShoppingCart[nI].price + "<br/>"); 
+					document.write("<b><u>Summary</u></b><br/>" + arrayShoppingCart[nI].summary + "<br/>");
+					document.write("<img width=\"100\" alt=\"images/" + arrayShoppingCart[nI].image_filename + "\""); 
+					document.write("src=\"" + g_strURL + arrayShoppingCart[nI].image_filename + "\" /><br/><br/>");
+												
+					document.write("<button type=\"button\" style=\"" + g_strButtonStyles + "display:inline-block;\" onclick=\"OnClickRemoveCartButton_('" + arrayShoppingCart[nI].id + "')\">"); 
+					document.write("<img src=\"/images/remove_shopping_cart.png\" alt=\"Remove from cart\" /></button>&nbsp;");
+					document.write("<br/><hr><br/><br/>");
+					
+					g_structOrderDetails.arrayShoppingCartItems.push(arrayShoppingCart[nI]);
+					g_structOrderDetails.fShoppingCartTotal += Number(arrayShoppingCart[nI].price);
+					g_structOrderDetails.fShoppingCartTotalMass += Number(arrayShoppingCart[nI].weight);
+				}
 			}
-			document.write(document.getElementById("OrderForm").innerHTML);
-			document.write("<a class=\"SubmitOrderButton\" id=\"SubmitOrderButton\" href=\"\">SUBMIT ORDER</a><br/><br/>");
-		
-			if (localStorage["TextGivenNames"])
-				document.getElementById("TextGivenNames").value = localStorage["TextGivenNames"];
-			if (localStorage["TextSurname"])
-				document.getElementById("TextSurname").value = localStorage["TextSurname"];
-			if (localStorage["TextEmail"])
-				document.getElementById("TextEmail").value = localStorage["TextEmail"];
-			if (localStorage["TextPhoneNumber"])
-				document.getElementById("TextPhoneNumber").value = localStorage["TextPhoneNumber"];
-			if (localStorage["TextAddress"])
-				document.getElementById("TextAddress").value = localStorage["TextAddress"];
-			if (localStorage["TextSuburb"])
-				document.getElementById("TextSuburb").value = localStorage["TextSuburb"];
-			if (localStorage["SelState"])
-				document.getElementById("SelState").selectedIndex = GetlSelectedIndex(document.getElementById("SelState"), localStorage["SelState"]);
-			if (localStorage["TextPostcode"])
-				document.getElementById("TextPostcode").value = localStorage["TextPostcode"];	
+			else
+			{
+				document.write("<h1>YOUR SHOPPING CART IS EMPTY</h1>");
+			}
 		}
+	}
+	
+	function InitContactForm()
+	{
+		if (localStorage["TextGivenNames"])
+			document.getElementById("TextGivenNames").value = localStorage["TextGivenNames"];
+		if (localStorage["TextSurname"])
+			document.getElementById("TextSurname").value = localStorage["TextSurname"];
+		if (localStorage["TextEmail"])
+			document.getElementById("TextEmail").value = localStorage["TextEmail"];
+		if (localStorage["TextMobile"])
+			document.getElementById("TextMobile").value = localStorage["TextMobile"];
+		if (localStorage["TextPhoneNumber"])
+			document.getElementById("TextPhoneNumber").value = localStorage["TextPhoneNumber"];
+		if (localStorage["TextAddress"])
+			document.getElementById("TextAddress").value = localStorage["TextAddress"];
+		if (localStorage["TextSuburb"])
+			document.getElementById("TextSuburb").value = localStorage["TextSuburb"];
+		if (localStorage["SelState"])
+			document.getElementById("SelState").selectIndex = localStorage["SelState"];
+		if (localStorage["TextPostcode"])
+			document.getElementById("TextPostcode").value = localStorage["TextPostcode"];	
 	}
 	
 	function OnClickRemoveCartButton_(strID)
@@ -455,7 +480,7 @@
 					
 	function SetShowHideShoppingCartLink()
 	{
-		var spanHideShoppingCart = document.getElementById("hide_shopping_cart_span"),
+		let spanHideShoppingCart = document.getElementById("hide_shopping_cart_span"),
 			spanShowShoppingCart = document.getElementById("show_shopping_cart_span");
 			
 		if (spanHideShoppingCart && spanShowShoppingCart)
@@ -471,7 +496,7 @@
 				spanShowShoppingCart.style.display = "inline";
 			}
 		}
-		var linkHideShoppingCart = document.getElementById("hide_shopping_cart_link");
+		let linkHideShoppingCart = document.getElementById("hide_shopping_cart_link");
 			
 		if (linkHideShoppingCart && sessionStorage["href"])
 			linkHideShoppingCart.href = sessionStorage["href"];
@@ -490,7 +515,7 @@
 	
 	function OnClickHideCartButton()
 	{
-		var spanHideShoppingCart = document.getElementById("hide_shopping_cart_span"),
+		let spanHideShoppingCart = document.getElementById("hide_shopping_cart_span"),
 			spanShowShoppingCart = document.getElementById("show_shopping_cart_span");
 			
 		if (spanHideShoppingCart && spanShowShoppingCart)
@@ -599,11 +624,14 @@
 	
 	function DoGetAustraliaPostZone(nPostcode)
 	{
-		var strZone = "";
+		let strZone = "";
 		
 		if (((nPostcode >= 200) && (nPostcode <= 299)) ||
+			((nPostcode >= 2264) && (nPostcode <= 2484)) ||
+			((nPostcode >= 2485) && (nPostcode <= 2486)) ||
 			((nPostcode >= 2487) && (nPostcode <= 2499)) ||
 			((nPostcode >= 2531) && (nPostcode <= 2554)) ||
+			((nPostcode >= 2575) && (nPostcode <= 2639)) ||
 			((nPostcode >= 2787) && (nPostcode <= 2879)) ||
 			((nPostcode >= 2881) && (nPostcode <= 2889)) ||
 			((nPostcode >= 2891) && (nPostcode <= 2898)) ||
@@ -620,6 +648,7 @@
 				 ((nPostcode >= 3221) && (nPostcode <= 3334)) ||
 				 ((nPostcode >= 3342) && (nPostcode <= 3424)) ||
 				 ((nPostcode >= 3444) && (nPostcode <= 3688)) ||
+				 ((nPostcode >= 3689) && (nPostcode <= 3690)) ||
 				 ((nPostcode >= 3691) && (nPostcode <= 3749)) ||
 				 ((nPostcode >= 3812) && (nPostcode <= 3909)) ||
 				 ((nPostcode >= 3921) && (nPostcode <= 3925)) ||
@@ -628,7 +657,12 @@
 				 ((nPostcode >= 3984) && (nPostcode <= 3999)))
 			strZone = "V2";
 		else if (((nPostcode >= 3000) && (nPostcode <= 3220)) ||
+				 ((nPostcode >= 3335) && (nPostcode <= 3341)) ||
+				 ((nPostcode >= 3425) && (nPostcode <= 3443)) ||
+				 ((nPostcode >= 3750) && (nPostcode <= 3811)) ||
+				 ((nPostcode >= 3910) && (nPostcode <= 3920)) ||
 				 ((nPostcode >= 3926) && (nPostcode <= 3944)) ||
+				 ((nPostcode >= 3945) && (nPostcode <= 3971)) ||
 				 ((nPostcode >= 3972) && (nPostcode <= 3978)) ||
 				 ((nPostcode >= 3980) && (nPostcode <= 3983)) ||
 				 ((nPostcode >= 8000) && (nPostcode <= 8999)))
@@ -638,7 +672,8 @@
 				 ((nPostcode >= 4500) && (nPostcode <= 4549)) ||
 				 ((nPostcode >= 9000) && (nPostcode <= 9299)) ||
 				 ((nPostcode >= 9400) && (nPostcode <= 9596)) ||
-				 ((nPostcode >= 9700) && (nPostcode <= 9799)))
+				 ((nPostcode >= 9700) && (nPostcode <= 9799)) ||
+				  (nPostcode == 4225))
 			strZone = "Q1";
 		else if (((nPostcode >= 4300) && (nPostcode <= 4449)) ||
 				 ((nPostcode >= 4550) && (nPostcode <= 4699)) ||
@@ -654,7 +689,7 @@
 		else if (((nPostcode >= 5000) && (nPostcode <= 5199)) ||
 				 ((nPostcode >= 5800) && (nPostcode <= 5999)))
 			strZone = "S1";
-		else if ((nPostcode >= 5200) && (nPostcode <= 5749))
+		else if (((nPostcode >= 5200) && (nPostcode <= 5749)) || (nPostcode == 2880))
 			strZone = "S2";
 		else if (((nPostcode >= 800) && (nPostcode <= 999)))
 			strZone = "NT1";
@@ -679,13 +714,15 @@
 			strZone = "V2";
 		else if (nPostcode == 4225)
 			strZone = "Q2";
+		else if (nPostcode == 2899)
+			strZone = "NF";
 			
 		return strZone;
 	}
 	
 	function DoGetDistanceCharge(strZone)
 	{
-		var fUnitCostPerKg = 0;
+		let fUnitCostPerKg = 0;
 		
 		if (strZone == "N1")
 			fUnitCostPerKg = 2.25;
@@ -729,10 +766,10 @@
 	
 	function DoCalculatePostage(strPostcode, fTotalMass)
 	{
-		var strZone = DoGetAustraliaPostZone(Number(strPostcode)),
+		let strZone = DoGetAustraliaPostZone(parseInt(strPostcode)),
 			fUnitCostPerKg = DoGetDistanceCharge(strZone),
 			fPostage = 21.95 + ((Number(fTotalMass) / 1000) * fUnitCostPerKg);
-		
+			
 		return fPostage;
 	}
 	
@@ -757,12 +794,16 @@
 		document.getElementById("TextPostcode").value = "";
 	}
 	
-	function isValidEmail(strEmail)
+	function isValidEmail(textEmail)
 	{
-		var bIsValid = false;
+		let bIsValid = false,
+			strEmail = textEmail.value;
 		
 		if (strEmail.length == 0)
+		{
 			AlertError("Email address cannot be blank!");
+			textEmail.focus();
+		}
 		else
 		{
 			let nPosAt = strEmail.indexOf("@"),
@@ -771,78 +812,145 @@
 			if ((nPosAt > -1) && (nPosDot > -1) && (nPosDot > nPosAt))
 				bIsValid = true;
 			else
+			{
 				AlertError("'" + strEmail + "' is not a valid email address!");
+				textEmail.focus();
+			}
 		}
 		return bIsValid;
 	}
 	
-	function isValidPhoneNumber(strPhoneNumber)
+	function isValidPhoneNumber(textPhoneNumber)
 	{
-		var bIsValid = false;
+		let bIsValid = false,
+			strPhoneNumber = textPhoneNumber.value;
 	
 		if (strPhoneNumber.length == 0)
+		{
 			AlertError("Phone number cannot be blank!");
+			textPhoneNumber.focus();
+		}
+		else if (strPhoneNumber.length < 8) 
+		{
+			AlertError("'" + strPhoneNumber + "' is not valid number!");
+			textPhoneNumber.focus();
+		}		
 		else
 		{
 			bIsValid = true;
-			for (let nI = 0; nI < strPhoneNumber.length; nI++)
-			{
-				bIsValid = (strPhoneNumber[nI] >= '0') && (strPhoneNumber[nI] <= '9');
-				if (!bIsValid)
-					break;
-			}
-			if (!bIsValid)
-				AlertError("'" + strPhoneNumber + "' is not a valid phone number!");
-		}
+		}		
 		return bIsValid;
 	}
 	
-	function isValidGivenNames(strName)
+	function isValidMobile(textMobile)
 	{
-		var bIsValid = false;
+		let bIsValid = false,
+			strMobile = textMobile.value;
+	
+		if (strMobile .length == 0)
+		{
+			AlertError("Phone number cannot be blank!");
+			textPhoneNumber.focus();
+		}
+		else if (strMobile .length < 8) 
+		{
+			AlertError("'" + strMobile + "' is not valid number!");
+			textPhoneNumber.focus();
+		}
+		else
+		{
+			bIsValid = true;
+		}		
+		return bIsValid;
+	}
+	
+	function isValidGivenNames(textName)
+	{
+		let bIsValid = false,
+			strName = textName.value;
 	
 		if (strName.length == 0)
+		{
 			AlertError("Given names cannot be blank!");
+			textName.focus();
+		}
 		else
 			bIsValid = true;
 			
 		return bIsValid;
 	}
 	
-	function isValidSurname(strName)
+	function isValidSurname(textName)
 	{
-		var bIsValid = false;
+		let bIsValid = false,
+			strName = textName.value;
 		
 		if (strName.length == 0)
+		{
 			AlertError("Surname cannot be blank!");
+			textName.focus();
+		}
 		else
 			bIsValid = true;
 			
 		return bIsValid;
+	}
+	
+	function isValidPostcode(textPostCode)
+	{
+		let bIsValid = false,
+			strPostCode = textPostCode.value;
+		
+		if (strPostCode.length == 0)
+		{
+			AlertError("Postcode cannot be blank!");
+			textPostCode.focus();
+		}
+		else if (strPostCode.length < 4)
+		{
+			AlertError("Postcode must be 4 digits!");
+			textPostCode.focus();
+		}
+		else
+			bIsValid = true;
+			
+		return bIsValid;
+	}
+	
+	function OnSelStateChange(selState, labelAreaCode)
+	{
+		if (selState && labelAreaCode)
+		{
+			labelAreaCode.innerText = selState.options[selState.selectedIndex].value;
+		}
 	}
 	
 	function DoValidateOrderDetails()
 	{
-		var textGivenNames = document.getElementById("TextGivenNames"), textSurname = document.getElementById("TextSurname"),
+		let textGivenNames = document.getElementById("TextGivenNames"), textSurname = document.getElementById("TextSurname"),
 			textEmail = document.getElementById("TextEmail"), textPhoneNumber = document.getElementById("TextPhoneNumber"),
+			textMobile = document.getElementById("TextMobile"),
 			textAddress = document.getElementById("TextAddress"), selState = document.getElementById("SelState"),
-			textSuburb = document.getElementById("TextSuburb"), selPostcode = document.getElementById("SelPostcode"),
-			linkSubmitOrder = document.getElementById("SubmitOrderButton"), fPostage = 0;
+			textSuburb = document.getElementById("TextSuburb"), textPostcode = document.getElementById("TextPostcode"),
+			labelAreaCode = document.getElementById("LabelAreaCode"),
+			linkSubmitOrder = document.getElementById("ButtonSubmitOrder"), fPostage = 0;
 	
-		if (linkSubmitOrder && textGivenNames && textSurname && textEmail && textPhoneNumber && selState && textSuburb && selPostcode && textAddress)
+		if (linkSubmitOrder && textGivenNames && textSurname && textEmail && textPhoneNumber && selState && textSuburb && textPostcode && textAddress)
 		{
-			if (isValidGivenNames(textGivenNames.value) && isValidSurname(textSurname.value) && isValidEmail(textEmail.value) && isValidPhoneNumber(textPhoneNumber.value))
+			if (isValidGivenNames(textGivenNames) && isValidSurname(textSurname) && isValidEmail(textEmail) && 
+				isValidPhoneNumber(textPhoneNumber) && isValidPostcode(textPostcode) && isValidMobile(textMobile))
 			{
-				fPostage = DoCalculatePostage(selPostcode.options[selPostcode.selectedIndex].value, g_structOrderDetails.fShoppingCartTotalMass) + 0;
+				fPostage = DoCalculatePostage(textPostcode.value, g_structOrderDetails.fShoppingCartTotalMass) + 0;
 				
 				linkSubmitOrder.href = "mailto: " + g_strEmail + "?" +
 								"subject=BOOK ORDER&body=Name: " + textGivenNames.value + " " + textSurname.value + "%0D%0A" +
-								"Email: " + textEmail.value + "%0D%0A" +  "Mobile: " + textPhoneNumber.value + "%0D%0A%0D%0A" +
+								"Email: " + textEmail.value + "%0D%0A" +  "Phone: " + "(" + labelAreaCode.innerText + ")" + 
+								textPhoneNumber.value + "%0D%0A%0D%0A" + "Mobile: " + textMobile.value + "%0D%0A%0D%0A"
 								
 								"Unit/Street: " + textAddress.value + "%0D%0A" +
 								"City/Suburb/Town: " + textSuburb.value + "%0D%0A" +
-								"State: " + selState.options[selState.selectedIndex].value + "%0D%0A" +
-								"Postcode: " + selPostcode.options[selPostcode.selectedIndex].value + "%0D%0A%0D%0A" +
+								"State: " + selState.options[selState.selectedIndex].text + "%0D%0A" +
+								"Postcode: " + textPostcode.value + "%0D%0A%0D%0A" +
 	
 								g_structOrderDetails.strShoppingCartItems + "%0D%0A%0D%0AORDER SUBTOTAL: $" + g_structOrderDetails.fShoppingCartTotal.toFixed(2) + 
 								"%0D%0APOSTAGE & HANDLING: $" + fPostage.toFixed(2) + "%0D%0ATOTAL: $" + (fPostage + g_structOrderDetails.fShoppingCartTotal).toFixed(2);
@@ -850,17 +958,42 @@
 				localStorage["TextGivenNames"] = document.getElementById("TextGivenNames").value;
 				localStorage["TextSurname"] = document.getElementById("TextSurname").value;
 				localStorage["TextEmail"] = document.getElementById("TextEmail").value;
+				localStorage["TextMobile"] = document.getElementById("TextMobile").value;
 				localStorage["TextPhoneNumber"] = document.getElementById("TextPhoneNumber").value;
 				localStorage["TextAddress"] = document.getElementById("TextAddress").value;
 				localStorage["TextSuburb"] = document.getElementById("TextSuburb").value;
-				localStorage["SelState"] = document.getElementById("SelState").options[document.getElementById("SelState").selectedIndex].value;
-				localStorage["SelPostcode"] = document.getElementById("SelPostcode").options[document.getElementById("SelPostcode").selectedIndex].value;
+				localStorage["SelState"] = document.getElementById("SelState").selectedIndex;
+				localStorage["TextPostcode"] = document.getElementById("TextPostcode").value;
 			
+				g_structOrderDetails.strGivenNames = document.getElementById("TextGivenNames").value;
+				g_structOrderDetails.strSurname = document.getElementById("TextSurname").value;
+				g_structOrderDetails.strEmail = document.getElementById("TextEmail").value;
+				g_structOrderDetails.strMobile = document.getElementById("TextMobile").value;
+				g_structOrderDetails.strPhone = document.getElementById("TextPhoneNumber").value;
+				g_structOrderDetails.strStreet = document.getElementById("TextAddress").value;
+				g_structOrderDetails.strSuburb = document.getElementById("TextSuburb").value;
+				g_structOrderDetails.strState = document.getElementById("SelState").options[document.getElementById("SelState").selectedIndex].text;
+				g_structOrderDetails.strPostcode = document.getElementById("TextPostcode").value;
+				g_structOrderDetails.fPostage = fPostage;
+
 				document.getElementById("TextSubtotal").value = "$" + g_structOrderDetails.fShoppingCartTotal.toFixed(2);
 				document.getElementById("TextPostage").value = "$" + fPostage.toFixed(2);
 				document.getElementById("TextTotal").value = "$" + (g_structOrderDetails.fShoppingCartTotal + fPostage).toFixed(2);
-				linkSubmitOrder.style.display="inline";
+				
+				document.getElementById("OrderTotals").style.display = "block";
 			}
+		}
+	}
+	
+	function DoSubmitOrder()
+	{
+		let hiddenShoppingCart = document.getElementById("hidden_shopping_cart"),
+			formOrder =  document.getElementById("OrderForm");
+		
+		if (hiddenShoppingCart && formOrder)
+		{
+			hiddenShoppingCart.value = JSON.stringify(g_structOrderDetails);
+			formOrder.submit();
 		}
 	}
 	

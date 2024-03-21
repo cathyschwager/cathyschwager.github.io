@@ -22,64 +22,10 @@
 		<!-- #EndEditable -->
 		<link href="styles/style.css" rel="stylesheet" type="text/css" />
 		
-		<div id="OrderForm" style="display:none;">
-			<h4>CONTACT DETAILS FOR ORDER</h4>
-
-			<form id="OrderForm" method="post" class="OrderDetailsForm">
-				<label id="LabelGivenNames" for="GivenNames"><b>Given names</b></label><br/>
-				<input id="TextGivenNames" type="text" size="30"/><br/><br/>
-				
-				<label id="LabelSurname" for="Surname"><b>Surname</b></label><br/>
-				<input id="TextSurname" type="text" size="30"/><br/><br/>
-				
-				<label id="LabelEmail" for="Email"><b>Email address</b></label><br/>
-				<input id="TextEmail" type="text" size="50"/><br/><br/>
-				
-				<label id="LabelMobile" for="Phone"><b>Phone number</b></label><br/>
-				<input id="TextPhoneNumber" type="text" size="15" onkeydown="return IsDigit(event)"/><br/><br/>
-				
-				<label id="LabelAddress" for="Address"><b>Unit/Street </b></label><br/>
-				<input id="TextAddress" type="text" size="60"/><br/><br/>
-
-				<label id="LabelSuburb" for="Address"><b>City/Suburb/Town </b></label><br/>
-				<input type="text" id="TextSuburb" size="30" /><br/><br/>
-
-				<label id="LabelState" for="Address"><b>State </b></label><br/>
-				<select id="SelState">
-					<option value="ACT">ACT</option>
-					<option value="NSW">NSW</option>
-					<option value="NT">NT</option>
-					<option value="QLD">QLD</option>
-					<option value="SA">SA</option>
-					<option value="TAS">TAS</option>
-					<option value="VIC" selected>VIC</option>
-					<option value="WA">WA</option>
-				</select><br/><br/>
-
-				<label id="LabelPostcode" for="Address"><b>Postcode </b></label><br/>
-				<input type="text" id="TextPostcode" onkeydown="return IsDigit(event)"/><br/><br/>
-				
-				<input id="ButtonClear" type="button" value="ERASE DETAILS" class="NextButton" onclick="DoEraseDetails()"/>
-				<br/><br/>
-
-				<label id="LabelSubtotal" for="Subtotal"><b>Subtotal </b></label><br/>
-				<b>$ </b><input id="TextSubtotal" type="text" size="10" readonly /><br/><br/>
-
-				<label id="LabelPostage" for="Postage"><b>Postage &amp; handling </b></label><br/>
-				<b>$ </b><input id="TextPostage" type="text" size="10" readonly /><br/><br/>
-
-				<label id="LabelTotal" for="Postage"><b>Total </b></label><br/>
-				<b>$ </b><input id="TextTotal" type="text" size="10" readonly /><br/><br/>
-
-				<input id="ButtonNext" type="button" value="NEXT" class="NextButton" onclick="DoValidateOrderDetails()"/>
-			</form>
-			<br/><br/>
-		</div>
-
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 
@@ -227,36 +173,143 @@
 					<!-- #BeginEditable "content" -->
 					
 					
-					
-					
-					
-					
-					
-		<style>
-</style>		
+						<?php
+						
+							if (isset($_POST["hidden_shopping_cart"]))
+							{
+								$arrayShoppingCart = json_decode($_POST["hidden_shopping_cart"]);
+								//print_r($arrayShoppingCart);
+								
+								/*
+									stdClass Object 
+									( 
+										[arrayShoppingCartItems] => 
+											Array 
+											( 
+												[0] => 
+													stdClass Object 
+													( 
+														[id] => 5 [title] => Harry Potter & the Philosopher's Stone 
+														[author] => J.K.Rowling [price] => 10.00 
+														[summary] => The novel introduces readers to the magical world of Hogwarts School of Witchcraft and Wizardry and follows the adventures of a young boy named Harry Potter. Harry Potter is an orphan who has been living with his cruel and neglectful relatives, the Dursleys, ever since his parents were killed by the dark wizard Lord Voldemort when he was just a baby. On his eleventh birthday, Harry receives a letter from a mysterious messenger informing him that he is a wizard and has been accepted to attend Hogwarts. 
+														[image_filename] => fiction/fantasy/images/HPPS220.jpg 
+														[weight] => 0000000220 
+														[type] => Soft Cover 
+													) 
+											) 
+										[fShoppingCartTotal] => 10 
+										[fShoppingCartTotalMass] => 220 
+										[strGivenNames] => Greg 
+										[strSurname] => Boyles 
+										[strEmail] => gregplants@bigpond.com 
+										[strMobile] => 0455328886 
+										[strPhone] => 94013696 
+										[strStreet] => 20 Bassets Road 
+										[strSuburb] => Doreen 
+										[strState] => VIC 
+										[strPostcode] => 3754 
+										[fPostage] => 22.36
+									) 								
+								*/
+								$strNewLine = "\r\n";
+								$strMessage = "FROM: " . $arrayShoppingCart->strGivenNames . " " . $arrayShoppingCart->strSurname . 
+												$strNewLine . "MOBILE: " . $arrayShoppingCart->strMobile . 
+												$strNewLine . "PHONE: " . $arrayShoppingCart->strPhone .
+												$strNewLine . "ADDRESS: " .  $arrayShoppingCart->strStreet . ", " .  $arrayShoppingCart->strSuburb . ", " .  
+												$arrayShoppingCart->strState . ", " . $arrayShoppingCart->strPostcode . 
+												$strNewLine . $strNewLine . "BOOKS" . $strNewLine . "------" . $strNewLine;
+								
+								$arrayShoppingCartItems = $arrayShoppingCart->arrayShoppingCartItems;	
+								for ($nI = 0; $nI < count($arrayShoppingCartItems); $nI++)
+								{
+									$strMessage .= "ID: " . $arrayShoppingCartItems[$nI]->id . $strNewLine . 
+													"TITLE: " . $arrayShoppingCartItems[$nI]->title . $strNewLine .
+													"AUTHOR: " . $arrayShoppingCartItems[$nI]->author . $strNewLine .
+													"TYPE: " . $arrayShoppingCartItems[$nI]->type . $strNewLine .
+													"PRICE: $" . $arrayShoppingCartItems[$nI]->price . 
+													$strNewLine . $strNewLine;
+								}				
+								$strMessage .= $strNewLine . $strNewLine . "POSTAGE: $" . $arrayShoppingCart->fPostage . 	
+												$strNewLine . "TOTAL: $" . $arrayShoppingCart->fShoppingCartTotal;
 
-				<script type="text/javascript">
+								mail($g_strEmailCathy, "Order from Kate's Castle Book Emporium", $strMessage, "From: " . $arrayShoppingCart->strEmail . "\r\nCC: " . $g_strEmailAdmin);
+							}
+						?>
 
-					g_arrayCategoryBookmarks= [];
+						<script type="text/javascript">
+							GenerateShoppingCartContents();
+						</script>
 					
-					g_arrayCategoryBookLists = [];
-					
-				</script>
+						<div id="OrderFormDiv">
 				
-					
-					
-					
-					
-					
-					
-						<script type="text/javascript">GenerateShoppingCartContents();</script>	
+							<form id="OrderForm" method="post" class="OrderDetailsForm">
+								<h4>CONTACT DETAILS</h4>
+								<label id="LabelGivenNames" for="GivenNames"><b>Given names</b></label><br/>
+								<input id="TextGivenNames" type="text" size="30"/><br/><br/>
+								
+								<label id="LabelSurname" for="Surname"><b>Surname</b></label><br/>
+								<input id="TextSurname" type="text" size="30"/><br/><br/>
+								
+								<label id="LabelEmail" for="Email"><b>Email address</b></label><br/>
+								<input id="TextEmail" type="text" size="50"/><br/><br/>
+								
+								<label id="LabelMobile" for="Phone"><b>Mobile number</b></label><br/>
+								<input id="TextMobile" type="text" size="15" maxlength="10"onkeydown="return IsDigit(event)"/><br/><br/>
+								
+								<label id="LabelPhone" for="Phone"><b>Phone number</b></label><br/>
+								(<label id="LabelAreaCode">00</label>)&nbsp;
+								<input id="TextPhoneNumber" type="text" size="15" maxlength="10"onkeydown="return IsDigit(event)"/><br/><br/>
+								
+								<label id="LabelAddress" for="Address"><b>Unit/Street </b></label><br/>
+								<input id="TextAddress" type="text" size="60"/><br/><br/>
+				
+								<label id="LabelSuburb" for="Address"><b>City/Suburb/Town </b></label><br/>
+								<input type="text" id="TextSuburb" size="30" /><br/><br/>
+				
+								<label id="LabelState" for="Address"><b>State </b></label><br/>
+								<select id="SelState" onchange="OnSelStateChange(this, document.getElementById('LabelAreaCode'))">
+									<option value="02">ACT</option>
+									<option value="02">NSW</option>
+									<option value="08">NT</option>
+									<option value="07">QLD</option>
+									<option value="08">SA</option>
+									<option value="03">TAS</option>
+									<option value="03" selected>VIC</option>
+									<option value="08">WA</option>
+								</select><br/><br/>
+				
+								<label id="LabelPostcode" for="Address"><b>Postcode </b></label><br/>
+								<input type="text" id="TextPostcode" maxlength="4" onkeydown="return IsDigit(event)"/><br/><br/>
+								
+								<input id="ButtonClear" type="button" value="ERASE DETAILS" class="NextButton" onclick="DoEraseDetails()"/>
+								<br/><br/>
+								<input id="ButtonNext" type="button" value="NEXT" class="NextButton" onclick="DoValidateOrderDetails()"/>
+								<br/><br/>
+								<div id="OrderTotals" style="display:none;">
+									<h4>TOTALS</h4>
 
+									<label id="LabelSubtotal" for="Subtotal"><b>Subtotal </b></label><br/>
+									<b>$ </b><input id="TextSubtotal" type="text" size="10" readonly /><br/><br/>
 					
+									<label id="LabelPostage" for="Postage"><b>Postage &amp; handling </b></label><br/>
+									<b>$ </b><input id="TextPostage" type="text" size="10" readonly /><br/><br/>
 					
-					
-					
-					
-					
+									<label id="LabelTotal" for="Postage"><b>Total </b></label><br/>
+									<b>$ </b><input id="TextTotal" type="text" size="10" readonly /><br/><br/>
+									<br/><br/>
+									<input id="ButtonSubmitOrder" type="button" value="SUBMIT ORDER" class="NextButton" onclick="DoSubmitOrder()"/>
+									<br/><br/>
+								</div>
+								<input type="hidden" value="" name="hidden_shopping_cart" id="hidden_shopping_cart" />
+							</form>
+							<br/><br/>
+						</div>
+						
+						<script type="text/javascript"> 
+							OnSelStateChange(document.getElementById("SelState"), document.getElementById("LabelAreaCode"));
+							InitContactForm();
+						</script>
+										
 					<!-- #EndEditable -->
 				</div>
 				<!-- End Content -->
