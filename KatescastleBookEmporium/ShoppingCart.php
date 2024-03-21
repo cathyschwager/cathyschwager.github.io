@@ -175,6 +175,13 @@
 					
 						<?php
 						
+							$g_strDisplayPaypal = "none";
+							$g_strDisplayTotals = "none";
+							$g_fSubTotal = 0;
+							$g_fPostage = 0;
+							$g_fTotal = 0;
+							$g_strSubmitButtonText = "SUBMIT ORDER";
+
 							if (isset($_POST["hidden_shopping_cart"]))
 							{
 								$arrayShoppingCart = json_decode($_POST["hidden_shopping_cart"]);
@@ -219,7 +226,8 @@
 												$arrayShoppingCart->strState . ", " . $arrayShoppingCart->strPostcode . 
 												$strNewLine . $strNewLine . "BOOKS" . $strNewLine . "------" . $strNewLine;
 								
-								$arrayShoppingCartItems = $arrayShoppingCart->arrayShoppingCartItems;	
+								$arrayShoppingCartItems = $arrayShoppingCart->arrayShoppingCartItems;
+								
 								for ($nI = 0; $nI < count($arrayShoppingCartItems); $nI++)
 								{
 									$strMessage .= "ID: " . $arrayShoppingCartItems[$nI]->id . $strNewLine . 
@@ -228,11 +236,18 @@
 													"TYPE: " . $arrayShoppingCartItems[$nI]->type . $strNewLine .
 													"PRICE: $" . $arrayShoppingCartItems[$nI]->price . 
 													$strNewLine . $strNewLine;
+									$g_fSubTotal += floatval($arrayShoppingCartItems[$nI]->price);
 								}				
+								$g_fPostage = $arrayShoppingCart->fPostage;
+								$g_fTotal = $g_fSubTotal + $g_fPostage;
+
 								$strMessage .= $strNewLine . $strNewLine . "POSTAGE: $" . $arrayShoppingCart->fPostage . 	
 												$strNewLine . "TOTAL: $" . $arrayShoppingCart->fShoppingCartTotal;
-
-								mail($g_strEmailCathy, "Order from Kate's Castle Book Emporium", $strMessage, "From: " . $arrayShoppingCart->strEmail . "\r\nCC: " . $g_strEmailAdmin);
+							
+								$g_strDisplayPaypal = $g_strDisplayTotals = "block";
+								$g_strSubmitButtonText = "RESUBMIT ORDER";
+								//mail($g_strEmailCathy, "Order from Kate's Castle Book Emporium", $strMessage, "From: " . $arrayShoppingCart->strEmail . "\r\nCC: " . $g_strEmailAdmin);
+								PrintJavascriptLine("AlertSuccess(\"Your order has been emailed to Cathy...\")", 1, true);
 							}
 						?>
 
@@ -285,20 +300,39 @@
 								<br/><br/>
 								<input id="ButtonNext" type="button" value="NEXT" class="NextButton" onclick="DoValidateOrderDetails()"/>
 								<br/><br/>
-								<div id="OrderTotals" style="display:none;">
+								<div id="OrderTotals" style="display:<?php echo $g_strDisplayTotals; ?>;">
 									<h4>TOTALS</h4>
 
 									<label id="LabelSubtotal" for="Subtotal"><b>Subtotal </b></label><br/>
-									<b>$ </b><input id="TextSubtotal" type="text" size="10" readonly /><br/><br/>
+									<b>$ </b><input id="TextSubtotal" type="text" size="10" value="<?php echo sprintf("%.2f", $g_fSubTotal); ?>" readonly /><br/><br/>
 					
 									<label id="LabelPostage" for="Postage"><b>Postage &amp; handling </b></label><br/>
-									<b>$ </b><input id="TextPostage" type="text" size="10" readonly /><br/><br/>
+									<b>$ </b><input id="TextPostage" type="text" size="10" value="<?php echo sprintf("%.2f", $g_fPostage); ?>" readonly /><br/><br/>
 					
 									<label id="LabelTotal" for="Postage"><b>Total </b></label><br/>
-									<b>$ </b><input id="TextTotal" type="text" size="10" readonly /><br/><br/>
+									<b>$ </b><input id="TextTotal" type="text" size="10" value="<?php echo sprintf("%.2f", $g_fTotal); ?>" readonly /><br/><br/>
 									<br/><br/>
-									<input id="ButtonSubmitOrder" type="button" value="SUBMIT ORDER" class="NextButton" onclick="DoSubmitOrder()"/>
+									<input id="ButtonSubmitOrder" type="button" value="<?php echo $g_strSubmitButtonText; ?>" class="NextButton" onclick="DoSubmitOrder()"/>
 									<br/><br/>
+								</div>
+								<h4>PAYMENT</h4>
+								<p>Paypal or direct bank transfer...</p>
+								<p>Use the email address <?php echo $g_strEmailCathy; ?> for Paypal...</p>
+								<div id="Payment" style="display:<?php echo $g_strDisplayPaypal; ?>;">
+									<table border="0" cellpadding="15" cellspacing="0">
+										<tr>
+											<td><a href="https://www.paypal.com"><img src="/images/Paypal.png" alt="" width="40" /></a></td>
+											<td><a href="https://www.nab.com.au/personal/online-banking"><img src="/images/NAB.png" alt="" width="75" /></a></td>
+											<td><a href="https://www.my.commbank.com.au/netbank/Logon/Logon.aspx"><img src="/images/Commonwealth.png" alt="" width="60" /></a></td>
+											<td><a href="https://www.macquarie.com.au"><img src="/images/Macquarie.png" alt="" width="55" /></a></td>
+										</tr>
+										<tr>
+											<td><a href="https://www.bendigobank.com.au"><img src="/images/BendigoBank.png" alt="" width="65" /></a></td>
+											<td><a href="https://www.anz.com.au/ways-to-bank/internet-banking/personal/"><img src="/images/ANZ.png" alt="" width="40" /></a></td>
+											<td><a href="https://banking.westpac.com.au/wbc/banking/handler?TAM_OP=login&URL=https%3A%2F%2Fbanking.westpac.com.au%2Fsecure%2Fbanking%2Foverview%2Fdashboard&logout=false"><img src="/images/Westpac.png" alt="" width="100" /></a></td>
+											<td><a href="https://ibanking.bankofmelbourne.com.au/ibank/loginPage.action"><img src="/images/BOM.png" alt="" width="130" /></a></td>
+										</tr>
+									</table>
 								</div>
 								<input type="hidden" value="" name="hidden_shopping_cart" id="hidden_shopping_cart" />
 							</form>
