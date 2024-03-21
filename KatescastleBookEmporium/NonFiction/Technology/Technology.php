@@ -35,7 +35,7 @@
 				<label id="LabelEmail" for="Email"><b>Email address</b></label><br/>
 				<input id="TextEmail" type="text" size="50"/><br/><br/>
 				
-				<label id="LabelMobile" for="Phone"><b>Phone number (digits only) </b></label><br/>
+				<label id="LabelMobile" for="Phone"><b>Phone number</b></label><br/>
 				<input id="TextPhoneNumber" type="text" size="15" onkeydown="return IsDigit(event)"/><br/><br/>
 				
 				<label id="LabelAddress" for="Address"><b>Unit/Street </b></label><br/>
