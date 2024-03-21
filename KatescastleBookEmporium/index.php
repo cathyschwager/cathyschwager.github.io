@@ -14,33 +14,41 @@
 		<style>
 </style>	
 			
+				<script type="text/javascript">
+
+					g_arrayTopicBookmarks = [];
+					
+					g_arrayTopicBookLists = [];
+					
+				</script>
+				
 		<!-- #EndEditable -->
-		<link href="/styles/style.css" rel="stylesheet" type="text/css" />
+		<link href="styles/style.css" rel="stylesheet" type="text/css" />
 		
 		<div id="OrderForm" style="display:none;">
 			<h4>CONTACT DETAILS FOR ORDER</h4>
 
 			<form id="OrderForm" method="post" class="OrderDetailsForm">
 				<label id="LabelGivenNames" for="GivenNames"><b>Given names</b></label><br/>
-				<input id="TextGivenNames" type="text" size="30"/><br/>
+				<input id="TextGivenNames" type="text" size="30"/><br/><br/>
 				
 				<label id="LabelSurname" for="Surname"><b>Surname</b></label><br/>
-				<input id="TextSurname" type="text" size="30"/><br/>
+				<input id="TextSurname" type="text" size="30"/><br/><br/>
 				
 				<label id="LabelEmail" for="Email"><b>Email address</b></label><br/>
-				<input id="TextEmail" type="text" size="50"/><br/>
+				<input id="TextEmail" type="text" size="50"/><br/><br/>
 				
 				<label id="LabelMobile" for="Phone"><b>Phone number (digits only) </b></label><br/>
-				<input id="TextPhoneNumber" type="text" size="15"/><br/>
+				<input id="TextPhoneNumber" type="text" size="15" onkeydown="return IsDigit(event)"/><br/><br/>
 				
 				<label id="LabelAddress" for="Address"><b>Unit/Street </b></label><br/>
-				<input id="TextAddress" type="text" size="60"/><br/>
+				<input id="TextAddress" type="text" size="60"/><br/><br/>
 
 				<label id="LabelSuburb" for="Address"><b>City/Suburb/Town </b></label><br/>
-				<input type="text" id="TextSuburb" size="30" onchange="DoAddPostCodes"DoOnChangeSuburb()/><br/>
+				<input type="text" id="TextSuburb" size="30" /><br/><br/>
 
 				<label id="LabelState" for="Address"><b>State </b></label><br/>
-				<select id="SelState" onchange="OnStateChange()">
+				<select id="SelState">
 					<option value="ACT">ACT</option>
 					<option value="NSW">NSW</option>
 					<option value="NT">NT</option>
@@ -49,23 +57,22 @@
 					<option value="TAS">TAS</option>
 					<option value="VIC" selected>VIC</option>
 					<option value="WA">WA</option>
-				</select><br/>
+				</select><br/><br/>
 
 				<label id="LabelPostcode" for="Address"><b>Postcode </b></label><br/>
-				<select id="SelPostcode">
-				</select><br/><br/>
+				<input type="text" id="TextPostcode" onkeydown="return IsDigit(event)"/><br/><br/>
 				
 				<input id="ButtonClear" type="button" value="ERASE DETAILS" class="NextButton" onclick="DoEraseDetails()"/>
 				<br/><br/>
 
 				<label id="LabelSubtotal" for="Subtotal"><b>Subtotal </b></label><br/>
-				<input id="TextSubtotal" type="text" size="10" readonly /><br/>
+				<b>$ </b><input id="TextSubtotal" type="text" size="10" readonly /><br/><br/>
 
 				<label id="LabelPostage" for="Postage"><b>Postage &amp; handling </b></label><br/>
-				<input id="TextPostage" type="text" size="10" readonly /><br/>
+				<b>$ </b><input id="TextPostage" type="text" size="10" readonly /><br/><br/>
 
 				<label id="LabelTotal" for="Postage"><b>Total </b></label><br/>
-				<input id="TextTotal" type="text" size="10" readonly /><br/><br/>
+				<b>$ </b><input id="TextTotal" type="text" size="10" readonly /><br/><br/>
 
 				<input id="ButtonNext" type="button" value="NEXT" class="NextButton" onclick="DoValidateOrderDetails()"/>
 			</form>
@@ -87,9 +94,9 @@
 
 				<script type="text/javascript">
 
-					const arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
+					g_arrayTopicBookmarks = [];
 					
-					const arrayCategoryBookLists = [];
+					g_arrayTopicBookLists = [];
 					
 				</script>
 				
@@ -222,6 +229,23 @@
 											
 					<!-- #BeginEditable "content" -->
 					
+					
+					
+					
+					
+					
+					
+		<style>
+</style>		
+
+				<script type="text/javascript">
+
+					const arrayCategoryBookmarks= ["Bookmark1", "Bookmark2", "Bookmark2"];
+					
+					const arrayCategoryBookLists = [];
+					
+				</script>
+				
 					
 					
 					

@@ -63,6 +63,53 @@
 		}
 		return strText;
 	}
+	
+	function IsAllowedChar(nChar, strAllowedChars)
+	{
+		let bValid = true;
+			
+		for (let nI = 0; nI < strAllowedChars.length; nI++)
+		{
+			bValid = nChar == strAllowedChars[nI];
+			if (bValid)
+				break;
+		}
+		return bValid;
+	}
+	
+	function IsEditKey(event)
+	{
+		let bIsValid = ((event.keyCode == 8) || (event.keyCode == 46) || (event.keyCode == 37) || (event.keyCode == 39));
+	
+		return bIsValid;
+	}
+	
+	function IsDigit(event, strAllowedChars = "") 
+	{
+    	let bIsValid = IsEditKey(event) || ((event.key >= '0') && (event.key <= '9')) || IsAllowedChar(event.key, strAllowedChars);
+    	
+		return bIsValid;
+	}
+
+	function IsAlpha(event, strAllowedChars = "")
+	{
+		let bIsValid = ((event.key >= 'A') && (event.key <= 'Z')) || ((event.key >= 'a') && (event.key <= 'z')) || IsAllowedChar(event.key, strAllowedChars);
+		
+		return bIsValid;
+	}
+	
+	function IsAlphaNumeric(event, strAllowedChars = "") 
+	{
+    	let bIsValid = IsEditKey(event) || IsDigit(event) || IsAlpha(event) || IsAllowedChar(event.key, strAllowedChars);
+
+		return bIsValid;
+	}
+
+	//********************************************************************************************************************************
+	//********************************************************************************************************************************
+	// ALERT MESSAGES
+	//********************************************************************************************************************************
+	//********************************************************************************************************************************
 
 	function AlertInformation(strTitle, strMsg)
 	{
@@ -333,24 +380,23 @@
 			}
 			document.write(document.getElementById("OrderForm").innerHTML);
 			document.write("<a class=\"SubmitOrderButton\" id=\"SubmitOrderButton\" href=\"\">SUBMIT ORDER</a><br/><br/>");
-			OnStateChange();
 		
-			if (sessionStorage["TextGivenNames"])
-				document.getElementById("TextGivenNames").value = sessionStorage["TextGivenNames"];
-			if (sessionStorage["TextSurname"])
-				document.getElementById("TextSurname").value = sessionStorage["TextSurname"];
-			if (sessionStorage["TextEmail"])
-				document.getElementById("TextEmail").value = sessionStorage["TextEmail"];
-			if (sessionStorage["TextPhoneNumber"])
-				document.getElementById("TextPhoneNumber").value = sessionStorage["TextPhoneNumber"];
-			if (sessionStorage["TextAddress"])
-				document.getElementById("TextAddress").value = sessionStorage["TextAddress"];
-			if (sessionStorage["TextSuburb"])
-				document.getElementById("TextSuburb").value = sessionStorage["TextSuburb"];
-			if (sessionStorage["SelState"])
-				document.getElementById("SelState").selectedIndex = GetlSelectedIndex(document.getElementById("SelState"), sessionStorage["SelState"]);
-			if (sessionStorage["SelPostcode"])
-				document.getElementById("SelPostcode").selectedIndex = GetlSelectedIndex(document.getElementById("SelPostcode"), sessionStorage["SelPostcode"]);	
+			if (localStorage["TextGivenNames"])
+				document.getElementById("TextGivenNames").value = localStorage["TextGivenNames"];
+			if (localStorage["TextSurname"])
+				document.getElementById("TextSurname").value = localStorage["TextSurname"];
+			if (localStorage["TextEmail"])
+				document.getElementById("TextEmail").value = localStorage["TextEmail"];
+			if (localStorage["TextPhoneNumber"])
+				document.getElementById("TextPhoneNumber").value = localStorage["TextPhoneNumber"];
+			if (localStorage["TextAddress"])
+				document.getElementById("TextAddress").value = localStorage["TextAddress"];
+			if (localStorage["TextSuburb"])
+				document.getElementById("TextSuburb").value = localStorage["TextSuburb"];
+			if (localStorage["SelState"])
+				document.getElementById("SelState").selectedIndex = GetlSelectedIndex(document.getElementById("SelState"), localStorage["SelState"]);
+			if (localStorage["TextPostcode"])
+				document.getElementById("TextPostcode").value = localStorage["TextPostcode"];	
 		}
 	}
 	
@@ -699,15 +745,6 @@
 	//********************************************************************************************************************************
 	//********************************************************************************************************************************
 	
-	function DoOnChangeSuburb()
-	{
-		var textSuburb = document.getElementById("TextSuburb");
-		
-		if (textSuburb)
-		{
-		}
-	}
-	
 	function DoEraseDetails()
 	{
 		document.getElementById("TextGivenNames").value = "";
@@ -717,8 +754,7 @@
 		document.getElementById("TextAddress").value = "";
 		document.getElementById("TextSuburb").value = "";
 		document.getElementById("SelState").selectedIndex = 0;
-		document.getElementById("SelPostcode").selectedIndex = 0;
-		OnStateChange();	
+		document.getElementById("TextPostcode").value = "";
 	}
 	
 	function isValidEmail(strEmail)
@@ -811,14 +847,14 @@
 								g_structOrderDetails.strShoppingCartItems + "%0D%0A%0D%0AORDER SUBTOTAL: $" + g_structOrderDetails.fShoppingCartTotal.toFixed(2) + 
 								"%0D%0APOSTAGE & HANDLING: $" + fPostage.toFixed(2) + "%0D%0ATOTAL: $" + (fPostage + g_structOrderDetails.fShoppingCartTotal).toFixed(2);
 				
-				sessionStorage["TextGivenNames"] = document.getElementById("TextGivenNames").value;
-				sessionStorage["TextSurname"] = document.getElementById("TextSurname").value;
-				sessionStorage["TextEmail"] = document.getElementById("TextEmail").value;
-				sessionStorage["TextPhoneNumber"] = document.getElementById("TextPhoneNumber").value;
-				sessionStorage["TextAddress"] = document.getElementById("TextAddress").value;
-				sessionStorage["TextSuburb"] = document.getElementById("TextSuburb").value;
-				sessionStorage["SelState"] = document.getElementById("SelState").options[document.getElementById("SelState").selectedIndex].value;
-				sessionStorage["SelPostcode"] = document.getElementById("SelPostcode").options[document.getElementById("SelPostcode").selectedIndex].value;
+				localStorage["TextGivenNames"] = document.getElementById("TextGivenNames").value;
+				localStorage["TextSurname"] = document.getElementById("TextSurname").value;
+				localStorage["TextEmail"] = document.getElementById("TextEmail").value;
+				localStorage["TextPhoneNumber"] = document.getElementById("TextPhoneNumber").value;
+				localStorage["TextAddress"] = document.getElementById("TextAddress").value;
+				localStorage["TextSuburb"] = document.getElementById("TextSuburb").value;
+				localStorage["SelState"] = document.getElementById("SelState").options[document.getElementById("SelState").selectedIndex].value;
+				localStorage["SelPostcode"] = document.getElementById("SelPostcode").options[document.getElementById("SelPostcode").selectedIndex].value;
 			
 				document.getElementById("TextSubtotal").value = "$" + g_structOrderDetails.fShoppingCartTotal.toFixed(2);
 				document.getElementById("TextPostage").value = "$" + fPostage.toFixed(2);
@@ -828,118 +864,7 @@
 		}
 	}
 	
-	function DoAddPostCodes(SelPostcodes, nStart, nEnd)
-	{
-		var option = null, strPostcode = "";
-		
-		for (let nPostcode = nStart; nPostcode <= nEnd; nPostcode ++)
-		{
-			if (nPostcode < 1000)
-				strPostcode = "0" + nPostcode.toString();
-			else
-				strPostcode = nPostcode.toString();
-			
-			option = document.createElement("option");
-			option.text = strPostcode;
-			option.value = strPostcode;
-			SelPostcodes.add(option); 
-		}
-	}
-	
-	function OnStateChange()
-	{
-		var SelState = document.getElementById("SelState"),
-			SelPostcode = document.getElementById("SelPostcode");
-			
-		if (SelState && SelPostcode)
-		{
-			let strState = SelState.options[SelState.selectedIndex].text;
-	
-			while (SelPostcode.length > 0)
-			{
-				SelPostcode.remove(0);
-			}	
-			if (strState == "ACT")
-			{
-				/*
-					0200—0299 (LVRs and PO Boxes only)
-					2600—2618
-					2900—2920 
-				*/
-				DoAddPostCodes(SelPostcode, 200, 299);
-				DoAddPostCodes(SelPostcode, 2600, 2618);
-				DoAddPostCodes(SelPostcode, 2900, 2920);
-			}
-			else if (strState == "NSW")
-			{
-				/*
-					1000—1999 (LVRs and PO Boxes only)
-					2000—2599
-					2619—2899
-					2921—2999 			*/
-				DoAddPostCodes(SelPostcode, 1000, 1999);
-				DoAddPostCodes(SelPostcode, 2000, 2599);
-				DoAddPostCodes(SelPostcode, 2619, 2899);
-				DoAddPostCodes(SelPostcode, 2921, 299);
-			}
-			else if (strState == "NT")
-			{
-				/*
-					0800—0899
-					0900—0999 (LVRs and PO Boxes only)
-				*/
-				DoAddPostCodes(SelPostcode, 800, 899);
-				DoAddPostCodes(SelPostcode, 900, 999);
-			}
-			else if (strState == "QLD")
-			{
-				/*
-					4000—4999
-					9000—9999 (LVRs and PO Boxes only)
-				*/
-				DoAddPostCodes(SelPostcode, 4000, 4999);
-				DoAddPostCodes(SelPostcode, 9000, 9999);
-			}
-			else if (strState == "SA")
-			{
-				/*
-					5000—5799
-					5800—5999 (LVRs and PO Boxes only)
-				*/
-				DoAddPostCodes(SelPostcode, 5000, 5799);
-				DoAddPostCodes(SelPostcode, 5800, 5999);
-			}
-			else if (strState == "TAS")
-			{
-				/*
-					7000—7799
-					7800—7999 (LVRs and PO Boxes only)
-				*/
-				DoAddPostCodes(SelPostcode, 7000, 7799);
-				DoAddPostCodes(SelPostcode, 7800, 7999);
-			}
-			else if (strState == "VIC")
-			{
-				/*
-					3000—3999
-					8000—8999 (LVRs and PO Boxes only)
-				*/
-				DoAddPostCodes(SelPostcode, 3000, 3999);
-				DoAddPostCodes(SelPostcode, 8000, 8999);
-			}
-			else if (strState == "WA")
-			{
-				/*
-					6000—6797
-					6800—6999 (LVRs and PO Boxes only)	
-				*/
-				DoAddPostCodes(SelPostcode, 6000, 6797);
-				DoAddPostCodes(SelPostcode, 6800, 6999);
-			}
-		}
-	}
-	
-	
+
 	//********************************************************************************************************************************
 	//********************************************************************************************************************************
 	// POPUP MENUS

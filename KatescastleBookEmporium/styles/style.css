@@ -108,9 +108,30 @@ body
 .OrderDetailsForm
 {
 	background-color:silver;
-	border-style:ridge;
+	border-style:outset;
 	padding:10px;
-	width:40%;
+	width:440px;
+}
+.OrderDetailsForm input[type=button], input[type=submit], input[type=reset]
+{
+	border-style: outset;
+	border-color: silver;
+	
+}
+.OrderDetailsForm input[type=text], input[type=check], input[type=radio]
+{
+	border-style: inset;
+	border-color: silver;
+}
+.OrderDetailsForm select
+{
+	border-style: inset;
+	border-color: silver;
+}
+.OrderDetailsForm select
+{
+	border-style: inset;
+	border-color: silver;
 }
 #page_content 
 {

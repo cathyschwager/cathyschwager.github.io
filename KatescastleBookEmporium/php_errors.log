@@ -4,3 +4,19 @@
 [19-Mar-2024 06:41:08 UTC] PHP Warning:  Undefined property: stdClass::$topic_id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 571
 [19-Mar-2024 06:42:01 UTC] PHP Warning:  Undefined property: stdClass::$topic_id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 571
 [19-Mar-2024 06:48:17 UTC] PHP Warning:  Undefined property: stdClass::$topic_id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 571
+[21-Mar-2024 04:41:03 UTC] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 18
+[21-Mar-2024 04:42:11 UTC] PHP Warning:  require_once(/styles/style.css): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 24
+[21-Mar-2024 04:42:11 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/styles/style.css' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 24
+[21-Mar-2024 04:43:21 UTC] PHP Warning:  require_once(/styles/style.css): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 24
+[21-Mar-2024 04:43:21 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/styles/style.css' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 24
+[21-Mar-2024 04:43:24 UTC] PHP Warning:  require_once(/styles/style.css): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 24
+[21-Mar-2024 04:43:24 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/styles/style.css' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php:24
+Stack trace:
+#0 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 24
