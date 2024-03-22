@@ -56,3 +56,254 @@ Stack trace:
 [21-Mar-2024 14:38:08 UTC] PHP Parse error:  syntax error, unexpected integer "1", expecting ")" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 250
 [21-Mar-2024 14:38:45 UTC] PHP Parse error:  Unclosed '(' on line 250 does not match '}' in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 251
 [21-Mar-2024 14:39:15 UTC] PHP Fatal error:  Cannot redeclare PrintJavascriptLine() (previously declared in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:15) in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 213
+[22-Mar-2024 02:39:14 UTC] PHP Parse error:  syntax error, unexpected double-quoted string "; ?>", expecting "," or ";" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 80
+[22-Mar-2024 05:20:42 UTC] PHP Warning:  Undefined array key "nInvoiceDate" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 348
+[22-Mar-2024 05:21:58 UTC] PHP Warning:  Undefined array key "nInvoiceDate" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 348
+[22-Mar-2024 05:23:08 UTC] PHP Warning:  Undefined array key "nInvoiceDate" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 348
+[22-Mar-2024 06:06:14 UTC] PHP Warning:  Undefined property: stdClass::$street in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 199
+[22-Mar-2024 06:06:14 UTC] PHP Warning:  Undefined property: stdClass::$suburb in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 199
+[22-Mar-2024 06:06:14 UTC] PHP Warning:  Undefined property: stdClass::$state in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 199
+[22-Mar-2024 06:06:14 UTC] PHP Warning:  Undefined property: stdClass::$postcode in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 199
+[22-Mar-2024 06:06:14 UTC] PHP Warning:  Undefined property: stdClass::$fTotal in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 203
+[22-Mar-2024 06:06:14 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 225
+[22-Mar-2024 06:08:23 UTC] PHP Warning:  Undefined variable $g_nInvoiceNum in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 209
+[22-Mar-2024 06:08:23 UTC] PHP Warning:  Undefined variable $g_nInvoiceNum in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 217
+[22-Mar-2024 06:08:23 UTC] PHP Warning:  Undefined variable $g_fSubTotal in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 242
+[22-Mar-2024 06:18:58 UTC] PHP Warning:  Object of class mysqli_result could not be converted to int in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 220
+[22-Mar-2024 06:18:58 UTC] PHP Warning:  Undefined variable $g_fSubTotal in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 243
+[22-Mar-2024 06:25:17 UTC] PHP Warning:  Object of class mysqli_result could not be converted to int in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 223
+[22-Mar-2024 09:41:49 UTC] PHP Parse error:  syntax error, unexpected identifier "Order" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 263
+[22-Mar-2024 09:43:12 UTC] PHP Parse error:  syntax error, unexpected identifier "Order" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 263
+[22-Mar-2024 09:43:13 UTC] PHP Parse error:  syntax error, unexpected identifier "Order" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 263
+[22-Mar-2024 09:43:14 UTC] PHP Parse error:  syntax error, unexpected identifier "Order" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 263
+[22-Mar-2024 09:43:14 UTC] PHP Parse error:  syntax error, unexpected identifier "Order" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 263
+[22-Mar-2024 09:43:15 UTC] PHP Parse error:  syntax error, unexpected identifier "Order" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 263
+[22-Mar-2024 09:44:15 UTC] PHP Warning:  require_once(./PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:44:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required './PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:44:50 UTC] PHP Warning:  require_once(/PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:44:50 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:44:52 UTC] PHP Warning:  require_once(/PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:44:52 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:46:15 UTC] PHP Warning:  require_once(/PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:46:15 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:46:17 UTC] PHP Warning:  require_once(/PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:46:17 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:49:16 UTC] PHP Warning:  require_once(/PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:49:16 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:49:47 UTC] PHP Warning:  require_once(PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:49:47 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:49:48 UTC] PHP Warning:  require_once(PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:49:48 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:49:49 UTC] PHP Warning:  require_once(PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:49:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:49:49 UTC] PHP Warning:  require_once(PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:49:49 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:51:43 UTC] PHP Warning:  require_once(PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:51:43 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:51:45 UTC] PHP Warning:  require_once(PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:51:45 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:51:45 UTC] PHP Warning:  require_once(PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:51:45 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:51:46 UTC] PHP Warning:  require_once(PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:51:46 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:51:46 UTC] PHP Warning:  require_once(PHPMailer/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:51:46 UTC] PHP Fatal error:  Uncaught Error: Failed opening required 'PHPMailer/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:53:42 UTC] PHP Warning:  require_once(/PHPMailer/src/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:53:42 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/PHPMailer/src/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:54:06 UTC] PHP Warning:  require_once(/PHPMailer/src/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:54:06 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/PHPMailer/src/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:54:12 UTC] PHP Warning:  require_once(/PHPMailer/src/class.phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:54:12 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/PHPMailer/src/class.phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:54:23 UTC] PHP Warning:  require_once(/PHPMailer/src/phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:54:23 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/PHPMailer/src/phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:57:08 UTC] PHP Warning:  require_once(\PHPMailer\src\phpmailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:57:08 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '\PHPMailer\src\phpmailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:58:00 UTC] PHP Warning:  require_once(/PHPMailer/src/PHPMailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:58:00 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/PHPMailer/src/PHPMailer.php' (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php:3
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(8): require_once()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:59:28 UTC] PHP Warning:  include(/PHPMailer/src/PHPMailer.php): Failed to open stream: No such file or directory in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 09:59:28 UTC] PHP Warning:  include(): Failed opening '/PHPMailer/src/PHPMailer.php' for inclusion (include_path='.;C:\php\pear') in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 3
+[22-Mar-2024 10:52:40 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer" not found in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php:197
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(206): DoSetupMail()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 197
+[22-Mar-2024 11:16:04 UTC] PHP Warning:  Undefined variable $bDebug in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 203
+[22-Mar-2024 11:22:06 UTC] PHP Warning:  Undefined variable $bDebug in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 205
+[22-Mar-2024 11:22:27 UTC] PHP Warning:  Undefined variable $bDebug in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 205
+[22-Mar-2024 11:27:29 UTC] PHP Parse error:  syntax error, unexpected token ";" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 244
+[22-Mar-2024 11:44:40 UTC] PHP Warning:  Undefined property: stdClass::$fPostage in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 256
+[22-Mar-2024 11:44:40 UTC] PHP Deprecated:  str_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 225
+[22-Mar-2024 11:44:40 UTC] PHP Warning:  Undefined variable $strMessage in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 263
+[22-Mar-2024 11:45:02 UTC] PHP Warning:  Undefined variable $mail in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 313
+[22-Mar-2024 11:45:02 UTC] PHP Fatal error:  Uncaught Error: Call to a member function SetFrom() on null in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php:313
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(364): DoSendEmail(Object(stdClass))
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 313
+[22-Mar-2024 11:46:45 UTC] PHP Warning:  Undefined variable $strName in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 314
+[22-Mar-2024 11:46:45 UTC] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1315
+[22-Mar-2024 11:46:45 UTC] PHP Warning:  Undefined variable $g_strEmailCathy in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 315
+[22-Mar-2024 11:46:45 UTC] PHP Warning:  Undefined variable $g_strEmailAdmin in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 318
+[22-Mar-2024 11:46:45 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer\PHPMailer\Exception" not found in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php:1576
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php(1519): PHPMailer\PHPMailer\PHPMailer->preSend()
+#1 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(319): PHPMailer\PHPMailer\PHPMailer->send()
+#2 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(365): DoSendEmail(Object(stdClass))
+#3 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1576
+[22-Mar-2024 11:47:36 UTC] PHP Warning:  Undefined variable $strName in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 314
+[22-Mar-2024 11:47:36 UTC] PHP Warning:  Undefined property: stdClass::$ in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 314
+[22-Mar-2024 11:47:36 UTC] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1315
+[22-Mar-2024 11:47:36 UTC] PHP Warning:  Undefined variable $g_strEmailCathy in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 315
+[22-Mar-2024 11:47:36 UTC] PHP Warning:  Undefined variable $g_strEmailAdmin in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 318
+[22-Mar-2024 11:47:36 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer\PHPMailer\Exception" not found in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php:1576
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php(1519): PHPMailer\PHPMailer\PHPMailer->preSend()
+#1 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(319): PHPMailer\PHPMailer\PHPMailer->send()
+#2 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(365): DoSendEmail(Object(stdClass))
+#3 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1576
+[22-Mar-2024 11:48:30 UTC] PHP Warning:  Undefined property: stdClass::$strName in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 314
+[22-Mar-2024 11:48:30 UTC] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1315
+[22-Mar-2024 11:48:30 UTC] PHP Warning:  Undefined variable $g_strEmailCathy in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 315
+[22-Mar-2024 11:48:30 UTC] PHP Warning:  Undefined variable $g_strEmailAdmin in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 318
+[22-Mar-2024 11:48:30 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer\PHPMailer\Exception" not found in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php:1576
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php(1519): PHPMailer\PHPMailer\PHPMailer->preSend()
+#1 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(319): PHPMailer\PHPMailer\PHPMailer->send()
+#2 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(365): DoSendEmail(Object(stdClass))
+#3 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1576
+[22-Mar-2024 11:48:54 UTC] PHP Warning:  Undefined property: stdClass::$strName in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 314
+[22-Mar-2024 11:48:54 UTC] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1315
+[22-Mar-2024 11:48:54 UTC] PHP Warning:  Undefined variable $g_strEmailCathy in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 315
+[22-Mar-2024 11:48:54 UTC] PHP Warning:  Undefined variable $g_strEmailAdmin in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 318
+[22-Mar-2024 11:48:54 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer\PHPMailer\Exception" not found in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php:1576
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php(1519): PHPMailer\PHPMailer\PHPMailer->preSend()
+#1 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(319): PHPMailer\PHPMailer\PHPMailer->send()
+#2 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(365): DoSendEmail(Object(stdClass))
+#3 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1576
+[22-Mar-2024 11:50:00 UTC] PHP Warning:  Undefined property: stdClass::$strName in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 317
+[22-Mar-2024 11:50:00 UTC] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1315
+[22-Mar-2024 11:50:02 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer\PHPMailer\Exception" not found in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php:1977
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php(1691): PHPMailer\PHPMailer\PHPMailer->mailSend('Date: Fri, 22 M...', '--b1=_mkmTadTH4...')
+#1 C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php(1523): PHPMailer\PHPMailer\PHPMailer->postSend()
+#2 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(322): PHPMailer\PHPMailer\PHPMailer->send()
+#3 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(368): DoSendEmail(Object(stdClass))
+#4 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1977
+[22-Mar-2024 11:51:30 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "strName" in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php:256
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(363): DoCreateInvoice(Object(stdClass), '1')
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 256
+[22-Mar-2024 11:52:07 UTC] PHP Warning:  Undefined property: stdClass::$strName in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 317
+[22-Mar-2024 11:52:07 UTC] PHP Deprecated:  preg_replace(): Passing null to parameter #3 ($subject) of type array|string is deprecated in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1315
+[22-Mar-2024 11:52:09 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer\PHPMailer\Exception" not found in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php:1977
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php(1691): PHPMailer\PHPMailer\PHPMailer->mailSend('Date: Fri, 22 M...', '--b1=_DNru053lQ...')
+#1 C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php(1523): PHPMailer\PHPMailer\PHPMailer->postSend()
+#2 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(322): PHPMailer\PHPMailer\PHPMailer->send()
+#3 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(368): DoSendEmail(Object(stdClass))
+#4 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1977
+[22-Mar-2024 11:53:19 UTC] PHP Fatal error:  Uncaught Error: Class "PHPMailer\PHPMailer\Exception" not found in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php:1977
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php(1691): PHPMailer\PHPMailer\PHPMailer->mailSend('Date: Fri, 22 M...', '--b1=_BYL4jEpEx...')
+#1 C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php(1523): PHPMailer\PHPMailer\PHPMailer->postSend()
+#2 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(322): PHPMailer\PHPMailer\PHPMailer->send()
+#3 C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php(368): DoSendEmail(Object(stdClass))
+#4 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\PHPMailer\src\PHPMailer.php on line 1977
+[22-Mar-2024 11:57:13 UTC] PHP Warning:  mail(): Failed to connect to mailserver at &quot;localhost&quot; port 25, verify your &quot;SMTP&quot; and &quot;smtp_port&quot; setting in php.ini or use ini_set() in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 325
+[22-Mar-2024 12:16:14 UTC] PHP Warning:  Object of class mysqli_result could not be converted to int in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 221
+[22-Mar-2024 12:19:19 UTC] PHP Warning:  Undefined variable $strMessage in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 253
+[22-Mar-2024 12:27:56 UTC] PHP Parse error:  syntax error, unexpected variable "$strColumnName4" in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 541
+[22-Mar-2024 12:28:18 UTC] PHP Warning:  Attempt to read property "num_rows" on bool in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 236

@@ -8,9 +8,6 @@
 	let g_arrayTopicBookmarks = [];
 	let g_arrayTopicBookLists = [];
 	let g_bFictionPopupMenu = false, g_bNonFictionPopupMenu = false, g_bSpecialistPopupMenu = false;
-	let g_strURL = "https://www.katescastle.com.au/";
-	let g_strEmail = "katescastle" + "@" + "ozemail" + "." + "com" + "." + "au";
-	let g_strGregsEmail = "gregplants" + "@" + "bigpond" + "." + "com";
 	let g_structOrderDetails = {
 									arrayShoppingCartItems: [],
 									fShoppingCartTotal: 0,
@@ -23,7 +20,8 @@
 									strStreet: "",
 									strSuburb: "",
 									strState: "",
-									strPostcode: ""
+									strPostcode: "",
+									bCashOnPickUp: false
 								};
 	
 	//********************************************************************************************************************************
@@ -183,18 +181,6 @@
 	// PAGE CONTENT FUNCTIONS
 	//********************************************************************************************************************************
 	//********************************************************************************************************************************
-
-	function GenerateGregsEmailAddress()
-	{
-		let strEmailAddress = "gregplants" + "@" + "bigpond" + "." + "com";
-		document.write("<a class=\"Email\" href=\"mailto: " + g_strGregsEmail+ "\">" + g_strGregsEmail+ "</a>");
-	}
-	
-	
-	function GenerateCathysEmailAddress()
-	{
-		document.write("<a class=\"Email\" href=\"mailto: " + g_strEmail + "\">" + g_strEmail + "</a>");
-	}
 	
 	function GenerateMenu(arrayTopicBookmarks)
 	{
@@ -385,10 +371,10 @@
 					document.write("<b>Price: &nbsp;&nbsp;&nbsp;</b>$" + arrayShoppingCart[nI].price + "<br/>"); 
 					document.write("<b><u>Summary</u></b><br/>" + arrayShoppingCart[nI].summary + "<br/>");
 					document.write("<img width=\"100\" alt=\"images/" + arrayShoppingCart[nI].image_filename + "\""); 
-					document.write("src=\"" + g_strURL + arrayShoppingCart[nI].image_filename + "\" /><br/><br/>");
+					document.write("src=\"" + arrayShoppingCart[nI].image_filename + "\" /><br/><br/>");
 												
 					document.write("<button type=\"button\" style=\"" + g_strButtonStyles + "display:inline-block;\" onclick=\"OnClickRemoveCartButton_('" + arrayShoppingCart[nI].id + "')\">"); 
-					document.write("<img src=\"/images/remove_shopping_cart.png\" alt=\"Remove from cart\" /></button>&nbsp;");
+					document.write("<img src=\"images/remove_shopping_cart.png\" alt=\"Remove from cart\" /></button>&nbsp;");
 					document.write("<br/><hr><br/><br/>");
 					
 					g_structOrderDetails.arrayShoppingCartItems.push(arrayShoppingCart[nI]);
@@ -546,7 +532,7 @@
 			strDisplayAdd = "",
 			strDisplayRemove = "";
 		
-		//console.log(arrayBookList);
+		//console.log(arrayTopicBookLists);
 	
 		if (arrayTopicBookmarks.length > 0)
 		{		
@@ -565,13 +551,13 @@
 						{
 							if (HasBookItem(arrayBookList[nJ].id, arrayShoppingCart))
 							{
-								strDisplayAdd = "display:inline-block;";
-								strDisplayRemove = "display:none;";
+								strDisplayAdd = "display:none;";
+								strDisplayRemove = "display:inline-block;";
 							}
 							else
 							{
-								strDisplayAdd = "display:none;";
-								strDisplayRemove = "display:inline-block;";
+								strDisplayAdd = "display:inline-block;";
+								strDisplayRemove = "display:none;";
 							}
 							document.write("<h4 id=\"" + arrayBookList[nJ].id + "\">" + arrayBookList[nJ].title + "</h4>");
 							document.write("<p><b>Author(s):</b> " + arrayBookList[nJ].author + "<br/><br/>");
@@ -580,8 +566,8 @@
 							document.write("<b><u>Summary</u></b><br>");
 							document.write(arrayBookList[nJ].summary + "<br/><br/>");
 							document.write("</p>");
-							document.write("<p><a href=\"" + g_strURL + arrayBookList[nJ].image_filename + "\"><img width=\"200\" src=\"" + g_strURL + 
-											arrayBookList[nJ].image_filename + "\" alt=\"" + g_strURL + arrayBookList[nJ].image_filename + "\" /></a></p>");
+							document.write("<p><a href=\"/" + arrayBookList[nJ].image_filename + "\"><img width=\"200\" src=\"/" + 
+											arrayBookList[nJ].image_filename + "\" alt=\"/" + arrayBookList[nJ].image_filename + "\" /></a></p>");
 							document.write("<br/><br/>");
 							document.write("<table cellspacing=\"5\" cellpadding=\"0\" border=\"0\">");
 							document.write("<tr>");
@@ -767,9 +753,14 @@
 	function DoCalculatePostage(strPostcode, fTotalMass)
 	{
 		let strZone = DoGetAustraliaPostZone(parseInt(strPostcode)),
+			checkPickup = document.getElementById("CheckPickup"),
+			fUnitCostPerKg = 0, fPostage = 0;
+			
+		if (checkPickup && !checkPickup.checked)
+		{
 			fUnitCostPerKg = DoGetDistanceCharge(strZone),
 			fPostage = 21.95 + ((Number(fTotalMass) / 1000) * fUnitCostPerKg);
-			
+		}
 		return fPostage;
 	}
 	
@@ -932,29 +923,16 @@
 			textMobile = document.getElementById("TextMobile"),
 			textAddress = document.getElementById("TextAddress"), selState = document.getElementById("SelState"),
 			textSuburb = document.getElementById("TextSuburb"), textPostcode = document.getElementById("TextPostcode"),
-			labelAreaCode = document.getElementById("LabelAreaCode"),
-			linkSubmitOrder = document.getElementById("ButtonSubmitOrder"), fPostage = 0;
+			labelAreaCode = document.getElementById("LabelAreaCode"), checkPickup = document.getElementById("CheckPickup"),
+			fPostage = 0;
 	
-		if (linkSubmitOrder && textGivenNames && textSurname && textEmail && textPhoneNumber && selState && textSuburb && textPostcode && textAddress)
+		if (checkPickup && textGivenNames && textSurname && textEmail && textPhoneNumber && selState && textSuburb && textPostcode && textAddress)
 		{
 			if (isValidGivenNames(textGivenNames) && isValidSurname(textSurname) && isValidEmail(textEmail) && 
 				isValidPhoneNumber(textPhoneNumber) && isValidPostcode(textPostcode) && isValidMobile(textMobile))
 			{
 				fPostage = DoCalculatePostage(textPostcode.value, g_structOrderDetails.fShoppingCartTotalMass) + 0;
-				
-				linkSubmitOrder.href = "mailto: " + g_strEmail + "?" +
-								"subject=BOOK ORDER&body=Name: " + textGivenNames.value + " " + textSurname.value + "%0D%0A" +
-								"Email: " + textEmail.value + "%0D%0A" +  "Phone: " + "(" + labelAreaCode.innerText + ")" + 
-								textPhoneNumber.value + "%0D%0A%0D%0A" + "Mobile: " + textMobile.value + "%0D%0A%0D%0A"
 								
-								"Unit/Street: " + textAddress.value + "%0D%0A" +
-								"City/Suburb/Town: " + textSuburb.value + "%0D%0A" +
-								"State: " + selState.options[selState.selectedIndex].text + "%0D%0A" +
-								"Postcode: " + textPostcode.value + "%0D%0A%0D%0A" +
-	
-								g_structOrderDetails.strShoppingCartItems + "%0D%0A%0D%0AORDER SUBTOTAL: $" + g_structOrderDetails.fShoppingCartTotal.toFixed(2) + 
-								"%0D%0APOSTAGE & HANDLING: $" + fPostage.toFixed(2) + "%0D%0ATOTAL: $" + (fPostage + g_structOrderDetails.fShoppingCartTotal).toFixed(2);
-				
 				localStorage["TextGivenNames"] = document.getElementById("TextGivenNames").value;
 				localStorage["TextSurname"] = document.getElementById("TextSurname").value;
 				localStorage["TextEmail"] = document.getElementById("TextEmail").value;
@@ -977,10 +955,17 @@
 				g_structOrderDetails.fPostage = fPostage;
 
 				document.getElementById("TextSubtotal").value = "$" + g_structOrderDetails.fShoppingCartTotal.toFixed(2);
-				document.getElementById("TextPostage").value = "$" + fPostage.toFixed(2);
-				document.getElementById("TextTotal").value = "$" + (g_structOrderDetails.fShoppingCartTotal + fPostage).toFixed(2);
-				
-				document.getElementById("OrderTotals").style.display = "block";
+				if (checkPickup.checked)
+				{
+					document.getElementById("TextPostage").value = "$0";
+					document.getElementById("TextTotal").value = "$" + g_structOrderDetails.fShoppingCartTotal.toFixed(2);
+				}
+				else
+				{
+					document.getElementById("TextPostage").value = "$" + fPostage.toFixed(2);
+					document.getElementById("TextTotal").value = "$" + (g_structOrderDetails.fShoppingCartTotal + fPostage).toFixed(2);
+				}		
+				document.getElementById("Invoice").style.display = "block";
 			}
 		}
 	}

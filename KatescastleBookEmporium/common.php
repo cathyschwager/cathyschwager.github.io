@@ -1,7 +1,13 @@
 <?php
-
+	
+	$g_strURL = "https://www.katescastle.com.au/";
 	$g_strEmailCathy = "katescastle@ozemail.com.au";
 	$g_strEmailAdmin = "gregplants@bigpond.com";
+	$g_strMobile = "0447 817 687";
+	$g_strBSB = "013 720";
+	$g_strAccountNumber = "215 940 411";
+	$g_strAccountName = "Cathy Schwager";
+	$g_strFacebook = "https://www.facebook.com/katescastlebookemporium/";
 	
 	session_start();
 	
@@ -531,7 +537,7 @@
 	{
 		global $g_strQuery;
 		$g_strQuery = "UPDATE " . $strTableName . " SET " . $strColumnName1 . "='" . DoEscape($strColumnValue1) . "'," . 
-			$strColumnName2 . "='" .  DoEscape($strColumnValue2) . "'," . $strColumnName3 . "='" .  DoEscape($strColumnValue3) . 
+			$strColumnName2 . "='" .  DoEscape($strColumnValue2) . "'," . $strColumnName3 . "='" .  DoEscape($strColumnValue3) . "'," . 
 			$strColumnName4 . "='" .  $strColumnValue4 . 
 			"' WHERE " . $strFindColumnName . "='" . $strFindColumnValue . "'";
 
@@ -804,16 +810,15 @@
 							echo "\n";
 						}
 					}
-					echo "     ]";
-					if ($nCountTopic < $resultsTopics->num_rows)
-						echo ",";
-					echo "\n";
+					echo "     ],\n";
 				}
 				else
 				{
 					echo "[],\n";
 				}
 			}
+			// For 'other'
+			echo "[]\n";
 		}
 	}
 	

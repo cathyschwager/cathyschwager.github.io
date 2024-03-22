@@ -63,14 +63,34 @@
 					<h6 class="Motto">“So many books, so little time” - Frank Zappa</h6>
  				</div>
 				<div class="CenterVertically Contact">
-					<b>ABN:</b> 81 431 577 147<br/>
-					<b>Phone:</b> 0447 817 687<br/>
-					<b>Email:</b> <script type="text/javascript">GenerateCathysEmailAddress();</script><br/>
-					<b>Facebook:</b> Katescastle Book Emporium<br/><br/>
-					<div class="Author" id="Author">
-						<b>Web site coded by Gregary Boyles</b><br/>
-						<b>Enquiries:</b> <script type="text/javascript">GenerateGregsEmailAddress();</script>
-					</div>
+					<table cellpadding="3" cellspacing="0" border="0">
+						<tr>
+							<td style="text-align:right;"><b>ABN:</b></td>
+							<td>81 431 577 147</td>
+						</tr>
+						<tr>
+							<td style="text-align:right;"><b>Phone:</b></td>
+							<td>
+							<img src="../images/CathysMobile.png" width="90" /></td>
+						</tr>
+						<tr>
+							<td style="text-align:right;"><b>Email:</b></td>
+							<td>
+							<img src="../images/CathysEmail.png" width="200"/></td>
+						</tr>
+						<tr>
+							<td style="text-align:right;"><b>Facebook:</b></td>
+							<td><a href="../<?php echo $g_strFacebook; ?>">Katescastle Book Emporium</a></td>
+						</tr>
+						<tr><td colspan=2></td></tr>
+						<tr>
+							<td colspan=2><b>Web site coded by Gregary Boyles</b></td>
+						</tr>
+						<tr>
+							<td style="text-align:right;"><b>Enquiries:</b></td><td>
+							<img src="../images/AdminEmail.png" width="190"/></td>
+						</tr>
+					</table>
 				</div>
 			</div>
 			<!-- End Masthead -->
