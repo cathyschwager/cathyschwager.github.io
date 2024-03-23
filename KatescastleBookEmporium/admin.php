@@ -25,7 +25,54 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+
+			.button
+			{
+				font-weight: bold;
+				width: 150px;
+			}
+			
+			.text
+			{
+				border-color: silver;
+				border-style: inset;
+			}
+			
+			.select
+			{
+				border-color: silver;
+				border-style: inset;
+				width: 200px;
+			}
+			
+			.checkbox
+			{
+				border-color: silver;
+				border-style: inset;
+			}
+			
+			.radio
+			{
+				margin-right: 70px;
+			}
+			
+			.form
+			{
+				border-color: silver;
+				border-style: outset;
+				background-color: silver;
+				padding: 20px;
+			}
+			
+			.table
+			{
+				table-layout:fixed;
+				display: inline-block;
+				border-style: solid;
+				border-width: thin;
+			}
+
+		</style>
 
 		<!-- #EndEditable -->
 
@@ -187,109 +234,7 @@
 						GeneratePageContents(g_arrayTopicBookmarks, g_arrayTopicBookLists);
 					</script>
 											
-					<!-- #BeginEditable "content" -->
-					
-					
-					
-					
-					
-					
-					
-		<style>
-</style>		
-
-				<script type="text/javascript">
-
-					g_arrayTopicBookmarks = [];
-					
-					g_arrayTopicBookLists = [];
-					
-				</script>
-				
-		<style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-			.button
-			{
-				font-weight: bold;
-				width: 150px;
-			}
-			
-			.text
-			{
-				border-color: silver;
-				border-style: inset;
-			}
-			
-			.select
-			{
-				border-color: silver;
-				border-style: inset;
-				width: 200px;
-			}
-			
-			.checkbox
-			{
-				border-color: silver;
-				border-style: inset;
-			}
-			
-			.form
-			{
-				border-color: silver;
-				border-style: outset;
-				background-color: silver;
-				padding: 20px;
-			}
-			
-			.table
-			{
-				table-layout:fixed;
-				display: inline-block;
-				border-style: solid;
-				border-width: thin;
-			}
-			
-		</style>		
-
-				<script type="text/javascript">
-
-					g_arrayTopicBookmarks = [];
-					
-					g_arrayTopicBookLists = [];
-					
-				</script>
-				
-					
-					
-					
-					
-					
+					<!-- #BeginEditable "content" -->				
 					
 						<?php
 						
@@ -947,7 +892,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
  									<tr>
 										<td style="text-align:right"><label id="label_topic">Topic description:</label></td>
-										<td><input id="text_topic_desc" type="text" class="text" style="width:150px;" onkeydown="return ((event.which >= 48) && (event.which <= 57)) || ((event.which >= 65) && (event.which <= 90)) || ((event.which >= 97) && (event.which <= 122)) || (event.which == 8) || (event.which == 127)"/></td>
+										<td><input id="text_topic_desc" type="text" class="text" style="width:150px;" onkeydown="return IsAlphaNumeric(event)"/></td>
 									</tr>
 									<tr>
 										<td><input type="button" value="EDIT TOPIC ▲" class="button" onclick="DoEditTopicItem('select_topics', 'text_topic_desc', 'select_categories', 'select_subcategories')"/></td>
@@ -1011,19 +956,19 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td style="text-align:right">
-										<label id="label_topic1">Title:</label></td>
+										<label id="label_title">Title:</label></td>
 										<td>
 											<input id="text_title" type="text" class="text" style="width:330px;"/>
 										</td>
 									</tr>
  									<tr>
 										<td style="text-align:right">
-										<label id="label_topic2">Author:</label></td>
+										<label id="label_author">Author:</label></td>
 										<td><input id="text_author" type="text" class="text" style="width:330px;" /></td>
 									</tr>
  									<tr>
 										<td style="text-align:right">
-										<label id="label_topic3">Current Image:</label></td>
+										<label id="label_image">Current Image:</label></td>
 										<td>
 											<img id="image_bookb" src="" alt="IMAGE PREVIEW" width="200"/>
 											<p style="font-size:xx-small;">Change book images individually in the next form (below)...</p>
@@ -1031,24 +976,24 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
  									<tr>
 										<td style="text-align:right">
-										<label id="label_topic4">Summary:</label></td>
+										<label id="label_summary">Summary:</label></td>
 										<td>
 											<textarea id="text_summary" maxlength="1024" cols="44" rows="8" style="resize: none;"></textarea>
 										</td>
 									</tr>
  									<tr>
 										<td style="text-align:right">
-										<label id="label_topic5">Price: $</label></td>
+										<label id="label_price">Price: $</label></td>
 										<td><input id="text_price" type="text" class="text" style="width:60px;" onkeydown="return ((event.which >= 48) && (event.which <= 57)) || ((event.which >= 65) && (event.which <= 90)) || ((event.which >= 97) && (event.which <= 122)) || (event.which == 8) || (event.which == 127)"/></td>
 									</tr>
  									<tr>
 										<td style="text-align:right">
-										<label id="label_topic6">Weight:</label></td>
+										<label id="label_weight">Weight:</label></td>
 										<td><input id="text_weight" type="text" class="text" style="width:60px;" onkeydown="return ((event.which >= 48) && (event.which <= 57)) || ((event.which >= 65) && (event.which <= 90)) || ((event.which >= 97) && (event.which <= 122)) || (event.which == 8) || (event.which == 127)"/>&nbsp;grams</td>
 									</tr>
  									<tr>
 										<td style="text-align:right">
-										<label id="label_topic7">Quantity:</label></td>
+										<label id="label_quantity">Quantity:</label></td>
 										<td><input id="text_quantity" type="text" class="text" style="width:60px;" onkeydown="return ((event.which >= 48) && (event.which <= 57)) || ((event.which >= 65) && (event.which <= 90)) || ((event.which >= 97) && (event.which <= 122)) || (event.which == 8) || (event.which == 127)"/></td>
 									</tr>
 									<tr>
@@ -1135,7 +1080,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										<td style="text-align:right">
 										<label id="label_topic8">Book Image:</label></td>
 										<td>
-											<input name="file_image" type="file" accept="image/jpg, image/jpeg" />
+											<input name="file_image" class="button" type="file" accept="image/jpg, image/jpeg" />
 											<br/>
 											<br/>
 											<img id="image_book" src="" alt="IMAGE PREVIEW" width="200"/>
@@ -1197,7 +1142,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									
 									for (let nI = 0; nI < selectTopics.options.length; nI++)
 									{
-										if (selectTopics.options[nI].text == strDescription)										{
+										if (selectTopics.options[nI].text == strDescription)
+										{
 											bDuplicate = true;
 											break;
 										}
@@ -1797,14 +1743,117 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 								}
 																
 							</script>
-
+							<br/>
+							<form method="post" id="form_topics" class="form" style="width:47.2em;">
+								<table cellpadding="10" cellspacing="0" border="0" class="table">
+									<tr><td colspan="2"><b>INVOICES</b></td></tr>
+									<tr>
+										<td>
+											<table cellpadding="0" cellspacing="0" border="0" style="font-weight:bold;font-size:x-small;font-family:monospace,monospace;">
+												<tr>
+													<td>&nbsp;</td>
+													<td style="width:6em;">DATE</td>
+													<td style="width:14em;">NAME</td>
+													<td style="width:27em;">ADDRESS</td>
+													<td style="width:3em;">PAID</td>
+													<td style="width:3em;">SENT</td>
+												</tr>
+											</table>
+											<select id="select_invoices" name="select_invoices" class="select" size="10" style="width:55em;height:23em;overflow-x:auto;font-size:x-small;font-family:monospace,monospace;" onchange="OnChangeSelectInvoices()">
+												<option>00/00/000&nbsp;&nbsp;&nbsp;Gregary Boyles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 Bassetts Road, Doreen, VIC, 3754&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;&nbsp;&nbsp;&nbsp;NO</option>
+											</select>
+										</td>
+										<td>
+											<input type="submit" id="button_delete" value="DELETE" class="button" /><br/><br/>
+											<input type="submit" id="button_paid" value="PAID" class="button" /><br/><br/>
+											<input type="submit" id="button_unpaid" value="UNPAID" class="button" /><br/><br/>
+											<input type="submit" id="button_sent" value="SENT" class="button" /><br/><br/>
+											<input type="submit" id="button_unsent" value="UNSENT" class="button" /><br/><br/>
+											<input type="button" id="button_view" value="VIEW" class="button" onclick="DoViewInvoice()"/>
+										</td>
+									</tr>
+									<tr><td colspan="2"><b>FILTER INVOICES</b></td></tr>
+ 									<tr>
+ 										<td>
+	 										<table cellpadding="0" cellspacing="0" border="0">
+	 											<tr>
+			 										<td style="text-align:right;width:5em;"><label id="label_topic">Start date:</label></td>
+													<td><input id="date_start" name="date_start" type="date" class="text" style="width:150px;" /></td>
+												</tr>
+	 										</table>
+ 										</td>
+ 										<td>&nbsp;</td>
+									</tr>
+ 									<tr>
+ 										<td>
+	 										<table cellpadding="0" cellspacing="0" border="0">
+	 											<tr>
+													<td style="text-align:right;width:5em;"><label id="label_topic">End date:</label></td>
+													<td><input id="date_end" name="date_end" type="date" class="text" style="width:150px;" /></td>
+												</tr>
+	 										</table>
+ 										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<input type="radio" checked name="radio_which_invoices" id="radio_paid_invoices" onclick="localStorage['radio_which_invoices'] = 0"/><label for="radio_paid_invoices" class="radio">PAID</label>
+											<input type="radio" name="radio_which_invoices" id="radio_unpaid_invoices"  onclick="localStorage['radio_which_invoices'] = 1"/><label for="radio_paid_invoices" class="radio">UNPAID</label>
+											<input type="radio" name="radio_which_invoices" id="radio_all_invoices"  onclick="localStorage['radio_which_invoices'] = 2"/><label for="radio_paid_invoices" class="radio">All</label>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<input type="submit" id="button_refresh" value="REFRESH" class="button" />
+										</td>
+									</tr>
+								</table>
+							</form>
 						</div>
 
-					
-					
-					
-					
-					
+						<script type="text/javascript">
+												  
+							function DoInitSearchForm()
+							{
+								let dateStart = GetInput("date_start"),
+									dateEnd = GetInput("date_end"),
+									radioPaidInvoices = GetInput("radio_paid_invoices"),
+									radioUnpaidInvoices = GetInput("radio_unpaid_invoices"),
+									radioAllInvoices = GetInput("radio_all_invoices");
+									
+								if (localStorage["date_start"] !== undefined)
+									dateStart.value = localStorage["date_start"];
+								if (localStorage["date_end"] !== undefined)
+									dateEnd.value = localStorage["date_end"];
+								if (localStorage["radio_which_invoices"] !== undefined)
+								{
+									if (localStorage["radio_which_invoices"] == 0)
+									{
+										radioPaidInvoices.checked = true;
+										radioUnpaidInvoices.checked = false;
+										radioAllInvoices.checked = false;
+									}
+									else if (localStorage["radio_which_invoices"] == 1)
+									{
+										radioPaidInvoices.checked = false;
+										radioUnpaidInvoices.checked = true;
+										radioAllInvoices.checked = false;
+									}
+									else if (localStorage["radio_which_invoices"] == 2)
+									{
+										radioPaidInvoices.checked = false;
+										radioUnpaidInvoices.checked = false;
+										radioAllInvoices.checked = true;
+									}
+								}
+							}
+						
+							DoInitSearchForm();
+													
+							function DoViewInvoice()
+							{
+							}						
+						
+						</script>
 					
 					<!-- #EndEditable -->
 				</div>

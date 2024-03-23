@@ -42,37 +42,44 @@
 
 <body>
 
-						<form method="post" class="form" style="width:370px;">
-							<fieldset name="group_categories" style="padding:10px;">
-								<legend style="padding-bottom:5px;">Categories</legend>
-									<table cellpadding="10" cellspacing="0" border="1" style="table-layout:fixed;">
-										<tr>
-											<td>
-												<select name="select_categories" id="select_categories" class="select" size="10" style="width:150px;">
-													<option></option>
-												</select>
-											</td>
-											<td><input name="button" type="button" value="DELETE" class="button" onclick="DoDeleteListItem('select_categories')"/></td>
-										</tr>
-										<tr>
-											<td><label id="label_category">Category name: </label></td>
-											<td><input name="text_category_name" type="text" class="text" style="width:150px;" onkeydown="return /[a-z,_]/i.test(event.key)"/></td>
-										</tr>
- 										<tr>
-											<td><label id="label_category">Category description: </label></td>
-											<td><input name="text_category_desc" type="text" class="text" style="width:150px;" onkeydown="return /[a-z,A-Z,_]/i.test(event.key)"/></td>
-										</tr>
-										<tr>
-											<td><input name="button" type="button" value="EDIT" class="button" onclick="DoEditListItem('select_categories', 'text_category_name', 'text_category_desc')"/></td>
-											<td><input name="button" type="button" value="ADD" class="button" onclick="DoAddListItem('select_categories', 'text_category_name', 'text_category_desc')"//></td>
-										</tr>
-										<tr>
-											<td colspan="2"><input name="button" type="submit" value="SAVE" class="button"/></td>
-										</tr>
-									</table>
-								</fieldset>
+							<form method="post" id="form_topics" class="form" style="width:448px;">
+								<table cellpadding="10" cellspacing="0" border="0" class="table">
+									<tr><td colspan="2"><b>INVOICES</b></td></tr>
+									<tr>
+										<td>
+											<select id="select_invoices" class="select" size="10" style="width:200px;height:200px;overflow-x:scroll;" onchange="OnChangeSelectInvoices()">
+											</select>
+										</td>
+										<td>
+											<input type="button" id="button_delete" value="DELETE" class="button" onclick="DoDeleteInvoice()"/><br/>
+											<input type="button" id="button_paid" value="PAID" class="button" onclick="DoMarkPaidInvoice()"/><br/>
+											<input type="button" id="button_unpaid" value="UNPAID" class="button" onclick="DoMarkUnpaidInvoice()"/><br/>
+											<input type="button" id="button_view" value="VIEW" class="button" onclick="DoViewInvoice()"/>
+										</td>
+									</tr>
+									<tr><td colspan="2"><b>FILTER INVOICES</b></td></tr>
+ 									<tr>
+										<td style="text-align:right"><label id="label_topic">Start date:</label></td>
+										<td><input id="date_start" type="date" class="text" style="width:150px;" /></td>
+									</tr>
+ 									<tr>
+										<td style="text-align:right"><label id="label_topic">End date:</label></td>
+										<td><input id="date_end" type="date" class="text" style="width:150px;" /></td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<input type="radio" name="radio_which_invoices" id="radio_paid_invoices" /><label for="radio_paid_invoices">PAID</label>
+											<input type="radio" name="radio_which_invoices" id="radio_unpaid_invoices" /><label for="radio_paid_invoices">UNPAID</label>
+											<input type="radio" name="radio_which_invoices" id="radio_all_invoices" /><label for="radio_paid_invoices">All</label>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="2">
+											<input type="button" id="button_refresh" value="REFRESH" />										</td>
+									</tr>
+								</table>
 							</form>
-							
+														
 							<script type="text/javascript">
 							
 								function DoDeleteListItem(strListID)

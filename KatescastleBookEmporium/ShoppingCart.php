@@ -180,12 +180,6 @@
 											
 					<!-- #BeginEditable "content" -->
 					
-					
-					
-					
-					
-					
-					
 						<?php
 							
 							$bDebug = true;
@@ -199,7 +193,6 @@
 																			
 							$g_strDisplayPaypal = "none";
 							$g_strDisplayInvoice = "none";
-							$g_strDisplayButtons = "block";
 							
 							if (!isset($_SESSION["fSubTotal"]))
 								$_SESSION["fSubTotal"] = "";
@@ -384,7 +377,7 @@
 								
 								<input id="ButtonClear" type="button" value="ERASE DETAILS" class="NextButton" onclick="DoEraseDetails()"/>
 								<br/><br/>
-								<input id="ButtonNext" type="button" value="NEXT" class="NextButton" style="<?php echo $g_strDisplayButtons; ?>" onclick="DoValidateOrderDetails()"/>
+								<input id="ButtonNext" type="button" value="NEXT" class="NextButton" onclick="DoValidateOrderDetails()"/>
 								<br/><br/>
 								<div id="Invoice" style="display:<?php echo $g_strDisplayInvoice; ?>;">
 									<h4>INVOICE</h4>
@@ -404,7 +397,7 @@
 									<label id="LabelTotal" for="Postage"><b>Total </b></label><br/>
 									<b>$ </b><input id="TextTotal" type="text" size="10" value="<?php echo sprintf("%.2f", $_SESSION["fTotal"]); ?>" readonly /><br/><br/>
 									<br/><br/>
-									<input id="ButtonSubmitOrder" type="button" value="SUBMIT ORDERS" class="NextButton" style="<?php echo $g_strDisplayButtons; ?>" onclick="DoSubmitOrder()"/>
+									<input id="ButtonSubmitOrder" type="button" value="SUBMIT ORDERS" class="NextButton" onclick="DoSubmitOrder()"/>
 									<br/><br/>
 								</div>
 								<div id="Payment" style="display:<?php echo $g_strDisplayPaypal; ?>;">
