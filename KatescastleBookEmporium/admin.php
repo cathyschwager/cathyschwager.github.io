@@ -581,11 +581,33 @@
 									PrintJavascriptLine("AlertError(\"Could not save file '" . $_FILES["file_image"]["name"] . "\");", 3, true);
 								}
 							}
+							else if (isset($_POST["button_delete"]))
+							{
+								$results = DoDeleteQuery($g_dbKatesCastle, "invoices", "id", $_POST["select_invoices"]);
+							}
+							else if (isset($_POST["button_paid"]))
+							{
+								$dateNow = new DateTime();
+								$results = DoUpdateQuery2($g_dbKatesCastle, "invoices", "paid", "1", "date_paid", $dateNow->format("Y-m-d"), "id", $_POST["select_invoices"]);
+							}
+							else if (isset($_POST["button_unpaid"]))
+							{
+								$results = DoUpdateQuery1($g_dbKatesCastle, "invoices", "paid", "0", "id", $_POST["select_invoices"]);
+							}
+							else if (isset($_POST["button_sent"]))
+							{
+								$dateNow = new DateTime();
+								$results = DoUpdateQuery2($g_dbKatesCastle, "invoices", "sent", "1", "date_sent", $dateNow->format("Y-m-d"), "id", $_POST["select_invoices"]);
+							}
+							else if (isset($_POST["button_unsent"]))
+							{
+								$results = DoUpdateQuery1($g_dbKatesCastle, "invoices", "sent", "0", "id", $_POST["select_invoices"]);
+							}
 							else
 							{
 								//print_r($_POST);
 							}
-
+							
 						?>
 					
 						<div id="login" style="display:<?php echo $g_strLoginDisplay; ?>">
@@ -1744,7 +1766,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 																
 							</script>
 							<br/>
-							<form method="post" id="form_topics" class="form" style="width:47.2em;">
+							<form method="post" id="form_invoices" class="form" style="width:56em;">
 								<table cellpadding="10" cellspacing="0" border="0" class="table">
 									<tr><td colspan="2"><b>INVOICES</b></td></tr>
 									<tr>
@@ -1752,24 +1774,86 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											<table cellpadding="0" cellspacing="0" border="0" style="font-weight:bold;font-size:x-small;font-family:monospace,monospace;">
 												<tr>
 													<td>&nbsp;</td>
-													<td style="width:6em;">DATE</td>
+													<td style="width:7em;">DATE</td>
 													<td style="width:14em;">NAME</td>
 													<td style="width:27em;">ADDRESS</td>
 													<td style="width:3em;">PAID</td>
+													<td style="width:7em;">DATE</td>
 													<td style="width:3em;">SENT</td>
+													<td style="width:7em;">DATE</td>
 												</tr>
 											</table>
-											<select id="select_invoices" name="select_invoices" class="select" size="10" style="width:55em;height:23em;overflow-x:auto;font-size:x-small;font-family:monospace,monospace;" onchange="OnChangeSelectInvoices()">
-												<option>00/00/000&nbsp;&nbsp;&nbsp;Gregary Boyles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 Bassetts Road, Doreen, VIC, 3754&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;&nbsp;&nbsp;&nbsp;NO</option>
+											<select id="select_invoices" name="select_invoices" class="select" size="10" style="width:70em;height:23em;overflow-x:auto;font-size:x-small;font-family:monospace,monospace;" onchange="OnChangeSelectInvoices()">
+												<!--<option>00/00/0000&nbsp;&nbsp;&nbsp;&nbsp;Gregary Boyles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 Bassetts Road, Doreen, VIC, 3754&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;&nbsp;&nbsp;&nbsp;NO</option>-->
+												<?php 
+													$results = DoFindAllQuery($g_dbKatesCastle, "invoices");
+													if ($results && ($results->num_rows))
+													{
+														$dateStart = new DateTime();
+														$dateEnd = new DateTime();
+														
+														if (isset($_POST["date_start"]) && (strlen($_POST["date_start"]) > 0))
+															$dateStart = new DateTime($_POST["date_start"]);
+														else
+															$dateStart = new DateTime("2000-01-01");
+															
+														if (isset($_POST["date_end"]) && (strlen($_POST["date_end"]) > 0))
+															$dateEnd = new DateTime($_POST["date_end"]);
+														else
+															$dateEnd = new DateTime("3000-01-01");
+															
+														$dateInvoice = new DateTime();
+														$dateSent = new DateTime();
+														$datePaid = new DateTime();
+														$strSent = "";
+														$strPaid = "";
+													
+														while ($row = $results->fetch_assoc())
+														{
+															$dateInvoice = new DateTime($row["date"]);
+															$dateSent = new DateTime($row["date_paid"]);
+															$datePaid = new DateTime($row["date_sent"]);
+															if ($row["paid"] == "1")
+																$strPaid = "YES";
+															else
+																$strPaid = "NO";
+																
+															if ($row["sent"] == "1")
+																$strSent = "YES";
+															else
+																$strSent = "NO";
+																												
+															if (($dateInvoice >= $dateStart) && ($dateInvoice <= $dateEnd))
+															{
+																if (!isset($_POST["radio_which_invoices"]) || ($_POST["radio_which_invoices"] == 2) || 
+																	(($_POST["radio_which_invoices"] == 0) && ($row["paid"] == "1")) || 
+																	(($_POST["radio_which_invoices"] == 1) && ($row["paid"] == "0")))
+																{
+																	echo "<option value=\"" . $row["id"] . "\">" . 
+																		DoRightPad($dateInvoice->format("d/m/Y"), 14, "&nbsp;") .
+																		DoRightPad($row["name"], 28, "&nbsp;") . 
+																		DoRightPad($row["address"], 54, "&nbsp;") .
+																		DoRightPad($strPaid, 6, "&nbsp;") . 
+																		DoRightPad($datePaid->format("d/m/Y"), 14, "&nbsp;") .
+																		DoRightPad($strSent, 6, "&nbsp;") .
+																		DoRightPad($dateSent->format("d/m/Y"), 14, "&nbsp;") .
+																		"</option>\n";
+																}
+															}	
+														}
+													}
+												
+												?>
 											</select>
 										</td>
 										<td>
-											<input type="submit" id="button_delete" value="DELETE" class="button" /><br/><br/>
-											<input type="submit" id="button_paid" value="PAID" class="button" /><br/><br/>
-											<input type="submit" id="button_unpaid" value="UNPAID" class="button" /><br/><br/>
-											<input type="submit" id="button_sent" value="SENT" class="button" /><br/><br/>
-											<input type="submit" id="button_unsent" value="UNSENT" class="button" /><br/><br/>
-											<input type="button" id="button_view" value="VIEW" class="button" onclick="DoViewInvoice()"/>
+											<input type="button" id="button_delete" name="button_delete" value="DELETE" class="button" disabled="disabled" onclick="OnClickDeleteInvoice()"/><br/><br/>
+											<input type="submit" id="button_paid" name="button_paid" value="PAID" class="button" disabled="disabled" /><br/><br/>
+											<input type="submit" id="button_unpaid" name="button_unpaid" value="UNPAID" class="button" disabled="disabled" /><br/><br/>
+											<input type="submit" id="button_sent" name="button_sent" value="SENT" class="button" disabled="disabled" /><br/><br/>
+											<input type="submit" id="button_unsent" name="button_unsent" value="UNSENT" class="button" disabled="disabled" /><br/><br/>
+											<input type="button" id="button_view" value="VIEW" class="button" disabled="disabled" onclick="DoViewInvoice()" />
+											<input type="hidden" id="hidden_input" name="" value="" />
 										</td>
 									</tr>
 									<tr><td colspan="2"><b>FILTER INVOICES</b></td></tr>
@@ -1778,7 +1862,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 	 										<table cellpadding="0" cellspacing="0" border="0">
 	 											<tr>
 			 										<td style="text-align:right;width:5em;"><label id="label_topic">Start date:</label></td>
-													<td><input id="date_start" name="date_start" type="date" class="text" style="width:150px;" /></td>
+													<td><input id="date_start" name="date_start" value="<?php if (isset($_POST["date_start"])) echo $_POST["date_start"]; ?>" type="date" class="text" style="width:150px;" /></td>
 												</tr>
 	 										</table>
  										</td>
@@ -1789,16 +1873,16 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 	 										<table cellpadding="0" cellspacing="0" border="0">
 	 											<tr>
 													<td style="text-align:right;width:5em;"><label id="label_topic">End date:</label></td>
-													<td><input id="date_end" name="date_end" type="date" class="text" style="width:150px;" /></td>
+													<td><input id="date_end" name="date_end" value="<?php if (isset($_POST["date_end"])) echo $_POST["date_end"]; ?>" type="date" class="text" style="width:150px;" /></td>
 												</tr>
 	 										</table>
  										</td>
 									</tr>
 									<tr>
 										<td colspan="2">
-											<input type="radio" checked name="radio_which_invoices" id="radio_paid_invoices" onclick="localStorage['radio_which_invoices'] = 0"/><label for="radio_paid_invoices" class="radio">PAID</label>
-											<input type="radio" name="radio_which_invoices" id="radio_unpaid_invoices"  onclick="localStorage['radio_which_invoices'] = 1"/><label for="radio_paid_invoices" class="radio">UNPAID</label>
-											<input type="radio" name="radio_which_invoices" id="radio_all_invoices"  onclick="localStorage['radio_which_invoices'] = 2"/><label for="radio_paid_invoices" class="radio">All</label>
+											<input type="radio" <?php if (isset($_POST["radio_which_invoices"]) && ($_POST["radio_which_invoices"] == "0")) echo "checked"; ?> name="radio_which_invoices" id="radio_paid_invoices" value="0" /><label for="radio_paid_invoices" class="radio">PAID</label>
+											<input type="radio" <?php if (isset($_POST["radio_which_invoices"]) && ($_POST["radio_which_invoices"] == "1")) echo "checked"; ?> name="radio_which_invoices" id="radio_unpaid_invoices"  value="1" /><label for="radio_paid_invoices" class="radio">UNPAID</label>
+											<input type="radio" <?php if (!isset($_POST["radio_which_invoices"]) || (isset($_POST["radio_which_invoices"]) && ($_POST["radio_which_invoices"] == "2"))) echo "checked"; ?> name="radio_which_invoices" id="radio_all_invoices"  value="2" /><label for="radio_paid_invoices" class="radio">All</label>
 										</td>
 									</tr>
 									<tr>
@@ -1811,46 +1895,121 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 						</div>
 
 						<script type="text/javascript">
-												  
-							function DoInitSearchForm()
-							{
-								let dateStart = GetInput("date_start"),
-									dateEnd = GetInput("date_end"),
-									radioPaidInvoices = GetInput("radio_paid_invoices"),
-									radioUnpaidInvoices = GetInput("radio_unpaid_invoices"),
-									radioAllInvoices = GetInput("radio_all_invoices");
-									
-								if (localStorage["date_start"] !== undefined)
-									dateStart.value = localStorage["date_start"];
-								if (localStorage["date_end"] !== undefined)
-									dateEnd.value = localStorage["date_end"];
-								if (localStorage["radio_which_invoices"] !== undefined)
+						
+							let g_arrayInvoices = {};
+							<?php
+							
+								$results = DoFindAllQuery($g_dbKatesCastle, "invoices");
+								if ($results && ($results->num_rows))
 								{
-									if (localStorage["radio_which_invoices"] == 0)
+									while ($row = $results->fetch_assoc())
 									{
-										radioPaidInvoices.checked = true;
-										radioUnpaidInvoices.checked = false;
-										radioAllInvoices.checked = false;
-									}
-									else if (localStorage["radio_which_invoices"] == 1)
-									{
-										radioPaidInvoices.checked = false;
-										radioUnpaidInvoices.checked = true;
-										radioAllInvoices.checked = false;
-									}
-									else if (localStorage["radio_which_invoices"] == 2)
-									{
-										radioPaidInvoices.checked = false;
-										radioUnpaidInvoices.checked = false;
-										radioAllInvoices.checked = true;
+										$date = new DateTime($row["date"]);																																
+										$strInvoice =  "g_arrayInvoices[\"" . $row["id"] . "\"] = " .
+											"{id:\"" . $row["id"] . "\"," .
+											"date:\"" . $date->format("d/m/Y") . "\"," .
+											"name:\"" . $row["name"] . "\"," .
+											"address:\"" . $row["address"] . "\",";
+											
+										if ($row["paid"] == "1")
+										{
+											$strInvoice .= "paid:\"YES\",";
+											$date = new DateTime($row["date_paid"]);
+											$strInvoice .= "date_paid:\"" . $date->format("d/m/Y") . "\",";
+										}
+										else
+										{
+											$strInvoice .= "paid:\"NO\",";
+											$strInvoice .= "date_paid:\"\",";
+										}
+										if ($row["sent"] == "1")
+										{
+											$strInvoice .= "sent:\"YES\",";
+											$date = new DateTime($row["date_sent"]);
+											$strInvoice .= "date_sent:\"" . $date->format("d/m/Y") . "\",";
+										}
+										else
+										{
+											$strInvoice .= "sent:\"NO\",";
+											$strInvoice .= "date_sent:\"\",";
+										}
+										
+										$strInvoice .= "total:\"" . $row["total"] . "\",postage:\"" . $row["postage"] . "\"}";
+										echo $strInvoice;
 									}
 								}
+							?>
+							
+							function ConfirmDeleteInvoice()
+							{
+								let hiddenInput = GetInput("hidden_input"),
+									formInvoice = GetInput("form_invoices");
+									
+								hiddenInput.name = "button_delete";
+								hiddenInput.value = "DELETE";
+								formInvoice.submit();
 							}
-						
-							DoInitSearchForm();
-													
+							
+							function OnClickDeleteInvoice()
+							{
+								AlertConfirm("Are you absolutely sure you want to delete this invoice?", "Yes delete it!", "No don't delete it!", ConfirmDeleteInvoice);
+							}
+									  
+							function OnChangeSelectInvoices()
+							{
+								let selectInvoices = GetInput("select_invoices"),
+									buttonDelete = GetInput("button_delete"),
+									buttonPaid = GetInput("button_paid"),
+									buttonUnpaid = GetInput("button_unpaid"),
+									buttonSent = GetInput("button_sent"),
+									buttonUnsent = GetInput("button_unsent"),
+									buttonView = GetInput("button_view"),
+									strInvoiceID = -1,
+									objectInvoice = null;
+									
+								if (selectInvoices.selectedIndex > -1)
+								{
+									strInvoiceID = selectInvoices.options[selectInvoices.selectedIndex].value,
+									objectInvoice = g_arrayInvoices[strInvoiceID];
+									buttonView.disabled = false;
+									buttonDelete.disabled = (objectInvoice.paid == "YES") || (objectInvoice.sent == "YES");
+									buttonPaid.disabled = objectInvoice.paid == "YES";
+									buttonUnpaid.disabled = (objectInvoice.paid == "NO") || (objectInvoice.sent == "YES");
+									buttonSent.disabled = (objectInvoice.sent == "YES") || (objectInvoice.paid == "NO");
+									buttonUnsent.disabled = (objectInvoice.sent == "NO") || (objectInvoice.paid == "NO");
+									buttonView.disabled = false;
+								}
+								else
+								{
+									buttonView.disabled = true;
+									buttonDelete.disabled = true;
+									buttonPaid.disabled = true;
+									buttonUnpaid.disabled = true;
+									buttonSent.disabled = true;
+									buttonUnsent.disabled = true;
+									buttonView.disabled = true;
+								}
+							}
+																				
 							function DoViewInvoice()
 							{
+								let selectInvoices = GetInput("select_invoices"),
+									strInvoiceID = selectInvoices.options[selectInvoices.selectedIndex].value,
+									strInvoiceDetails = "",
+									objInvoiceDetails = g_arrayInvoices[strInvoiceID];
+									
+								strInvoiceDetails = "DATE: " + objInvoiceDetails.date + "\n" + 	
+													"NAME: " + objInvoiceDetails.name + "\n" +
+													"ADDRESS: " + objInvoiceDetails.address + "\n" +
+													"PAID: " + objInvoiceDetails.paid + "\n" +
+													"DATE PAID: " + objInvoiceDetails.date_paid + "\n" +
+													"SENT: " + objInvoiceDetails.sent + "\n" +
+													"DATE SENT: " + objInvoiceDetails.date_sent + "\n" +
+													"POSTAGE: " + objInvoiceDetails.postage + "\n" +
+													"TOTAL: " + objInvoiceDetails.total + "\n\n" +
+													"BOOKS\n------------\n";
+													
+								AlertInformation("INVOICE DETAILS", strInvoiceDetails);
 							}						
 						
 						</script>

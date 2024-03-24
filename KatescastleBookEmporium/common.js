@@ -176,6 +176,17 @@
 			});	
 	}
 
+	function AlertConfirm(strMsg, strYesText, strNoText, ConfirmedFunction)
+	{
+		objResult = swal({
+		 		title: "CONFIRMATION",
+		  		text: strMsg,
+		  		icon: "warning",
+				buttons: [strNoText, strYesText],
+		  		closeModal: true
+			}).then(function(){ConfirmedFunction();});
+	}
+
 	//********************************************************************************************************************************
 	//********************************************************************************************************************************
 	// PAGE CONTENT FUNCTIONS

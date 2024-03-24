@@ -86,20 +86,16 @@
 	
 	function DoLeftPad($strText, $nLength, $strPad)
 	{
-		$nNum = $nLength - strlen($strText);
-		
-		for ($nI = 0; $nI < $nNum; $nI++)
-			$strText = $strPad . $strText;
+		while (strlen($strText)	 < $nLength)
+			$strText = $strText . $strPad;
 			
 		return $strText;
 	}
 	
 	function DoRightPad($strText, $nLength, $strPad)
 	{
-		$nNum = $nLength - strlen($strText);
-		
-		for ($nI = 0; $nI < $nNum; $nI++)
-			$strText = $strText . $strPad;
+		while (strlen($strText)	 < $nLength)
+			$strText = $strPad . $strText;
 			
 		return $strText;
 	}
@@ -222,10 +218,15 @@
 
 	function DoEscape($strText)
 	{
-		$strText = str_replace("'", "''", $strText);
-		$strText = str_replace("\r\n", "\\n", $strText);
-		$strText = str_replace("\r", "\\n", $strText);
-		$strText = str_replace("\n", "\\n", $strText);
+		if ($strText == NULL)
+			$strText = "NULL";
+		else
+		{
+			$strText = str_replace("'", "''", $strText);
+			$strText = str_replace("\r\n", "\\n", $strText);
+			$strText = str_replace("\r", "\\n", $strText);
+			$strText = str_replace("\n", "\\n", $strText);
+		}
 		return $strText;
 	}
 	
@@ -527,7 +528,7 @@
 	{
 		global $g_strQuery;
 		$g_strQuery = "UPDATE " . $strTableName . " SET " . $strColumnName1 . "='" . DoEscape($strColumnValue1) . "'," . 
-			$strColumnName2 . "='" .  $strColumnValue2 . "' WHERE " . 
+			$strColumnName2 . "='" .  DoEscape($strColumnValue2) . "' WHERE " . 
 			$strFindColumnName . "='" . DoEscape($strFindColumnValue) . "'";
 
 		return DoQuery($dbConnection, $g_strQuery);
@@ -730,28 +731,6 @@
 				$strNewText .= $strText[$nI];
 		}
 		return $strNewText;
-	}
-	
-	function DoGetPaypalButton($nPrice, $bLive)
-	{
-		global $g_dbKatesCastle;
-		global $g_strQuery;
-		$strLive = "0";
-		$strPaypalButton = "";
-		
-		if ($bLive)
-			$strLive = "1";
-			
-		$result = DoFindQuery2($g_dbKatesCastle, "paypal_buttons", "name", $nPrice, "live", $strLive);
-		if ($result && ($result->num_rows > 0))
-		{
-			if ($row = $result->fetch_assoc())
-			{
-				$strPaypalButton = $row["code"];
-				$strPaypalButton = DoEscapeDoubleQuotes($strPaypalButton);
-			}
-		}
-		return $strPaypalButton;
 	}
 	
 	function DoGetBookTypeDesc($strID)
