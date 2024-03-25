@@ -125,6 +125,7 @@
 		  		text: strMsg,
 		  		icon: "info",
 		  		buttons: true,
+		  		html: true,
 		  		closeModal: true
 			});	
 	}
@@ -136,7 +137,8 @@
 		  		text: strMsg,
 		  		icon: "success",
 		  		buttons: true,
-		  		closeModal: true
+		  		closeModal: true,
+		  		html: true
 			});	
 	}
 
@@ -147,7 +149,8 @@
 		  		text: strMsg,
 		  		icon: "warning",
 		  		buttons: true,
-		  		closeModal: true
+		  		closeModal: true,
+		  		html: true
 			});	
 	}
 
@@ -161,7 +164,8 @@
 		  		text: strMsg + "\n\n" + strEmailAdmin,
 		  		icon: "error",
 		  		buttons: true,
-		  		closeModal: true
+		  		closeModal: true,
+		  		html: true
 			});	
 	}
 
@@ -172,7 +176,8 @@
 		  		text: "The " + strDescription + " element with ID '" + strID + "' does not exist!",
 		  		icon: "error",
 		  		buttons: true,
-		  		closeModal: true
+		  		closeModal: true,
+		  		html: true
 			});	
 	}
 
@@ -183,7 +188,8 @@
 		  		text: strMsg,
 		  		icon: "warning",
 				buttons: [strNoText, strYesText],
-		  		closeModal: true
+		  		closeModal: true,
+		  		html: true
 			}).then(function(){ConfirmedFunction();});
 	}
 

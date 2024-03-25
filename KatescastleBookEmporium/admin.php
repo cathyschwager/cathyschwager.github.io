@@ -26,6 +26,8 @@
 
 		<style>
 
+
+
 			.button
 			{
 				font-weight: bold;
@@ -77,8 +79,8 @@
 		<!-- #EndEditable -->
 
 		
-			<?php require_once $_SERVER["DOCUMENT_ROOT"] . "\SweetAlert.js"; ?>
-			<?php require_once $_SERVER["DOCUMENT_ROOT"] . "\common.js"; ?>											
+			<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/SweetAlert.js"; ?>
+			<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/common.js"; ?>											
 
 			<!-- #BeginEditable "Subcategories" -->
 
@@ -234,7 +236,13 @@
 						GeneratePageContents(g_arrayTopicBookmarks, g_arrayTopicBookLists);
 					</script>
 											
-					<!-- #BeginEditable "content" -->				
+					<!-- #BeginEditable "content" -->
+					
+					
+					
+					
+					
+					
 					
 						<?php
 						
@@ -1770,7 +1778,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 								<table cellpadding="10" cellspacing="0" class="table">
 									<tr><td colspan="2"><b>INVOICES</b></td></tr>
 									<tr>
-										<td>
+										<td colspan="2">
 											<?php
 											
 												$strWidthDate = "7em;";
@@ -1780,134 +1788,144 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												$strWidthFunctions = "16em;";
 											
 											?>
-											<table cellpadding="4" cellspacing="0" style="background-color:white;border-width:thin;border-style:inset;border-color:silver;font-size:x-small;table-layout:fixed;">
-												<tr>
-													<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td> 
-													<td style="width:<?php echo $strWidthName; ?>"><b><u>NAME</u></b></td> 
-													<td style="width:<?php echo $strWidthAddress; ?>"><b><u>ADDRESS</u></b></td> 
-													<td style="width:<?php echo $strWidthYesNo; ?>"><b><u>PAID</u></b></td> 
-													<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td> 
-													<td style="width:<?php echo $strWidthYesNo; ?>"><b><u>SENT</u></b></td> 
-													<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td>
-													<td style="width:<?php echo $strWidthFunctions; ?>"><b><u>FUNCTIONS</u></b></td>
-												
-												</tr>
-	
-												<?php 
-												
-													$results = DoFindAllQuery($g_dbKatesCastle, "invoices");
-													if ($results && ($results->num_rows))
-													{
-														$dateStart = new DateTime();
-														$dateEnd = new DateTime();
-														
-														if (isset($_POST["date_start"]) && (strlen($_POST["date_start"]) > 0))
-															$dateStart = new DateTime($_POST["date_start"]);
-														else
-															$dateStart = new DateTime("2000-01-01");
-															
-														if (isset($_POST["date_end"]) && (strlen($_POST["date_end"]) > 0))
-															$dateEnd = new DateTime($_POST["date_end"]);
-														else
-															$dateEnd = new DateTime("3000-01-01");
-															
-														$dateInvoice = new DateTime();
-														$dateSent = new DateTime();
-														$datePaid = new DateTime();
-														$strSent = "";
-														$strPaid = "";
+											<div>
+												<table cellpadding="4" cellspacing="0" style="background-color:white;border-width:thin;border-style:inset;border-color:silver;font-size:x-small;table-layout:fixed;">
+													<tr>
+														<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td> 
+														<td style="width:<?php echo $strWidthName; ?>"><b><u>NAME</u></b></td> 
+														<td style="width:<?php echo $strWidthAddress; ?>"><b><u>ADDRESS</u></b></td> 
+														<td style="width:<?php echo $strWidthYesNo; ?>"><b><u>PAID</u></b></td> 
+														<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td> 
+														<td style="width:<?php echo $strWidthYesNo; ?>"><b><u>SENT</u></b></td> 
+														<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td>
+														<td style="width:<?php echo $strWidthFunctions; ?>"><b><u>FUNCTIONS</u></b></td>
 													
-														while ($row = $results->fetch_assoc())
-														{
-															$dateInvoice = new DateTime($row["date"]);
-															$dateSent = new DateTime($row["date_paid"]);
-															$datePaid = new DateTime($row["date_sent"]);
-															if ($row["paid"] == "1")
-																$strPaid = "YES";
-															else
-																$strPaid = "NO";
+													</tr>
+<?php 
+
+	$results = DoFindAllQuery($g_dbKatesCastle, "invoices");
+	if ($results && ($results->num_rows))
+	{
+		$dateStart = new DateTime();
+		$dateEnd = new DateTime();
+		
+		if (isset($_POST["date_start"]) && (strlen($_POST["date_start"]) > 0))
+			$dateStart = new DateTime($_POST["date_start"]);
+		else
+			$dateStart = new DateTime("2000-01-01");
+			
+		if (isset($_POST["date_end"]) && (strlen($_POST["date_end"]) > 0))
+			$dateEnd = new DateTime($_POST["date_end"]);
+		else
+			$dateEnd = new DateTime("3000-01-01");
+			
+		$dateInvoice = new DateTime();
+		$dateSent = new DateTime();
+		$datePaid = new DateTime();
+		$strSent = "";
+		$strPaid = "";
+	
+		while ($row = $results->fetch_assoc())
+		{
+			$dateInvoice = new DateTime($row["date"]);
+			$dateSent = new DateTime($row["date_paid"]);
+			$datePaid = new DateTime($row["date_sent"]);
+			if ($row["paid"] == "1")
+				$strPaid = "YES";
+			else
+				$strPaid = "NO";
+				
+			if ($row["sent"] == "1")
+				$strSent = "YES";
+			else
+				$strSent = "NO";
 																
-															if ($row["sent"] == "1")
-																$strSent = "YES";
-															else
-																$strSent = "NO";
-																												
-															if (($dateInvoice >= $dateStart) && ($dateInvoice <= $dateEnd))
-															{
-																if (!isset($_POST["radio_which_invoices"]) || ($_POST["radio_which_invoices"] == 2) || 
-																	(($_POST["radio_which_invoices"] == 0) && ($row["paid"] == "1")) || 
-																	(($_POST["radio_which_invoices"] == 1) && ($row["paid"] == "0")))
-																{
-																	echo "<tr>" . 
-																		 "<td style=\"width:" . $strWidthDate . "\">" . $dateInvoice->format("d/m/Y") . "</td>" .
-																		 "<td style=\"width:" . $strWidthName . "\">" . $row["name"] . "</td>" .
-																		 "<td style=\"width:" . $strWidthAddress . "\">" . $row["address"] . "</td>" .
-																		 "<td style=\"width:" . $strWidthYesNo . "\">" . $strPaid . "</td>" .
-																		 "<td style=\"width:" . $strWidthDate . "\">" . $datePaid->format("d/m/Y") . "</td>" .
-																		 "<td style=\"width:" . $strWidthYesNo . "\">" . $strSent . "</td>" .
-																		 "<td style=\"width:" . $strWidthDate . "\">" . $dateSent->format("d/m/Y") . "</td>" .
-																		 "<td style=\"width:" . $strWidthFunctions . "\">";
-																		 
-																	$strButtonWidth = "40px";
-																	$strButtonHeight = "30px";
-																	
-																	echo "<button type=\"button\" id=\"button_view\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\" onclick=\"DoViewInvoice('" . $row["id"] . "')\"><img src=\"/images/view.png\" alt=\"/images/view.png\" width=\"18\" /></button>&nbsp;";	 
-																	if (($row["paid"] == "0") && ($row["sent"] == "0"))
-																	{
-																		echo "<button type=\"submit\" id=\"button_paid\" name=\"button_paid\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/paid.png\" alt=\"/images/paid.png\" width=\"30\" /></button>&nbsp;";
-																		echo "<button type=\"submit\" id=\"button_delete\" name=\"button_delete\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/delete.png\" alt=\"/images/delete.png\" width=\"20\" /></button>";
+			if (($dateInvoice >= $dateStart) && ($dateInvoice <= $dateEnd))
+			{
+				if (!isset($_POST["radio_which_invoices"]) || ($_POST["radio_which_invoices"] == 2) || 
+					(($_POST["radio_which_invoices"] == 0) && ($row["paid"] == "1")) || 
+					(($_POST["radio_which_invoices"] == 1) && ($row["paid"] == "0")))
+				{
+					echo "<tr>" . 
+						 "<td style=\"width:" . $strWidthDate . "\">" . $dateInvoice->format("d/m/Y") . "</td>" .
+						 "<td style=\"width:" . $strWidthName . "\">" . $row["name"] . "</td>" .
+						 "<td style=\"width:" . $strWidthAddress . "\">" . $row["address"] . "</td>" .
+						 "<td style=\"width:" . $strWidthYesNo . "\">" . $strPaid . "</td>" .
+						 "<td style=\"width:" . $strWidthDate . "\">" . $datePaid->format("d/m/Y") . "</td>" .
+						 "<td style=\"width:" . $strWidthYesNo . "\">" . $strSent . "</td>" .
+						 "<td style=\"width:" . $strWidthDate . "\">" . $dateSent->format("d/m/Y") . "</td>" .
+						 "<td style=\"width:" . $strWidthFunctions . "\">";
+						 
+					$strButtonWidth = "40px";
+					$strButtonHeight = "30px";
+					
+					echo "<button type=\"button\" id=\"button_view\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\" onclick=\"DoViewInvoice('" . $row["id"] . "')\"><img src=\"/images/view.png\" alt=\"/images/view.png\" width=\"18\" /></button>&nbsp;";	 
+					if (($row["paid"] == "0") && ($row["sent"] == "0"))
+					{
+						echo "<button type=\"submit\" id=\"button_paid\" name=\"button_paid\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/paid.png\" alt=\"/images/paid.png\" width=\"30\" /></button>&nbsp;";
+						echo "<button type=\"submit\" id=\"button_delete\" name=\"button_delete\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/delete.png\" alt=\"/images/delete.png\" width=\"20\" /></button>";
 
-																	}
-																	else if (($row["paid"] == "1") && ($row["sent"] == "0"))
-																	{
-																		echo "<button type=\"submit\" id=\"button_unpaid\" name=\"button_unpaid\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/unpaid.png\" alt=\"/images/unpaid.png\" width=\"30\" /></button>&nbsp;";
-																		echo "<button type=\"submit\" id=\"button_sent\" name=\"button_sent\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/sent.png\" alt=\"/images/sent.png\" width=\"18\" /></button>";
-																	}
-																	else if (($row["paid"] == "1") && ($row["sent"] == "1"))
-																	{
-																		echo "<button type=\"submit\" id=\"button_unsent\" name=\"button_unsent\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/unsent.png\" alt=\"/images/unsent.png\" width=\"18\" /></button>";
+					}
+					else if (($row["paid"] == "1") && ($row["sent"] == "0"))
+					{
+						echo "<button type=\"submit\" id=\"button_unpaid\" name=\"button_unpaid\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/unpaid.png\" alt=\"/images/unpaid.png\" width=\"30\" /></button>&nbsp;";
+						echo "<button type=\"submit\" id=\"button_sent\" name=\"button_sent\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/sent.png\" alt=\"/images/sent.png\" width=\"18\" /></button>";
+					}
+					else if (($row["paid"] == "1") && ($row["sent"] == "1"))
+					{
+						echo "<button type=\"submit\" id=\"button_unsent\" name=\"button_unsent\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/unsent.png\" alt=\"/images/unsent.png\" width=\"18\" /></button>";
 
-																	}
-																}
-															}	
-														}
-													}
-												
-												?>
-											</table>
+					}
+				}
+			}	
+		}
+	}
+
+?>
+												</table>
+											</div>
 										</td>
 									</tr>
-									<tr><td colspan="2"><b>FILTER INVOICES</b></td></tr>
+									<tr>
+										<td><b>FILTER INVOICES</b></td>
+										<td rowspan="5" style="width:450px;">
+											<div id="InvoiceDetails" style="display:none;padding:10px;height:150px;width:420px;border-style:inset;border-width:thin;background-color:white;overflow-y:auto;">
+												<div id="InvoiceContent"></div>
+												<button type="button" id="CloseButton" onclick="OnClickClose()">CLOSE</button>
+											</div>
+										</td>
+									</tr>
  									<tr>
  										<td>
 	 										<table cellpadding="0" cellspacing="0" border="0">
 	 											<tr>
-			 										<td style="text-align:right;width:5em;"><label id="label_topic">Start date:</label></td>
+			 										<td style="text-align:right;width:5em;">
+													<label id="label_date_start">Start date:</label></td>
 													<td><input id="date_start" name="date_start" value="<?php if (isset($_POST["date_start"])) echo $_POST["date_start"]; ?>" type="date" class="text" style="width:150px;" /></td>
 												</tr>
 	 										</table>
  										</td>
- 										<td>&nbsp;</td>
 									</tr>
  									<tr>
  										<td>
 	 										<table cellpadding="0" cellspacing="0" border="0">
 	 											<tr>
-													<td style="text-align:right;width:5em;"><label id="label_topic">End date:</label></td>
+													<td style="text-align:right;width:5em;">
+													<label id="label_date_end">End date:</label></td>
 													<td><input id="date_end" name="date_end" value="<?php if (isset($_POST["date_end"])) echo $_POST["date_end"]; ?>" type="date" class="text" style="width:150px;" /></td>
 												</tr>
 	 										</table>
  										</td>
 									</tr>
 									<tr>
-										<td colspan="2">
+										<td>
 											<input type="radio" <?php if (isset($_POST["radio_which_invoices"]) && ($_POST["radio_which_invoices"] == "0")) echo "checked"; ?> name="radio_which_invoices" id="radio_paid_invoices" value="0" /><label for="radio_paid_invoices" class="radio">PAID</label>
 											<input type="radio" <?php if (isset($_POST["radio_which_invoices"]) && ($_POST["radio_which_invoices"] == "1")) echo "checked"; ?> name="radio_which_invoices" id="radio_unpaid_invoices"  value="1" /><label for="radio_paid_invoices" class="radio">UNPAID</label>
 											<input type="radio" <?php if (!isset($_POST["radio_which_invoices"]) || (isset($_POST["radio_which_invoices"]) && ($_POST["radio_which_invoices"] == "2"))) echo "checked"; ?> name="radio_which_invoices" id="radio_all_invoices"  value="2" /><label for="radio_paid_invoices" class="radio">All</label>
 										</td>
 									</tr>
 									<tr>
-										<td colspan="2">
+										<td>
 											<input type="submit" id="button_refresh" value="REFRESH" class="button" />
 										</td>
 									</tr>
@@ -1954,8 +1972,41 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											$strInvoice .= "sent:\"NO\",";
 											$strInvoice .= "date_sent:\"\",";
 										}
+										$strInvoice .= "total:\"" . $row["total"] . "\",postage:\"" . $row["postage"] . "\",";
+										$strInvoice .= "arrayBooks:[\n";
 										
-										$strInvoice .= "total:\"" . $row["total"] . "\",postage:\"" . $row["postage"] . "\"}";
+										$resultsInvBooks = DoFindQuery1($g_dbKatesCastle, "invoice_books", "invoice_id", $row["id"]);
+										if ($resultsInvBooks && ($resultsInvBooks->num_rows > 0))
+										{
+											while ($rowInvBook = $resultsInvBooks->fetch_assoc())
+											{
+												$ResultsBook = DoFindQuery1($g_dbKatesCastle, "books", "id", $rowInvBook["book_id"]);
+												if ($ResultsBook && ($ResultsBook->num_rows > 0))
+												{
+													if ($rowBook = $ResultsBook->fetch_assoc())
+													{
+														$strInvoice .= "{";
+														$strInvoice .= "id:\"" . $rowBook["id"] . "\",";
+														$strInvoice .= "title:\"" . $rowBook["title"] . "\",";
+														$strInvoice .= "author:\"" . $rowBook["author"] . "\",";
+														$strInvoice .= "price:\"" . sprintf("$%.2f", $rowBook["price"]) . "\",";
+														$strInvoice .= "weight:\"" . sprintf("%d", $rowBook["weight"]) . " grams\",";
+														
+														$resultsType = DoFindQuery1($g_dbKatesCastle, "book_type", "id", $rowBook["type_id"]);
+														if ($resultsType && ($resultsType->num_rows > 0))
+														{
+															if ($rowType = $resultsType->fetch_assoc())
+															{
+																$strInvoice .= "type:\"" . $rowType["name"] . "\"";
+															}
+														}
+														$strInvoice .= "},";
+													}
+												}
+											}
+											$strInvoice = substr($strInvoice, 0, strlen($strInvoice) - 2);
+										}
+										$strInvoice .= "}]}";
 										echo $strInvoice;
 									}
 								}
@@ -1981,7 +2032,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 								let strInvoiceDetails = "",
 									objInvoiceDetails = g_arrayInvoices[strInvoiceID];
 									
-								strInvoiceDetails = "DATE: " + objInvoiceDetails.date + "\n" + 	
+								strInvoiceDetails = "<div style=\"font-size:x-small;\">" + 
+													"DATE: " + objInvoiceDetails.date + "\n" + 	
 													"NAME: " + objInvoiceDetails.name + "\n" +
 													"ADDRESS: " + objInvoiceDetails.address + "\n" +
 													"PAID: " + objInvoiceDetails.paid + "\n" +
@@ -1992,9 +2044,30 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 													"TOTAL: " + objInvoiceDetails.total + "\n\n" +
 													"BOOKS\n------------\n";
 													
-								AlertInformation("INVOICE DETAILS", strInvoiceDetails);
-							}						
-						
+								for (let nI = 0; nI < objInvoiceDetails.arrayBooks.length; nI++)
+								{
+									strInvoiceDetails += "  " + objInvoiceDetails.arrayBooks[nI].id + ", " + 
+														objInvoiceDetails.arrayBooks[nI].title + ", " +
+														objInvoiceDetails.arrayBooks[nI].author + ", " +
+														objInvoiceDetails.arrayBooks[nI].price + ", " +
+														objInvoiceDetails.arrayBooks[nI].weight + ", " +
+														objInvoiceDetails.arrayBooks[nI].type + "\n";
+								}
+								strInvoiceDetails += "</div>";
+
+								let divInvoiceDetails = GetInput("InvoiceDetails"), 
+									divInvoiceContents = GetInput("InvoiceContent");
+								divInvoiceContents.innerHTML = strInvoiceDetails;
+								divInvoiceDetails.style.display = "block";
+								//AlertInformation("INVOICE DETAILS", strInvoiceDetails);
+							}
+							
+							function OnClickClose()
+							{
+								let divInvoiceDetails = GetInput("InvoiceDetails");
+								divInvoiceDetails.style.display = "none";
+							}					
+
 						</script>
 					
 					<!-- #EndEditable -->

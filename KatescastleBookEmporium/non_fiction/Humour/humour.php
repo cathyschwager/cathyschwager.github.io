@@ -29,8 +29,8 @@
 		<!-- #EndEditable -->
 
 		
-			<?php require_once $_SERVER["DOCUMENT_ROOT"] . "\SweetAlert.js"; ?>
-			<?php require_once $_SERVER["DOCUMENT_ROOT"] . "\common.js"; ?>											
+			<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/SweetAlert.js"; ?>
+			<?php require_once $_SERVER["DOCUMENT_ROOT"] . "/common.js"; ?>											
 
 			<!-- #BeginEditable "Subcategories" -->
 
