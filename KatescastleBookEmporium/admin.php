@@ -583,25 +583,25 @@
 							}
 							else if (isset($_POST["button_delete"]))
 							{
-								$results = DoDeleteQuery($g_dbKatesCastle, "invoices", "id", $_POST["select_invoices"]);
+								$results = DoDeleteQuery($g_dbKatesCastle, "invoices", "id", $_POST["button_delete"]);
 							}
 							else if (isset($_POST["button_paid"]))
 							{
 								$dateNow = new DateTime();
-								$results = DoUpdateQuery2($g_dbKatesCastle, "invoices", "paid", "1", "date_paid", $dateNow->format("Y-m-d"), "id", $_POST["select_invoices"]);
+								$results = DoUpdateQuery2($g_dbKatesCastle, "invoices", "paid", "1", "date_paid", $dateNow->format("Y-m-d"), "id", $_POST["button_paid"]);
 							}
 							else if (isset($_POST["button_unpaid"]))
 							{
-								$results = DoUpdateQuery1($g_dbKatesCastle, "invoices", "paid", "0", "id", $_POST["select_invoices"]);
+								$results = DoUpdateQuery1($g_dbKatesCastle, "invoices", "paid", "0", "id", $_POST["button_unpaid"]);
 							}
 							else if (isset($_POST["button_sent"]))
 							{
 								$dateNow = new DateTime();
-								$results = DoUpdateQuery2($g_dbKatesCastle, "invoices", "sent", "1", "date_sent", $dateNow->format("Y-m-d"), "id", $_POST["select_invoices"]);
+								$results = DoUpdateQuery2($g_dbKatesCastle, "invoices", "sent", "1", "date_sent", $dateNow->format("Y-m-d"), "id", $_POST["button_sent"]);
 							}
 							else if (isset($_POST["button_unsent"]))
 							{
-								$results = DoUpdateQuery1($g_dbKatesCastle, "invoices", "sent", "0", "id", $_POST["select_invoices"]);
+								$results = DoUpdateQuery1($g_dbKatesCastle, "invoices", "sent", "0", "id", $_POST["button_unsent"]);
 							}
 							else
 							{
@@ -1771,21 +1771,30 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									<tr><td colspan="2"><b>INVOICES</b></td></tr>
 									<tr>
 										<td>
-											<table cellpadding="0" cellspacing="0" border="0" style="font-weight:bold;font-size:x-small;font-family:monospace,monospace;">
+											<?php
+											
+												$strWidthDate = "7em;";
+												$strWidthName = "16em";
+												$strWidthAddress = "30em;";
+												$strWidthYesNo = "6em;";
+												$strWidthFunctions = "15em;";
+											
+											?>
+											<table cellpadding="4" cellspacing="0" border="0" style="background-color:white;border-style:inset;border-color:silver;font-size:x-small;able-layout:fixed;">
 												<tr>
-													<td>&nbsp;</td>
-													<td style="width:7em;">DATE</td>
-													<td style="width:14em;">NAME</td>
-													<td style="width:27em;">ADDRESS</td>
-													<td style="width:3em;">PAID</td>
-													<td style="width:7em;">DATE</td>
-													<td style="width:3em;">SENT</td>
-													<td style="width:7em;">DATE</td>
+													<td style="width:<?php echo $strWidthDate; ?>"><u>DATE</u></td> 
+													<td style="width:<?php echo $strWidthName; ?>"><u>NAME</u></td> 
+													<td style="width:<?php echo $strWidthAddress; ?>"><u>ADDRESS</u></td> 
+													<td style="width:<?php echo $strWidthYesNo; ?>"><u>PAID</u></td> 
+													<td style="width:<?php echo $strWidthDate; ?>"><u>DATE</u></td> 
+													<td style="width:<?php echo $strWidthYesNo; ?>"><u>SENT</u></td> 
+													<td style="width:<?php echo $strWidthDate; ?>"><u>DATE</u></td>
+													<td style="width:<?php echo $strWidthFunctions; ?>"><u>FUNCTIONS</u></td>
+												
 												</tr>
-											</table>
-											<select id="select_invoices" name="select_invoices" class="select" size="10" style="width:70em;height:23em;overflow-x:auto;font-size:x-small;font-family:monospace,monospace;" onchange="OnChangeSelectInvoices()">
-												<!--<option>00/00/0000&nbsp;&nbsp;&nbsp;&nbsp;Gregary Boyles&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;20 Bassetts Road, Doreen, VIC, 3754&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO&nbsp;&nbsp;&nbsp;&nbsp;NO</option>-->
+	
 												<?php 
+												
 													$results = DoFindAllQuery($g_dbKatesCastle, "invoices");
 													if ($results && ($results->num_rows))
 													{
@@ -1829,23 +1838,45 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 																	(($_POST["radio_which_invoices"] == 0) && ($row["paid"] == "1")) || 
 																	(($_POST["radio_which_invoices"] == 1) && ($row["paid"] == "0")))
 																{
-																	echo "<option value=\"" . $row["id"] . "\">" . 
-																		DoRightPad($dateInvoice->format("d/m/Y"), 14, "&nbsp;") .
-																		DoRightPad($row["name"], 28, "&nbsp;") . 
-																		DoRightPad($row["address"], 54, "&nbsp;") .
-																		DoRightPad($strPaid, 6, "&nbsp;") . 
-																		DoRightPad($datePaid->format("d/m/Y"), 14, "&nbsp;") .
-																		DoRightPad($strSent, 6, "&nbsp;") .
-																		DoRightPad($dateSent->format("d/m/Y"), 14, "&nbsp;") .
-																		"</option>\n";
+																	echo "<tr>" . 
+																		 "<td style=\"width:" . $strWidthDate . "\">" . $dateInvoice->format("d/m/Y") . "</td>" .
+																		 "<td style=\"width:" . $strWidthName . "\">" . $row["name"] . "</td>" .
+																		 "<td style=\"width:" . $strWidthAddress . "\">" . $row["address"] . "</td>" .
+																		 "<td style=\"width:" . $strWidthYesNo . "\">" . $strPaid . "</td>" .
+																		 "<td style=\"width:" . $strWidthDate . "\">" . $datePaid->format("d/m/Y") . "</td>" .
+																		 "<td style=\"width:" . $strWidthYesNo . "\">" . $strSent . "</td>" .
+																		 "<td style=\"width:" . $strWidthDate . "\">" . $dateSent->format("d/m/Y") . "</td>" .
+																		 "<td style=\"width:" . $strWidthFunctions . "\">";
+																		 
+																	$strButtonWidth = "40px";
+																	$strButtonHeight = "30px";
+																	
+																	echo "<button type=\"button\" id=\"button_view\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\" onclick=\"DoViewInvoice('" . $row["id"] . "')\"><img src=\"/images/view.png\" alt=\"/images/view.png\" width=\"18\" /></button>&nbsp;";	 
+																	if (($row["paid"] == "0") && ($row["sent"] == "0"))
+																	{
+																		echo "<button type=\"submit\" id=\"button_paid\" name=\"button_paid\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/paid.png\" alt=\"/images/paid.png\" width=\"30\" /></button>&nbsp;";
+																		echo "<button type=\"submit\" id=\"button_delete\" name=\"button_delete\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/delete.png\" alt=\"/images/delete.png\" width=\"20\" /></button>";
+
+																	}
+																	else if (($row["paid"] == "1") && ($row["sent"] == "0"))
+																	{
+																		echo "<button type=\"submit\" id=\"button_unpaid\" name=\"button_unpaid\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/unpaid.png\" alt=\"/images/unpaid.png\" width=\"30\" /></button>&nbsp;";
+																		echo "<button type=\"submit\" id=\"button_sent\" name=\"button_sent\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/sent.png\" alt=\"/images/sent.png\" width=\"18\" /></button>";
+																	}
+																	else if (($row["paid"] == "1") && ($row["sent"] == "1"))
+																	{
+																		echo "<button type=\"submit\" id=\"button_unsent\" name=\"button_unsent\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/unsent.png\" alt=\"/images/unsent.png\" width=\"18\" /></button>";
+
+																	}
 																}
 															}	
 														}
 													}
 												
 												?>
-											</select>
+											</table>
 										</td>
+										<!--
 										<td>
 											<input type="button" id="button_delete" name="button_delete" value="DELETE" class="button" disabled="disabled" onclick="OnClickDeleteInvoice()"/><br/><br/>
 											<input type="submit" id="button_paid" name="button_paid" value="PAID" class="button" disabled="disabled" /><br/><br/>
@@ -1855,6 +1886,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											<input type="button" id="button_view" value="VIEW" class="button" disabled="disabled" onclick="DoViewInvoice()" />
 											<input type="hidden" id="hidden_input" name="" value="" />
 										</td>
+										-->
 									</tr>
 									<tr><td colspan="2"><b>FILTER INVOICES</b></td></tr>
  									<tr>
@@ -1955,47 +1987,9 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 								AlertConfirm("Are you absolutely sure you want to delete this invoice?", "Yes delete it!", "No don't delete it!", ConfirmDeleteInvoice);
 							}
 									  
-							function OnChangeSelectInvoices()
+							function DoViewInvoice(strInvoiceID)
 							{
-								let selectInvoices = GetInput("select_invoices"),
-									buttonDelete = GetInput("button_delete"),
-									buttonPaid = GetInput("button_paid"),
-									buttonUnpaid = GetInput("button_unpaid"),
-									buttonSent = GetInput("button_sent"),
-									buttonUnsent = GetInput("button_unsent"),
-									buttonView = GetInput("button_view"),
-									strInvoiceID = -1,
-									objectInvoice = null;
-									
-								if (selectInvoices.selectedIndex > -1)
-								{
-									strInvoiceID = selectInvoices.options[selectInvoices.selectedIndex].value,
-									objectInvoice = g_arrayInvoices[strInvoiceID];
-									buttonView.disabled = false;
-									buttonDelete.disabled = (objectInvoice.paid == "YES") || (objectInvoice.sent == "YES");
-									buttonPaid.disabled = objectInvoice.paid == "YES";
-									buttonUnpaid.disabled = (objectInvoice.paid == "NO") || (objectInvoice.sent == "YES");
-									buttonSent.disabled = (objectInvoice.sent == "YES") || (objectInvoice.paid == "NO");
-									buttonUnsent.disabled = (objectInvoice.sent == "NO") || (objectInvoice.paid == "NO");
-									buttonView.disabled = false;
-								}
-								else
-								{
-									buttonView.disabled = true;
-									buttonDelete.disabled = true;
-									buttonPaid.disabled = true;
-									buttonUnpaid.disabled = true;
-									buttonSent.disabled = true;
-									buttonUnsent.disabled = true;
-									buttonView.disabled = true;
-								}
-							}
-																				
-							function DoViewInvoice()
-							{
-								let selectInvoices = GetInput("select_invoices"),
-									strInvoiceID = selectInvoices.options[selectInvoices.selectedIndex].value,
-									strInvoiceDetails = "",
+								let strInvoiceDetails = "",
 									objInvoiceDetails = g_arrayInvoices[strInvoiceID];
 									
 								strInvoiceDetails = "DATE: " + objInvoiceDetails.date + "\n" + 	

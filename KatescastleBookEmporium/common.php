@@ -87,7 +87,7 @@
 	function DoLeftPad($strText, $nLength, $strPad)
 	{
 		while (strlen($strText)	 < $nLength)
-			$strText = $strText . $strPad;
+			$strText = $strPad . $strText;
 			
 		return $strText;
 	}
@@ -95,7 +95,7 @@
 	function DoRightPad($strText, $nLength, $strPad)
 	{
 		while (strlen($strText)	 < $nLength)
-			$strText = $strPad . $strText;
+			$strText = $strText . $strPad;
 			
 		return $strText;
 	}
