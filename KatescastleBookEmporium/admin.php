@@ -1767,7 +1767,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 							</script>
 							<br/>
 							<form method="post" id="form_invoices" class="form" style="width:56em;">
-								<table cellpadding="10" cellspacing="0" border="0" class="table">
+								<table cellpadding="10" cellspacing="0" class="table">
 									<tr><td colspan="2"><b>INVOICES</b></td></tr>
 									<tr>
 										<td>
@@ -1777,19 +1777,19 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												$strWidthName = "16em";
 												$strWidthAddress = "30em;";
 												$strWidthYesNo = "6em;";
-												$strWidthFunctions = "15em;";
+												$strWidthFunctions = "16em;";
 											
 											?>
-											<table cellpadding="4" cellspacing="0" border="0" style="background-color:white;border-style:inset;border-color:silver;font-size:x-small;able-layout:fixed;">
+											<table cellpadding="4" cellspacing="0" style="background-color:white;border-width:thin;border-style:inset;border-color:silver;font-size:x-small;table-layout:fixed;">
 												<tr>
-													<td style="width:<?php echo $strWidthDate; ?>"><u>DATE</u></td> 
-													<td style="width:<?php echo $strWidthName; ?>"><u>NAME</u></td> 
-													<td style="width:<?php echo $strWidthAddress; ?>"><u>ADDRESS</u></td> 
-													<td style="width:<?php echo $strWidthYesNo; ?>"><u>PAID</u></td> 
-													<td style="width:<?php echo $strWidthDate; ?>"><u>DATE</u></td> 
-													<td style="width:<?php echo $strWidthYesNo; ?>"><u>SENT</u></td> 
-													<td style="width:<?php echo $strWidthDate; ?>"><u>DATE</u></td>
-													<td style="width:<?php echo $strWidthFunctions; ?>"><u>FUNCTIONS</u></td>
+													<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td> 
+													<td style="width:<?php echo $strWidthName; ?>"><b><u>NAME</u></b></td> 
+													<td style="width:<?php echo $strWidthAddress; ?>"><b><u>ADDRESS</u></b></td> 
+													<td style="width:<?php echo $strWidthYesNo; ?>"><b><u>PAID</u></b></td> 
+													<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td> 
+													<td style="width:<?php echo $strWidthYesNo; ?>"><b><u>SENT</u></b></td> 
+													<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td>
+													<td style="width:<?php echo $strWidthFunctions; ?>"><b><u>FUNCTIONS</u></b></td>
 												
 												</tr>
 	
@@ -1876,17 +1876,6 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												?>
 											</table>
 										</td>
-										<!--
-										<td>
-											<input type="button" id="button_delete" name="button_delete" value="DELETE" class="button" disabled="disabled" onclick="OnClickDeleteInvoice()"/><br/><br/>
-											<input type="submit" id="button_paid" name="button_paid" value="PAID" class="button" disabled="disabled" /><br/><br/>
-											<input type="submit" id="button_unpaid" name="button_unpaid" value="UNPAID" class="button" disabled="disabled" /><br/><br/>
-											<input type="submit" id="button_sent" name="button_sent" value="SENT" class="button" disabled="disabled" /><br/><br/>
-											<input type="submit" id="button_unsent" name="button_unsent" value="UNSENT" class="button" disabled="disabled" /><br/><br/>
-											<input type="button" id="button_view" value="VIEW" class="button" disabled="disabled" onclick="DoViewInvoice()" />
-											<input type="hidden" id="hidden_input" name="" value="" />
-										</td>
-										-->
 									</tr>
 									<tr><td colspan="2"><b>FILTER INVOICES</b></td></tr>
  									<tr>

@@ -228,6 +228,14 @@
 									$results = DoUpdateQuery4($g_dbKatesCastle, "invoices", "name", $strName, "address", $strAddress, "postage", $arrayShoppingCart->fPostage, "total", $arrayShoppingCart->fShoppingCartTotal, "id", $strInvoiceNum);
 									if ($results)
 									{
+										$results = DoDeleteQuery1($g_dbKatesCastle, "invoice_books", "invoice_id", $_SESSION["nInvoiceNum"]);
+										if ($results)
+										{
+											for ($nI = 0; $nI < count($arrayShoppingCart->$arrayShoppingCartItems); $nI++)
+											{
+												$results = DoInsertQuery2($g_dbKatesCastle, "invoice_books", "invoice_id", $_SESSION["nInvoiceNum"], "book_id", $arrayShoppingCart->$arrayShoppingCartItems["id"]);
+											}
+										}
 										$bSuccess = TRUE;
 									}
 								}
@@ -239,7 +247,12 @@
 										$bSuccess = TRUE;
 										$_SESSION["nInvoiceNum"] = DoGetInvoiceNum();
 										$dateNow = new DateTime();
-										$_SESSION["strInvoiceDate"] = $dateNow->format("d/m/Y");									}
+										$_SESSION["strInvoiceDate"] = $dateNow->format("d/m/Y");
+																		}
+										for ($nI = 0; $nI < count($arrayShoppingCart->$arrayShoppingCartItems); $nI++)
+										{
+											$results = DoInsertQuery2($g_dbKatesCastle, "invoice_books", "invoice_id", $_SESSION["nInvoiceNum"], "book_id", $arrayShoppingCart->$arrayShoppingCartItems["id"]);
+										}
 								}
 								return $bSuccess;
 							}
@@ -297,7 +310,8 @@
 												[0] => 
 													stdClass Object 
 													( 
-														[id] => 5 [title] => Harry Potter & the Philosopher's Stone 
+														[id] => 5 
+														[title] => Harry Potter & the Philosopher's Stone 
 														[author] => J.K.Rowling [price] => 10.00 
 														[summary] => The novel introduces readers to the magical world of Hogwarts School of Witchcraft and Wizardry and follows the adventures of a young boy named Harry Potter. Harry Potter is an orphan who has been living with his cruel and neglectful relatives, the Dursleys, ever since his parents were killed by the dark wizard Lord Voldemort when he was just a baby. On his eleventh birthday, Harry receives a letter from a mysterious messenger informing him that he is a wizard and has been accepted to attend Hogwarts. 
 														[image_filename] => fiction/fantasy/images/HPPS220.jpg 
