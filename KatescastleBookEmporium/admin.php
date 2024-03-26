@@ -1895,6 +1895,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										<td rowspan="5" style="width:450px;">
 											<div id="InvoiceDetails" style="display:none;padding:10px;height:150px;width:420px;border-style:inset;border-width:thin;background-color:white;overflow-y:auto;">
 												<div id="InvoiceContent"></div>
+												<br/>
 												<button type="button" id="CloseButton" onclick="OnClickClose()">CLOSE</button>
 											</div>
 										</td>
@@ -1928,7 +1929,6 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											<input type="radio" <?php if (!isset($_POST["radio_which_invoices"]) || (isset($_POST["radio_which_invoices"]) && ($_POST["radio_which_invoices"] == "2"))) echo "checked"; ?> name="radio_which_invoices" id="radio_all_invoices"  value="2" /><label for="radio_paid_invoices" class="radio">All</label>
 										</td>
 									</tr>
-									<tr><td><br/></td></tr>
 									<tr>
 										<td>
 											<input type="submit" id="button_refresh" value="REFRESH" class="button" />
@@ -2055,7 +2055,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									strInvoiceDetails += "<tr><td style=\"text-align:right;\"><b>ID: </td><td>" + objInvoiceDetails.arrayBooks[nI].id + "</td></tr>" + 
 														"<tr><td style=\"text-align:right;\"><b>Title: </td><td>" + objInvoiceDetails.arrayBooks[nI].title + "</td></tr>" +
 														"<tr><td style=\"text-align:right;\"><b>Author: </td><td>" + objInvoiceDetails.arrayBooks[nI].author + "</td></tr>" +
-														"<tr><td style=\"text-align:right;border-bottom-style:solid;border-bottom-width:thin;\"><b>Details: </td><td style=\"border-bottom-style:solid;border-bottom-width:thin;\">" + objInvoiceDetails.arrayBooks[nI].price + ", " +
+														"<tr><td style=\"text-align:right;border-bottom-style:dotted;border-bottom-width:thin;\"><b>Details: </td><td style=\"border-bottom-style:dotted;border-bottom-width:thin;\">" + objInvoiceDetails.arrayBooks[nI].price + ", " +
 														objInvoiceDetails.arrayBooks[nI].weight + ", " +
 														objInvoiceDetails.arrayBooks[nI].type + "</td></tr>\n";
 								}
