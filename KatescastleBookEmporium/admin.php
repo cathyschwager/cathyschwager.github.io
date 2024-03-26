@@ -1928,6 +1928,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											<input type="radio" <?php if (!isset($_POST["radio_which_invoices"]) || (isset($_POST["radio_which_invoices"]) && ($_POST["radio_which_invoices"] == "2"))) echo "checked"; ?> name="radio_which_invoices" id="radio_all_invoices"  value="2" /><label for="radio_paid_invoices" class="radio">All</label>
 										</td>
 									</tr>
+									<tr><td><br/></td></tr>
 									<tr>
 										<td>
 											<input type="submit" id="button_refresh" value="REFRESH" class="button" />
@@ -2037,27 +2038,28 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									objInvoiceDetails = g_arrayInvoices[strInvoiceID];
 									
 								strInvoiceDetails = "<div style=\"font-size:x-small;\">" + 
-													"DATE: " + objInvoiceDetails.date + "\n" + 	
-													"NAME: " + objInvoiceDetails.name + "\n" +
-													"ADDRESS: " + objInvoiceDetails.address + "\n" +
-													"PAID: " + objInvoiceDetails.paid + "\n" +
-													"DATE PAID: " + objInvoiceDetails.date_paid + "\n" +
-													"SENT: " + objInvoiceDetails.sent + "\n" +
-													"DATE SENT: " + objInvoiceDetails.date_sent + "\n" +
-													"POSTAGE: " + objInvoiceDetails.postage + "\n" +
-													"TOTAL: " + objInvoiceDetails.total + "\n\n" +
-													"BOOKS\n------------\n";
+													"<table cellspacing=\"0\" cellpading=\"2\" border=\"0\">\n" +
+													"<tr><td style=\"text-align:right;\"><b>DATE: </b></td><td>" + objInvoiceDetails.date + "</td></tr>\n" + 	
+													"<tr><td style=\"text-align:right;\"><b>NAME: </b></td><td>" + objInvoiceDetails.name + "</td></tr>\n" +
+													"<tr><td style=\"text-align:right;\"><b>ADDRESS: </b></td><td>" + objInvoiceDetails.address + "</td></tr>\n" +
+													"<tr><td style=\"text-align:right;\"><b>PAID: </b></td><td>" + objInvoiceDetails.paid + "</td></tr>\n" +
+													"<tr><td style=\"text-align:right;\"><b>DATE PAID: </b></td><td>" + objInvoiceDetails.date_paid + "</td></tr>\n" +
+													"<tr><td style=\"text-align:right;\"><b>SENT: </b></td><td>" + objInvoiceDetails.sent + "</td></tr>\n" +
+													"<tr><td style=\"text-align:right;\"><b>DATE SENT: </b></td><td>" + objInvoiceDetails.date_sent + "</td></tr>\n" +
+													"<tr><td style=\"text-align:right;\"><b>POSTAGE: </b></td><td>$" + objInvoiceDetails.postage + "</td></tr>\n" +
+													"<tr><td style=\"text-align:right;\"><b>TOTAL: </b></td><td>$" + objInvoiceDetails.total + "</td></tr>\n" +
+													"<tr><td colspan=\"2\" style=\"border-bottom-style:solid;border-bottom-width:thin;\"><b>BOOKS</td></tr>";
 													
 								for (let nI = 0; nI < objInvoiceDetails.arrayBooks.length; nI++)
 								{
-									strInvoiceDetails += "  " + objInvoiceDetails.arrayBooks[nI].id + ", " + 
-														objInvoiceDetails.arrayBooks[nI].title + ", " +
-														objInvoiceDetails.arrayBooks[nI].author + ", " +
-														objInvoiceDetails.arrayBooks[nI].price + ", " +
+									strInvoiceDetails += "<tr><td style=\"text-align:right;\"><b>ID: </td><td>" + objInvoiceDetails.arrayBooks[nI].id + "</td></tr>" + 
+														"<tr><td style=\"text-align:right;\"><b>Title: </td><td>" + objInvoiceDetails.arrayBooks[nI].title + "</td></tr>" +
+														"<tr><td style=\"text-align:right;\"><b>Author: </td><td>" + objInvoiceDetails.arrayBooks[nI].author + "</td></tr>" +
+														"<tr><td style=\"text-align:right;border-bottom-style:solid;border-bottom-width:thin;\"><b>Details: </td><td style=\"border-bottom-style:solid;border-bottom-width:thin;\">" + objInvoiceDetails.arrayBooks[nI].price + ", " +
 														objInvoiceDetails.arrayBooks[nI].weight + ", " +
-														objInvoiceDetails.arrayBooks[nI].type + "\n";
+														objInvoiceDetails.arrayBooks[nI].type + "</td></tr>\n";
 								}
-								strInvoiceDetails += "</div>";
+								strInvoiceDetails += "</table>\n</div>\n";
 
 								let divInvoiceDetails = GetInput("InvoiceDetails"), 
 									divInvoiceContents = GetInput("InvoiceContent");
