@@ -1781,26 +1781,28 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										<td colspan="2">
 											<?php
 											
-												$strWidthDate = "7em;";
+												$strWidthDate = "7em";
 												$strWidthName = "16em";
-												$strWidthAddress = "30em;";
-												$strWidthYesNo = "6em;";
-												$strWidthFunctions = "16em;";
+												$strWidthAddress = "30em";
+												$strWidthYesNo = "6em";
+												$strWidthFunctions = "16em";
 											
 											?>
 											<div>
-												<table cellpadding="4" cellspacing="0" style="background-color:white;border-width:thin;border-style:inset;border-color:silver;font-size:x-small;table-layout:fixed;">
-													<tr>
-														<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td> 
-														<td style="width:<?php echo $strWidthName; ?>"><b><u>NAME</u></b></td> 
-														<td style="width:<?php echo $strWidthAddress; ?>"><b><u>ADDRESS</u></b></td> 
-														<td style="width:<?php echo $strWidthYesNo; ?>"><b><u>PAID</u></b></td> 
-														<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td> 
-														<td style="width:<?php echo $strWidthYesNo; ?>"><b><u>SENT</u></b></td> 
-														<td style="width:<?php echo $strWidthDate; ?>"><b><u>DATE</u></b></td>
-														<td style="width:<?php echo $strWidthFunctions; ?>"><b><u>FUNCTIONS</u></b></td>
-													
-													</tr>
+												<table cellpadding="2" cellspacing="0" border="1" style="background-color:rgb(240,240,240);border-width:thin;border-style:inset;border-color:silver;font-size:x-small;table-layout:fixed;overflow:auto;">
+													<thead  style="height:2em;">
+														<tr>
+															<td style="width:<?php echo $strWidthDate; ?>;"><b><u>DATE</u></b></td> 
+															<td style="width:<?php echo $strWidthName; ?>;"><b><u>NAME</u></b></td> 
+															<td style="width:<?php echo $strWidthAddress; ?>;"><b><u>ADDRESS</u></b></td> 
+															<td style="width:<?php echo $strWidthYesNo; ?>">;<b><u>PAID</u></b></td> 
+															<td style="width:<?php echo $strWidthDate; ?>">;<b><u>DATE</u></b></td> 
+															<td style="width:<?php echo $strWidthYesNo; ?>">;<b><u>SENT</u></b></td> 
+															<td style="width:<?php echo $strWidthDate; ?>">;<b><u>DATE</u></b></td>
+															<td style="width:<?php echo $strWidthFunctions; ?>;"><b><u>FUNCTIONS</u></b></td>
+														</tr>
+													</thead>
+													<tbody>
 <?php 
 
 	$results = DoFindAllQuery($g_dbKatesCastle, "invoices");
@@ -1846,15 +1848,15 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 					(($_POST["radio_which_invoices"] == 0) && ($row["paid"] == "1")) || 
 					(($_POST["radio_which_invoices"] == 1) && ($row["paid"] == "0")))
 				{
-					echo "<tr>" . 
-						 "<td style=\"width:" . $strWidthDate . "\">" . $dateInvoice->format("d/m/Y") . "</td>" .
-						 "<td style=\"width:" . $strWidthName . "\">" . $row["name"] . "</td>" .
-						 "<td style=\"width:" . $strWidthAddress . "\">" . $row["address"] . "</td>" .
-						 "<td style=\"width:" . $strWidthYesNo . "\">" . $strPaid . "</td>" .
-						 "<td style=\"width:" . $strWidthDate . "\">" . $datePaid->format("d/m/Y") . "</td>" .
-						 "<td style=\"width:" . $strWidthYesNo . "\">" . $strSent . "</td>" .
-						 "<td style=\"width:" . $strWidthDate . "\">" . $dateSent->format("d/m/Y") . "</td>" .
-						 "<td style=\"width:" . $strWidthFunctions . "\">";
+					echo "<tr style=\"height:2em;>\">" . 
+						 "<td style=\"width:" . $strWidthDate . ";\">" . $dateInvoice->format("d/m/Y") . "</td>" .
+						 "<td style=\"width:" . $strWidthName . ";\">" . $row["name"] . "</td>" .
+						 "<td style=\"width:" . $strWidthAddress . ";\">" . $row["address"] . "</td>" .
+						 "<td style=\"width:" . $strWidthYesNo . ";\">" . $strPaid . "</td>" .
+						 "<td style=\"width:" . $strWidthDate . ";\">" . $datePaid->format("d/m/Y") . "</td>" .
+						 "<td style=\"width:" . $strWidthYesNo . ";\">" . $strSent . "</td>" .
+						 "<td style=\"width:" . $strWidthDate . ";\">" . $dateSent->format("d/m/Y") . "</td>" .
+						 "<td style=\"width:" . $strWidthFunctions . ";\">";
 						 
 					$strButtonWidth = "40px";
 					$strButtonHeight = "30px";
@@ -1876,12 +1878,14 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 						echo "<button type=\"submit\" id=\"button_unsent\" name=\"button_unsent\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/unsent.png\" alt=\"/images/unsent.png\" width=\"18\" /></button>";
 
 					}
+					echo "</tr>\n";
 				}
 			}	
 		}
 	}
 
 ?>
+													</tbody>
 												</table>
 											</div>
 										</td>

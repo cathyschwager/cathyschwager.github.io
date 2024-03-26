@@ -220,6 +220,31 @@
 								return $nInvoiceNum;
 							}
 							
+							function DoGetBookQuantity($strBookID)
+							{
+								global $g_dbKatesCastle;
+								$nQuantity = 0;
+								
+								$results = DoFindQuery1($g_dbKatesCastle, "books", "id", $strBookID);
+								if ($results && ($results->num_rows > 0))
+								{
+									if ($row = $results->fetch_assoc())
+									{
+										$nQuantity = intval($nQuantity["quantity"]);
+									}
+								}
+								return $nQuantity;
+							}
+							
+							function DoUpdateBookQuantity($strBookID, $nBookQuantity);
+							{
+								global $g_dbKatesCastle;
+								
+								$results = DoUpdatequery1($g_dbKatesCastle, "books", "quantity", sprintf("%d", $nBookQuantity));
+								
+								return $results;
+							}
+							
 							function DoCreateInvoice($arrayShoppingCart, $strInvoiceNum)
 							{
 								global $g_dbKatesCastle;
@@ -247,7 +272,7 @@
 								}
 								else
 								{
-									$results = DoUpdateQuery4($g_dbKatesCastle, "invoices", "name", $strName, "address", $strAddress, "postage", $arrayShoppingCart->fPostage, "total", $arrayShoppingCart->fShoppingCartTotal);
+									$results = DoInsertQuery4($g_dbKatesCastle, "invoices", "name", $strName, "address", $strAddress, "postage", $arrayShoppingCart->fPostage, "total", $arrayShoppingCart->fShoppingCartTotal);
 									if ($results)
 									{
 										$bSuccess = TRUE;
@@ -258,6 +283,8 @@
 										for ($nI = 0; $nI < count($arrayShoppingCart->$arrayShoppingCartItems); $nI++)
 										{
 											$results = DoInsertQuery2($g_dbKatesCastle, "invoice_books", "invoice_id", $_SESSION["nInvoiceNum"], "book_id", $arrayShoppingCart->$arrayShoppingCartItems["id"]);
+											$nBookQuantity = DoGetBookQuantity($arrayShoppingCart->$arrayShoppingCartItems["id"]);
+											DoUpdateBookQuantity($arrayShoppingCart->$arrayShoppingCartItems["id"], $nBookQuantity - 1);
 										}
 								}
 								return $bSuccess;
