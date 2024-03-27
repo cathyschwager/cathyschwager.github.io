@@ -308,3 +308,18 @@ Stack trace:
 [22-Mar-2024 12:27:56 UTC] PHP Parse error:  syntax error, unexpected variable "$strColumnName4" in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 541
 [22-Mar-2024 12:28:18 UTC] PHP Warning:  Attempt to read property "num_rows" on bool in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 236
 [26-Mar-2024 01:57:34 UTC] PHP Parse error:  syntax error, unexpected identifier "d", expecting "," or ";" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 1850
+[27-Mar-2024 06:13:40 UTC] PHP Parse error:  syntax error, unexpected token ";", expecting ")" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 556
+[27-Mar-2024 06:14:04 UTC] PHP Parse error:  syntax error, unexpected token "," in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 564
+[27-Mar-2024 06:14:32 UTC] PHP Warning:  Undefined array key "quanity" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 347
+[27-Mar-2024 06:15:51 UTC] PHP Warning:  Undefined array key "quanity" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 347
+[27-Mar-2024 06:18:11 UTC] PHP Warning:  Undefined array key "quanity" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 347
+[27-Mar-2024 06:20:04 UTC] PHP Warning:  Undefined array key "quanity" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 347
+[27-Mar-2024 06:20:10 UTC] PHP Warning:  Undefined array key "quanity" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 347
+[27-Mar-2024 06:21:31 UTC] PHP Warning:  Undefined array key "quanity" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 347
+[27-Mar-2024 06:21:54 UTC] PHP Warning:  Undefined array key "quanity" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 347
+[27-Mar-2024 06:38:43 UTC] PHP Parse error:  syntax error, unexpected integer "111111111" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 573
+[27-Mar-2024 06:39:34 UTC] PHP Parse error:  syntax error, unexpected token "." in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 584
+[27-Mar-2024 06:41:10 UTC] PHP Parse error:  syntax error, unexpected token "." in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 584
+[27-Mar-2024 06:41:43 UTC] PHP Parse error:  syntax error, unexpected token "." in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 584
+[27-Mar-2024 06:42:28 UTC] PHP Parse error:  syntax error, unexpected token "." in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 584
+[27-Mar-2024 06:42:32 UTC] PHP Parse error:  syntax error, unexpected token "." in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 584

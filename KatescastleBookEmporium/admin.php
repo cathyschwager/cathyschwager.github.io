@@ -333,6 +333,22 @@
 									}
 								}
 							}
+							
+							function DoGetBookQuantity($strBookID)
+							{
+								global $g_dbKatesCastle;
+								$nBookQuantity = 0;
+								
+								$results = DoFindQuery1($g_dbKatesCastle, "books", "id", $strBookID);
+								if ($results && ($results->num_rows > 0))
+								{
+									if ($row = $results->fetch_assoc())
+									{
+										$nBookQuantity = intval($row["quantity"]);
+									}
+								}
+								return $nBookQuantity;
+							}
 						
 							$g_strLoginDisplay = "block";
 							$g_strAdminDisplay = "none";
@@ -537,21 +553,24 @@
 											else
 											{
 												$strMsg = "EDIT BOOK: ";
+												$nCurrentQuantity = DoGetBookQuantity($arraySavedBooks[$nI]->id);
+												$nNewQuantity = intval($arraySavedBooks[$nI]->quantity);
 
 												$results = DoUpdateQuery7($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
 																										"author", $arraySavedBooks[$nI]->author,
 																										"summary", $arraySavedBooks[$nI]->summary,
 																										"price", $arraySavedBooks[$nI]->price,
 																										"weight", $arraySavedBooks[$nI]->weight,
-																										"quantity", $arraySavedBooks[$nI]->quantity,
+																										"quantity", ($nNewQuantity + $nCurrentQuantity),
 																										"category_id", $strCategoryID,
 																										"subcategory_id", $strSubcategoryID,
 																										"topic_id", $arraySavedBooks[$nI]->topic_id,
 																										"id", $arraySavedBooks[$nI]->id);
 											}
 											$strMsg .= $arraySavedBooks[$nI]->title . ", " . $arraySavedBooks[$nI]->author . ", $" . 
-														$arraySavedBooks[$nI]->price . ", " .$arraySavedBooks[$nI]->weight . "grams, x " .
-														$arraySavedBooks[$nI]->quantity . "\n";
+														$arraySavedBooks[$nI]->price . ", " .$arraySavedBooks[$nI]->weight . "grams, " .
+														"quantity " . sprintf("%d", $nCurrentQuantity) . " -> " .  sprintf("%d", $nCurrentQuantity + $nNewQuantity);
+											PrintJavascriptLine("AlertSuccess(\"" . $strMsg . "\");\n", 3, true);
 										}
 									}
 								}
@@ -1108,7 +1127,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td style="text-align:right">
-										<label id="label_topic8">Book Image:</label></td>
+										<label id="label_book_image">Book Image:</label></td>
 										<td>
 											<input name="file_image" class="button" type="file" accept="image/jpg, image/jpeg" />
 											<br/>
