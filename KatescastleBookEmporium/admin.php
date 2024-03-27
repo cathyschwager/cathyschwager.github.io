@@ -578,7 +578,7 @@
 																										"summary", $arraySavedBooks[$nI]->summary,
 																										"price", $arraySavedBooks[$nI]->price,
 																										"weight", $arraySavedBooks[$nI]->weight,
-																										"quantity", ($nNewQuantity + $nCurrentQuantity),
+																										"quantity", $nNewQuantity,
 																										"category_id", $strCategoryID,
 																										"subcategory_id", $strSubcategoryID,
 																										"topic_id", $arraySavedBooks[$nI]->topic_id,
@@ -587,7 +587,7 @@
 											}
 											$strMsg .= $arraySavedBooks[$nI]->title . ", " . $arraySavedBooks[$nI]->author . ", $" . 
 														$arraySavedBooks[$nI]->price . ", " .$arraySavedBooks[$nI]->weight . "grams, " .
-														"quantity " . sprintf("%d", $nCurrentQuantity) . " -> " .  sprintf("%d", $nCurrentQuantity + $nNewQuantity);
+														"quantity " . sprintf("%d", $nCurrentQuantity) . " -> " .  sprintf("%d", $nNewQuantity);
 											PrintJavascriptLine("AlertSuccess(\"" . $strMsg . "\");\n", 3, true);
 										}
 									}
