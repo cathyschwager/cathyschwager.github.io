@@ -349,6 +349,23 @@
 								}
 								return $nBookQuantity;
 							}
+							
+							function DoFindBook($strTitle, $strAuthor, $strTypeID, &$strBookID)
+							{
+								global $g_dbKatesCastle;
+								$bFound = false;
+								
+								$results = DoFindQuery3($g_dbKatesCastle, "books", "title", $strTitle, "author", $strAuthor, "type_id", $strTypeID);
+								if ($results && ($results->num_rows > 0))
+								{
+									if ($row = $results->fetch_assoc())
+									{
+										$strBookID = $row["id"];
+										$bFound = true;
+									}
+								}
+								return $bFound;
+							}
 						
 							$g_strLoginDisplay = "block";
 							$g_strAdminDisplay = "none";
@@ -536,11 +553,10 @@
 										
 										for ($nI = 0; $nI < count($arraySavedBooks); $nI++)
 										{
-											if (strcmp($arraySavedBooks[$nI]->id, "*") == 0)
+											if ((strcmp($arraySavedBooks[$nI]->id, "*") == 0) && !DoFindBook($arraySavedBooks[$nI]->title, $arraySavedBooks[$nI]->author, $arraySavedBooks[$nI]->type, $arraySavedBooks[$nI]->id))
 											{
 												$strMsg = "NEW BOOK: ";
-
-												$results = DoInsertQuery7($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
+												$results = DoInsertQuery8($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
 																										"author", $arraySavedBooks[$nI]->author,
 																										"summary", $arraySavedBooks[$nI]->summary,
 																										"price", $arraySavedBooks[$nI]->price,
@@ -548,7 +564,8 @@
 																										"quantity", $arraySavedBooks[$nI]->quantity,
 																										"category_id", $strCategoryID,
 																										"subcategory_id", $strSubcategoryID,
-																										"topic_id", $arraySavedBooks[$nI]->topic_id);
+																										"topic_id", $arraySavedBooks[$nI]->topic_id,
+																										"type_id", $arraySavedBooks[$nI]->type);
 											}
 											else
 											{
@@ -556,7 +573,7 @@
 												$nCurrentQuantity = DoGetBookQuantity($arraySavedBooks[$nI]->id);
 												$nNewQuantity = intval($arraySavedBooks[$nI]->quantity);
 
-												$results = DoUpdateQuery7($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
+												$results = DoUpdateQuery8($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
 																										"author", $arraySavedBooks[$nI]->author,
 																										"summary", $arraySavedBooks[$nI]->summary,
 																										"price", $arraySavedBooks[$nI]->price,
@@ -565,6 +582,7 @@
 																										"category_id", $strCategoryID,
 																										"subcategory_id", $strSubcategoryID,
 																										"topic_id", $arraySavedBooks[$nI]->topic_id,
+																										"type_id", $arraySavedBooks[$nI]->type,
 																										"id", $arraySavedBooks[$nI]->id);
 											}
 											$strMsg .= $arraySavedBooks[$nI]->title . ", " . $arraySavedBooks[$nI]->author . ", $" . 
@@ -996,7 +1014,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td style="text-align:right">
-										<label id="label_topic0">Type:</label></td>
+										<label id="label_type">Type:</label></td>
 										<td>
 											<select id="select_type" class="select">
 												<?php DoGetBookTypeyOptions(); ?>
@@ -1169,14 +1187,15 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 								
 								let g_nCurrentTopicID = 0;
 									
-								function IsDuplicateBook(strTitle, strAuthor, selectBooks)
+								function IsDuplicateBook(strTitle, strAuthor, strType, selectBooks)
 								{
 									let bDuplicate = false;
 									
 									for (let nI = 0; nI < selectBooks.options.length; nI++)
 									{
 										if ((selectBooks.options[nI].text.indexOf(strTitle) > -1) && 
-											(selectBooks.options[nI].text.indexOf(strAuthor) > -1))
+											(selectBooks.options[nI].text.indexOf(strAuthor) > -1) &&
+											(selectBooks.options[nI].text.indexOf(strType) > -1))
 										{
 											bDuplicate = true;
 											break;
@@ -1544,26 +1563,69 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										selectTopic && (selectTopic.selectedIndex > -1) && textTitle &&  
 										textAuthor && textSummary && textPrice && textWeight && textQuantity)
 									{
-										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
-												selectSubcategory.options[selectSubcategory.selectedIndex].value + "," + 
-												selectTopic.options[selectTopic.selectedIndex].value;
-												
-										let nI = DoGetBookIndex(selectBooks.options[selectBooks.selectedIndex].value, g_arrayBooks[strKey]);
-										mapBookItem = g_arrayBooks[strKey][nI];
-										
-										mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].value;
-										mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].value;
-										mapBookItem["topic_id"] = selectTopic.options[selectTopic.selectedIndex].value;
-										mapBookItem["title"] = textTitle.value;
-										mapBookItem["author"] = textAuthor.value;
-										mapBookItem["summary"] = textSummary.value;
-										mapBookItem["price"] = textPrice.value;
-										mapBookItem["weight"] = textWeight.value;
-										mapBookItem["quantity"] = textQuantity.value;
-										mapBookItem["type_id"] = selectType.options[selectType.selectedIndex].value;
-										g_arrayBooks[strKey][nI] = mapBookItem;
-
-										selectBooks.options[selectBooks.selectedIndex].text = textTitle.value + ", " + textAuthor.value + ", " + selectType.option[selectType.selectedIndex].text + ", $" + textPrice.value + ", " + textQuantity.value;
+										if (textTitle.value == "")
+										{
+											AlertWarning("The book title cannot be blank!");
+											textTitle.focus();
+										}
+										else if (textAuthor.value == "")
+										{
+											AlertWarning("The book author cannot be blank!");
+											textAuthor.focus();
+										}
+										else if (textPrice.value == "")
+										{
+											AlertWarning("The book price cannot be blank!");
+											textPrice.focus();
+										}
+										else if (Number(textPrice.value) == 0)
+										{
+											AlertWarning("The book price cannot be 0!");
+											textPrice.focus();
+										}
+										else if (textWeight.value == "")
+										{
+											AlertWarning("The book weight cannot be blank!");
+											textWeight.focus();
+										}
+										else if (Number(textWeight.value) == 0)
+										{
+											AlertWarning("The book weight cannot be 0!");
+											textWeight.focus();
+										}
+										else if (textQuantity.value == "")
+										{
+											AlertWarning("The book quantity cannot be blank!");
+											textQuantity.focus();
+										}
+										else if (Number(textQuantity.value) == 0)
+										{
+											AlertWarning("The book quantity cannot be 0!");
+											textQuantity.focus();
+										}
+										else
+										{
+											strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
+													selectSubcategory.options[selectSubcategory.selectedIndex].value + "," + 
+													selectTopic.options[selectTopic.selectedIndex].value;
+													
+											let nI = DoGetBookIndex(selectBooks.options[selectBooks.selectedIndex].value, g_arrayBooks[strKey]);
+											mapBookItem = g_arrayBooks[strKey][nI];
+											
+											mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].value;
+											mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].value;
+											mapBookItem["topic_id"] = selectTopic.options[selectTopic.selectedIndex].value;
+											mapBookItem["title"] = textTitle.value;
+											mapBookItem["author"] = textAuthor.value;
+											mapBookItem["summary"] = textSummary.value;
+											mapBookItem["price"] = textPrice.value;
+											mapBookItem["weight"] = textWeight.value;
+											mapBookItem["quantity"] = textQuantity.value;
+											mapBookItem["type_id"] = selectType.options[selectType.selectedIndex].value;
+											g_arrayBooks[strKey][nI] = mapBookItem;
+	
+											selectBooks.options[selectBooks.selectedIndex].text = textTitle.value + ", " + textAuthor.value + ", " + selectType.options[selectType.selectedIndex].text + ", $" + textPrice.value + ", " + textQuantity.value;
+										}
 									}
 								}
 								
@@ -1579,15 +1641,57 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										textPrice = GetInput("text_price"),
 										textWeight = GetInput("text_weight"),
 										textQuantity = GetInput("text_quantity"),
-										selectType = GetInput("select_type"),										mapBookItem = {}, 
+										selectType = GetInput("select_type"),
+										imageBook = GetInput("image_book"),
+										mapBookItem = {}, 
 										option = null,
 										strKey = "";
 									
-									if (selectBooks && selectCategory && selectSubcategory && fileImage && 
+									if (selectBooks && selectCategory && selectSubcategory && imageBook && 
 										selectTopic && (selectTopic.selectedIndex > -1) && textTitle &&
 										textAuthor && textSummary && textPrice && textWeight && textQuantity)
 									{
-										if (!IsDuplicateBook(textTitle.value, textAuthor.value, list))
+										if (textTitle.value == "")
+										{
+											AlertWarning("The book title cannot be blank!");
+											textTitle.focus();
+										}
+										else if (textAuthor.value == "")
+										{
+											AlertWarning("The book author cannot be blank!");
+											textAuthor.focus();
+										}
+										else if (textPrice.value == "")
+										{
+											AlertWarning("The book price cannot be blank!");
+											textPrice.focus();
+										}
+										else if (Number(textPrice.value) == 0)
+										{
+											AlertWarning("The book price cannot be 0!");
+											textPrice.focus();
+										}
+										else if (textWeight.value == "")
+										{
+											AlertWarning("The book weight cannot be blank!");
+											textWeight.focus();
+										}
+										else if (Number(textWeight.value) == 0)
+										{
+											AlertWarning("The book weight cannot be 0!");
+											textWeight.focus();
+										}
+										else if (textQuantity.value == "")
+										{
+											AlertWarning("The book quantity cannot be blank!");
+											textQuantity.focus();
+										}
+										else if (Number(textQuantity.value) == 0)
+										{
+											AlertWarning("The book quantity cannot be 0!");
+											textQuantity.focus();
+										}
+										else if (!IsDuplicateBook(textTitle.value, textAuthor.value, selectType.options[selectType.selectedIndex].text, selectBooks))
 										{
 											mapBookItem["category_id"] = selectCategory.options[selectCategory.selectedIndex].value;
 											mapBookItem["subcategory_id"] = selectSubcategory.options[selectSubcategory.selectedIndex].value;
@@ -1611,7 +1715,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										}
 										else
 										{
-											AlertWarning("The book '" + textTitle.value + ", " + textAuthor.value + "' is already in the list of topics!");
+											AlertWarning("The book '" + textTitle.value + ", " + textAuthor.value + ", " + selectType.options[selectType.selectedIndex].text + "' is already in the list of books!");
 										}
 									}
 								}
@@ -1677,7 +1781,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										textWeight.value = mapBookItem["weight"];
 										textQuantity.value = mapBookItem["quantity"];
 										if (mapBookItem["image_filename"] != "")
-											imageBook.src = g_strURL + mapBookItem["image_filename"];
+											imageBook.src = mapBookItem["image_filename"];
 										DoSetBookTypeSelection(selectType, mapBookItem["type_id"]);
 									}
 									else
@@ -1787,7 +1891,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategory.options[selectSubcategory.selectedIndex].value + "," + selectTopic.options[selectTopic.selectedIndex].value;
  										let nI = DoGetBookIndex(selectBooks.options[selectBooks.selectedIndex].value, g_arrayBooks[strKey]);
 										mapBookItem = g_arrayBooks[strKey][nI];
-										DoCopyBookItem(strBookID, strCategoryID, strSubcategoryID, strTopicID, strImageID)
+										DoCopyBookItem(strCategoryID, strSubcategoryID, strTopicID, strBookID, strImageID);
 									}
 								}
 																

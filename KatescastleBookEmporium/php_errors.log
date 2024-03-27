@@ -323,3 +323,40 @@ Stack trace:
 [27-Mar-2024 06:41:43 UTC] PHP Parse error:  syntax error, unexpected token "." in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 584
 [27-Mar-2024 06:42:28 UTC] PHP Parse error:  syntax error, unexpected token "." in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 584
 [27-Mar-2024 06:42:32 UTC] PHP Parse error:  syntax error, unexpected token "." in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 584
+[27-Mar-2024 09:09:20 UTC] PHP Parse error:  syntax error, unexpected token "," in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 552
+[27-Mar-2024 09:10:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function DoUpdateQuery8() in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:572
+Stack trace:
+#0 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 572
+[27-Mar-2024 09:15:05 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "rowBooks" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:865
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\admin.php(1180): DoCreateBookEntries()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 865
+[27-Mar-2024 09:55:11 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "rowBooks" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:869
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\admin.php(1184): DoCreateBookEntries()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 869
+[27-Mar-2024 10:04:01 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "rowBooks" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:869
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\admin.php(1184): DoCreateBookEntries()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 869
+[27-Mar-2024 10:04:17 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "rowBooks" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:869
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\admin.php(1184): DoCreateBookEntries()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 869
+[27-Mar-2024 10:07:05 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "rowBooks" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:869
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\admin.php(1184): DoCreateBookEntries()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 869
+[27-Mar-2024 10:08:02 UTC] PHP Fatal error:  Uncaught Error: Undefined constant "rowBooks" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:869
+Stack trace:
+#0 C:\inetpub\wwwroot\www.katescastle.com.au\admin.php(1184): DoCreateBookEntries()
+#1 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 869
+[27-Mar-2024 10:09:01 UTC] PHP Parse error:  syntax error, unexpected token "," in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 552
+[27-Mar-2024 10:09:55 UTC] PHP Parse error:  syntax error, unexpected token "," in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 552
