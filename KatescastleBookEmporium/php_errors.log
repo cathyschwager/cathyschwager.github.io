@@ -307,3 +307,4 @@ Stack trace:
 [22-Mar-2024 12:19:19 UTC] PHP Warning:  Undefined variable $strMessage in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 253
 [22-Mar-2024 12:27:56 UTC] PHP Parse error:  syntax error, unexpected variable "$strColumnName4" in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 541
 [22-Mar-2024 12:28:18 UTC] PHP Warning:  Attempt to read property "num_rows" on bool in C:\inetpub\wwwroot\www.katescastle.com.au\ShoppingCart.php on line 236
+[26-Mar-2024 01:57:34 UTC] PHP Parse error:  syntax error, unexpected identifier "d", expecting "," or ";" in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 1850

@@ -1893,7 +1893,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									<tr>
 										<td><b>FILTER INVOICES</b></td>
 										<td rowspan="5" style="width:450px;">
-											<div id="InvoiceDetails" style="display:none;padding:10px;height:150px;width:420px;border-style:inset;border-width:thin;background-color:white;overflow-y:auto;">
+											<div id="InvoiceDetails" style="display:none;padding:10px;height:150px;width:420px;border-style:inset;border-width:thin;border-color:silver;background-color:white;overflow-y:auto;">
 												<div id="InvoiceContent"></div>
 												<br/>
 												<button type="button" id="CloseButton" onclick="OnClickClose()">CLOSE</button>
