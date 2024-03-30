@@ -9,23 +9,14 @@
 		
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 		<!-- #BeginEditable "doctitle" -->
-		<title>Young Adults</title>
-
-				<script type="text/javascript">
-
-					g_arrayTopicBookmarks = [];
-					
-					g_arrayTopicBookLists = [];
-					
-				</script>
-				
+		<title>Young Adults</title>				
 		<!-- #EndEditable -->
 		<link href="../styles/style.css" rel="stylesheet" type="text/css" />
 		
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 
@@ -38,8 +29,10 @@
 				<script type="text/javascript">
 
 					g_arrayTopicBookmarks = [];
-					
 					g_arrayTopicBookLists = [];
+
+					g_arrayTopicBookmarks = [<?php DoGetTopics($g_mapCategory["young_adults"], "0"); ?>];
+					g_arrayTopicBookLists =[<?php DoGetBooks($g_mapCategory["young_adults"], "0"); ?>]
 					
 				</script>
 				
@@ -183,7 +176,7 @@
 					<script type="text/javascript">GeneratePageHeading();</script>
 					<div id="TOC">
 						<script type="text/javascript">
-							GenerateMenu(g_arrayTopicBookmarks);
+							DoGenerateTOC(g_arrayTopicBookmarks);
 						</script>
 					</div>
 					<script type="text/javascript">
@@ -194,41 +187,7 @@
 					
 					
 					
-					
-					
-					
-					
-		<style>
-</style>		
-
-				<script type="text/javascript">
-
-					g_arrayTopicBookmarks = [];
-					
-					g_arrayTopicBookLists = [];
-					
-				</script>
 				
-					
-					
-					
-					
-					
-					
-		<style>
-</style>		
-
-				<script type="text/javascript">
-
-					g_arrayTopicBookmarks = [<?php DoGetTopics($g_mapCategory["young_adults"], "0"); ?>];
-					g_arrayTopicBookLists =[<?php DoGetBooks($g_mapCategory["young_adults"], "0"); ?>]
-					
-				</script>
-				
-					
-					
-					
-					
 					
 					
 					<!-- #EndEditable -->

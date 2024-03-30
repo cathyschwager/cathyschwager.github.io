@@ -913,14 +913,15 @@
 					
 					while ($rowSubcategories = $resultsSubcategories->fetch_assoc())
 					{
-						// <li class="MenuPopupItem"><a href="specialist/series/series.php">Series</a></li>
-						echo "<li class=\"MenuPopupItem\"><a href=\"" . $rowCategories["name"] . "/" . $rowSubcategories["name"] . "/" . $rowSubcategories["name"] . ".php\">" . $rowSubcategories["description"] . "</a></li>\n";
+						echo "<li class=\"MenuPopupItem\"><a href=\"/" . $rowCategories["name"] . "/" . $rowSubcategories["name"] . "/" . $rowSubcategories["name"] . ".php\">" . $rowSubcategories["description"] . "</a></li>\n";
 					}
 					echo "</ul>\n";
 					echo "</div>\n";
 				}
 				else
-					echo "<li class=\"menu_item\" ><a href=\"" . $rowCategories["name"] . "/" . $rowCategories["name"] . ".php\">" . $rowCategories["description"] . "</a></li>\n";
+				{
+					echo "<li class=\"menu_item\" ><a href=\"/" . $rowCategories["name"] . "/" . $rowCategories["name"] . ".php\">" . $rowCategories["description"] . "</a></li>\n";
+				}
 			}
 		}
 	}

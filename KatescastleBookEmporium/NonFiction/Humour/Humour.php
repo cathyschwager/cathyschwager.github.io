@@ -182,7 +182,7 @@
 					<script type="text/javascript">GeneratePageHeading();</script>
 					<div id="TOC">
 						<script type="text/javascript">
-							GenerateMenu(g_arrayTopicBookmarks);
+							DoGenerateTOC(g_arrayTopicBookmarks);
 						</script>
 					</div>
 					<script type="text/javascript">

@@ -227,7 +227,7 @@
 					<script type="text/javascript">GeneratePageHeading();</script>
 					<div id="TOC">
 						<script type="text/javascript">
-							GenerateMenu(g_arrayTopicBookmarks);
+							DoGenerateTOC(g_arrayTopicBookmarks);
 						</script>
 					</div>
 					<script type="text/javascript">
@@ -970,7 +970,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td colspan="2">
-											<input type="button" name="button_save_topics" value="SAVE TO DATABASE" class="button" onclick="OnClickButtonSave('form_topics')"/>
+											<input type="button" id="button_save_topics" name="button_save_topics" value="SAVE TO DATABASE" class="button" onclick="OnClickButtonSave('form_topics')" disabled="disabled" />
 										</td>
 									</tr>
 								</table>
@@ -1104,7 +1104,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td colspan="2">
-											<input type="button" name="button_save_books" value="SAVE TO DATABASE" class="button" onclick="OnClickButtonSave('form_books')"/>
+											<input type="button" id="button_save_books" name="button_save_books" value="SAVE TO DATABASE" class="button" onclick="OnClickButtonSave('form_books')" disabled="disabled" />
 										</td>
 									</tr>
 								</table>
@@ -1152,7 +1152,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										<td style="text-align:right">
 										<label id="label_book_image">Book Image:</label></td>
 										<td>
-											<input name="file_image" class="button" type="file" accept="image/jpg, image/jpeg" />
+											<input name="file_image" class="button" type="file" accept="image/jpg, image/jpeg" onchange="GetInput('button_save_image').disabled = false;" />
 											<br/>
 											<br/>
 											<img id="image_book" src="" alt="IMAGE PREVIEW" width="200"/>
@@ -1160,7 +1160,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td colspan="2">
-											<input type="button" name="button_save_image" value="SAVE TO DATABASE" class="button" onclick="OnClickButtonSave('form_book_image')" />
+											<input type="button" id="button_save_image" name="button_save_image" value="SAVE TO DATABASE" class="button" onclick="OnClickButtonSave('form_book_image')" disabled="disabled" />
 										</td>
 									</tr>
 									<input type="hidden" id="hidden_image_scroll_pos" name="hidden_image_scroll_pos" value="1900" />
@@ -1263,20 +1263,16 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									{
 										arraySubcategoryItems = g_mapSubcategory[selectCategory.options[selectCategory.selectedIndex].value];
 																				
-										if (strBookSelectID !== undefined)
-										{
-											while (selectSubcategory.options.length > 0)
+										while (selectSubcategory.options.length > 0)
 												selectSubcategory.remove(0);
-											while (selectTopic.options.length > 1)
-												selectTopic.remove(1);
-										}
-										else
-										{
-											while (selectSubcategory.options.length > 1)
-												selectSubcategory.remove(1);
-											while (selectTopic.options.length > 0)
-												selectTopic.remove(0);
-										}
+
+										option = document.createElement("option");
+										option.value = 0;
+										option.text = "No subcategory";
+										option.style.width = g_strOptionWidth;
+										selectSubcategory.add(option);
+										selectSubcategory.selectedIndex = 0;
+										
 										if (arraySubcategoryItems !== undefined)
 										{
 											let strSelectedSubcategory1 = "<?php echo DoGetPostDataItem("select_subcategories"); ?>",
@@ -1300,12 +1296,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											}
 											if (selectSubcategory.selectedIndex == -1)
 												selectSubcategory.selectedIndex = 0;
-											
-											if (strBookSelectID !== undefined)
-											{
-												OnChangeSubcategory(strCategorySelectID, strSubcategorySelectID, strTopicSelectID, strBookSelectID);
-											}
 										}
+										OnChangeSubcategory(strCategorySelectID, strSubcategorySelectID, strTopicSelectID, strBookSelectID);
 									}
 								}
 								
@@ -1320,15 +1312,16 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 
 									if (selectCategory && selectSubcategory && selectTopic && (selectCategory.selectedIndex > -1) && (selectSubcategory.selectedIndex > -1))
 									{
-										if (strBookSelectID !== undefined)
+										while (selectTopic.options.length > 0)
+											selectTopic.remove(0);
+										if ((strBookSelectID != undefined) && (strBookSelectID != ""))
 										{
-											while (selectTopic.options.length > 1)
-												selectTopic.remove(1);
-										}
-										else
-										{
-											while (selectTopic.options.length > 0)
-												selectTopic.remove(0);
+											option = document.createElement("option");
+											option.value = 0;
+											option.text = "No topic";
+											option.style.width = g_strOptionWidth;
+											selectSubcategory.add(option);
+											selectSubcategory.selectedIndex = 0;
 										}
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategory.options[selectSubcategory.selectedIndex].value;
 										arrayTopicItems = g_arrayTopic[strKey];	
@@ -1410,6 +1403,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											delete g_arrayTopic[strKey];
 											list.remove(list.selectedIndex);
 											list.focus();
+											DoGetInput("button_save_topics").disabled = false;
 										}
 										else
 										{
@@ -1446,6 +1440,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											arrayTopics[nI].description = textDesc.value;
 											arrayTopics[nI].name = DoFormatName(textDesc.value);
 											g_arrayTopic[strKey] = arrayTopics;
+											DoGetInput("button_save_topics").disabled = false;
 										}
 									}
 									else
@@ -1488,6 +1483,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + ", " + 
 													selectSubcategory.options[selectSubcategory.selectedIndex].value;
 										g_arrayTopic[strKey].push(strItem);
+										DoGetInput("button_save_topics").disabled = false;
 									}
 									else
 									{
@@ -1555,6 +1551,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										g_arrayBooks[strKey] = arrayBooks;
 										OnChangeCategory(strOrigCategoryID, strOrigSubcategoryID, strOrigTopicID);
 										OnChangeSubcategory(strOrigCategoryID, strOrigSubcategoryID, strOrigTopicID, strSelectBooks);
+										DoGetInput("button_save_books").disabled = false;
 									}
 								}
 								
@@ -1640,6 +1637,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											g_arrayBooks[strKey][nI] = mapBookItem;
 	
 											selectBooks.options[selectBooks.selectedIndex].text = textTitle.value + ", " + textAuthor.value + ", " + selectType.options[selectType.selectedIndex].text + ", $" + textPrice.value + ", " + textQuantity.value;
+											DoGetInput("button_save_books").disabled = false;
 										}
 									}
 								}
@@ -1727,6 +1725,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											g_arrayBooks[strKey].push(mapBookItem);
 											
 											DoFillBookList(strBookListID, strCategoryID, strSubcategoryID, strTopicID);
+											DoGetInput("button_save_books").disabled = false;
 										}
 										else
 										{
@@ -1824,6 +1823,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										selectBooks.remove(selectBooks.selectedIndex);
 										delete g_arrayBooks[strKey];
 										selectBooks.focus();
+										DoGetInput("button_save_books").disabled = false;
 									}
 									else
 									{
@@ -1920,7 +1920,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategory.options[selectSubcategory.selectedIndex].value + "," + selectTopic.options[selectTopic.selectedIndex].value;
  										let nI = DoGetBookIndex(selectBooks.options[selectBooks.selectedIndex].value, g_arrayBooks[strKey]);
 										mapBookItem = g_arrayBooks[strKey][nI];
-										DoCopyBookItem(strCategoryID, strSubcategoryID, strTopicID, strBookID, strImageID);
+										if (selectBooks == "select_booksb")
+											DoCopyBookItem(strCategoryID, strSubcategoryID, strTopicID, strBookID, strImageID);
 									}
 								}
 																
@@ -2085,11 +2086,11 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td>
-											<input type="submit" id="button_refresh" value="REFRESH" class="button" />
+											<input type="submit" id="button_refresh" value="REFRESH" class="button"  disabled="disabled" />
 										</td>
 									</tr>
 								</table>
-								<input type="hidden" id="hidden_invoice_scroll_pos" name="hidden_invoice_scroll_pos" value="2400" />
+								<input type="hidden" id="hidden_invoice_scroll_pos0" name="hidden_invoice_scroll_pos" value="2400" />
 								<input type="hidden" id="hidden_button" name="" value="" />
 							</form>
 						</div>
@@ -2243,6 +2244,12 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 							else if (isset($_POST["hidden_invoice_scroll_pos"]))
 								PrintJavascriptLine("GetInput('content').scrollTop = " . $_POST["hidden_invoice_scroll_pos"] . ";", 5, true);
 						?>
+					
+					
+					
+					
+					
+					
 					
 					<!-- #EndEditable -->
 				</div>
