@@ -709,7 +709,9 @@
 									$strSelected = "";
 									while ($row = $results->fetch_assoc())
 									{
-										if (strcmp($_POST["select_categories"], $row["id"]) == 0)
+										if ((strcmp($_POST["select_categories"], $row["id"]) == 0) ||
+											(strcmp($_POST["select_categoriesb"], $row["id"]) == 0) ||
+											(strcmp($_POST["select_categoriesf"], $row["id"]) == 0))
 											$strSelected = " selected";
 										echo "<option value=\"" . $row["id"] . "\"" . $strSelected . ">" . $row["description"] . "</option>\n";
 										$strSelected = "";
@@ -984,7 +986,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									<tr>
 										<td style="text-align:right">Select a category:</td>
 										<td>
-											<select id="select_categoriesb" onchange="OnChangeCategory('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb')" class="select">
+											<select id="select_categoriesb" name="select_categoriesb" onchange="OnChangeCategory('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb')" class="select">
 												<?php DoGetCategoryOptions(); ?>
 											</select>
 										</td>
@@ -992,7 +994,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									<tr>
 										<td style="text-align:right">Select a subcategory:</td>
 										<td>
-											<select id="select_subcategoriesb" onchange="OnChangeSubcategory('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb', 'select_booksb')" class="select">
+											<select id="select_subcategoriesb" name="select_subcategoriesb" onchange="OnChangeSubcategory('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb', 'select_booksb')" class="select">
 												<option value="0" selected>No Subcategory</option>
 											</select>
 										</td>
@@ -1000,7 +1002,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									<tr>
 										<td style="text-align:right">Select a topic:</td>
 										<td>
-											<select id="select_topicsb" onchange="OnChangeTopicf('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb', 'image_bookb')" class="select">
+											<select id="select_topicsb" name="select_topicsb" onchange="OnChangeTopicf('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb', 'image_bookb')" class="select">
 												<option value="0" selected=>Other</option>
 											</select>
 										</td>
@@ -1010,7 +1012,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											<input type="button" value="DELETE BOOK" class="button" onclick="DoDeleteBookItem('select_categoriesb', 'select_subcategoriesb', 'select_topicsb', 'select_booksb')"/><br/>
 										</td>
 										<td>
-											<select id="select_booksb" class="select" size="10" style="width:338px;overflow-x:scroll;">
+											<select id="select_booksb" name="select_booksb" class="select" size="10" style="width:338px;overflow-x:scroll;">
 											</select>
 										</td>
 									</tr>
@@ -1118,7 +1120,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									<tr>
 										<td style="text-align:right">Select a category:</td>
 										<td>
-											<select id="select_categoriesf" onchange="OnChangeCategory('select_categoriesf', 'select_subcategoriesf', 'select_topicsf', 'select_booksf')" class="select">
+											<select id="select_categoriesf" name="select_categoriesf" onchange="OnChangeCategory('select_categoriesf', 'select_subcategoriesf', 'select_topicsf', 'select_booksf')" class="select">
 												<?php DoGetCategoryOptions(); ?>
 											</select>
 										</td>
@@ -1126,7 +1128,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									<tr>
 										<td style="text-align:right">Select a subcategory:</td>
 										<td>
-											<select id="select_subcategoriesf" onchange="OnChangeSubcategory('select_categoriesf', 'select_subcategoriesf', 'select_topicsf', 'select_booksf')" class="select">
+											<select id="select_subcategoriesf" name="select_subcategoriesf" onchange="OnChangeSubcategory('select_categoriesf', 'select_subcategoriesf', 'select_topicsf', 'select_booksf')" class="select">
 												<option value="0" selected>No Subcategory</option>
 											</select>
 										</td>
@@ -1134,7 +1136,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									<tr>
 										<td style="text-align:right">Select a topic:</td>
 										<td>
-											<select id="select_topicsf" onchange="OnChangeTopicf('select_categoriesf', 'select_subcategoriesf', 'select_topicsf', 'select_booksf', 'image_book')" class="select">
+											<select id="select_topicsf" name="select_topicsf" onchange="OnChangeTopicf('select_categoriesf', 'select_subcategoriesf', 'select_topicsf', 'select_booksf', 'image_book')" class="select">
 												<option value="0" selected=>Other</option>
 											</select>
 										</td>
@@ -1277,7 +1279,9 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										}
 										if (arraySubcategoryItems !== undefined)
 										{
-											let strSelectedSubcategory = "<?php echo DoGetPostDataItem("select_subcategories"); ?>";
+											let strSelectedSubcategory1 = "<?php echo DoGetPostDataItem("select_subcategories"); ?>",
+												strSelectedSubcategory2 = "<?php echo DoGetPostDataItem("select_subcategoriesb"); ?>",
+												strSelectedSubcategory3 = "<?php echo DoGetPostDataItem("select_subcategoriesf"); ?>";
 																				
 											for (let nI = 0; nI < arraySubcategoryItems.length; nI++)
 											{
@@ -1287,7 +1291,9 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												option.style.width = g_strOptionWidth;
 												selectSubcategory.add(option);
 								
-												if (arraySubcategoryItems[nI].id == strSelectedSubcategory)
+												if ((arraySubcategoryItems[nI].id == strSelectedSubcategory1) || 
+													(arraySubcategoryItems[nI].id == strSelectedSubcategory2) ||
+													(arraySubcategoryItems[nI].id == strSelectedSubcategory3))
 												{
 													selectSubcategory.selectedIndex = nI + 1;
 												}
@@ -1300,21 +1306,6 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												OnChangeSubcategory(strCategorySelectID, strSubcategorySelectID, strTopicSelectID, strBookSelectID);
 											}
 										}
-										/*
-										arrayTopicItems = g_arrayTopic[selectCategory.options[selectCategory.selectedIndex].value + ",0"];
-										if (arrayTopicItems !== undefined)
-										{
-											for (let nI = 0; nI < arrayTopicItems.length; nI++)
-											{
-												option = document.createElement("option");
-												option.value = arrayTopicItems[nI].id;
-												option.text = arrayTopicItems[nI].description;
-												option.style.width = g_strOptionWidth;
-												selectTopic.add(option);
-											}
-											selectTopic.selectedIndex = 0;
-										}
-										*/
 									}
 								}
 								
@@ -1343,6 +1334,10 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										arrayTopicItems = g_arrayTopic[strKey];	
 										if (arrayTopicItems !== undefined)
 										{
+											let strSelectedTopic1 = "<?php echo DoGetPostDataItem("select_topics"); ?>",
+												strSelectedTopic2 = "<?php echo DoGetPostDataItem("select_topicsb"); ?>",
+												strSelectedTopic3 = "<?php echo DoGetPostDataItem("select_topicsf"); ?>";
+
 											for (let nI = 0; nI < arrayTopicItems.length; nI++)
 											{
 												option = document.createElement("option");
@@ -1351,7 +1346,9 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												option.style.width = g_strOptionWidth;
 												selectTopic.add(option);
 
-												if (arrayTopicItems[nI].id == "<?php echo DoGetPostDataItem("select_topics"); ?>")
+												if ((arrayTopicItems[nI].id == strSelectedTopic1) ||
+													(arrayTopicItems[nI].id == strSelectedTopic2) ||
+													(arrayTopicItems[nI].id == strSelectedTopic3))
 												{
 													selectTopic.selectedIndex = nI;
 												}
@@ -1363,8 +1360,6 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												OnChangeTopic(strCategorySelectID, strSubcategorySelectID, strTopicSelectID, strBookSelectID)
 											}
 										}
-										
-										strKey = selectCategory.options[selectCategory.selectedIndex].value;
 									}
 								}
 								
@@ -1381,7 +1376,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										g_nCurrentTopicID = selectTopic.options[selectTopic.selectedIndex].value;
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
 													selectSubcategory.options[selectSubcategory.selectedIndex].value;
-										nI = DoGetTopicIndex(g_arrayTopic[strKey], selectTopic.options[selectTopic.selectedIndex].value) + 1;
+										nI = DoGetTopicIndex(g_arrayTopic[strKey], selectTopic.options[selectTopic.selectedIndex].value);
 										textTopicDesc.value = g_arrayTopic[strKey][nI].description;
 									}
 								}
