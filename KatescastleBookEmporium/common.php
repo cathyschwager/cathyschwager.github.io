@@ -100,6 +100,16 @@
 		return $strText;
 	}
 	
+	function DoGetPostDataItem($strKey)
+	{
+		$strText = "";
+		
+		if (isset($_POST[$strKey]))
+			$strText = $_POST[$strKey];
+		
+		return $strText;
+	}
+	
 	//******************************************************************************
 	//** 
 	//** DEBUGGIN FUNCTIONS

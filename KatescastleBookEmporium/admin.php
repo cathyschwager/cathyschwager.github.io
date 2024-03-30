@@ -26,8 +26,6 @@
 
 		<style>
 
-
-
 			.button
 			{
 				font-weight: bold;
@@ -582,7 +580,7 @@
 																										"category_id", $strCategoryID,
 																										"subcategory_id", $strSubcategoryID,
 																										"topic_id", $arraySavedBooks[$nI]->topic_id,
-																										"type_id", $arraySavedBooks[$nI]->type,
+																										"type_id", $arraySavedBooks[$nI]->type_id,
 																										"id", $arraySavedBooks[$nI]->id);
 											}
 											$strMsg .= $arraySavedBooks[$nI]->title . ", " . $arraySavedBooks[$nI]->author . ", $" . 
@@ -601,29 +599,30 @@
 							{
 								$strTargetPath = "";
 								$strFilename = "";
-								
-								if (isset($_FILES["file_image"]))
+
+								if (isset($_FILES["file_image"]) && isset($_POST["select_booksf"]))
 								{
 									$strFileName = $_FILES["file_image"]["full_path"];
-									$strFolderName = DoGetFolder($_POST["select_books"]);
+									$strFolderName = DoGetFolder($_POST["select_booksf"]);
 									$strTargetPath = $strFolderName . $strFileName;
-									DoDeleteExistingBookImageFile($_POST["select_books"]);
-								}
-								if (move_uploaded_file($_FILES["file_image"]["tmp_name"], $strTargetPath))
-								{
-									$results = DoUpdateQuery1($g_dbKatesCastle, "books", "image_filename", $strTargetPath, "id", $_POST["select_books"]);
-									if ($results)
+									DoDeleteExistingBookImageFile($_POST["select_booksf"]);
+
+									if (move_uploaded_file($_FILES["file_image"]["tmp_name"], $strTargetPath))
 									{
-										PrintJavascriptLine("AlertSuccess(\"Book image file '" . $_FILES["file_image"]["name"] . "' was saved!\");", 3, true);
+										$results = DoUpdateQuery1($g_dbKatesCastle, "books", "image_filename", $strTargetPath, "id", $_POST["select_books"]);
+										if ($results)
+										{
+											PrintJavascriptLine("AlertSuccess(\"Book image file '" . $_FILES["file_image"]["name"] . "' was saved!\");", 3, true);
+										}
+										else
+										{
+											PrintJavascriptLine("AlertError(\"Book image column could not be updated!\");", 3, true);
+										}
 									}
 									else
 									{
-										PrintJavascriptLine("AlertError(\"Book image column could not be updated!\");", 3, true);
+										PrintJavascriptLine("AlertError(\"Could not save file '" . $_FILES["file_image"]["name"] . "\");", 3, true);
 									}
-								}
-								else
-								{
-									PrintJavascriptLine("AlertError(\"Could not save file '" . $_FILES["file_image"]["name"] . "\");", 3, true);
 								}
 							}
 							else if (isset($_POST["button_delete"]))
@@ -645,14 +644,14 @@
 								$results = DoUpdateQuery2($g_dbKatesCastle, "invoices", "sent", "1", "date_sent", $dateNow->format("Y-m-d"), "id", $_POST["button_sent"]);
 							}
 							else if (isset($_POST["button_unsent"]))
-							{
+							{							
 								$results = DoUpdateQuery1($g_dbKatesCastle, "invoices", "sent", "0", "id", $_POST["button_unsent"]);
 							}
 							else
 							{
 								//print_r($_POST);
 							}
-							
+
 						?>
 					
 						<div id="login" style="display:<?php echo $g_strLoginDisplay; ?>">
@@ -707,9 +706,11 @@
 								$results = DoFindAllQuery($g_dbKatesCastle, "categories");
 								if ($results && ($results->num_rows > 0))
 								{
-									$strSelected = " selected";
+									$strSelected = "";
 									while ($row = $results->fetch_assoc())
 									{
+										if (strcmp($_POST["select_categories"], $row["id"]) == 0)
+											$strSelected = " selected";
 										echo "<option value=\"" . $row["id"] . "\"" . $strSelected . ">" . $row["description"] . "</option>\n";
 										$strSelected = "";
 									}
@@ -931,11 +932,11 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 								
 							<form method="post" id="form_topics" class="form" style="width:448px;">
 								<table cellpadding="10" cellspacing="0" border="0" class="table">
-									<tr><td colspan="2"><b>TOPICS</b></td></tr>
+									<tr><td colspan="2"><b>"TOPICS</b></td></tr>
 									<tr>
 										<td style="text-align:right">Select a category:</td>
 										<td>
-											<select id="select_categories" onchange="OnChangeCategory('select_categories', 'select_subcategories', 'select_topics', '')" class="select">
+											<select id="select_categories" name="select_categories" onchange="OnChangeCategory('select_categories', 'select_subcategories', 'select_topics', '')" class="select">
 												<?php DoGetCategoryOptions(); ?>
 											</select>
 										</td>
@@ -943,14 +944,14 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									<tr>
 										<td style="text-align:right">Select a subcategory:</td>
 										<td>
-											<select id="select_subcategories" onchange="OnChangeSubcategory('select_categories', 'select_subcategories', 'select_topics', '')" class="select">
+											<select id="select_subcategories" name="select_subcategories" onchange="OnChangeSubcategory('select_categories', 'select_subcategories', 'select_topics', '')" class="select">
 												<option value="0" selected>No Subcategory</option>
 											</select>
-										</td>
+											</td>
 									</tr>
 									<tr>
 										<td>
-											<select id="select_topics" class="select" size="10" style="width:200px;height:200px;overflow-x:scroll;" onchange="OnChangeTopicForTopics('select_categories', 'select_subcategories', 'select_topics', 'text_topic_desc')">
+											<select id="select_topics" name="select_topics" class="select" size="10" style="width:200px;height:200px;overflow-x:scroll;" onchange="OnChangeTopicForTopics('select_categories', 'select_subcategories', 'select_topics', 'text_topic_desc')">
 											</select>
 										</td>
 										<td>
@@ -967,13 +968,14 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td colspan="2">
-											<input type="button" name="button_save_topics" value="SAVE TO DATABASE" class="button" onclick="OnClickSaveButton('form_topics')"/>
+											<input type="button" name="button_save_topics" value="SAVE TO DATABASE" class="button" onclick="OnClickButtonSave('form_topics')"/>
 										</td>
 									</tr>
 								</table>
 								<input name="button_save_topics" type="hidden" value="SAVE TOPICS"/>
 								<input name="hidden_saved_topics" id="hidden_saved_topics" type="hidden" />
 								<input name="hidden_deleted_topics" id="hidden_deleted_topics" type="hidden" />
+								<input name="hidden_topic_scroll_pos" id="hidden_topic_scroll_pos" type="hidden" value="441"/>
 							</form>
 							<br/>
 							<form method="post" id="form_books" class="form" style="width:538px;">
@@ -1100,13 +1102,14 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td colspan="2">
-											<input type="button" name="button_save_books" value="SAVE TO DATABASE" class="button" onclick="OnClickSaveButton('form_books')"/>
+											<input type="button" name="button_save_books" value="SAVE TO DATABASE" class="button" onclick="OnClickButtonSave('form_books')"/>
 										</td>
 									</tr>
 								</table>
 								<input name="button_save_books" type="hidden" value="SAVE BOOKS" />
 								<input name="hidden_saved_books" id="hidden_saved_books" type="hidden" />
 								<input name="hidden_deleted_books" id="hidden_deleted_books" type="hidden" />
+								<input name="hidden_book_scroll_pos" id="hidden_book_scroll_pos" type="hidden" value="800"/>
 							</form>
 							<br/>
 							<form method="post" id="form_book_image" class="form" enctype="multipart/form-data" style="width:538px;">
@@ -1139,7 +1142,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									<tr>
 										<td>&nbsp;</td>
 										<td>
-											<select id="select_booksf" name="select_books" class="select" size="10" style="width:338px;overflow-x:scroll;" onchange="OnChangeBook('select_categoriesf', 'select_subcategoriesf', 'select_topicsf', 'select_booksf', 'image_book')">
+											<select id="select_booksf" name="select_booksf" class="select" size="10" style="width:338px;overflow-x:scroll;" onchange="OnChangeBook('select_categoriesf', 'select_subcategoriesf', 'select_topicsf', 'select_booksf', 'image_book')">
 											</select>
 										</td>
 									</tr>
@@ -1155,9 +1158,10 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td colspan="2">
-											<input type="submit" name="button_save_image" value="SAVE TO DATABASE" class="button" />
+											<input type="button" name="button_save_image" value="SAVE TO DATABASE" class="button" onclick="OnClickButtonSave('form_book_image')" />
 										</td>
 									</tr>
+									<input type="hidden" id="hidden_image_scroll_pos" name="hidden_image_scroll_pos" value="1900" />
 								</table>
 								
 							</form>
@@ -1272,7 +1276,9 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												selectTopic.remove(0);
 										}
 										if (arraySubcategoryItems !== undefined)
-										{											
+										{
+											let strSelectedSubcategory = "<?php echo DoGetPostDataItem("select_subcategories"); ?>";
+																				
 											for (let nI = 0; nI < arraySubcategoryItems.length; nI++)
 											{
 												option = document.createElement("option");
@@ -1280,14 +1286,21 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												option.text = arraySubcategoryItems[nI].description;
 												option.style.width = g_strOptionWidth;
 												selectSubcategory.add(option);
+								
+												if (arraySubcategoryItems[nI].id == strSelectedSubcategory)
+												{
+													selectSubcategory.selectedIndex = nI + 1;
+												}
 											}
-											selectSubcategory.selectedIndex = 0;
+											if (selectSubcategory.selectedIndex == -1)
+												selectSubcategory.selectedIndex = 0;
 											
 											if (strBookSelectID !== undefined)
 											{
 												OnChangeSubcategory(strCategorySelectID, strSubcategorySelectID, strTopicSelectID, strBookSelectID);
 											}
 										}
+										/*
 										arrayTopicItems = g_arrayTopic[selectCategory.options[selectCategory.selectedIndex].value + ",0"];
 										if (arrayTopicItems !== undefined)
 										{
@@ -1301,6 +1314,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											}
 											selectTopic.selectedIndex = 0;
 										}
+										*/
 									}
 								}
 								
@@ -1336,8 +1350,14 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												option.value = arrayTopicItems[nI].id;
 												option.style.width = g_strOptionWidth;
 												selectTopic.add(option);
+
+												if (arrayTopicItems[nI].id == "<?php echo DoGetPostDataItem("select_topics"); ?>")
+												{
+													selectTopic.selectedIndex = nI;
+												}
 											}
-											selectTopic.selectedIndex = 0;
+											if (selectTopic.selectedIndex == -1)
+												selectTopic.selectedIndex = 0;
 											if ((strBookSelectID !== undefined) && (strBookSelectID != ""))
 											{
 												OnChangeTopic(strCategorySelectID, strSubcategorySelectID, strTopicSelectID, strBookSelectID)
@@ -1361,7 +1381,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										g_nCurrentTopicID = selectTopic.options[selectTopic.selectedIndex].value;
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
 													selectSubcategory.options[selectSubcategory.selectedIndex].value;
-										nI = DoGetTopicIndex(g_arrayTopic[strKey], selectTopic.options[selectTopic.selectedIndex].value);
+										nI = DoGetTopicIndex(g_arrayTopic[strKey], selectTopic.options[selectTopic.selectedIndex].value) + 1;
 										textTopicDesc.value = g_arrayTopic[strKey][nI].description;
 									}
 								}
@@ -1849,26 +1869,40 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									}
 								}
 													
-								function OnClickSaveButton(strFunction, strCategoryID, strSubcategoryID, strTopicID)
-								{										
-									if (strFunction == "form_topics")
-									{											
-										let hiddenSavedTopics = GetInput("hidden_saved_topics"),
-											hiddenDeletedTopics = GetInput("hidden_deleted_topics");
+								function OnClickButtonSave(strFormID, strButtonName, strID)
+								{
+									let form = GetInput(strFormID),
+										hiddenSavedTopics = null,
+										hiddenDeletedTopics = null,
+										div = GetInput("content");
+																
+									if (strFormID == "form_topics")
+									{
+										hiddenSavedTopics = GetInput("hidden_saved_topics");
+										hiddenDeletedTopics = GetInput("hidden_deleted_topics");
+										hiddenScrollPos = GetInput("hidden_topic_scroll_pos");
 											
 										hiddenSavedTopics.value = JSON.stringify(g_arrayTopic);
 										hiddenDeletedTopics.value  = JSON.stringify(g_arrayDeletedTopics);
-										document.getElementById("form_topics").submit();
 									}
-									else if (strFunction == "form_books")
+									else if (strFormID == "form_books")
 									{
-										let hiddenSavedBooks = GetInput("hidden_saved_books"),
-											hiddenDeletedBooks = GetInput("hidden_deleted_books");
+										hiddenSavedBooks = GetInput("hidden_saved_books");
+										hiddenDeletedBooks = GetInput("hidden_deleted_books");
 											
 										hiddenSavedBooks.value = JSON.stringify(g_arrayBooks);
 										hiddenDeletedBooks.value  = JSON.stringify(g_arrayDeletedBooks);
-										document.getElementById("form_books").submit();
 									}
+									else if (strFormID == "form_book_image")
+									{
+									}
+									else if (strFormID == "form_invoices")
+									{
+										let inputHiddenButton = GetInput("hidden_button");
+										inputHiddenButton.name = strButtonName;
+										inputHiddenButton.value = strID;
+									}
+									form.submit();
 								}
 								
 								function OnChangeTopicf(strSelectCategoryID, strSelectSubcategoryID, strSelectTopicID, strSelectBookID, strImageID)
@@ -1898,6 +1932,9 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 							</script>
 							<br/>
 							<form method="post" id="form_invoices" class="form" style="width:56em;">
+							
+								<input type="hidden" id="hidden_invoice_scroll_pos" name="hidden_invoice_scroll_pos" value="" />
+
 								<table cellpadding="10" cellspacing="0" class="table">
 									<tr><td colspan="2"><b>INVOICES</b></td></tr>
 									<tr>
@@ -1987,19 +2024,18 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 					echo "<button type=\"button\" id=\"button_view\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\" onclick=\"DoViewInvoice('" . $row["id"] . "')\"><img src=\"/images/view.png\" alt=\"/images/view.png\" width=\"18\" /></button>&nbsp;";	 
 					if (($row["paid"] == "0") && ($row["sent"] == "0"))
 					{
-						echo "<button type=\"submit\" id=\"button_paid\" name=\"button_paid\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/paid.png\" alt=\"/images/paid.png\" width=\"30\" /></button>&nbsp;";
-						echo "<button type=\"submit\" id=\"button_delete\" name=\"button_delete\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/delete.png\" alt=\"/images/delete.png\" width=\"20\" /></button>";
+						echo "<button type=\"button\" id=\"button_paid\" name=\"button_paid\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\" onclick=\"OnClickButtonSave('form_invoices', 'button_paid', '" . $row["id"] . "')\"><img src=\"/images/paid.png\" alt=\"/images/paid.png\" width=\"30\" /></button>&nbsp;";
+						echo "<button type=\"button\" id=\"button_delete\" name=\"button_delete\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\" onclick=\"OnClickButtonSave('form_invoices', 'button_delete', '" . $row["id"] . "')\"><img src=\"/images/delete.png\" alt=\"/images/delete.png\" width=\"20\" /></button>";
 
 					}
 					else if (($row["paid"] == "1") && ($row["sent"] == "0"))
 					{
-						echo "<button type=\"submit\" id=\"button_unpaid\" name=\"button_unpaid\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/unpaid.png\" alt=\"/images/unpaid.png\" width=\"30\" /></button>&nbsp;";
-						echo "<button type=\"submit\" id=\"button_sent\" name=\"button_sent\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/sent.png\" alt=\"/images/sent.png\" width=\"18\" /></button>";
+						echo "<button type=\"button\" id=\"button_unpaid\" name=\"button_unpaid\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\" onclick=\"OnClickButtonSave('form_invoices', 'button_unpaid', '" . $row["id"] . "')\"><img src=\"/images/unpaid.png\" alt=\"/images/unpaid.png\" width=\"30\" /></button>&nbsp;";
+						echo "<button type=\"button\" id=\"button_sent\" name=\"button_sent\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\" onclick=\"OnClickButtonSave('form_invoices', 'button_sent', '" . $row["id"] . "')\"><img src=\"/images/sent.png\" alt=\"/images/sent.png\" width=\"18\" /></button>";
 					}
 					else if (($row["paid"] == "1") && ($row["sent"] == "1"))
 					{
-						echo "<button type=\"submit\" id=\"button_unsent\" name=\"button_unsent\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\"><img src=\"/images/unsent.png\" alt=\"/images/unsent.png\" width=\"18\" /></button>";
-
+						echo "<button type=\"button\" id=\"button_unsent\" name=\"button_unsent\" value=\"" . $row["id"] . "\" style=\"width:" . $strButtonWidth . ";height:\"" . $strButtonHeight . "\" onclick=\"OnClickButtonSave('form_invoices', 'button_unsent', '" . $row["id"] . "')\"><img src=\"/images/unsent.png\" alt=\"/images/unsent.png\" width=\"18\" /></button>";
 					}
 					echo "</tr>\n";
 				}
@@ -2058,6 +2094,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										</td>
 									</tr>
 								</table>
+								<input type="hidden" id="hidden_invoice_scroll_pos" name="hidden_invoice_scroll_pos" value="2400" />
+								<input type="hidden" id="hidden_button" name="" value="" />
 							</form>
 						</div>
 
@@ -2198,6 +2236,18 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 							}					
 
 						</script>
+						
+						<?php
+						
+							if (isset($_POST["hidden_topic_scroll_pos"]))
+								PrintJavascriptLine("GetInput('content').scrollTop = " . $_POST["hidden_topic_scroll_pos"] . ";", 5, true);
+							else if (isset($_POST["hidden_book_scroll_pos"]))
+								PrintJavascriptLine("GetInput('content').scrollTop = " . $_POST["hidden_book_scroll_pos"] . ";", 5, true);
+							else if (isset($_POST["hidden_image_scroll_pos"]))
+								PrintJavascriptLine("GetInput('content').scrollTop = " . $_POST["hidden_image_scroll_pos"] . ";", 5, true);
+							else if (isset($_POST["hidden_invoice_scroll_pos"]))
+								PrintJavascriptLine("GetInput('content').scrollTop = " . $_POST["hidden_invoice_scroll_pos"] . ";", 5, true);
+						?>
 					
 					<!-- #EndEditable -->
 				</div>
