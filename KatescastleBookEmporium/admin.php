@@ -709,10 +709,15 @@
 									$strSelected = "";
 									while ($row = $results->fetch_assoc())
 									{
-										if ((strcmp($_POST["select_categories"], $row["id"]) == 0) ||
-											(strcmp($_POST["select_categoriesb"], $row["id"]) == 0) ||
-											(strcmp($_POST["select_categoriesf"], $row["id"]) == 0))
-											$strSelected = " selected";
+										if (isset($_POST["select_categories"]) || isset($_POST["select_categoriesb"]) || isset($_POST["select_categoriesf"]))
+										{
+											if ((strcmp($_POST["select_categories"], $row["id"]) == 0) ||
+												(strcmp($_POST["select_categoriesb"], $row["id"]) == 0) ||
+												(strcmp($_POST["select_categoriesf"], $row["id"]) == 0))
+											{
+												$strSelected = " selected";
+											}
+										}
 										echo "<option value=\"" . $row["id"] . "\"" . $strSelected . ">" . $row["description"] . "</option>\n";
 										$strSelected = "";
 									}
@@ -1320,8 +1325,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											option.value = 0;
 											option.text = "No topic";
 											option.style.width = g_strOptionWidth;
-											selectSubcategory.add(option);
-											selectSubcategory.selectedIndex = 0;
+											selectTopic.add(option);
+											selectTopic.selectedIndex = 0;
 										}
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategory.options[selectSubcategory.selectedIndex].value;
 										arrayTopicItems = g_arrayTopic[strKey];	
@@ -1642,9 +1647,9 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									}
 								}
 								
-								function DoAddBookItem(strListID, strCategoryID, strSubcategoryID, strTopicID)
+								function DoAddBookItem(strBookListID, strCategoryID, strSubcategoryID, strTopicID)
 								{
-									let selectBooks = GetInput(strListID),
+									let selectBooks = GetInput(strBookListID),
 										selectCategory = GetInput(strCategoryID),
 										selectSubcategory = GetInput(strSubcategoryID),
 										selectTopic = GetInput(strTopicID),
@@ -1717,6 +1722,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											mapBookItem["weight"] = textWeight.value;
 											mapBookItem["quantity"] = textQuantity.value;
 											mapBookItem["type_id"] = selectType.options[selectType.selectedIndex].value;
+											mapBookItem["type"] = selectType.options[selectType.selectedIndex].text;
 											strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
 														selectSubcategory.options[selectSubcategory.selectedIndex].value + "," +
 														selectTopic.options[selectTopic.selectedIndex].value;
@@ -1724,7 +1730,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												g_arrayBooks[strKey] = [];
 											g_arrayBooks[strKey].push(mapBookItem);
 											
-											DoFillBookList(strBookListID, strCategoryID, strSubcategoryID, strTopicID);
+											DoFillBookList(strCategoryID, strSubcategoryID, strTopicID, strBookListID);
 											DoGetInput("button_save_books").disabled = false;
 										}
 										else
@@ -1804,9 +1810,9 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									}
 								}
 
-								function DoDeleteBookItem(strListID, strCategoryID, strSubcategoryID, strTopicID)
+								function DoDeleteBookItem(strCategoryID, strSubcategoryID, strTopicID, strBookListID)
 								{
-									let selectBooks = GetInput(strListID),
+									let selectBooks = GetInput(strBookListID),
 										selectCategory = GetInput(strCategoryID),
 										selectSubcategory = GetInput(strSubcategoryID),
 										selectTopic = GetInput(strTopicID),
@@ -1815,8 +1821,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									if (selectBooks.selectedIndex > -1)
 									{
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategory.options[selectSubcategory.selectedIndex].value + "," + selectTopic.options[selectTopic.selectedIndex].value;
-										strValue = selectBooks.options[selectBooks.selectedIndex].text;
-										if (strValue.indexOf("*") == -1)
+										strValue = selectBooks.options[selectBooks.selectedIndex].value;
+										if (strValue != "*")
 										{
 											g_arrayDeletedBooks.push(strValue);
 										}
@@ -1854,8 +1860,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												option = document.createElement("option");
 												option.value = arrayBooks[nI].id;
 												option.text = arrayBooks[nI].title + ", " + arrayBooks[nI].author + ", " + 
-													arrayBooks[nI].type_id + ", $" + 
-													Number(arrayBooks[nI].price).toFixed(2).toString() + ", x" + parseInt(arrayBooks[nI].quantity).toString();
+													arrayBooks[nI].type + ", $" + 
+													Number(arrayBooks[nI].price).toFixed(2) + ", x" + parseInt(arrayBooks[nI].quantity).toString();
 												option.style.width = g_strOptionWidth;
 												selectBookList.add(option);
 											}
