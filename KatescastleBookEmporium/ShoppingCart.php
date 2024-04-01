@@ -16,7 +16,7 @@
  		<!-- #BeginEditable "PageStyles" -->
 
 		<style>
-</style>		
+		</style>		
 
 		<!-- #EndEditable -->
 
@@ -236,7 +236,7 @@
 								return $nQuantity;
 							}
 							
-							function DoUpdateBookQuantity($strBookID, $nBookQuantity);
+							function DoUpdateBookQuantity($strBookID, $nBookQuantity)
 							{
 								global $g_dbKatesCastle;
 								

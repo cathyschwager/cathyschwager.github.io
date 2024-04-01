@@ -324,7 +324,7 @@
 								{
 									if ($row = $results->fetch_assoc())
 									{
-										if ((strlen($row["image_filename"]) > 0) && (file_exists($row["image_filename"])))
+										if (($row["image_filename"] != NULL) && (strlen($row["image_filename"]) > 0) && (file_exists($row["image_filename"])))
 										{
 											unlink($row["image_filename"]);
 										}
@@ -599,7 +599,7 @@
 							{
 								$strTargetPath = "";
 								$strFilename = "";
-
+print_r($_POST);
 								if (isset($_FILES["file_image"]) && isset($_POST["select_booksf"]))
 								{
 									$strFileName = $_FILES["file_image"]["full_path"];
@@ -609,10 +609,10 @@
 
 									if (move_uploaded_file($_FILES["file_image"]["tmp_name"], $strTargetPath))
 									{
-										$results = DoUpdateQuery1($g_dbKatesCastle, "books", "image_filename", $strTargetPath, "id", $_POST["select_books"]);
+										$results = DoUpdateQuery1($g_dbKatesCastle, "books", "image_filename", $strTargetPath, "id", $_POST["select_booksf"]);						
 										if ($results)
 										{
-											PrintJavascriptLine("AlertSuccess(\"Book image file '" . $_FILES["file_image"]["name"] . "' was saved!\");", 3, true);
+											PrintJavascriptLine("AlertSuccess(\"Book image file '" . $_FILES["file_image"]["name"] . "' was saved!\");", 3, true);										
 										}
 										else
 										{
@@ -709,14 +709,11 @@
 									$strSelected = "";
 									while ($row = $results->fetch_assoc())
 									{
-										if (isset($_POST["select_categories"]) || isset($_POST["select_categoriesb"]) || isset($_POST["select_categoriesf"]))
+										if ((isset($_POST["select_categories"]) && (strcmp($_POST["select_categories"], $row["id"]) == 0)) || 
+											(isset($_POST["select_categoriesb"]) && (strcmp($_POST["select_categoriesb"], $row["id"]) == 0)) || 
+											(isset($_POST["select_categoriesf"]) && (strcmp($_POST["select_categoriesf"], $row["id"]) == 0)))
 										{
-											if ((strcmp($_POST["select_categories"], $row["id"]) == 0) ||
-												(strcmp($_POST["select_categoriesb"], $row["id"]) == 0) ||
-												(strcmp($_POST["select_categoriesf"], $row["id"]) == 0))
-											{
-												$strSelected = " selected";
-											}
+											$strSelected = " selected";
 										}
 										echo "<option value=\"" . $row["id"] . "\"" . $strSelected . ">" . $row["description"] . "</option>\n";
 										$strSelected = "";
@@ -895,7 +892,7 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "," . $rowTopi
 														echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"] = [];\n";															
 														while ($rowBooks = $resultsBooks->fetch_assoc())
 														{
-echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" . 
+echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"].push(" . 
 					"{id:\"" . $rowBooks["id"] . "\",title:\"" . $rowBooks["title"] . "\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
 							sprintf("%.2f", $rowBooks["price"]) . "\",quantity:\"" . sprintf("%d", $rowBooks["quantity"]) . "\",weight:\"" . 
 							sprintf("%d", $rowBooks["weight"]) . "\",summary:\"" . $rowBooks["summary"] . "\",type_id:\"" . 
@@ -1073,11 +1070,11 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										<td><input id="text_quantity" type="text" class="text" style="width:60px;" onkeydown="return ((event.which >= 48) && (event.which <= 57)) || ((event.which >= 65) && (event.which <= 90)) || ((event.which >= 97) && (event.which <= 122)) || (event.which == 8) || (event.which == 127)"/></td>
 									</tr>
 									<tr>
+										<td><input type="button" value="NEW BOOK ▲" class="button" onclick="DoAddBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
 										<td><input type="button" value="EDIT BOOK ▲" class="button" onclick="DoEditBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
-										<td><input type="button" value="MOVE BOOKS ▼" class="button" onclick="DoMoveBookItem('select_booksb', 'select_categoriesm', 'select_subcategoriesm', 'select_topicsm', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
 									</tr>
 									<tr>
-										<td><input type="button" value="NEW BOOK ▲" class="button" onclick="DoAddBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
+										<td><input type="button" value="MOVE BOOK ►" class="button" onclick="DoMoveBookItem('select_booksb', 'select_categoriesm', 'select_subcategoriesm', 'select_topicsm', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
 										<td>
 											<table cellpadding="2" cellspacing="0" border="0">
 												<tr>
@@ -1157,7 +1154,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										<td style="text-align:right">
 										<label id="label_book_image">Book Image:</label></td>
 										<td>
-											<input name="file_image" class="button" type="file" accept="image/jpg, image/jpeg" onchange="GetInput('button_save_image').disabled = false;" />
+											<input name="file_image" id="file_image" class="button" type="file" accept="image/jpg, image/jpeg" onchange="OnChangeImageFile(event)" />
 											<br/>
 											<br/>
 											<img id="image_book" src="" alt="IMAGE PREVIEW" width="200"/>
@@ -1165,10 +1162,11 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 									</tr>
 									<tr>
 										<td colspan="2">
-											<input type="button" id="button_save_image" name="button_save_image" value="SAVE TO DATABASE" class="button" onclick="OnClickButtonSave('form_book_image')" disabled="disabled" />
+											<input type="button" id="button_save_image" name="button_save_image" value="SAVE TO DATABASE" class="button" onclick="OnClickButtonSave('form_book_image', 'button_save_image', '')" disabled="disabled" />
 										</td>
 									</tr>
 									<input type="hidden" id="hidden_image_scroll_pos" name="hidden_image_scroll_pos" value="1900" />
+									<input type="hidden" id="hidden_button_image" name="" value="" />
 								</table>
 								
 							</form>
@@ -1387,6 +1385,27 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 								OnChangeCategory("select_categoriesb", "select_subcategoriesb", "select_topicsb");
 								OnChangeSubcategory("select_categoriesb", "select_subcategoriesb", 'select_topicsb', 'select_booksb');
 	
+								function DoClearFields()
+								{
+									let textTitle = GetInput("text_title"),
+										textAuthor = GetInput("text_author"),
+										textSummary = GetInput("text_summary"),
+										textPrice = GetInput("text_price"),
+										textWeight = GetInput("text_weight"),
+										textQuantity = GetInput("text_quantity");
+										
+									if (textTitle)
+										textTitle.value = "";
+									if (textAuthor)
+										textAuthor.value = "";
+									if (textPrice)
+										textPrice.value = "";
+									if (textWeight)
+										textWeight.value = "";
+									if (textQuantity)
+										textQuantity.value = "";
+								}
+								
 								function DoDeleteTopicItem(strListID, strCategoryID, strSubcategoryID, strTopicID)
 								{
 									let list = GetInput(strListID),
@@ -1408,7 +1427,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											delete g_arrayTopic[strKey];
 											list.remove(list.selectedIndex);
 											list.focus();
-											DoGetInput("button_save_topics").disabled = false;
+											GetInput("button_save_topics").disabled = false;
 										}
 										else
 										{
@@ -1445,7 +1464,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											arrayTopics[nI].description = textDesc.value;
 											arrayTopics[nI].name = DoFormatName(textDesc.value);
 											g_arrayTopic[strKey] = arrayTopics;
-											DoGetInput("button_save_topics").disabled = false;
+											GetInput("button_save_topics").disabled = false;
 										}
 									}
 									else
@@ -1488,7 +1507,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + ", " + 
 													selectSubcategory.options[selectSubcategory.selectedIndex].value;
 										g_arrayTopic[strKey].push(strItem);
-										DoGetInput("button_save_topics").disabled = false;
+										GetInput("button_save_topics").disabled = false;
 									}
 									else
 									{
@@ -1556,7 +1575,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										g_arrayBooks[strKey] = arrayBooks;
 										OnChangeCategory(strOrigCategoryID, strOrigSubcategoryID, strOrigTopicID);
 										OnChangeSubcategory(strOrigCategoryID, strOrigSubcategoryID, strOrigTopicID, strSelectBooks);
-										DoGetInput("button_save_books").disabled = false;
+										GetInput("button_save_books").disabled = false;
 									}
 								}
 								
@@ -1642,7 +1661,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											g_arrayBooks[strKey][nI] = mapBookItem;
 	
 											selectBooks.options[selectBooks.selectedIndex].text = textTitle.value + ", " + textAuthor.value + ", " + selectType.options[selectType.selectedIndex].text + ", $" + textPrice.value + ", " + textQuantity.value;
-											DoGetInput("button_save_books").disabled = false;
+											GetInput("button_save_books").disabled = false;
+											DoClearFields();
 										}
 									}
 								}
@@ -1730,8 +1750,12 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 												g_arrayBooks[strKey] = [];
 											g_arrayBooks[strKey].push(mapBookItem);
 											
+											console.log(mapBookItem);
+											console.log(g_arrayBooks);
+											
 											DoFillBookList(strCategoryID, strSubcategoryID, strTopicID, strBookListID);
-											DoGetInput("button_save_books").disabled = false;
+											GetInput("button_save_books").disabled = false;
+											DoClearFields();
 										}
 										else
 										{
@@ -1829,7 +1853,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										selectBooks.remove(selectBooks.selectedIndex);
 										delete g_arrayBooks[strKey];
 										selectBooks.focus();
-										DoGetInput("button_save_books").disabled = false;
+										GetInput("button_save_books").disabled = false;
 									}
 									else
 									{
@@ -1855,6 +1879,9 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										arrayBooks = g_arrayBooks[strKey];
 										if (arrayBooks !== undefined)
 										{
+											while (selectBookList.options.length > 0)
+												selectBookList.remove(0);
+												
 											for (let nI = 0; nI < arrayBooks.length; nI++)
 											{
 												option = document.createElement("option");
@@ -1885,6 +1912,7 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											
 										hiddenSavedTopics.value = JSON.stringify(g_arrayTopic);
 										hiddenDeletedTopics.value  = JSON.stringify(g_arrayDeletedTopics);
+										form.submit();
 									}
 									else if (strFormID == "form_books")
 									{
@@ -1893,17 +1921,32 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 											
 										hiddenSavedBooks.value = JSON.stringify(g_arrayBooks);
 										hiddenDeletedBooks.value  = JSON.stringify(g_arrayDeletedBooks);
+										form.submit();
 									}
 									else if (strFormID == "form_book_image")
 									{
+										let inputHiddenButton = GetInput("hidden_button_image"),
+											selectBooks = GetInput("select_booksf"),
+											fileBookImage = GetInput("file_image");
+										
+										if (fileBookImage.files[0].size > 150000)
+										{
+											AlertWarning("Please ensure the image file is 150kbyte in size or less!");
+										}
+										else
+										{
+											inputHiddenButton.name = strButtonName;
+											inputHiddenButton.value = selectBooks.options[selectBooks.selectedIndex].value;
+											form.submit();
+										}
 									}
 									else if (strFormID == "form_invoices")
 									{
-										let inputHiddenButton = GetInput("hidden_button");
+										let inputHiddenButton = GetInput("hidden_button_invoices");
 										inputHiddenButton.name = strButtonName;
 										inputHiddenButton.value = strID;
+										form.submit();
 									}
-									form.submit();
 								}
 								
 								function OnChangeTopicf(strSelectCategoryID, strSelectSubcategoryID, strSelectTopicID, strSelectBookID, strImageID)
@@ -1926,17 +1969,25 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategory.options[selectSubcategory.selectedIndex].value + "," + selectTopic.options[selectTopic.selectedIndex].value;
  										let nI = DoGetBookIndex(selectBooks.options[selectBooks.selectedIndex].value, g_arrayBooks[strKey]);
 										mapBookItem = g_arrayBooks[strKey][nI];
-										if (selectBooks == "select_booksb")
+										if (strBookID == "select_booksb")
 											DoCopyBookItem(strCategoryID, strSubcategoryID, strTopicID, strBookID, strImageID);
+										else if (strBookID == "select_booksf")
+										{
+											let inputImage = GetInput("image_book");
+											inputImage.src = mapBookItem["image_filename"];
+										}
 									}
+								}
+								
+								function OnChangeImageFile(event)
+								{
+									GetInput('button_save_image').disabled = false;
 								}
 																
 							</script>
 							<br/>
 							<form method="post" id="form_invoices" class="form" style="width:56em;">
 							
-								<input type="hidden" id="hidden_invoice_scroll_pos" name="hidden_invoice_scroll_pos" value="" />
-
 								<table cellpadding="10" cellspacing="0" class="table">
 									<tr><td colspan="2"><b>INVOICES</b></td></tr>
 									<tr>
@@ -2096,8 +2147,8 @@ echo "g_arrayBooks[" . $rowCat["id"] . ",0," . $rowTopics["id"] . "].push(" .
 										</td>
 									</tr>
 								</table>
-								<input type="hidden" id="hidden_invoice_scroll_pos0" name="hidden_invoice_scroll_pos" value="2400" />
-								<input type="hidden" id="hidden_button" name="" value="" />
+								<input type="hidden" id="hidden_invoice_scroll_pos" name="hidden_invoice_scroll_pos" value="2400" />
+								<input type="hidden" id="hidden_button_invoice" name="" value="" />
 							</form>
 						</div>
 

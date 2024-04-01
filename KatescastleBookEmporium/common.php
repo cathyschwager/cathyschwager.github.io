@@ -233,9 +233,9 @@
 		else
 		{
 			$strText = str_replace("'", "''", $strText);
-			$strText = str_replace("\r\n", "\\n", $strText);
-			$strText = str_replace("\r", "\\n", $strText);
-			$strText = str_replace("\n", "\\n", $strText);
+			$strText = str_replace("\r\n", " ", $strText);
+			$strText = str_replace("\r", " ", $strText);
+			$strText = str_replace("\n", " ", $strText);
 		}
 		return $strText;
 	}
