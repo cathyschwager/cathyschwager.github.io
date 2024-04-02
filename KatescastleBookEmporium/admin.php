@@ -244,6 +244,19 @@
 					
 						<?php
 						
+							function DoGetBookRow($strID)
+							{
+								global $g_dbKatesCastle;
+								$row = NULL;
+								
+								$results = DoFindQuery1($g_dbKatesCastle, "books", "id", $strID);
+								if ($results && ($results->num_rows > 0))
+								{
+									$row = $results->fetch_assoc();
+								}
+								return $row;
+							}
+							
 							function DoGetToken(&$strText, &$strToken, $strDelim)
 							{
 								// "142, espionage, Espionage" 
@@ -365,6 +378,25 @@
 								return $bFound;
 							}
 						
+							function DoGetBookTypeyOptions()
+							{
+								global $g_dbKatesCastle;
+								
+								$results = DoFindAllQuery($g_dbKatesCastle, "book_type");
+								if ($results && ($results->num_rows > 0))
+								{
+									$strSelected = " selected";
+									while ($row = $results->fetch_assoc())
+									{
+										if (strpos($row["name"], "Soft") > -1)
+											echo "<option selected value=\"" . $row["id"] . "\"" . $strSelected . ">" . $row["name"] . "</option>\n";
+										else
+											echo "<option value=\"" . $row["id"] . "\"" . $strSelected . ">" . $row["name"] . "</option>\n";
+										$strSelected = "";
+									}
+								}
+							}
+							
 							$g_strLoginDisplay = "block";
 							$g_strAdminDisplay = "none";
 							
@@ -518,7 +550,7 @@
 								$mapSavedBooks = json_decode($_POST["hidden_saved_books"]);
 								$arrayDeletedBooks = json_decode($_POST["hidden_deleted_books"]);
 								$strMsg = "";
-								
+							
 								if ($mapSavedBooks)
 								{
 									/*
@@ -553,7 +585,8 @@
 										{
 											if ((strcmp($arraySavedBooks[$nI]->id, "*") == 0) && !DoFindBook($arraySavedBooks[$nI]->title, $arraySavedBooks[$nI]->author, $arraySavedBooks[$nI]->type, $arraySavedBooks[$nI]->id))
 											{
-												$strMsg = "NEW BOOK: ";
+												$strMsg .= "NEW BOOK: ";
+
 												$results = DoInsertQuery8($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
 																										"author", $arraySavedBooks[$nI]->author,
 																										"summary", $arraySavedBooks[$nI]->summary,
@@ -563,14 +596,16 @@
 																										"category_id", $strCategoryID,
 																										"subcategory_id", $strSubcategoryID,
 																										"topic_id", $arraySavedBooks[$nI]->topic_id,
-																										"type_id", $arraySavedBooks[$nI]->type);
+																										"type_id", $arraySavedBooks[$nI]->type_id);
+												$strMsg .= $arraySavedBooks[$nI]->title . ", " . $arraySavedBooks[$nI]->author . ", $" . 
+															$arraySavedBooks[$nI]->price . ", " .$arraySavedBooks[$nI]->weight . "grams, " .
+															$arraySavedBooks[$nI]->type . ", quantity " . $arraySavedBooks[$nI]->quantity . "\\n";
 											}
-											else
+											else if ($arraySavedBooks[$nI]->save)
 											{
-												$strMsg = "EDIT BOOK: ";
+												$strMsg .= "EDIT BOOK: ";
 												$nCurrentQuantity = DoGetBookQuantity($arraySavedBooks[$nI]->id);
 												$nNewQuantity = intval($arraySavedBooks[$nI]->quantity);
-
 												$results = DoUpdateQuery8($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
 																										"author", $arraySavedBooks[$nI]->author,
 																										"summary", $arraySavedBooks[$nI]->summary,
@@ -582,24 +617,32 @@
 																										"topic_id", $arraySavedBooks[$nI]->topic_id,
 																										"type_id", $arraySavedBooks[$nI]->type_id,
 																										"id", $arraySavedBooks[$nI]->id);
+												$strMsg .= $arraySavedBooks[$nI]->title . ", " . $arraySavedBooks[$nI]->author . ", $" . 
+															$arraySavedBooks[$nI]->price . ", " .$arraySavedBooks[$nI]->weight . " grams, " . $arraySavedBooks[$nI]->type .
+															"quantity " . sprintf("%d", $nCurrentQuantity) . " -> " .  sprintf("%d", $nNewQuantity) . "\\n";
 											}
-											$strMsg .= $arraySavedBooks[$nI]->title . ", " . $arraySavedBooks[$nI]->author . ", $" . 
-														$arraySavedBooks[$nI]->price . ", " .$arraySavedBooks[$nI]->weight . "grams, " .
-														"quantity " . sprintf("%d", $nCurrentQuantity) . " -> " .  sprintf("%d", $nNewQuantity);
-											PrintJavascriptLine("AlertSuccess(\"" . $strMsg . "\");\n", 3, true);
 										}
 									}
 								}
 								if ($arrayDeletedBooks)
 								{
-									print_r($arrayDeletedBooks);
+									for ($nI = 0; $nI < count($arrayDeletedBooks); $nI)
+									{
+										DoDeleteQuery($g_dbKatesCastle, "books", "id", $arrayDeletedBooks[$nI]);
+										$row = DoGetBookRow($arrayDeletedBooks[$nI]);
+										$strMsg .= "DELETE BOOK: " .  $row["title"] . ", " . $row["author"] . ", $" . 
+													$row["price"] . ", " . $row["weight"] . " grams, " . 
+													DoGetBookType($row["type_id"]) . ", " . $row["quantity"] . "\\n";
+									}
 								}
+								if (strlen($strMsg) > 0)
+									PrintJavascriptLine("AlertSuccess(\"" . $strMsg . "\");\n", 3, true);
 							}
 							else if (isset($_POST["button_save_image"]))
 							{
 								$strTargetPath = "";
 								$strFilename = "";
-print_r($_POST);
+
 								if (isset($_FILES["file_image"]) && isset($_POST["select_booksf"]))
 								{
 									$strFileName = $_FILES["file_image"]["full_path"];
@@ -680,25 +723,6 @@ print_r($_POST);
 						
 						<?php
 						
-							function DoGetBookTypeyOptions()
-							{
-								global $g_dbKatesCastle;
-								
-								$results = DoFindAllQuery($g_dbKatesCastle, "book_type");
-								if ($results && ($results->num_rows > 0))
-								{
-									$strSelected = " selected";
-									while ($row = $results->fetch_assoc())
-									{
-										if (strpos($row["name"], "Soft") > -1)
-											echo "<option selected value=\"" . $row["id"] . "\"" . $strSelected . ">" . $row["name"] . "</option>\n";
-										else
-											echo "<option value=\"" . $row["id"] . "\"" . $strSelected . ">" . $row["name"] . "</option>\n";
-										$strSelected = "";
-									}
-								}
-							}
-							
 							function DoGetCategoryOptions()
 							{
 								global $g_dbKatesCastle;
@@ -840,9 +864,78 @@ print_r($_POST);
 								}
 								return $strType;
 							}
-														
+							
+							function DoIterateBookTable($strCategoryID, $strSubcategoryID, $strTopicID)
+							{
+								global $g_dbKatesCastle;
+								
+								$results = DoFindQuery3($g_dbKatesCastle, "books", "category_id", $strCategoryID, 
+															"subcategory_id", $strSubcategoryID, "topic_id", $strTopicID);
+								if ($results && ($results->num_rows > 0))
+								{
+									while ($row = $results->fetch_assoc())
+									{
+	
+echo "g_arrayBooks[\"" . $strCategoryID . "," . $strSubcategoryID . "," . $strTopicID . "\"].push(" . 
+					"{id:\"" . $row["id"] . "\",title:\"" . $row["title"] . "\",author:\"" . $row["author"] . "\",price:\"" . 
+							sprintf("%.2f", $row["price"]) . "\",quantity:\"" . sprintf("%d", $row["quantity"]) . "\",weight:\"" . 
+							sprintf("%d", $row["weight"]) . "\",summary:\"" . $row["summary"] . "\", category_id:\"" . $row["category_id"] . 
+							"\",subcategory_id:\"" . $row["subcategory_id"] . "\",topic_id:\"" .  $row["topic_id"] . "\",type_id:\"" . $row["type_id"] . 
+							"\",type:\"" . DoGetBookType($row["type_id"]) . "\",image_filename:\"" . $row["image_filename"] . "\",save:false});\n";
+									}
+								}
+							}
+							
+							function DoIterateTopicTable($strCategoryID, $strSubcategoryID)
+							{
+								global $g_dbKatesCastle;
+								global $g_strQuery;
+								
+								$results = DoFindQuery2($g_dbKatesCastle, "topics", "category_id", $strCategoryID, "subcategory_id", $strSubcategoryID);
+		
+								if ($results && ($results->num_rows > 0))
+								{
+									while ($row = $results->fetch_assoc())
+									{
+										echo "g_arrayBooks[\"" . $strCategoryID . "," . $strSubcategoryID . "," . $row["id"] . "\"] = [];\n";
+										DoIterateBookTable($strCategoryID, $strSubcategoryID, $row["id"]);
+									}
+								}
+								if (strcmp($strSubcategoryID, "0") != 0)
+								{
+									echo "g_arrayBooks[\"" . $strCategoryID . "," . $strSubcategoryID . ",0\"] = [];\n";
+									DoIterateBookTable($strCategoryID, $strSubcategoryID, "0");
+								}
+							}
+							
+							function DoIterateSubcategoryTable($strCategoryID)
+							{
+								global $g_dbKatesCastle;
+								
+								$results = DoFindQuery1($g_dbKatesCastle, "subcategories", "category_id", $strCategoryID);
+								if ($results && ($results->num_rows > 0))
+								{
+									while ($row = $results->fetch_assoc())
+									{
+										DoIterateTopicTable($strCategoryID, $row["id"]);
+									}
+								} 
+								DoIterateTopicTable($strCategoryID, "0");
+							}
+																					
 							function DoCreateBookEntries()
 							{
+								global $g_dbKatesCastle;
+								
+								$results = DoFindAllQuery($g_dbKatesCastle, "categories");
+								if ($results && ($results->num_rows > 0))
+								{
+									while ($row = $results->fetch_assoc())
+									{
+										DoIterateSubcategoryTable($row["id"]);
+									}
+								} 
+/*
 								global $g_dbKatesCastle;
 
 								$resultsCat = DoFindAllQuery($g_dbKatesCastle, "categories");
@@ -870,12 +963,27 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "," . $rowTopi
 					"{id:\"" . $rowBooks["id"] . "\",title:\"" . $rowBooks["title"] . "\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
 							sprintf("%.2f", $rowBooks["price"]) . "\",quantity:\"" . sprintf("%d", $rowBooks["quantity"]) . "\",weight:\"" . 
 							sprintf("%d", $rowBooks["weight"]) . "\",summary:\"" . $rowBooks["summary"] . "\", category_id:\"" . $rowBooks["category_id"] . 
-							"\",subcategory_id:\"" . $rowBooks["subcategory_id"] . "\",topic_id:\"" .  $rowBooks["topic_id"] . 
-							"\",type_id:\"" . DoGetBookType($rowBooks["type_id"]) . "\",image_filename:\"" . $rowBooks["image_filename"] . "\"});\n";
+							"\",subcategory_id:\"" . $rowBooks["subcategory_id"] . "\",topic_id:\"" .  $rowBooks["topic_id"] . "\",type_id:\"" . $rowBooks["type_id"] . 
+							"\",type:\"" . DoGetBookType($rowBooks["type_id"]) . "\",image_filename:\"" . $rowBooks["image_filename"] . "\",save:false});\n";
 															}
 														}
 													}
 												}
+																							
+												$resultsBooks = DoFindQuery3($g_dbKatesCastle, "books", "category_id", $rowCat["id"], "subcategory_id", $rowSubcat["id"], "topic_id", "0", "", "title");
+												if ($resultsBooks && ($resultsBooks->num_rows > 0))
+												{
+													echo "g_arrayBooks[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . ",0\"] = [];\n";														
+													while ($rowBooks = $resultsBooks->fetch_assoc())
+													{
+echo "g_arrayBooks[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . ",0\"].push(" . 
+					"{id:\"" . $rowBooks["id"] . "\",title:\"" . $rowBooks["title"] . "\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
+							sprintf("%.2f", $rowBooks["price"]) . "\",quantity:\"" . sprintf("%d", $rowBooks["quantity"]) . "\",weight:\"" . 
+							sprintf("%d", $rowBooks["weight"]) . "\",summary:\"" . $rowBooks["summary"] . "\", category_id:\"" . $rowBooks["category_id"] . 
+							"\",subcategory_id:\"" . $rowBooks["subcategory_id"] . "\",topic_id:\"" .  $rowBooks["topic_id"] . "\",type_id:\"" . $rowBooks["type_id"] . 
+							"\",type:\"" . DoGetBookType($rowBooks["type_id"]) . "\",image_filename:\"" . $rowBooks["image_filename"] . "\",save:false});\n";
+													}
+												}												
 											}
 										}
 										// No subcategories
@@ -895,8 +1003,8 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . "," . $rowSubcat["id"] . "," . $rowTopi
 echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"].push(" . 
 					"{id:\"" . $rowBooks["id"] . "\",title:\"" . $rowBooks["title"] . "\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
 							sprintf("%.2f", $rowBooks["price"]) . "\",quantity:\"" . sprintf("%d", $rowBooks["quantity"]) . "\",weight:\"" . 
-							sprintf("%d", $rowBooks["weight"]) . "\",summary:\"" . $rowBooks["summary"] . "\",type_id:\"" . 
-							DoGetBookType($rowBooks["type_id"]) . "\",image_file:\"" . $rowBooks["image_filename"] . "\"});\n";
+							sprintf("%d", $rowBooks["weight"]) . "\",summary:\"" . $rowBooks["summary"] . "\",type:\"" . DoGetBookType($rowBooks["type_id"]) . 
+							"\",type_id:\"" . $rowBooks["type_id"] . "\",image_filename:\"" . $rowBooks["image_filename"] . "\",save:false" . "});\n";
 														}
 													}
 												}
@@ -915,13 +1023,14 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"].push(" 
 											"\",author:\"" . $rowBooks["author"] . "\",price:\"" . 
 											sprintf("%.2f", $rowBooks["price"]) . "\",quantity:\"" . sprintf("%d", $rowBooks["quantity"]) .
 											"\",weight:\"" . sprintf("%d", $rowBooks["weight"]) . "\",summary:\"" . 
-											$rowBooks["summary"] . "\",type_id:\"" . DoGetBookType($rowBooks["type_id"]) . "\",image_file:\"" . $rowBooks["image_filename"] . "\"});\n";
+											$rowBooks["summary"] . "\",type_id:\"" . DoGetBookType($rowBooks["type_id"]) . "\",image_filename:\"" . $rowBooks["image_filename"] . "\",save:false" . "});\n";
 													}
 												}
 											}
 										}
 									}
 								}
+								*/
 							}
 							
 						
@@ -1317,15 +1426,6 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"].push(" 
 									{
 										while (selectTopic.options.length > 0)
 											selectTopic.remove(0);
-										if ((strBookSelectID != undefined) && (strBookSelectID != ""))
-										{
-											option = document.createElement("option");
-											option.value = 0;
-											option.text = "No topic";
-											option.style.width = g_strOptionWidth;
-											selectTopic.add(option);
-											selectTopic.selectedIndex = 0;
-										}
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategory.options[selectSubcategory.selectedIndex].value;
 										arrayTopicItems = g_arrayTopic[strKey];	
 										if (arrayTopicItems !== undefined)
@@ -1348,6 +1448,15 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"].push(" 
 												{
 													selectTopic.selectedIndex = nI;
 												}
+											}
+											if ((strBookSelectID != undefined) && (strBookSelectID != ""))
+											{
+												option = document.createElement("option");
+												option.value = 0;
+												option.text = "Other";
+												option.style.width = g_strOptionWidth;
+												selectTopic.add(option);
+												selectTopic.selectedIndex = 0;
 											}
 											if (selectTopic.selectedIndex == -1)
 												selectTopic.selectedIndex = 0;
@@ -1378,12 +1487,8 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"].push(" 
 								}
 								
 								OnChangeCategory("select_categories", "select_subcategories", "select_topics");
-								OnChangeSubcategory("select_categories", "select_subcategories", "select_topics");
-								OnChangeTopicForTopics("select_categories", "select_subcategories", "select_topics", "text_topic_desc")
-
-								
-								OnChangeCategory("select_categoriesb", "select_subcategoriesb", "select_topicsb");
-								OnChangeSubcategory("select_categoriesb", "select_subcategoriesb", 'select_topicsb', 'select_booksb');
+								OnChangeCategory("select_categoriesf", "select_subcategoriesf", "select_topicsf", "select_booksf");
+								OnChangeCategory("select_categoriesb", "select_subcategoriesb", "select_topicsb", "select_booksb");
 	
 								function DoClearFields()
 								{
@@ -1404,6 +1509,8 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"].push(" 
 										textWeight.value = "";
 									if (textQuantity)
 										textQuantity.value = "";
+									if (textSummary)
+										textSummary.value = "";
 								}
 								
 								function DoDeleteTopicItem(strListID, strCategoryID, strSubcategoryID, strTopicID)
@@ -1571,6 +1678,7 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"].push(" 
 											arrayBooks[nI].category_id = selectNewCategory.options[selectNewCategory.selectedIndex].value;
 											arrayBooks[nI].subcategory_id = selectNewSubcategory.options[selectNewSubcategory.selectedIndex].value;
 											arrayBooks[nI].topic_id = selectNewTopic.options[selectNewTopic.selectedIndex].value;
+											mapBookItem["save"] = true;
 										}
 										g_arrayBooks[strKey] = arrayBooks;
 										OnChangeCategory(strOrigCategoryID, strOrigSubcategoryID, strOrigTopicID);
@@ -1658,6 +1766,8 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"].push(" 
 											mapBookItem["weight"] = textWeight.value;
 											mapBookItem["quantity"] = textQuantity.value;
 											mapBookItem["type_id"] = selectType.options[selectType.selectedIndex].value;
+											mapBookItem["type"] = selectType.options[selectType.selectedIndex].text;
+											mapBookItem["save"] = true;
 											g_arrayBooks[strKey][nI] = mapBookItem;
 	
 											selectBooks.options[selectBooks.selectedIndex].text = textTitle.value + ", " + textAuthor.value + ", " + selectType.options[selectType.selectedIndex].text + ", $" + textPrice.value + ", " + textQuantity.value;
@@ -1743,6 +1853,7 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"].push(" 
 											mapBookItem["quantity"] = textQuantity.value;
 											mapBookItem["type_id"] = selectType.options[selectType.selectedIndex].value;
 											mapBookItem["type"] = selectType.options[selectType.selectedIndex].text;
+											mapBookItem["save"] = true;
 											strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
 														selectSubcategory.options[selectSubcategory.selectedIndex].value + "," +
 														selectTopic.options[selectTopic.selectedIndex].value;
@@ -1967,14 +2078,19 @@ echo "g_arrayBooks[\"" . $rowCat["id"] . ",0," . $rowTopics["id"] . "\"].push(" 
 									if (selectCategory && selectSubcategory && selectTopic && selectBooks)
 									{
 										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + selectSubcategory.options[selectSubcategory.selectedIndex].value + "," + selectTopic.options[selectTopic.selectedIndex].value;
- 										let nI = DoGetBookIndex(selectBooks.options[selectBooks.selectedIndex].value, g_arrayBooks[strKey]);
-										mapBookItem = g_arrayBooks[strKey][nI];
-										if (strBookID == "select_booksb")
-											DoCopyBookItem(strCategoryID, strSubcategoryID, strTopicID, strBookID, strImageID);
-										else if (strBookID == "select_booksf")
+
+										if (selectBooks.selectedIndex > -1)
 										{
-											let inputImage = GetInput("image_book");
-											inputImage.src = mapBookItem["image_filename"];
+ 											let nI = DoGetBookIndex(selectBooks.options[selectBooks.selectedIndex].value, g_arrayBooks[strKey]);
+											mapBookItem = g_arrayBooks[strKey][nI];
+										
+											if (strBookID == "select_booksb")
+												DoCopyBookItem(strCategoryID, strSubcategoryID, strTopicID, strBookID, strImageID);
+											else if (strBookID == "select_booksf")
+											{
+												let inputImage = GetInput("image_book");
+												inputImage.src = mapBookItem["image_filename"];
+											}
 										}
 									}
 								}
