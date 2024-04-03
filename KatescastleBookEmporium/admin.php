@@ -476,7 +476,7 @@
 										for ($nI = 0; $nI < count($arrayTopics); $nI++)
 										{										
 											$objTopic = $arrayTopics[$nI];
-																														
+
 											if ($objTopic->id == "*")
 											{
 												$results = DoInsertQuery4($g_dbKatesCastle, "topics", "name", $objTopic->name, 
@@ -510,7 +510,7 @@
 											}
 											if (!$results)
 											{
-												$strMsg += "An error occured whilst updating your topics!<br/>";
+												$strMsg .= "An error occured whilst updating your topics!<br/>";
 												break;
 											}
 										}
@@ -1460,9 +1460,9 @@ echo "g_arrayBooks[\"" . $strCategoryID . "," . $strSubcategoryID . "," . $strTo
 									}
 								}
 								
-								function DoEditTopicItem(strListID, strTextDescID, strCategoryID, strSubcategoryID)
+								function DoEditTopicItem(strTopicListID, strTextDescID, strCategoryID, strSubcategoryID)
 								{
-									let list = GetInput(strListID),
+									let listTopics = GetInput(strTopicListID),
 										textDesc = GetInput(strTextDescID),
 										selectCategory = GetInput(strCategoryID),
 										selectSubcategory = GetInput(strSubcategoryID),
@@ -1481,8 +1481,11 @@ echo "g_arrayBooks[\"" . $strCategoryID . "," . $strSubcategoryID . "," . $strTo
 											list.options[list.selectedIndex].text = textDesc.value;
 											arrayTopics = g_arrayTopic[strKey];
 											nI = DoGetTopicIndex(g_nCurrentTopicID, arrayTopics);
+											arrayTopics[nI].id = listTopics.options[listTopics.selectedIndex].value;
 											arrayTopics[nI].description = textDesc.value;
 											arrayTopics[nI].name = DoFormatName(textDesc.value);
+    										arrayTopics[nI].category_id = selectCategory.options[selectCategory.selectedIndex].value;
+    										arrayTopics[nI].subcategory_id = selectSubcategory.options[selectSubcategory.selectedIndex].value;
 											g_arrayTopic[strKey] = arrayTopics;
 											GetInput("button_save_topics").disabled = false;
 										}
@@ -1514,7 +1517,8 @@ echo "g_arrayBooks[\"" . $strCategoryID . "," . $strSubcategoryID . "," . $strTo
 										textDesc = GetInput(strTextDescID),
 										selectCategory = GetInput(strCategoryID),
 										selectSubcategory = GetInput(strSubcategoryID),
-										option = null;
+										option = null,
+										objectTopic = {};
 										
 									if (!IsDuplicateTopic(textDesc.value, list))
 									{
@@ -1524,9 +1528,15 @@ echo "g_arrayBooks[\"" . $strCategoryID . "," . $strSubcategoryID . "," . $strTo
 										option.style.width = g_strOptionWidth;
 										list.add(option);
 									
-										strKey = selectCategory.options[selectCategory.selectedIndex].value + ", " + 
+										strKey = selectCategory.options[selectCategory.selectedIndex].value + "," + 
 													selectSubcategory.options[selectSubcategory.selectedIndex].value;
-										g_arrayTopic[strKey].push(strItem);
+    									objectTopic.id = "*";
+    									objectTopic.name = DoFormatName(textDesc.value);
+    									objectTopic.description = textDesc.value;
+    									objectTopic.category_id = selectCategory.options[selectCategory.selectedIndex].value;
+    									objectTopic.subcategory_id = selectSubcategory.options[selectSubcategory.selectedIndex].value;
+    									
+										g_arrayTopic[strKey].push(objectTopic);
 										GetInput("button_save_topics").disabled = false;
 									}
 									else

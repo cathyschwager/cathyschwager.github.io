@@ -1331,3 +1331,79 @@ Stack trace:
 [03-Apr-2024 07:53:15 UTC] PHP Warning:  Undefined variable $strColumnName10 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
 [03-Apr-2024 07:53:15 UTC] PHP Warning:  Undefined variable $strColumnValue9 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
 [03-Apr-2024 07:53:15 UTC] PHP Warning:  Undefined variable $strColumnValue10 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 13:06:51 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 480
+[03-Apr-2024 13:06:51 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 491
+[03-Apr-2024 13:06:51 UTC] PHP Warning:  Attempt to read property "name" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 492
+[03-Apr-2024 13:06:51 UTC] PHP Warning:  Attempt to read property "description" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 492
+[03-Apr-2024 13:06:51 UTC] PHP Warning:  Attempt to read property "category_id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 493
+[03-Apr-2024 13:06:51 UTC] PHP Warning:  Attempt to read property "subcategory_id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 494
+[03-Apr-2024 13:06:51 UTC] PHP Warning:  Attempt to read property "name" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 499
+[03-Apr-2024 13:06:51 UTC] PHP Warning:  Attempt to read property "description" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 500
+[03-Apr-2024 13:06:51 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 501
+[03-Apr-2024 13:06:51 UTC] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string + string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:513
+Stack trace:
+#0 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 513
+[03-Apr-2024 13:08:24 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 480
+[03-Apr-2024 13:08:24 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 491
+[03-Apr-2024 13:08:24 UTC] PHP Warning:  Attempt to read property "name" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 492
+[03-Apr-2024 13:08:24 UTC] PHP Warning:  Attempt to read property "description" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 492
+[03-Apr-2024 13:08:24 UTC] PHP Warning:  Attempt to read property "category_id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 493
+[03-Apr-2024 13:08:24 UTC] PHP Warning:  Attempt to read property "subcategory_id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 494
+[03-Apr-2024 13:08:24 UTC] PHP Warning:  Attempt to read property "name" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 499
+[03-Apr-2024 13:08:24 UTC] PHP Warning:  Attempt to read property "description" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 500
+[03-Apr-2024 13:08:24 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 501
+[03-Apr-2024 13:08:24 UTC] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string + string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:513
+Stack trace:
+#0 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 513
+[03-Apr-2024 13:10:09 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 480
+[03-Apr-2024 13:10:09 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 491
+[03-Apr-2024 13:10:09 UTC] PHP Warning:  Attempt to read property "name" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 492
+[03-Apr-2024 13:10:09 UTC] PHP Warning:  Attempt to read property "description" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 492
+[03-Apr-2024 13:10:09 UTC] PHP Warning:  Attempt to read property "category_id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 493
+[03-Apr-2024 13:10:09 UTC] PHP Warning:  Attempt to read property "subcategory_id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 494
+[03-Apr-2024 13:10:09 UTC] PHP Warning:  Attempt to read property "name" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 499
+[03-Apr-2024 13:10:09 UTC] PHP Warning:  Attempt to read property "description" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 500
+[03-Apr-2024 13:10:09 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 501
+[03-Apr-2024 13:10:09 UTC] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string + string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:513
+Stack trace:
+#0 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 513
+[03-Apr-2024 13:20:31 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 480
+[03-Apr-2024 13:20:31 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 491
+[03-Apr-2024 13:20:31 UTC] PHP Warning:  Attempt to read property "name" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 492
+[03-Apr-2024 13:20:31 UTC] PHP Warning:  Attempt to read property "description" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 492
+[03-Apr-2024 13:20:31 UTC] PHP Warning:  Attempt to read property "category_id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 493
+[03-Apr-2024 13:20:31 UTC] PHP Warning:  Attempt to read property "subcategory_id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 494
+[03-Apr-2024 13:20:31 UTC] PHP Warning:  Attempt to read property "name" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 499
+[03-Apr-2024 13:20:31 UTC] PHP Warning:  Attempt to read property "description" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 500
+[03-Apr-2024 13:20:31 UTC] PHP Warning:  Attempt to read property "id" on string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 501
+[03-Apr-2024 13:20:31 UTC] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string + string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:513
+Stack trace:
+#0 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 513
+[03-Apr-2024 13:20:59 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 480
+[03-Apr-2024 13:20:59 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 491
+[03-Apr-2024 13:20:59 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 501
+[03-Apr-2024 13:20:59 UTC] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string + string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:513
+Stack trace:
+#0 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 513
+[03-Apr-2024 13:29:33 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 481
+[03-Apr-2024 13:29:33 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 492
+[03-Apr-2024 13:29:33 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 502
+[03-Apr-2024 13:29:33 UTC] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string + string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:514
+Stack trace:
+#0 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 514
+[03-Apr-2024 13:30:39 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 481
+[03-Apr-2024 13:30:39 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 492
+[03-Apr-2024 13:30:39 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 502
+[03-Apr-2024 13:30:39 UTC] PHP Fatal error:  Uncaught TypeError: Unsupported operand types: string + string in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php:514
+Stack trace:
+#0 {main}
+  thrown in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 514
+[03-Apr-2024 13:34:11 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 481
+[03-Apr-2024 13:34:11 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 492
+[03-Apr-2024 13:34:11 UTC] PHP Warning:  Undefined property: stdClass::$id in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 502
