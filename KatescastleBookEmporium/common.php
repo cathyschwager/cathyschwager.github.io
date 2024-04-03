@@ -590,7 +590,33 @@
 		return DoQuery($dbConnection, $g_strQuery);
 	}
 	
-	function DoUpdateQuery8($dbConnection, $strTableName, $strColumnName1, $strColumnValue1, $strColumnName2, $strColumnValue2, $strColumnName3, $strColumnValue3, $strColumnName4, $strColumnValue4, $strColumnName5, $strColumnValue5, $strColumnName6, $strColumnValue6, $strColumnName7, $strColumnValue7, $strColumnName8, $strColumnValue8, $strFindColumnName, $strFindColumnValue)
+	function DoUpdateQuery8($dbConnection, $strTableName, $strColumnName1, $strColumnValue1, $strColumnName2, $strColumnValue2, $strColumnName3, $strColumnValue3, $strColumnName4, $strColumnValue4, $strColumnName5, $strColumnValue5, $strColumnName6, $strColumnValue6, $strColumnName7, $strColumnValue7, $strColumnName8, $strColumnValue8, $strColumnName9, $strColumnValue9, $strFindColumnName, $strFindColumnValue)
+	{
+		global $g_strQuery;
+		$g_strQuery = "UPDATE " . $strTableName . " SET " . $strColumnName1 . "='" . DoEscape($strColumnValue1) . "', " . 
+			$strColumnName2 . "='" .  DoEscape($strColumnValue2) . "', " . $strColumnName3 . "='" .  DoEscape($strColumnValue3) . "', " .
+			$strColumnName4 . "='" .  DoEscape($strColumnValue4) . "', " . $strColumnName5 . "='" .  DoEscape($strColumnValue5) . "', " .
+			$strColumnName6 . "='" .  DoEscape($strColumnValue6) . "', " . $strColumnName7 . "='" .  DoEscape($strColumnValue7) . "', " . 
+			$strColumnName8 . "='" .  DoEscape($strColumnValue8) .
+			"' WHERE " . $strFindColumnName . "='" . $strFindColumnValue . "'";
+
+		return DoQuery($dbConnection, $g_strQuery);
+	}
+	
+	function DoUpdateQuery9($dbConnection, $strTableName, $strColumnName1, $strColumnValue1, $strColumnName2, $strColumnValue2, $strColumnName3, $strColumnValue3, $strColumnName4, $strColumnValue4, $strColumnName5, $strColumnValue5, $strColumnName6, $strColumnValue6, $strColumnName7, $strColumnValue7, $strColumnName8, $strColumnValue8, $strColumnName9, $strColumnValue9, $strFindColumnName, $strFindColumnValue)
+	{
+		global $g_strQuery;
+		$g_strQuery = "UPDATE " . $strTableName . " SET " . $strColumnName1 . "='" . DoEscape($strColumnValue1) . "', " . 
+			$strColumnName2 . "='" .  DoEscape($strColumnValue2) . "', " . $strColumnName3 . "='" .  DoEscape($strColumnValue3) . "', " .
+			$strColumnName4 . "='" .  DoEscape($strColumnValue4) . "', " . $strColumnName5 . "='" .  DoEscape($strColumnValue5) . "', " .
+			$strColumnName6 . "='" .  DoEscape($strColumnValue6) . "', " . $strColumnName7 . "='" .  DoEscape($strColumnValue7) . "', " . 
+			$strColumnName8 . "='" .  DoEscape($strColumnValue8) .
+			"' WHERE " . $strFindColumnName . "='" . $strFindColumnValue . "'";
+
+		return DoQuery($dbConnection, $g_strQuery);
+	}
+	
+	function DoUpdateQuery10($dbConnection, $strTableName, $strColumnName1, $strColumnValue1, $strColumnName2, $strColumnValue2, $strColumnName3, $strColumnValue3, $strColumnName4, $strColumnValue4, $strColumnName5, $strColumnValue5, $strColumnName6, $strColumnValue6, $strColumnName7, $strColumnValue7, $strColumnName8, $strColumnValue8, $strColumnName9, $strColumnValue10, $strColumnName10, $strColumnValue9, $strFindColumnName, $strFindColumnValue)
 	{
 		global $g_strQuery;
 		$g_strQuery = "UPDATE " . $strTableName . " SET " . $strColumnName1 . "='" . DoEscape($strColumnValue1) . "', " . 
@@ -671,6 +697,22 @@
 	{
 		global $g_strQuery;
 		$g_strQuery = "INSERT INTO " . $strTableName . "(" . $strColumnName1 . "," . $strColumnName2 . "," . $strColumnName3 . "," . $strColumnName4 . "," . $strColumnName5 . "," . $strColumnName6 . ", " . $strColumnName7 . ", " . $strColumnName8 . ") VALUES('" . DoEscape($strColumnValue1) . "','" . DoEscape($strColumnValue2) . "','" . DoEscape($strColumnValue3) . "','" . DoEscape($strColumnValue4) . "','" . DoEscape($strColumnValue5) . "','" . DoEscape($strColumnValue6) . "', '" . DoEscape($strColumnValue7) . "', '" . DoEscape($strColumnValue8) . "')";
+		
+		return DoQuery($dbConnection, $g_strQuery);
+	}
+	
+	function DoInsertQuery9($dbConnection, $strTableName, $strColumnName1, $strColumnValue1, $strColumnName2, $strColumnValue2, $strColumnName3, $strColumnValue3, $strColumnName4, $strColumnValue4, $strColumnName5, $strColumnValue5, $strColumnName6, $strColumnValue6, $strColumnName7, $strColumnValue7, $strColumnName8, $strColumnValue8, $strColumnName9, $strColumnValue9)
+	{
+		global $g_strQuery;
+		$g_strQuery = "INSERT INTO " . $strTableName . "(" . $strColumnName1 . "," . $strColumnName2 . "," . $strColumnName3 . "," . $strColumnName4 . "," . $strColumnName5 . "," . $strColumnName6 . ", " . $strColumnName7 . ", " . $strColumnName8 . ", " . $strColumnName9 . ") VALUES('" . DoEscape($strColumnValue1) . "','" . DoEscape($strColumnValue2) . "','" . DoEscape($strColumnValue3) . "','" . DoEscape($strColumnValue4) . "','" . DoEscape($strColumnValue5) . "','" . DoEscape($strColumnValue6) . "', '" . DoEscape($strColumnValue7) . "', '" . DoEscape($strColumnValue8) . "', '" . DoEscape($strColumnValue9) . "')";
+		
+		return DoQuery($dbConnection, $g_strQuery);
+	}
+	
+	function DoInsertQuery10($dbConnection, $strTableName, $strColumnName1, $strColumnValue1, $strColumnName2, $strColumnValue2, $strColumnName3, $strColumnValue3, $strColumnName4, $strColumnValue4, $strColumnName5, $strColumnValue5, $strColumnName6, $strColumnValue6, $strColumnName7, $strColumnValue7, $strColumnName8, $strColumnValue8, $strColumnName9, $strColumnValue9, $strColumnName10, $strColumnValue10)
+	{
+		global $g_strQuery;
+		$g_strQuery = "INSERT INTO " . $strTableName . "(" . $strColumnName1 . "," . $strColumnName2 . "," . $strColumnName3 . "," . $strColumnName4 . "," . $strColumnName5 . "," . $strColumnName6 . ", " . $strColumnName7 . ", " . $strColumnName8 . ", " . $strColumnName9 . ", " . $strColumnName10 . ") VALUES('" . DoEscape($strColumnValue1) . "','" . DoEscape($strColumnValue2) . "','" . DoEscape($strColumnValue3) . "','" . DoEscape($strColumnValue4) . "','" . DoEscape($strColumnValue5) . "','" . DoEscape($strColumnValue6) . "', '" . DoEscape($strColumnValue7) . "', '" . DoEscape($strColumnValue8) . "', '" . DoEscape($strColumnValue9) . "', '" . DoEscape($strColumnValue10) . "')";
 		
 		return DoQuery($dbConnection, $g_strQuery);
 	}

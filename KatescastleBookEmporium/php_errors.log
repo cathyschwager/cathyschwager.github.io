@@ -1319,3 +1319,15 @@ Stack trace:
 [02-Apr-2024 15:56:01 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 906
 [02-Apr-2024 15:56:01 UTC] PHP Warning:  Undefined variable $row in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 906
 [02-Apr-2024 15:56:01 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\inetpub\wwwroot\www.katescastle.com.au\admin.php on line 906
+[03-Apr-2024 07:51:07 UTC] PHP Warning:  Undefined variable $strColumnName9 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 07:51:07 UTC] PHP Warning:  Undefined variable $strColumnName10 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 07:51:07 UTC] PHP Warning:  Undefined variable $strColumnValue9 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 07:51:07 UTC] PHP Warning:  Undefined variable $strColumnValue10 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 07:51:46 UTC] PHP Warning:  Undefined variable $strColumnName9 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 07:51:46 UTC] PHP Warning:  Undefined variable $strColumnName10 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 07:51:46 UTC] PHP Warning:  Undefined variable $strColumnValue9 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 07:51:46 UTC] PHP Warning:  Undefined variable $strColumnValue10 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 07:53:15 UTC] PHP Warning:  Undefined variable $strColumnName9 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 07:53:15 UTC] PHP Warning:  Undefined variable $strColumnName10 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 07:53:15 UTC] PHP Warning:  Undefined variable $strColumnValue9 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715
+[03-Apr-2024 07:53:15 UTC] PHP Warning:  Undefined variable $strColumnValue10 in C:\inetpub\wwwroot\www.katescastle.com.au\common.php on line 715

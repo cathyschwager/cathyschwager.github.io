@@ -586,8 +586,7 @@
 											if ((strcmp($arraySavedBooks[$nI]->id, "*") == 0) && !DoFindBook($arraySavedBooks[$nI]->title, $arraySavedBooks[$nI]->author, $arraySavedBooks[$nI]->type, $arraySavedBooks[$nI]->id))
 											{
 												$strMsg .= "NEW BOOK: ";
-
-												$results = DoInsertQuery8($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
+												$results = DoInsertQuery10($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
 																										"author", $arraySavedBooks[$nI]->author,
 																										"summary", $arraySavedBooks[$nI]->summary,
 																										"price", $arraySavedBooks[$nI]->price,
@@ -606,7 +605,7 @@
 												$strMsg .= "EDIT BOOK: ";
 												$nCurrentQuantity = DoGetBookQuantity($arraySavedBooks[$nI]->id);
 												$nNewQuantity = intval($arraySavedBooks[$nI]->quantity);
-												$results = DoUpdateQuery8($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
+												$results = DoUpdateQuery10($g_dbKatesCastle, "books", "title", $arraySavedBooks[$nI]->title,
 																										"author", $arraySavedBooks[$nI]->author,
 																										"summary", $arraySavedBooks[$nI]->summary,
 																										"price", $arraySavedBooks[$nI]->price,
@@ -1083,8 +1082,15 @@ echo "g_arrayBooks[\"" . $strCategoryID . "," . $strSubcategoryID . "," . $strTo
 										<td><input id="text_quantity" type="text" class="text" style="width:60px;" onkeydown="return ((event.which >= 48) && (event.which <= 57)) || ((event.which >= 65) && (event.which <= 90)) || ((event.which >= 97) && (event.which <= 122)) || (event.which == 8) || (event.which == 127)"/></td>
 									</tr>
 									<tr>
-										<td><input type="button" value="NEW BOOK ▲" class="button" onclick="DoAddBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
-										<td><input type="button" value="EDIT BOOK ▲" class="button" onclick="DoEditBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
+										<td colspan="2">
+											<table cellpadding="0" cellspacing="20" border="0">
+												<tr>
+													<td><input type="button" value="EDIT BOOK ▲" class="button" onclick="DoEditBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
+													<td><input type="button" value="NEW BOOK ●" class="button" onclick="DoClearFields()"/></td>
+													<td><input type="button" value="ADD BOOK ▲" class="button" onclick="DoAddBookItem('select_booksb', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
+												</tr>
+											</table>
+										</td>
 									</tr>
 									<tr>
 										<td><input type="button" value="MOVE BOOK ►" class="button" onclick="DoMoveBookItem('select_booksb', 'select_categoriesm', 'select_subcategoriesm', 'select_topicsm', 'select_categoriesb', 'select_subcategoriesb', 'select_topicsb')"/></td>
@@ -1401,7 +1407,8 @@ echo "g_arrayBooks[\"" . $strCategoryID . "," . $strSubcategoryID . "," . $strTo
 										textSummary = GetInput("text_summary"),
 										textPrice = GetInput("text_price"),
 										textWeight = GetInput("text_weight"),
-										textQuantity = GetInput("text_quantity");
+										textQuantity = GetInput("text_quantity"),
+										imageBook = GetInput("image_bookb");
 										
 									if (textTitle)
 										textTitle.value = "";
@@ -1415,6 +1422,8 @@ echo "g_arrayBooks[\"" . $strCategoryID . "," . $strSubcategoryID . "," . $strTo
 										textQuantity.value = "";
 									if (textSummary)
 										textSummary.value = "";
+									if (imageBook)
+										imageBook.src = "";
 								}
 								
 								function DoDeleteTopicItem(strListID, strCategoryID, strSubcategoryID, strTopicID)
