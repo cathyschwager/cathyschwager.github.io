@@ -435,9 +435,8 @@
 								$strCategoryID = "";
 								$strSubcategoryID = "";
 								$strTopicID = "";
-								$strMsg = "";
-								$bChanges = false;
 								$results = true;
+								$strMsg = "";
 								
 								$arraySavedTopics = json_decode($_POST["hidden_saved_topics"]);
 								$arrayDeletedTopics = json_decode($_POST["hidden_deleted_topics"]);
@@ -484,7 +483,6 @@
 																		$objTopic->category_id, "subcategory_id", 
 																		$objTopic->subcategory_id);
 												$strMsg .= "NEW TOPIC: " . $objTopic->name . ", " . $objTopic->description . "\\n";
-												$bChanges = true;
 											}
 											else
 											{												
@@ -504,7 +502,6 @@
 													{
 														$strMsg .= "EDIT TOPIC: " . $objTopic->name . ", " . 
 																	$objTopic->description . "\\n";
-														$bChanges = true;
 													}
 												}
 											}
@@ -532,10 +529,9 @@
 									{
 										$results = DoDeleteQuery($g_dbKatesCastle, "topics", "id", $arrayDeletedTopics[$nI]->id);
 										$strMsg .= "DELETE TOPIC: " . $arrayDeletedTopics[$nI]->description. "\\n";
-										$bChanges = true;
 									}
 								}
-								if ($bChanges)
+								if (strlen($strMsg) > 0)
 								{
 									if (strpos($strMsg, "error") !== false)
 										PrintJavascriptLine("AlertWarning(\"" . $strMsg . "\");", 5, true);
